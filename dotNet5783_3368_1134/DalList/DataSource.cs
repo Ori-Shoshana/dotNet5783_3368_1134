@@ -6,7 +6,7 @@ namespace Dal;
 
 internal static class DataSource
 {
-
+    
     public static readonly Random Rnd = new Random();
     internal static Order[] _order = new Order[100];
     internal static OrderItem[] _orderItem = new OrderItem[200];
@@ -24,9 +24,5 @@ internal static class DataSource
     private static void s_Initialize()
     { 
     }
-
-
-    
-
 }
 
