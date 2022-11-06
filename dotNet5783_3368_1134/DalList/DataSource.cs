@@ -32,7 +32,7 @@ internal static class DataSource
         newOrderItem.OrderDate = orderDate;
         newOrderItem.ShipDate = shipDate;
         newOrderItem.DelivoryDate = delivoryDate;
-        //add to array1
+        //add to array
     }
     private static void addProdoct(int privateId, string prodoctName, CategoryAttribute category, double price, int inStock)
     {
