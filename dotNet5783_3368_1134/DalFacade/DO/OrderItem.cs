@@ -13,6 +13,12 @@ public struct OrderItem
     public DateTime DelivoryDate { get; set; }
     public override string ToString() => $@"
     private Id : {PrivateId}
-    ";
+    Customer Name : {CustomerName}
+    Customer Email : {CustomerEmail}
+    Customer Adrss : {CustomerAdrss}
+    Order Date : {OrderDate}
+    Ship Date : {ShipDate}
+    Delivory ate : {DelivoryDate}
+        ";
 
 }
