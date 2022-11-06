@@ -19,7 +19,15 @@ internal static class DataSource
         newOrder.ProdoctId = prodoctId;
         newOrder.Price = price;
         newOrder.Amount = amount;
-        //add to array!!!
+    }
+    private static void addDalProduct(int privateId, string prodoctName, CategoryAttribute category, double price, int inStock)
+    {
+        Product newProdoct = new Product();
+        newProdoct.PrivateId = privateId;
+        newProdoct.ProdoctName = prodoctName;
+        newProdoct.Category = category;
+        newProdoct.Price = price;
+        newProdoct.InStock = inStock;
     }
     private static void addOrderItem(int privateId, string customerName, string customerEmail, string customerAdrss, DateTime orderDate, DateTime shipDate, DateTime delivoryDate)
     {
@@ -31,17 +39,13 @@ internal static class DataSource
         newOrderItem.OrderDate = orderDate;
         newOrderItem.ShipDate = shipDate;
         newOrderItem.DelivoryDate = delivoryDate;
-        //add to array
     }
-    private static void addProdoct(int privateId, string prodoctName, CategoryAttribute category, double price, int inStock)
+    internal static class config
     {
-        Product newProdoct = new Product();
-        newProdoct.PrivateId = privateId;
-        newProdoct.ProdoctName = prodoctName;
-        newProdoct.Category = category;
-        newProdoct.Price = price;
-        newProdoct.InStock = inStock;
-        //add to arrayS
+        internal static int OrderIndex = 0;
+        internal static int OrderItemIndex = 0;
+        internal static int ProductIndex = 0;
+        internal static int PrivateId = 0;
     }
     private static void s_Initialize()
     {
