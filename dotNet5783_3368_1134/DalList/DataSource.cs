@@ -1,5 +1,7 @@
 ﻿using DO;
+using System;
 using System.ComponentModel;
+using static Dal.DataSource;
 
 namespace Dal;
 
@@ -12,10 +14,24 @@ internal static class DataSource
     internal static Product[] _product = new Product[50];
     internal static class config
     {
+        internal static int Productcounter { get; set; }
+        internal static int Ordercounter { get; set; }
+        internal static int OrderItemtName { get; set; }
+
+        private static int orderNumber = 0;
+        private static int orderitemNumber = 0;
+
+        public static int order_Number { get => ++orderNumber; }
+        public static int runOrderitem_Number { get => ++orderitemNumber; }
+
         internal static int OrderIndex = 0;
         internal static int OrderItemIndex = 0;
         internal static int ProductIndex = 0;
         internal static int PrivateId = 0;
+
+
+
+
     }
     private static void s_Initialize()
     {
@@ -24,19 +40,18 @@ internal static class DataSource
         s_product();
     }
 
+    public static void s_product()
+    {
+        //not done yet, more to do...
+    }
     public static void s_order()
     {
-
+        //not done yet, more to do...
     }
 
     public static void s_orderItem()
     {
-
-    }
-
-    public static void s_product()
-    {
-
+        //not done yet, more to do...
     }
 
 }

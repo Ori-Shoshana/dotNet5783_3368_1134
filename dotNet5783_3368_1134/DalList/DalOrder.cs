@@ -49,4 +49,16 @@ public class DalOrder
             throw new Exception("no order found");
         }
     }
+
+    public Order get(int orderId)
+    {
+        for(int i=0; i<DataSource.config.OrderIndex; i++)
+        {
+            if (_order[i].OrderId == orderId)
+                return _order[i];
+        }
+        throw new Exception("no ordeer found");
+    }
+    //get arrey
+
 }

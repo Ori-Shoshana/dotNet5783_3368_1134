@@ -50,6 +50,18 @@ public class DalOrderItem
             throw new Exception("no order item found");
         }
     }
+    public OrderItem get(int orderItemId)
+    {
+        for (int i = 0; i < DataSource.config.OrderItemIndex; i++)
+        {
+            if (_orderItem[i].PrivateId == orderItemId)
+            {
+                return _orderItem[i];
+            }
+        }
+        throw new Exception("no order item found");
+    }
 
+    //get arrey
 
 }

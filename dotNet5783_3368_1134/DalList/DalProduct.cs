@@ -57,4 +57,15 @@ public class DalProduct
         }
     }
     
+    public Product get(int productId)
+    {
+        for(int i =0; i < DataSource.config.ProductIndex; i++)
+        {
+            if (_product[i].PrivateId == productId)
+                return _product[i];
+        }
+        throw new Exception("no product found");
+    }
+
+    //get arrey
 }
