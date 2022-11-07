@@ -28,10 +28,6 @@ internal static class DataSource
         internal static int OrderItemIndex = 0;
         internal static int ProductIndex = 0;
         internal static int PrivateId = 0;
-
-
-
-
     }
     private static void s_Initialize()
     {
@@ -48,7 +44,6 @@ internal static class DataSource
     {
         //not done yet, more to do...
     }
-
     public static void s_orderItem()
     {
         //not done yet, more to do...
