@@ -7,14 +7,14 @@ using static Dal.DataSource;
 
 public class DalOrderItem
 {
-    public int addOrderItem(OrderItem ordItem)
+    public int AddOrderItem(OrderItem ordItem)
     {
         ordItem.PrivateId = DataSource.config.OrderItemIndex;
         DataSource._orderItem[DataSource.config.OrderItemIndex++] = ordItem;
         return ordItem.PrivateId;
     }
 
-    public void deleteOrderItem(OrderItem orderItem)
+    public void DeleteOrderItem(OrderItem orderItem)
     {
         int i;
         for (i = 0; i < DataSource.config.OrderItemIndex; i++)
@@ -26,12 +26,15 @@ public class DalOrderItem
             throw new Exception("no order item found");
         else
         {
-            _orderItem[i].PrivateId = _orderItem[i++].PrivateId;
+            for (; i < DataSource.config.OrderItemIndex; i++)
+            {
+                _orderItem[i].PrivateId = _orderItem[i++].PrivateId;
+            }
             DataSource.config.OrderItemIndex--;
         }
     }
 
-    public void updateOrderItem(OrderItem orderItem)
+    public void UpdateOrderItem(OrderItem orderItem)
     {
         
         int i;
@@ -50,7 +53,7 @@ public class DalOrderItem
             throw new Exception("no order item found");
         }
     }
-    public OrderItem get(int orderItemId)
+    public OrderItem Get(int orderItemId)
     {
         for (int i = 0; i < DataSource.config.OrderItemIndex; i++)
         {
@@ -62,6 +65,18 @@ public class DalOrderItem
         throw new Exception("no order item found");
     }
 
-    //get arrey
+    public OrderItem[] GetOrderItemArray()
+    {
+        OrderItem[] orderItemArrey = new OrderItem[200];
+        for(int i=0; i < DataSource.config.OrderItemIndex; i++)
+        {
+            orderItemArrey[i].PrivateId = _orderItem[i].PrivateId;
+            orderItemArrey[i].OrderId = _orderItem[i].OrderId;
+            orderItemArrey[i].ProdoctId = _orderItem[i].ProdoctId;
+            orderItemArrey[i].Price = _orderItem[i].Price;
+            orderItemArrey[i].Amount = _orderItem[i].Amount;    
+        }
+        return orderItemArrey;
+    }
 
 }

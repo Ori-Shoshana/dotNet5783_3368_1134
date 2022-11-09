@@ -21,8 +21,8 @@ internal static class DataSource
         private static int orderNumber = 0;
         private static int orderitemNumber = 0;
 
-        public static int order_Number { get => ++orderNumber; }
-        public static int runOrderitem_Number { get => ++orderitemNumber; }
+        internal static int order_Number { get => ++orderNumber; }
+        internal static int runOrderitem_Number { get => ++orderitemNumber; }
 
         internal static int OrderIndex = 0;
         internal static int OrderItemIndex = 0;
@@ -46,7 +46,7 @@ internal static class DataSource
     }
     public static void s_orderItem()
     {
-        //not done yet, more to do...
+        //not done yet, more to do77...
     }
 
 }
