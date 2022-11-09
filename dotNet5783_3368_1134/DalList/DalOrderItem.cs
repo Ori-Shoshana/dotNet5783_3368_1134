@@ -72,8 +72,8 @@ public class DalOrderItem
         {
             orderItemArrey[i].PrivateId = _orderItem[i].PrivateId;
             orderItemArrey[i].OrderId = _orderItem[i].OrderId;
-            orderItemArrey[i].ProdoctId = _orderItem[i].ProdoctId;
-            orderItemArrey[i].Price = _orderItem[i].Price;
+            orderItemArrey[i].ProductId = _orderItem[i].ProductId;
+            orderItemArrey[i].PriceItem = _orderItem[i].PriceItem;
             orderItemArrey[i].Amount = _orderItem[i].Amount;    
         }
         return orderItemArrey;
