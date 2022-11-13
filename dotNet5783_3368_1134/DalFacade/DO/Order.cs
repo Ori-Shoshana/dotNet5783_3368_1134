@@ -6,7 +6,7 @@ public struct Order
     public int PrivateId { get; set; }
     public string CustomerName { get; set; }
     public string CustomerEmail { get; set; }
-    public string CustomerAdrss { get; set; }
+    public string CustomerAdress { get; set; }
     public DateTime OrderDate { get; set; }
     public DateTime ShipDate { get; set; }
     public DateTime DelivoryDate { get; set; }
@@ -14,7 +14,7 @@ public struct Order
     private Id : {PrivateId}
     Customer Name : {CustomerName}
     Customer Email : {CustomerEmail}
-    Customer Adrss : {CustomerAdrss}
+    Customer Adrss : {CustomerAdress}
     Order Date : {OrderDate}
     Ship Date : {ShipDate}
     Delivory ate : {DelivoryDate}

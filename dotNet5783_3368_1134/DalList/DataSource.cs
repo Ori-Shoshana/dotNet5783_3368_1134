@@ -90,7 +90,7 @@ internal static class DataSource
         "Deborah Sullivan", "Jacoby Hartman", "Melody Keith", "Gilberto Neal",
         "Mattie Valencia", "Joyce Wolf", "Esteban Byrd", "Amelia Salinas",
         "Shirley Stafford", "Catalina Riggs", "Lilah Stone", "Tyree Merritt",
-        "Kaelyn Allison", "Jacey Johns", "Lillianna Curtis","Kirsten Howe"
+        "Kaelyn Allison", "Jacey Johns", "Lillianna Curtis","Kirsten Howe",
         "Kendall Dodson",
         };
         int i;
@@ -99,7 +99,7 @@ internal static class DataSource
             _order[i].PrivateId = config.order_Number;
             _order[i].CustomerName = customer_Name[i];
             _order[i].CustomerEmail = customer_Email[i];
-            _order[i].CustomerAdrss = customer_Adress[i];
+            _order[i].CustomerAdress = customer_Adress[i];
             _order[i].OrderDate = DateTime.Now;
             _order[i].ShipDate = DateTime.Now;///////80%
             _order[i].DelivoryDate = DateTime.Now;//////60%
@@ -109,7 +109,7 @@ internal static class DataSource
             _order[i].PrivateId = config.order_Number;
             _order[i].CustomerName = customer_Name[i];
             _order[i].CustomerEmail = customer_Email[i];
-            _order[i].CustomerAdrss = customer_Adress[i];
+            _order[i].CustomerAdress = customer_Adress[i];
             _order[i].OrderDate = DateTime.Now;
             _order[i].ShipDate = DateTime.Now; ///////80%
             _order[i].DelivoryDate = DateTime.Now;//////40%
@@ -119,7 +119,7 @@ internal static class DataSource
             _order[i].PrivateId = config.order_Number;
             _order[i].CustomerName = customer_Name[i];
             _order[i].CustomerEmail = customer_Email[i];
-            _order[i].CustomerAdrss = customer_Adress[i];
+            _order[i].CustomerAdress = customer_Adress[i];
             _order[i].OrderDate = DateTime.Now;
             _order[i].ShipDate = DateTime.Now;////////20%
             _order[i].DelivoryDate = DateTime.Now;////////40%

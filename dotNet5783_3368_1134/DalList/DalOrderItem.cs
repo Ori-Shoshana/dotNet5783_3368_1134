@@ -7,19 +7,19 @@ using static Dal.DataSource;
 
 public class DalOrderItem
 {
-    public int AddOrderItem(OrderItem ordItem)
+    public static int AddOrderItem(OrderItem ordItem)
     {
         ordItem.PrivateId = DataSource.config.OrderItemIndex;
         DataSource._orderItem[DataSource.config.OrderItemIndex++] = ordItem;
         return ordItem.PrivateId;
     }
 
-    public void DeleteOrderItem(OrderItem orderItem)
+    public static void DeleteOrderItem(int ID)
     {
         int i;
         for (i = 0; i < DataSource.config.OrderItemIndex; i++)
         {
-            if (_orderItem[i].PrivateId == orderItem.PrivateId)
+            if (_orderItem[i].PrivateId == ID)
                 break;
         }
         if (i == DataSource.config.OrderItemIndex)
@@ -34,7 +34,7 @@ public class DalOrderItem
         }
     }
 
-    public void UpdateOrderItem(OrderItem orderItem)
+    public static void UpdateOrderItem(OrderItem orderItem)
     {
         
         int i;
@@ -53,7 +53,7 @@ public class DalOrderItem
             throw new Exception("no order item found");
         }
     }
-    public OrderItem Get(int orderItemId)
+    public static OrderItem Get(int orderItemId)
     {
         for (int i = 0; i < DataSource.config.OrderItemIndex; i++)
         {
@@ -65,7 +65,7 @@ public class DalOrderItem
         throw new Exception("no order item found");
     }
 
-    public OrderItem[] GetOrderItemArray()
+    public static OrderItem[] GetOrderItemArray()
     {
         OrderItem[] orderItemArrey = new OrderItem[200];
         for(int i=0; i < DataSource.config.OrderItemIndex; i++)
