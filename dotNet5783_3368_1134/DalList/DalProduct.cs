@@ -79,11 +79,7 @@ public class DalProduct
         Product[] productArr = new Product[50];
         for (int i = 0; i < DataSource.config.ProductIndex; i++)
         {
-            productArr[i].PrivateId = _product[i].PrivateId;
-            productArr[i].Price = _product[i].Price;
-            productArr[i].InStock = _product[i].InStock;
-            productArr[i].ProdoctName = _product[i].ProdoctName;
-            productArr[i].Category= _product[i].Category;  
+            productArr[i] = _product[i];
         }
         return productArr;
     }
