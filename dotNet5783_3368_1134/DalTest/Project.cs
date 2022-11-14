@@ -4,6 +4,9 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Linq.Expressions;
 
+/// <summary>
+/// Main - testing that the structs and the operations on them are actually works
+/// </summary>
 internal class Project
 {
     static void Main(string[] args)
@@ -24,27 +27,30 @@ internal class Project
 
         int option;
         check = int.TryParse(Console.ReadLine(), out option);
-        while (option != 0)
+        while (option != 0) // 0 ends the program
         {
             
             switch (option)
             {
- //************************************************************************************************//
                 case 1: //product
+                   
                     Console.WriteLine("Enter 0 to end\n " +
                         "Enter 1 to add a prodoct\n " +
                         "Enter 2 to print product\n " +
                         "Enter 3 to see list of products\n " +
                         "Enter 4 to update product\n " +
-                        "Enter 5 to delet product  ");
+                        "Enter 5 to delete product  ");
+
                     int option1;
                     check = int.TryParse(Console.ReadLine(), out option1);
+                  
                     if (option1 == 0)
                         break;
+                   
                     switch (option1)
-                    {
-
+                    {                 
                         case 1://add product
+                         
                             Product TestAddProduct = new Product();
                             Console.WriteLine("Add a Id");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
@@ -68,7 +74,9 @@ internal class Project
                                 Console.WriteLine(ex);
                             }
                             break;
+
                         case 2://print product
+
                             Product GetProduct = new Product(); 
                             Console.WriteLine("type the id to get");
                             int getId = Convert.ToInt32(Console.ReadLine());
@@ -86,6 +94,7 @@ internal class Project
                             Console.WriteLine(GetProduct.Price);
                             Console.WriteLine(GetProduct.InStock);
                             break;
+
                         case 3://print all prodocts
                      
                             int counter = 0;
@@ -101,6 +110,7 @@ internal class Project
                                 
                             }
                             break;
+
                         case 4://update
                             Product TestUpdateProduct = new Product();
                             Console.WriteLine("Add a Id");
@@ -125,7 +135,9 @@ internal class Project
                                 Console.WriteLine(ex);
                             }
                             break;
+
                         case 5://delete
+
                             Console.WriteLine("Enter the ID of the prodoct to delete");
                             int ID = Convert.ToInt32(Console.ReadLine());
                             try
@@ -139,21 +151,26 @@ internal class Project
                             break;
                     }
                     break;
- //************************************************************************************************//
+
                 case 2://Order
+
                     Console.WriteLine("Enter 0 to end\n " +
                         "Enter 1 to add a order\n " +
                         "Enter 2 to print order\n " +
                         "Enter 3 to see list of order\n " +
                         "Enter 4 to update order\n " +
                         "Enter 5 to delet order  ");
+
                     int option2;
                     check = int.TryParse(Console.ReadLine(), out option2);
+                    
                     if (option2 == 0)
                         break;
+
                     switch (option2)
                     {
                         case 1://add
+
                             Order TestAddOrder = new Order();
                             Console.WriteLine("Add order Private ID");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
@@ -177,7 +194,9 @@ internal class Project
                                     Console.WriteLine(ex);
                                 }
                             break;
+
                         case 2://print
+
                             Order GetOrder = new Order();
                             Console.WriteLine("type the id to get");
                             int getId = Convert.ToInt32(Console.ReadLine());
@@ -197,7 +216,9 @@ internal class Project
                             Console.WriteLine(GetOrder.ShipDate);
                             Console.WriteLine(GetOrder.DeliveryDate);
                             break;
+
                         case 3://print all orders
+
                             Order[] orders = DalOrder.GetOrderArray();
                             int counter = 0;
                             foreach(Order order in orders)
@@ -210,7 +231,9 @@ internal class Project
                                 }
                             }
                             break;
+
                         case 4://update
+
                             Order TestupdateOrder = new Order();
                             Console.WriteLine("Add order Private ID");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
@@ -234,6 +257,7 @@ internal class Project
                                 Console.WriteLine(ex);
                             }
                             break;
+
                         case 5://delete
                             Console.WriteLine("Enter the ID of the order to delete");
                             int ID = Convert.ToInt32(Console.ReadLine());
@@ -248,22 +272,26 @@ internal class Project
                             break;
                     }
                     break;
-//************************************************************************************************//
+
                 case 3:
+
                     Console.WriteLine("Enter 0 to end\n " +
                         "Enter 1 to add a orderItem\n " +
                         "Enter 2 to print orderItem\n " +
                         "Enter 3 to see list of orderItem\n " +
                         "Enter 4 to update orderItem\n " +
                         "Enter 5 to delet orderItem  ");
+                    
                     int option3;
                     check = int.TryParse(Console.ReadLine(), out option3);
+                   
                     if (option3 == 0)
                         break;
 
                     switch (option3) //OrderItem
                     {
                         case 1:
+
                             OrderItem TestAddOrderItem = new OrderItem();
                             Console.WriteLine("Add Private ID");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
@@ -289,7 +317,9 @@ internal class Project
                                     Console.WriteLine(ex);
                                 }
                             break;
+
                         case 2://print
+
                             OrderItem GetOrderItem = new OrderItem();
                             Console.WriteLine("type the id to get");
                             int getId = Convert.ToInt32(Console.ReadLine());
@@ -307,6 +337,7 @@ internal class Project
                             Console.WriteLine(GetOrderItem.PriceItem);
                             Console.WriteLine(GetOrderItem.Amount);
                             break;
+
                         case 3://print OrderItem
 
                             OrderItem[] orderItems = DalOrderItem.GetOrderItemArray();
@@ -321,7 +352,9 @@ internal class Project
                                 }
                             }
                             break;
+
                         case 4://update
+
                             OrderItem TestUpdateOrderItem = new OrderItem();
                             Console.WriteLine("Add Private ID");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
@@ -347,6 +380,7 @@ internal class Project
                                 Console.WriteLine(ex);
                             }
                             break;
+
                         case 5://delete
                             Console.WriteLine("Enter the ID of the order item to delete");
                             int ID = Convert.ToInt32(Console.ReadLine());
@@ -362,7 +396,7 @@ internal class Project
                     }
                     break;
             }
-//***********************************************************************************************//
+
             Console.WriteLine("Enter 0 to end\n " +
                 "Enter 1 for product\n " +
                 "Enter 2 for order\n " +
@@ -371,4 +405,3 @@ internal class Project
         }
     }
 }
-
