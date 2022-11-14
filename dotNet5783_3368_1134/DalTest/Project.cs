@@ -4,9 +4,6 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Linq.Expressions;
 
-
-
-
 internal class Project
 {
     static void Main(string[] args)
