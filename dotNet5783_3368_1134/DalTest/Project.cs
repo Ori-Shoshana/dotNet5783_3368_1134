@@ -167,7 +167,7 @@ internal class Project
                             Console.WriteLine("Add ship date");
                             TestAddOrder.ShipDate = Convert.ToDateTime(Console.ReadLine());
                             Console.WriteLine("Add delivory date");
-                            TestAddOrder.DelivoryDate = Convert.ToDateTime(Console.ReadLine());
+                            TestAddOrder.DeliveryDate = Convert.ToDateTime(Console.ReadLine());
                                 try
                                 {
                                 TestOrder.AddOrder(TestAddOrder);
@@ -195,7 +195,7 @@ internal class Project
                             Console.WriteLine(GetOrder.CustomerAdress);
                             Console.WriteLine(GetOrder.OrderDate);
                             Console.WriteLine(GetOrder.ShipDate);
-                            Console.WriteLine(GetOrder.DelivoryDate);
+                            Console.WriteLine(GetOrder.DeliveryDate);
                             break;
                         case 3://print all orders
                             Order[] orders = DalOrder.GetOrderArray();
@@ -224,7 +224,7 @@ internal class Project
                             Console.WriteLine("Add ship date");
                             TestupdateOrder.ShipDate = Convert.ToDateTime(Console.ReadLine());
                             Console.WriteLine("Add delivory date");
-                            TestupdateOrder.DelivoryDate = Convert.ToDateTime(Console.ReadLine());
+                            TestupdateOrder.DeliveryDate = Convert.ToDateTime(Console.ReadLine());
                             try
                             {
                                 TestOrder.UpdateOrder(TestupdateOrder);

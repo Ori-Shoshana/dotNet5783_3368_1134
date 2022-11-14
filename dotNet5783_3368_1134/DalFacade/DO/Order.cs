@@ -1,5 +1,8 @@
 ﻿namespace DO;
-
+/// <summary>
+/// struct Order:
+/// properties: private id, customer name, cusomer email, casomer adress, order date, ship date, delivery date
+/// </summary>
 public struct Order
 {
    
@@ -9,14 +12,14 @@ public struct Order
     public string CustomerAdress { get; set; }
     public DateTime OrderDate { get; set; }
     public DateTime ShipDate { get; set; }
-    public DateTime DelivoryDate { get; set; }
+    public DateTime DeliveryDate { get; set; }
     public override string ToString() => $@"
     private Id : {PrivateId}
     Customer Name : {CustomerName}
     Customer Email : {CustomerEmail}
-    Customer Adrss : {CustomerAdress}
+    Customer Adress : {CustomerAdress}
     Order Date : {OrderDate}
     Ship Date : {ShipDate}
-    Delivory ate : {DelivoryDate}
+    Delivery Date : {DeliveryDate}
         ";
 }

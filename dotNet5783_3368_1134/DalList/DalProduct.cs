@@ -5,12 +5,21 @@ using static Dal.DataSource;
 
 namespace Dal;
 
+/// <summary>
+/// class Dal product: 
+/// Implementation of add, delete, update and return operations
+/// </summary>
 public class DalProduct
 {
     public DalProduct()
     {
         DataSource.S_Initialize();
     }
+
+    /// <summary>
+    /// The operation accepts a product and adds it in the array
+    /// </summary>
+    /// <returns> returns order id </returns>
     public int AddProduct(Product prod)
     {
         foreach (Product product in DataSource._product)
@@ -23,6 +32,9 @@ public class DalProduct
         return prod.PrivateId;
     }
 
+    /// <summary>
+    ///  The operation deletes a product from the array (finds him by id)
+    /// </summary>
     public void DeleteProdoct(int ID)
     {
         {
@@ -45,6 +57,9 @@ public class DalProduct
         }
     }
 
+    /// <summary>
+    /// The operation updates an order in the array (finds him by id)
+    /// </summary>
     public void UpdateProduct(Product product)
     {
         int i;
@@ -64,6 +79,9 @@ public class DalProduct
         }
     }
 
+    /// <summary>
+    ///  The operation finds the order (finds him by id) and returns his details
+    /// </summary>
     public Product Get(int productId)
     {
         for (int i = 0; i < DataSource.config.ProductIndex; i++)
@@ -74,6 +92,9 @@ public class DalProduct
         throw new Exception("no product found");
     }
 
+    /// <summary>
+    /// The operation updates the array and returns him
+    /// </summary>
     public static Product[] GetProductArray()
     {
         Product[] productArr = new Product[50];
@@ -83,9 +104,12 @@ public class DalProduct
         }
         return productArr;
     }
+
+    /// <summary>
+    /// returns array length
+    /// </summary>
     public int ProductLeangth()
     {
         return DataSource.config.ProductIndex;
     }
 }
-

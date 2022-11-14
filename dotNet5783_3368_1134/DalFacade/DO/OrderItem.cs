@@ -1,7 +1,8 @@
-﻿
-
-namespace DO;
-
+﻿namespace DO;
+/// <summary>
+/// struct OrderItem:
+/// properties: private id, order id, product id, price, amount.
+/// </summary>
 public struct OrderItem
 {
     public int PrivateId { get; set; }

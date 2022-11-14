@@ -2,6 +2,10 @@
 
 namespace DO;
 
+/// <summary>
+/// struct product:
+/// properties: private id, Prodoct Name, Category, price, In Stock.
+/// </summary>
 public struct Product
 {
     public int PrivateId { get; set; }

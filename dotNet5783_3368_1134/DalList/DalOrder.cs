@@ -5,8 +5,16 @@ using System.Diagnostics;
 namespace Dal;
 using static Dal.DataSource;
 
+/// <summary>
+/// class DalOrder: 
+/// Implementation of add, delete, update and return operations
+/// </summary>
 public class DalOrder
 {
+    /// <summary>
+    /// The operation accepts an order and adds it in the array
+    /// </summary>
+    /// <returns> returns order id </returns>
     public int AddOrder(Order ord)
     {
         ord.PrivateId = DataSource.config.OrderIndex;
@@ -14,6 +22,9 @@ public class DalOrder
         return ord.PrivateId;
     }
 
+    /// <summary>
+    ///  The operation deletes an order from the array (finds him by id)
+    /// </summary>
     public void DeleteOrder(int ID)
     {
         int i;
@@ -34,6 +45,9 @@ public class DalOrder
         }
     }
 
+    /// <summary>
+    /// The operation updates an order in the array (finds him by id)
+    /// </summary>
     public void UpdateOrder(Order order)
     {
         int i;
@@ -52,7 +66,9 @@ public class DalOrder
             throw new Exception("no order found");
         }
     }
-
+    /// <summary>
+    ///  The operation finds the order (finds him by id) and returns his details
+    /// </summary>
     public Order Get(int orderId)
     {
         for(int i=0; i<DataSource.config.OrderIndex; i++)
@@ -62,22 +78,22 @@ public class DalOrder
         }
         throw new Exception("no ordeer found");
     }
+
+    /// <summary>
+    /// The operation updates the array and returns him
+    /// </summary>
     public static Order[] GetOrderArray()
     {
         Order[] orderArrey = new Order[100];
         for (int i = 0; i < DataSource.config.OrderIndex; i++)
         {
-            orderArrey[i].PrivateId = _order[i].PrivateId;
-            orderArrey[i].CustomerName = _order[i].CustomerName;
-            orderArrey[i].CustomerEmail = _order[i].CustomerEmail;
-            orderArrey[i].CustomerAdress = _order[i].CustomerAdress;
-            orderArrey[i].OrderDate = _order[i].OrderDate;
-            orderArrey[i].ShipDate = _order[i].ShipDate;
-            orderArrey[i].DelivoryDate = _order[i].DelivoryDate;
-
+            orderArrey[i] = _order[i];
         }
         return orderArrey;
     }
+    /// <summary>
+    /// returns array length
+    /// </summary>
     public int OrderLeangth()
     {
         return DataSource.config.OrderIndex;

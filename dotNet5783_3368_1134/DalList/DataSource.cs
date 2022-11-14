@@ -7,6 +7,9 @@ using static Dal.DataSource;
 
 namespace Dal;
 
+/// <summary>
+/// class data source (mainly initialize properties with random values)
+/// </summary>
 internal static class DataSource
 {   
     public static readonly Random Rnd = new Random();
@@ -36,6 +39,11 @@ internal static class DataSource
         S_product();
         S_orderItem();
     }
+
+    /// <summary>
+    /// initializing product
+    /// contains: Names of categories + names of products for sale + different prices
+    /// </summary>
     internal static void S_product()
     {
         string[] Name =
@@ -67,6 +75,11 @@ internal static class DataSource
             }
         }
     }
+
+    /// <summary>
+    /// initializing prder
+    /// contains: Email addresses + street names + customer names
+    /// </summary>
     internal static void S_order()
     {
         string[] customer_Email =
@@ -103,7 +116,7 @@ internal static class DataSource
             _order[i].CustomerAdress = customer_Adress[i];
             _order[i].OrderDate = DateTime.Now;
             _order[i].ShipDate = DateTime.Now;///////80%
-            _order[i].DelivoryDate = DateTime.Now;//////60%
+            _order[i].DeliveryDate = DateTime.Now;//////60%
         }
         for(;i<16;i++)
         {
@@ -114,7 +127,7 @@ internal static class DataSource
             _order[i].CustomerAdress = customer_Adress[i];
             _order[i].OrderDate = DateTime.Now;
             _order[i].ShipDate = DateTime.Now ; //80%
-            _order[i].DelivoryDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 7), Rnd.Next(0, 59), Rnd.Next(0, 59));//40%
+            _order[i].DeliveryDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 7), Rnd.Next(0, 59), Rnd.Next(0, 59));//40%
         }
         for(;i<20;i++)
         {
@@ -125,9 +138,13 @@ internal static class DataSource
             _order[i].CustomerAdress = customer_Adress[i];
             _order[i].OrderDate = DateTime.Now;
             _order[i].ShipDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 2), Rnd.Next(0, 59), Rnd.Next(0, 59));//20%
-            _order[i].DelivoryDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 7), Rnd.Next(0, 59), Rnd.Next(0, 59));//40%
+            _order[i].DeliveryDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 7), Rnd.Next(0, 59), Rnd.Next(0, 59));//40%
         }
     }
+
+    /// <summary>
+    /// initializing order item
+    /// </summary>
     internal static void S_orderItem()
     {
         for (int i = 0; i < 10; i++)
