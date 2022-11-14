@@ -22,6 +22,8 @@ internal class Project
         DalOrderItem TestOrderItem = new DalOrderItem();
 
         bool check;
+        int tempInt;
+        double tempDouble;
 
         int option;
         check = int.TryParse(Console.ReadLine(), out option);
@@ -48,15 +50,18 @@ internal class Project
                         case 1://add product
                             Product TestAddProduct = new Product();
                             Console.WriteLine("Add a Id");
-                            TestAddProduct.PrivateId = Convert.ToInt32(Console.ReadLine());
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            TestAddProduct.PrivateId = tempInt;
                             Console.WriteLine("Add Prodoct name");
                             TestAddProduct.ProdoctName = Console.ReadLine();
                             Console.WriteLine("Add Prodoct Category");
                             TestAddProduct.Category = Console.ReadLine();
                             Console.WriteLine("Add product price");
-                            TestAddProduct.Price = Convert.ToDouble(Console.ReadLine());
+                            check = double.TryParse(Console.ReadLine(), out tempDouble);
+                            TestAddProduct.Price = tempDouble;
                             Console.WriteLine("Add amount in stock");
-                            TestAddProduct.InStock = Convert.ToInt32(Console.ReadLine());
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            TestAddProduct.InStock = tempInt;
                             try
                             {
                                 TestProduct.AddProduct(TestAddProduct);
@@ -101,16 +106,19 @@ internal class Project
                             break;
                         case 4://update
                             Product TestUpdateProduct = new Product();
-                            Console.WriteLine("Update a Id");
-                            TestUpdateProduct.PrivateId = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Update Prodoct name");
+                            Console.WriteLine("Add a Id");
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            TestUpdateProduct.PrivateId = tempInt;
+                            Console.WriteLine("Add Prodoct name");
                             TestUpdateProduct.ProdoctName = Console.ReadLine();
-                            Console.WriteLine("Update Prodoct Category");
+                            Console.WriteLine("Add Prodoct Category");
                             TestUpdateProduct.Category = Console.ReadLine();
-                            Console.WriteLine("Update product price");
-                            TestUpdateProduct.Price = Convert.ToDouble(Console.ReadLine());
-                            Console.WriteLine("Update amount in stock");
-                            TestUpdateProduct.InStock = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("Add product price");
+                            check = double.TryParse(Console.ReadLine(), out tempDouble);
+                            TestUpdateProduct.Price = tempDouble;
+                            Console.WriteLine("Add amount in stock");
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            TestUpdateProduct.InStock = tempInt;
                             try
                             {
                                 TestProduct.UpdateProduct(TestUpdateProduct);
@@ -151,7 +159,8 @@ internal class Project
                         case 1://add
                             Order TestAddOrder = new Order();
                             Console.WriteLine("Add order Private ID");
-                            TestAddOrder.PrivateId = Convert.ToInt32(Console.ReadLine());
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            TestAddOrder.PrivateId = tempInt;
                             Console.WriteLine("Add order customer name");
                             TestAddOrder.CustomerName = Console.ReadLine();
                             Console.WriteLine("Add order customer email");
@@ -205,22 +214,23 @@ internal class Project
                             }
                             break;
                         case 4://update
-                            Order TestUpdateOrder = new Order();
-                            Console.WriteLine("Update order Private ID");
-                            TestUpdateOrder.PrivateId = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Update order customer name");
-                            TestUpdateOrder.CustomerName = Console.ReadLine();
-                            Console.WriteLine("Update order customer email");
-                            TestUpdateOrder.CustomerEmail = Console.ReadLine();
-                            Console.WriteLine("Update Order date");
-                            TestUpdateOrder.OrderDate = Convert.ToDateTime(Console.ReadLine());
-                            Console.WriteLine("Update ship date");
-                            TestUpdateOrder.ShipDate = Convert.ToDateTime(Console.ReadLine());
-                            Console.WriteLine("Update delivory date");
-                            TestUpdateOrder.DelivoryDate = Convert.ToDateTime(Console.ReadLine());
+                            Order TestupdateOrder = new Order();
+                            Console.WriteLine("Add order Private ID");
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            TestupdateOrder.PrivateId = tempInt;
+                            Console.WriteLine("Add order customer name");
+                            TestupdateOrder.CustomerName = Console.ReadLine();
+                            Console.WriteLine("Add order customer email");
+                            TestupdateOrder.CustomerEmail = Console.ReadLine();
+                            Console.WriteLine("Add Order date");
+                            TestupdateOrder.OrderDate = Convert.ToDateTime(Console.ReadLine());
+                            Console.WriteLine("Add ship date");
+                            TestupdateOrder.ShipDate = Convert.ToDateTime(Console.ReadLine());
+                            Console.WriteLine("Add delivory date");
+                            TestupdateOrder.DelivoryDate = Convert.ToDateTime(Console.ReadLine());
                             try
                             {
-                                TestOrder.UpdateOrder(TestUpdateOrder);
+                                TestOrder.UpdateOrder(TestupdateOrder);
                             }
                             catch (Exception ex)
                             {
@@ -259,17 +269,21 @@ internal class Project
                         case 1:
                             OrderItem TestAddOrderItem = new OrderItem();
                             Console.WriteLine("Add Private ID");
-                            
-                            TestAddOrderItem.PrivateId = Convert.ToInt32(Console.ReadLine());
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            TestAddOrderItem.PrivateId = tempInt;
                             Console.WriteLine("Add order id");
-                            TestAddOrderItem.OrderId = Convert.ToInt32(Console.ReadLine());
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            TestAddOrderItem.OrderId = tempInt;
                             Console.WriteLine("Add product id");
-                            TestAddOrderItem.ProductId = Convert.ToInt32(Console.ReadLine());   
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            TestAddOrderItem.ProductId = tempInt;
                             Console.WriteLine("Add price item");
-                            TestAddOrderItem.PriceItem = Convert.ToDouble(Console.ReadLine());
+                            check = double.TryParse(Console.ReadLine(), out tempDouble);
+                            TestAddOrderItem.PriceItem = tempDouble;
                             Console.WriteLine("Add amount");
-                            TestAddOrderItem.Amount = Convert.ToInt32(Console.ReadLine());
-                                try
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            TestAddOrderItem.Amount = tempInt;
+                            try
                                 {
                                 TestOrderItem.AddOrderItem(TestAddOrderItem);
                                 }
@@ -312,16 +326,21 @@ internal class Project
                             break;
                         case 4://update
                             OrderItem TestUpdateOrderItem = new OrderItem();
-                            Console.WriteLine("Update Private ID");
-                            TestUpdateOrderItem.PrivateId = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Update order id");
-                            TestUpdateOrderItem.OrderId = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Update product id");
-                            TestUpdateOrderItem.ProductId = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Update price item");
-                            TestUpdateOrderItem.PriceItem = Convert.ToDouble(Console.ReadLine());
-                            Console.WriteLine("Update amount");
-                            TestUpdateOrderItem.Amount = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine("Add Private ID");
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            TestUpdateOrderItem.PrivateId = tempInt;
+                            Console.WriteLine("Add order id");
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            TestUpdateOrderItem.OrderId = tempInt;
+                            Console.WriteLine("Add product id");
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            TestUpdateOrderItem.ProductId = tempInt;
+                            Console.WriteLine("Add price item");
+                            check = double.TryParse(Console.ReadLine(), out tempDouble);
+                            TestUpdateOrderItem.PriceItem = tempDouble;
+                            Console.WriteLine("Add amount");
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            TestUpdateOrderItem.Amount = tempInt;
                             try
                             {
                                 TestOrderItem.UpdateOrderItem(TestUpdateOrderItem);
