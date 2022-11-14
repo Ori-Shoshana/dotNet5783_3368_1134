@@ -7,7 +7,11 @@ namespace Dal;
 
 public class DalProduct
 {
-    public static int AddProduct(Product prod)
+    public DalProduct()
+    {
+        DataSource.S_Initialize();
+    }
+    public int AddProduct(Product prod)
     {
         foreach (Product product in DataSource._product)
         {
@@ -19,7 +23,7 @@ public class DalProduct
         return prod.PrivateId;
     }
 
-    public static void DeleteProdoct(int ID)
+    public void DeleteProdoct(int ID)
     {
         {
             int i;
@@ -41,7 +45,7 @@ public class DalProduct
         }
     }
 
-    public static void UpdateProduct(Product product)
+    public void UpdateProduct(Product product)
     {
         int i;
         int x = 0;
@@ -60,7 +64,7 @@ public class DalProduct
         }
     }
 
-    public static Product Get(int productId)
+    public Product Get(int productId)
     {
         for (int i = 0; i < DataSource.config.ProductIndex; i++)
         {
@@ -70,10 +74,9 @@ public class DalProduct
         throw new Exception("no product found");
     }
 
-    public static Product[] GetProdoctArray()
+    public static Product[] GetProductArray()
     {
         Product[] productArr = new Product[50];
-
         for (int i = 0; i < DataSource.config.ProductIndex; i++)
         {
             productArr[i].PrivateId = _product[i].PrivateId;
@@ -84,4 +87,9 @@ public class DalProduct
         }
         return productArr;
     }
+    public int ProductLeangth()
+    {
+        return DataSource.config.ProductIndex;
+    }
 }
+

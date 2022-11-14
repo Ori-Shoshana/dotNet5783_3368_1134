@@ -1,5 +1,7 @@
 ﻿using Dal;
 using DO;
+using DocumentFormat.OpenXml.Wordprocessing;
+using System;
 using System.Linq.Expressions;
 
 
@@ -9,22 +11,35 @@ internal class Project
 {
     static void Main(string[] args)
     {
+         
+        Console.WriteLine("Enter 0 to end\n " +
+                        "Enter 1 for product\n " +
+                        "Enter 2 for order\n " +
+                        "Enter 3 for order item:");
+
         DalProduct TestProduct = new DalProduct();
         DalOrder TestOrder = new DalOrder();
-        DalOrderItem dalOrderItem = new DalOrderItem();
+        DalOrderItem TestOrderItem = new DalOrderItem();
 
-        //enum enum1 {_Product, _Order, _OrderItem};
-         
-        Console.WriteLine("Enter 0 to end\n Enter 1 for product\n Enter 2 for order\n Enter 3 for order item:");
-        int option = Convert.ToInt32(Console.ReadLine());
+        bool check;
+
+        int option;
+        check = int.TryParse(Console.ReadLine(), out option);
         while (option != 0)
         {
+            
             switch (option)
             {
-    //************************************************************************************************//
+ //************************************************************************************************//
                 case 1: //product
-                    Console.WriteLine("Enter 0 to end\n Enter 1 to add a prodoct\n Enter 2 to print product\n Enter 3 to see list of products\n Enter 4 to update product\n Enter 5 to delet product  ");
-                    int option1 = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Enter 0 to end\n " +
+                        "Enter 1 to add a prodoct\n " +
+                        "Enter 2 to print product\n " +
+                        "Enter 3 to see list of products\n " +
+                        "Enter 4 to update product\n " +
+                        "Enter 5 to delet product  ");
+                    int option1;
+                    check = int.TryParse(Console.ReadLine(), out option1);
                     if (option1 == 0)
                         break;
                     switch (option1)
@@ -44,7 +59,7 @@ internal class Project
                             TestAddProduct.InStock = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                DalProduct.AddProduct(TestAddProduct);
+                                TestProduct.AddProduct(TestAddProduct);
                             }
                             catch (Exception ex)
                             {
@@ -57,7 +72,7 @@ internal class Project
                             int getId = Convert.ToInt32(Console.ReadLine());
                                 try
                                 {
-                                    GetProduct =  DalProduct.Get(getId);
+                                    GetProduct = TestProduct.Get(getId);
                                 }
                                 catch(Exception ex)
                                 {
@@ -70,11 +85,19 @@ internal class Project
                             Console.WriteLine(GetProduct.InStock);
                             break;
                         case 3://print all prodocts
-                            //Product[] products = DalProduct.GetProdoctArray();
-                            //foreach (Product product in products)
-                            //{
-                            //    Console.WriteLine(product);
-                            //}
+                     
+                            int counter = 0;
+                            Product[] products = DalProduct.GetProductArray();
+                            foreach (Product product in products)
+                            {
+                                if (counter == TestProduct.ProductLeangth())
+                                {
+                                    break;
+                                }
+                                    counter++; 
+                                    Console.WriteLine(product);
+                                
+                            }
                             break;
                         case 4://update
                             Product TestUpdateProduct = new Product();
@@ -90,7 +113,7 @@ internal class Project
                             TestUpdateProduct.InStock = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                DalProduct.UpdateProduct(TestUpdateProduct);
+                                TestProduct.UpdateProduct(TestUpdateProduct);
                             }
                             catch (Exception ex)
                             {
@@ -102,7 +125,7 @@ internal class Project
                             int ID = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                DalProduct.DeleteProdoct(ID);
+                                TestProduct.DeleteProdoct(ID);
                             }
                             catch (Exception ex)
                             {
@@ -111,10 +134,16 @@ internal class Project
                             break;
                     }
                     break;
-     //************************************************************************************************//
+ //************************************************************************************************//
                 case 2://Order
-                    Console.WriteLine("Enter 0 to end\n Enter 1 to add a order\n Enter 2 to print order\n Enter 3 to see list of order\n Enter 4 to update order\n Enter 5 to delet order  ");
-                    int option2 = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Enter 0 to end\n " +
+                        "Enter 1 to add a order\n " +
+                        "Enter 2 to print order\n " +
+                        "Enter 3 to see list of order\n " +
+                        "Enter 4 to update order\n " +
+                        "Enter 5 to delet order  ");
+                    int option2;
+                    check = int.TryParse(Console.ReadLine(), out option2);
                     if (option2 == 0)
                         break;
                     switch (option2)
@@ -135,7 +164,7 @@ internal class Project
                             TestAddOrder.DelivoryDate = Convert.ToDateTime(Console.ReadLine());
                                 try
                                 {
-                                    DalOrder.AddOrder(TestAddOrder);
+                                TestOrder.AddOrder(TestAddOrder);
                                 }
                                 catch (Exception ex)
                                 {
@@ -148,7 +177,7 @@ internal class Project
                             int getId = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                GetOrder = DalOrder.Get(getId);
+                                GetOrder = TestOrder.Get(getId);
                             }
                             catch (Exception ex)
                             {
@@ -163,6 +192,17 @@ internal class Project
                             Console.WriteLine(GetOrder.DelivoryDate);
                             break;
                         case 3://print all orders
+                            Order[] orders = DalOrder.GetOrderArray();
+                            int counter = 0;
+                            foreach(Order order in orders)
+                            { 
+                                    counter++;
+                                    Console.WriteLine(order);
+                                if(counter == TestOrder.OrderLeangth())
+                                {
+                                    break;
+                                }
+                            }
                             break;
                         case 4://update
                             Order TestUpdateOrder = new Order();
@@ -180,7 +220,7 @@ internal class Project
                             TestUpdateOrder.DelivoryDate = Convert.ToDateTime(Console.ReadLine());
                             try
                             {
-                                DalOrder.UpdateOrder(TestUpdateOrder);
+                                TestOrder.UpdateOrder(TestUpdateOrder);
                             }
                             catch (Exception ex)
                             {
@@ -192,7 +232,7 @@ internal class Project
                             int ID = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                DalOrder.DeleteOrder(ID);
+                                TestOrder.DeleteOrder(ID);
                             }
                             catch (Exception ex)
                             {
@@ -203,8 +243,14 @@ internal class Project
                     break;
 //************************************************************************************************//
                 case 3:
-                    Console.WriteLine("Enter 0 to end\n Enter 1 to add a orderItem\n Enter 2 to print orderItem\n Enter 3 to see list of orderItem\n Enter 4 to update orderItem\n Enter 5 to delet orderItem  ");
-                    int option3 = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Enter 0 to end\n " +
+                        "Enter 1 to add a orderItem\n " +
+                        "Enter 2 to print orderItem\n " +
+                        "Enter 3 to see list of orderItem\n " +
+                        "Enter 4 to update orderItem\n " +
+                        "Enter 5 to delet orderItem  ");
+                    int option3;
+                    check = int.TryParse(Console.ReadLine(), out option3);
                     if (option3 == 0)
                         break;
 
@@ -213,6 +259,7 @@ internal class Project
                         case 1:
                             OrderItem TestAddOrderItem = new OrderItem();
                             Console.WriteLine("Add Private ID");
+                            
                             TestAddOrderItem.PrivateId = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("Add order id");
                             TestAddOrderItem.OrderId = Convert.ToInt32(Console.ReadLine());
@@ -224,7 +271,7 @@ internal class Project
                             TestAddOrderItem.Amount = Convert.ToInt32(Console.ReadLine());
                                 try
                                 {
-                                    DalOrderItem.AddOrderItem(TestAddOrderItem);
+                                TestOrderItem.AddOrderItem(TestAddOrderItem);
                                 }
                                 catch(Exception ex)
                                 {
@@ -237,7 +284,7 @@ internal class Project
                             int getId = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                GetOrderItem = DalOrderItem.Get(getId);
+                                GetOrderItem = TestOrderItem.Get(getId);
                             }
                             catch (Exception ex)
                             {
@@ -249,8 +296,19 @@ internal class Project
                             Console.WriteLine(GetOrderItem.PriceItem);
                             Console.WriteLine(GetOrderItem.Amount);
                             break;
-                        case 3://///////////////////////////////
+                        case 3://print OrderItem
 
+                            OrderItem[] orderItems = DalOrderItem.GetOrderItemArray();
+                            int counter = 0;
+                            foreach (OrderItem orderItem in orderItems)
+                            {
+                                counter++;
+                                Console.WriteLine(orderItem);
+                                if (counter == TestOrderItem.OrderItemLeangth())
+                                {
+                                    break;
+                                }
+                            }
                             break;
                         case 4://update
                             OrderItem TestUpdateOrderItem = new OrderItem();
@@ -266,7 +324,7 @@ internal class Project
                             TestUpdateOrderItem.Amount = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                DalOrderItem.UpdateOrderItem(TestUpdateOrderItem);
+                                TestOrderItem.UpdateOrderItem(TestUpdateOrderItem);
                             }
                             catch (Exception ex)
                             {
@@ -278,7 +336,7 @@ internal class Project
                             int ID = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                DalOrderItem.DeleteOrderItem(ID);
+                                TestOrderItem.DeleteOrderItem(ID);
                             }
                             catch (Exception ex)
                             {
@@ -288,7 +346,11 @@ internal class Project
                     }
                     break;
             }
-            Console.WriteLine("Enter 0 to end\n Enter 1 for product\n Enter 2 for order\n Enter 3 for order item:");
+//***********************************************************************************************//
+            Console.WriteLine("Enter 0 to end\n " +
+                "Enter 1 for product\n " +
+                "Enter 2 for order\n " +
+                "Enter 3 for order item:");
             option = Convert.ToInt32(Console.ReadLine());
         }
     }

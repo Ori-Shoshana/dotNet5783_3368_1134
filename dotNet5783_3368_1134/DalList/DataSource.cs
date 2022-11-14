@@ -29,15 +29,15 @@ internal static class DataSource
         internal static int OrderIndex = 0;
         internal static int OrderItemIndex = 0;
         internal static int ProductIndex = 0;
-        internal static int PrivateId = 0;
+        internal static int MyPrivateId = 0;
     }
-    private static void S_Initialize()
+    internal static void S_Initialize()
     {
         S_order();
-        S_orderItem();
         S_product();
+        S_orderItem();
     }
-    public static void S_product()
+    internal static void S_product()
     {
         string[] Name =
         {
@@ -53,6 +53,7 @@ internal static class DataSource
         {4000, 3500, 3500, 4000, 50000, 6000, 4000, 70, 100, 350};
         for(int i=0; i < 10; i++)
         {
+            config.ProductIndex++;
             _product[i].PrivateId = Rnd.Next(100000, 999999);
             _product[i].ProdoctName = Name[i];
             _product[i].Category = My_Category[Rnd.Next(0,4)];
@@ -67,7 +68,7 @@ internal static class DataSource
             }
         }
     }
-    public static void S_order()
+    internal static void S_order()
     {
         string[] customer_Email =
         {
@@ -96,6 +97,7 @@ internal static class DataSource
         int i;
         for (i=0; i<12; i++)
         {
+            config.OrderIndex++;
             _order[i].PrivateId = config.order_Number;
             _order[i].CustomerName = customer_Name[i];
             _order[i].CustomerEmail = customer_Email[i];
@@ -106,39 +108,40 @@ internal static class DataSource
         }
         for(;i<16;i++)
         {
+            config.OrderIndex++;
             _order[i].PrivateId = config.order_Number;
             _order[i].CustomerName = customer_Name[i];
             _order[i].CustomerEmail = customer_Email[i];
             _order[i].CustomerAdress = customer_Adress[i];
             _order[i].OrderDate = DateTime.Now;
-            _order[i].ShipDate = DateTime.Now; ///////80%
-            _order[i].DelivoryDate = DateTime.Now;//////40%
+            _order[i].ShipDate = DateTime.Now ; //80%
+            _order[i].DelivoryDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 7), Rnd.Next(0, 59), Rnd.Next(0, 59));//40%
         }
         for(;i<20;i++)
         {
+            config.OrderIndex++;
             _order[i].PrivateId = config.order_Number;
             _order[i].CustomerName = customer_Name[i];
             _order[i].CustomerEmail = customer_Email[i];
             _order[i].CustomerAdress = customer_Adress[i];
             _order[i].OrderDate = DateTime.Now;
-            _order[i].ShipDate = DateTime.Now;////////20%
-            _order[i].DelivoryDate = DateTime.Now;////////40%
+            _order[i].ShipDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 2), Rnd.Next(0, 59), Rnd.Next(0, 59));//20%
+            _order[i].DelivoryDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 7), Rnd.Next(0, 59), Rnd.Next(0, 59));//40%
         }
     }
-    public static void S_orderItem()
+    internal static void S_orderItem()
     {
-        int counter;
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 10; i++)
         {
-            for (int j = 0; j < Rnd.Next(4); j++)
-            {
-                counter = Rnd.Next(10);
-                _orderItem[i].PrivateId = config.runOrderitem_Number;
-                _orderItem[i].OrderId = _order[i].PrivateId;
-                _orderItem[counter].ProductId = _product[i].PrivateId;
-                _orderItem[counter].PriceItem = _product[i].Price;
-                _orderItem[i].Amount = Rnd.Next(10);
-            }
+            config.MyPrivateId++;
+            config.OrderItemIndex++;
+         
+            _orderItem[i].PrivateId = config.MyPrivateId;
+            _orderItem[i].OrderId = _product[i].PrivateId;
+            _orderItem[i].ProductId = _product[i].PrivateId;
+            _orderItem[i].PriceItem = _product[i].Price;
+            _orderItem[i].Amount = Rnd.Next(1,4);
+            
         }
     }
 
