@@ -1,26 +1,35 @@
-﻿using DO;
+﻿using DalApi;
+using DO;
 using System.ComponentModel;
 using System.Diagnostics;
 
 namespace Dal;
 using static Dal.DataSource;
+using DalApi;
+
 
 
 /// <summary>
 /// class DalOrderItem: 
 /// Implementation of add, delete, update and return operations
 /// </summary>
-public class DalOrderItem
+internal class DalOrderItem : IOrderItem
 {
     /// <summary>
     /// The operation accepts an order item and adds it in the array
     /// </summary>
     /// <returns> returns order item id </returns>
-    public int AddOrderItem(OrderItem ordItem)
+    public int AddOrderItem(OrderItem orderIt)
     {
-        ordItem.PrivateId = DataSource.config.OrderItemIndex;
-        DataSource._orderItem[DataSource.config.OrderItemIndex++] = ordItem;
-        return ordItem.PrivateId;
+        foreach (OrderItem orderItem in DataSource._orderItem)
+        {
+            if (orderIt.PrivateId == orderItem.PrivateId)
+            {
+                throw new Exception("they have the same Order Item alrady");
+            }
+        }
+        DataSource._orderItem.Add(orderIt);
+        return orderIt.PrivateId;
     }
 
     /// <summary>
@@ -28,21 +37,19 @@ public class DalOrderItem
     /// </summary>
     public void DeleteOrderItem(int ID)
     {
-        int i;
-        for (i = 0; i < DataSource.config.OrderItemIndex; i++)
+        bool found = false;
+        foreach (OrderItem orderItem in DataSource._orderItem)
         {
-            if (_orderItem[i].PrivateId == ID)
-                break;
-        }
-        if (i == DataSource.config.OrderItemIndex)
-            throw new Exception("no order item found");
-        else
-        {
-            for (; i < DataSource.config.OrderItemIndex; i++)
+            if (ID == orderItem.PrivateId)
             {
-                _orderItem[i].PrivateId = _orderItem[i++].PrivateId;
+                _orderItem.Remove(orderItem);
+                found = true;
+                break;
             }
-            DataSource.config.OrderItemIndex--;
+        }
+        if (found == false)
+        {
+            throw new Exception("no order item found");
         }
     }
 
@@ -51,19 +58,20 @@ public class DalOrderItem
     /// </summary>
     public void UpdateOrderItem(OrderItem orderItem)
     {
-        
-        int i;
-        int x = 0;
-        for (i = 0; i < DataSource.config.OrderIndex; i++)
+
+        int index = 0;
+        bool found = false;
+        foreach(OrderItem ordIt in DataSource._orderItem)
         {
-            if (_orderItem[i].PrivateId == orderItem.PrivateId)
+            index++;
+            if (ordIt.PrivateId == orderItem.PrivateId)
             {
-                _orderItem[i] = orderItem;
-                x = 1;
+                found = true;
+                DataSource._orderItem[index] = orderItem;
                 break;
             }
         }
-        if (x == 0)
+        if (found == false)
         {
             throw new Exception("no order item found");
         }
@@ -74,12 +82,10 @@ public class DalOrderItem
     /// </summary>
     public OrderItem Get(int orderItemId)
     {
-        for (int i = 0; i < DataSource.config.OrderItemIndex; i++)
+        foreach (OrderItem orderItem in DataSource._orderItem)
         {
-            if (_orderItem[i].PrivateId == orderItemId)
-            {
-                return _orderItem[i];
-            }
+            if (orderItem.PrivateId == orderItemId)
+                return orderItem;
         }
         throw new Exception("no order item found");
     }
@@ -87,14 +93,10 @@ public class DalOrderItem
     /// <summary>
     /// The operation updates the array and returns him
     /// </summary>
-    public static OrderItem[] GetOrderItemArray()
+    public IEnumerable<OrderItem> GetOrderItemList()
     {
-        OrderItem[] orderItemArrey = new OrderItem[200];
-        for(int i=0; i < DataSource.config.OrderItemIndex; i++)
-        {
-            orderItemArrey[i] = _orderItem[i];
-        }
-        return orderItemArrey;
+        List<OrderItem> orderItems = new List<OrderItem>(DataSource._orderItem);
+        return orderItems;
     }
 
     /// <summary>
@@ -102,7 +104,7 @@ public class DalOrderItem
     /// </summary>
     public int OrderItemLeangth()
     {
-        return DataSource.config.OrderItemIndex;
+        return DataSource._orderItem.Count();
     }
 
 }

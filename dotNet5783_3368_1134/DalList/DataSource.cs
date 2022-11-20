@@ -24,11 +24,6 @@ internal static class DataSource
         private static int orderitemNumber = 10000;
         internal static int order_Number { get => ++orderNumber; }
         internal static int runOrderitem_Number { get => ++orderitemNumber; }
-
-        internal static int OrderIndex = 0;
-        internal static int OrderItemIndex = 0;
-        internal static int ProductIndex = 0;
-        internal static int MyPrivateId = 0;
     }
     internal static void S_Initialize()
     {
@@ -120,7 +115,6 @@ internal static class DataSource
         }
         for(;i<16;i++)
         {
-            config.OrderIndex++;
             O.PrivateId = config.order_Number;
             O.CustomerName = customer_Name[i];
             O.CustomerEmail = customer_Email[i];
@@ -132,7 +126,6 @@ internal static class DataSource
         }
         for (;i<20;i++)
         {
-            config.OrderIndex++;
             O.PrivateId = config.order_Number;
             O.CustomerName = customer_Name[i];
             O.CustomerEmail = customer_Email[i];
