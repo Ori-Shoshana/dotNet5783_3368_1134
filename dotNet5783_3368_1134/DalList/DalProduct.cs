@@ -27,8 +27,7 @@ public class DalProduct
             if (prod.PrivateId == product.PrivateId)
                 throw new Exception("they have the same product alrady");
         }
-
-        DataSource._product[DataSource.config.ProductIndex++] = prod;
+        DataSource._product.Add(prod);  
         return prod.PrivateId;
     }
 
@@ -38,21 +37,19 @@ public class DalProduct
     public void DeleteProdoct(int ID)
     {
         {
-            int i;
-            for (i = 0; i < DataSource.config.ProductIndex; i++)
+            bool? found = false;
+            foreach(Product prod in DataSource._product)
             {
-                if (_product[i].PrivateId == ID)
-                    break;
-            }
-            if (i == DataSource.config.ProductIndex)
-                throw new Exception("no Prodoct found");
-            else
-            {
-                for (; i < DataSource.config.ProductIndex; i++)
+                if(prod.PrivateId == ID)
                 {
-                    _product[i].PrivateId = _product[i++].PrivateId;
+                    _product.Remove(prod);
+                    found = true;
+                    break;
                 }
-                DataSource.config.ProductIndex--;
+            }
+            if(found == false)
+            {
+                throw new Exception("no Prodoct found");
             }
         }
     }
@@ -62,18 +59,18 @@ public class DalProduct
     /// </summary>
     public void UpdateProduct(Product product)
     {
-        int i;
-        int x = 0;
-        for (i = 0; i < DataSource.config.ProductIndex; i++)
-        {
-            if (_product[i].PrivateId == product.PrivateId)
+        int index =0;
+        bool found = false; 
+        foreach(Product prod in DataSource._product)
             {
-                _product[i] = product;
-                x = 1;
-                break;
+             index++;   
+                if(prod.PrivateId == product.PrivateId)
+                {
+                    found = true;
+                DataSource._product[index] = product;
+                }
             }
-        }
-        if (x == 0)
+        if (found == false)
         {
             throw new Exception("no Prodoct found");
         }

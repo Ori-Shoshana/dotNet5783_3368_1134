@@ -1,4 +1,5 @@
-﻿using DO;
+﻿using DalApi;
+using DO;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -11,20 +12,16 @@ namespace Dal;
 /// class data source (mainly initialize properties with random values)
 /// </summary>
 internal static class DataSource
-{   
+{
     public static readonly Random Rnd = new Random();
-    internal static Order[] _order = new Order[100];
-    internal static OrderItem[] _orderItem = new OrderItem[200];
-    internal static Product[] _product = new Product[50];
+    internal static List<Order> _order = new List<Order>();
+    internal static List<OrderItem> _orderItem = new List<OrderItem>();
+    internal static List<Product> _product = new List<Product>();
+
     internal static class config
     {
-        internal static int Productcounter { get; set; }
-        internal static int Ordercounter { get; set; }
-        internal static int OrderItemtName { get; set; }
-
-        private static int orderNumber = 0;
-        private static int orderitemNumber = 0;
-
+        private static int orderNumber = 10000;
+        private static int orderitemNumber = 10000;
         internal static int order_Number { get => ++orderNumber; }
         internal static int runOrderitem_Number { get => ++orderitemNumber; }
 
@@ -60,19 +57,20 @@ internal static class DataSource
         {4000, 3500, 3500, 4000, 50000, 6000, 4000, 70, 100, 350};
         for(int i=0; i < 10; i++)
         {
-            config.ProductIndex++;
-            _product[i].PrivateId = Rnd.Next(100000, 999999);
-            _product[i].ProdoctName = Name[i];
-            _product[i].Category = My_Category[Rnd.Next(0,4)];
-            _product[i].Price = ProductPrice[i];
+            Product p = new Product();
+            p.PrivateId = Rnd.Next(100000, 999999);
+            p.ProdoctName = Name[i];
+            p.Category = My_Category[Rnd.Next(0,4)];
+            p.Price = ProductPrice[i];
             if(i < 10)
             {
-                _product[i].InStock = Rnd.Next(3, 50);
+                p.InStock = Rnd.Next(3, 50);
             }
             else
             {
-                _product[i].InStock = 0;
+                p.InStock = 0;
             }
+            _product.Add(p);
         }
     }
 
@@ -107,38 +105,42 @@ internal static class DataSource
         "Kendall Dodson",
         };
         int i;
+        Order O = new Order();
         for (i=0; i<12; i++)
         {
-            config.OrderIndex++;
-            _order[i].PrivateId = config.order_Number;
-            _order[i].CustomerName = customer_Name[i];
-            _order[i].CustomerEmail = customer_Email[i];
-            _order[i].CustomerAdress = customer_Adress[i];
-            _order[i].OrderDate = DateTime.Now;
-            _order[i].ShipDate = DateTime.Now;///////80%
-            _order[i].DeliveryDate = DateTime.Now;//////60%
+
+            O.PrivateId = config.order_Number;
+            O.CustomerName = customer_Name[i];
+            O.CustomerEmail = customer_Email[i];
+            O.CustomerAdress = customer_Adress[i];
+            O.OrderDate = DateTime.Now;
+            O.ShipDate = DateTime.Now;///////80%
+            O.DeliveryDate = DateTime.Now;//////60%
+            _order.Add(O);
         }
         for(;i<16;i++)
         {
             config.OrderIndex++;
-            _order[i].PrivateId = config.order_Number;
-            _order[i].CustomerName = customer_Name[i];
-            _order[i].CustomerEmail = customer_Email[i];
-            _order[i].CustomerAdress = customer_Adress[i];
-            _order[i].OrderDate = DateTime.Now;
-            _order[i].ShipDate = DateTime.Now ; //80%
-            _order[i].DeliveryDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 7), Rnd.Next(0, 59), Rnd.Next(0, 59));//40%
+            O.PrivateId = config.order_Number;
+            O.CustomerName = customer_Name[i];
+            O.CustomerEmail = customer_Email[i];
+            O.CustomerAdress = customer_Adress[i];
+            O.OrderDate = DateTime.Now;
+            O.ShipDate = DateTime.Now ; //80%
+            O.DeliveryDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 7), Rnd.Next(0, 59), Rnd.Next(0, 59));//40%
+            _order.Add(O);
         }
-        for(;i<20;i++)
+        for (;i<20;i++)
         {
             config.OrderIndex++;
-            _order[i].PrivateId = config.order_Number;
-            _order[i].CustomerName = customer_Name[i];
-            _order[i].CustomerEmail = customer_Email[i];
-            _order[i].CustomerAdress = customer_Adress[i];
-            _order[i].OrderDate = DateTime.Now;
-            _order[i].ShipDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 2), Rnd.Next(0, 59), Rnd.Next(0, 59));//20%
-            _order[i].DeliveryDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 7), Rnd.Next(0, 59), Rnd.Next(0, 59));//40%
+            O.PrivateId = config.order_Number;
+            O.CustomerName = customer_Name[i];
+            O.CustomerEmail = customer_Email[i];
+            O.CustomerAdress = customer_Adress[i];
+            O.OrderDate = DateTime.Now;
+            O.ShipDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 2), Rnd.Next(0, 59), Rnd.Next(0, 59));//20%
+            O.DeliveryDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 7), Rnd.Next(0, 59), Rnd.Next(0, 59));//40%
+            _order.Add(O);
         }
     }
 
@@ -149,17 +151,14 @@ internal static class DataSource
     {
         for (int i = 0; i < 10; i++)
         {
-            config.MyPrivateId++;
-            config.OrderItemIndex++;
-         
-            _orderItem[i].PrivateId = config.MyPrivateId;
-            _orderItem[i].OrderId = _product[i].PrivateId;
-            _orderItem[i].ProductId = _product[i].PrivateId;
-            _orderItem[i].PriceItem = _product[i].Price;
-            _orderItem[i].Amount = Rnd.Next(1,4);
-            
+            OrderItem OI = new OrderItem();
+            OI.PrivateId = config.runOrderitem_Number;
+            OI.OrderId = _product[i].PrivateId;
+            OI.ProductId = _product[i].PrivateId;
+            OI.PriceItem = _product[i].Price;
+            OI.Amount = Rnd.Next(1,4);
+            _orderItem.Add(OI);
         }
     }
-
 }
 

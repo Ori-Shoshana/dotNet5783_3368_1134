@@ -82,9 +82,9 @@ public class DalOrder
     /// <summary>
     /// The operation updates the array and returns him
     /// </summary>
-    public static Order[] GetOrderArray()
+    public static IEnumerable<Order> GetOrderArray()
     {
-        Order[] orderArrey = new Order[100];
+        List<Order> orderArrey = new Order[100];
         for (int i = 0; i < DataSource.config.OrderIndex; i++)
         {
             orderArrey[i] = _order[i];
