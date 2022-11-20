@@ -52,7 +52,7 @@ public class DalOrder
     {
         int i;
         int x = 0;
-        for (i = 0; i < DataSource.config.OrderIndex; i++)
+        for (i = 0; i < DataSource.config.OrderItemIndex; i++)
         {
             if (_order[i].PrivateId == order.PrivateId)
             {

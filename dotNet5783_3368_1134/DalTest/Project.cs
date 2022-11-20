@@ -80,20 +80,18 @@ internal class Project
                             Product GetProduct = new Product(); 
                             Console.WriteLine("type the id to get");
                             int getId = Convert.ToInt32(Console.ReadLine());
-                                try
-                                {
-                                    GetProduct = TestProduct.Get(getId);
-                                }
-                                catch(Exception ex)
-                                {
-                                    Console.WriteLine(ex);
-                                }
-                            Console.WriteLine(GetProduct.PrivateId);
-                            Console.WriteLine(GetProduct.ProdoctName);
-                            Console.WriteLine(GetProduct.Category);
-                            Console.WriteLine(GetProduct.Price);
-                            Console.WriteLine(GetProduct.InStock);
-                            break;
+                            try
+                            {
+                                GetProduct = TestProduct.Get(getId);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
+                            
+                            Console.WriteLine(GetProduct);
+                 
+                    break;
 
                         case 3://print all prodocts
                      
@@ -208,13 +206,7 @@ internal class Project
                             {
                                 Console.WriteLine(ex);
                             }
-                            Console.WriteLine(GetOrder.PrivateId);
-                            Console.WriteLine(GetOrder.CustomerName);   
-                            Console.WriteLine(GetOrder.CustomerEmail); 
-                            Console.WriteLine(GetOrder.CustomerAdress);
-                            Console.WriteLine(GetOrder.OrderDate);
-                            Console.WriteLine(GetOrder.ShipDate);
-                            Console.WriteLine(GetOrder.DeliveryDate);
+                            Console.WriteLine(GetOrder);
                             break;
 
                         case 3://print all orders
@@ -331,11 +323,7 @@ internal class Project
                             {
                                 Console.WriteLine(ex);
                             }
-                            Console.WriteLine(GetOrderItem.PrivateId);
-                            Console.WriteLine(GetOrderItem.OrderId);
-                            Console.WriteLine(GetOrderItem.ProductId);
-                            Console.WriteLine(GetOrderItem.PriceItem);
-                            Console.WriteLine(GetOrderItem.Amount);
+                            Console.WriteLine(GetOrderItem);
                             break;
 
                         case 3://print OrderItem
