@@ -27,7 +27,7 @@ public class DalProduct : IProduct
         foreach (Product product in DataSource._product)
         {
             if (prod.PrivateId == product.PrivateId)
-                throw new Exception("they have the same product alrady");
+                throw new IdAlreadyExistException("Product Id already exist");
         }
         DataSource._product.Add(prod);  
         return prod.PrivateId;
@@ -51,7 +51,7 @@ public class DalProduct : IProduct
             }
             if(found == false)
             {
-                throw new Exception("no Prodoct found");
+                throw new IdNotExistException("Product Id not found");
             }
         }
     }
@@ -74,7 +74,7 @@ public class DalProduct : IProduct
             }
         if (found == false)
         {
-            throw new Exception("no Prodoct found");
+            throw new IdNotExistException("Product Id not found");
         }
     }
 
@@ -90,7 +90,7 @@ public class DalProduct : IProduct
                 return prod;
             }
         }
-        throw new Exception("no product found");
+        throw new IdNotExistException("Product Id not found");
     }
 
     /// <summary>

@@ -72,7 +72,7 @@ internal class Project
                             {
                                 TestProduct.AddProduct(TestAddProduct);
                             }
-                            catch (Exception ex)
+                            catch (IdAlreadyExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }
@@ -87,7 +87,7 @@ internal class Project
                             {
                                 GetProduct = TestProduct.Get(getId);
                             }
-                            catch (Exception ex)
+                            catch (IdNotExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }
@@ -118,7 +118,10 @@ internal class Project
                             check = int.TryParse(Console.ReadLine(), out tempInt);
                             TestUpdateProduct.PrivateId = tempInt;
                             Console.WriteLine("Add Prodoct name");
+
                             TestUpdateProduct.ProdoctName = Console.ReadLine();
+
+
                             Console.WriteLine("Add Prodoct Category");
                             productCategory categoryPr;
                             productCategory.TryParse(Console.ReadLine(), out categoryPr);
@@ -134,7 +137,7 @@ internal class Project
                             {
                                 TestProduct.UpdateProduct(TestUpdateProduct);
                             }
-                            catch (Exception ex)
+                            catch (IdNotExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }
@@ -148,7 +151,7 @@ internal class Project
                             {
                                 TestProduct.DeleteProdoct(ID);
                             }
-                            catch (Exception ex)
+                            catch (IdNotExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }
@@ -189,14 +192,14 @@ internal class Project
                             TestAddOrder.ShipDate = Convert.ToDateTime(Console.ReadLine());
                             Console.WriteLine("Add delivory date");
                             TestAddOrder.DeliveryDate = Convert.ToDateTime(Console.ReadLine());
-                                try
-                                {
+                            try
+                            {
                                 TestOrder.AddOrder(TestAddOrder);
-                                }
-                                catch (Exception ex)
-                                {
-                                    Console.WriteLine(ex);
-                                }
+                            }
+                            catch (IdAlreadyExistException ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
                             break;
 
                         case 2://print
@@ -208,7 +211,7 @@ internal class Project
                             {
                                 GetOrder = TestOrder.Get(getId);
                             }
-                            catch (Exception ex)
+                            catch (IdNotExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }
@@ -250,7 +253,7 @@ internal class Project
                             {
                                 TestOrder.UpdateOrder(TestupdateOrder);
                             }
-                            catch (Exception ex)
+                            catch (IdNotExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }
@@ -263,7 +266,7 @@ internal class Project
                             {
                                 TestOrder.DeleteOrder(ID);
                             }
-                            catch (Exception ex)
+                            catch (IdNotExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }
@@ -271,7 +274,7 @@ internal class Project
                     }
                     break;
 
-                case 3:
+                case 3: //order Item
 
                     Console.WriteLine("Enter 0 to end\n " +
                         "Enter 1 to add a orderItem\n " +
@@ -288,7 +291,7 @@ internal class Project
 
                     switch (option3) //OrderItem
                     {
-                        case 1:
+                        case 1: //add
 
                             OrderItem TestAddOrderItem = new OrderItem();
                             Console.WriteLine("Add Private ID");
@@ -307,13 +310,13 @@ internal class Project
                             check = int.TryParse(Console.ReadLine(), out tempInt);
                             TestAddOrderItem.Amount = tempInt;
                             try
-                                {
+                            {
                                 TestOrderItem.AddOrderItem(TestAddOrderItem);
-                                }
-                                catch(Exception ex)
-                                {
+                            }
+                            catch(IdAlreadyExistException ex)
+                            {
                                     Console.WriteLine(ex);
-                                }
+                            }
                             break;
 
                         case 2://print
@@ -325,7 +328,7 @@ internal class Project
                             {
                                 GetOrderItem = TestOrderItem.Get(getId);
                             }
-                            catch (Exception ex)
+                            catch (IdNotExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }
@@ -369,7 +372,7 @@ internal class Project
                             {
                                 TestOrderItem.UpdateOrderItem(TestUpdateOrderItem);
                             }
-                            catch (Exception ex)
+                            catch (IdNotExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }
@@ -382,7 +385,7 @@ internal class Project
                             {
                                 TestOrderItem.DeleteOrderItem(ID);
                             }
-                            catch (Exception ex)
+                            catch (IdNotExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }

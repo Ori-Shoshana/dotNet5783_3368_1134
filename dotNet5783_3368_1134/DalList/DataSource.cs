@@ -41,27 +41,29 @@ internal static class DataSource
     {
         string[] Name =
         {
-            "Iphone12", "Iphone13", "GalaxyS20", "GalaxyS21",
-            "GalaxyS22", "Lenovo Pc" ,"Dell PC",
-            "Mouse Logiteck", "Keyboard Logiteck", "Headphones5s"
+            "Iphone14","GalaxyS22",
+            "Lenovo PC" ,"Dell PC",
+            "Mouse Logitech", "Mouse Razer",
+            "Keyboard Logiteck","Keyboard Razer",
+            "airpods pro2", "galaxy buds2"
         };
-        int[] ProductPrice = new int[10] {4000, 3500, 3500, 4000, 50000, 6000, 4000, 70, 100, 350};
-        for(int i=0; i < 10; i++)
+        int[] ProductPrice = new int[10] { 4000, 3900, 3000, 4000, 200, 150, 250, 270, 850, 50 };
+        for (int i = 0; i < 10; i++)
         {
             Product p = new Product();
             p.PrivateId = Rnd.Next(100000, 999999);
             p.ProdoctName = Name[i];
-           // p.Category = productCategory.
-          //  p.Category = My_Category[Rnd.Next(0,4)];
             p.Price = ProductPrice[i];
-            if(i < 10)
-            {
-                p.InStock = Rnd.Next(3, 50);
-            }
-            else
-            {
+            if (i < 2) { p.Category = productCategory.Phone; }
+            if (i < 4 && i >= 2) { p.Category = productCategory.Laptop; }
+            if (i < 6 && i >= 4) { p.Category = productCategory.Mouse; }
+            if (i < 8 && i >= 6) { p.Category = productCategory.Keybord; }
+            if (i < 10 && i >= 8) { p.Category = productCategory.Hadphones; }
+            if (i < 10) 
+                p.InStock = Rnd.Next(3, 50); 
+            else 
                 p.InStock = 0;
-            }
+
             _product.Add(p);
         }
     }
@@ -100,14 +102,13 @@ internal static class DataSource
         Order O = new Order();
         for (i=0; i<12; i++)
         {
-
             O.PrivateId = config.order_Number;
             O.CustomerName = customer_Name[i];
             O.CustomerEmail = customer_Email[i];
             O.CustomerAdress = customer_Adress[i];
-            O.OrderDate = DateTime.Now;
-            O.ShipDate = DateTime.Now;///////80%
-            O.DeliveryDate = DateTime.Now;//////60%
+            O.OrderDate = DateTime.Now.AddDays(-5).AddHours(4);
+            O.ShipDate = DateTime.Now.AddDays(-3).AddHours(6);///////80%
+            O.DeliveryDate = DateTime.Now.AddDays(-1).AddHours(8);//////60%
             _order.Add(O);
         }
         for(;i<16;i++)
@@ -116,9 +117,9 @@ internal static class DataSource
             O.CustomerName = customer_Name[i];
             O.CustomerEmail = customer_Email[i];
             O.CustomerAdress = customer_Adress[i];
-            O.OrderDate = DateTime.Now;
-            O.ShipDate = DateTime.Now ; //80%
-            O.DeliveryDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 7), Rnd.Next(0, 59), Rnd.Next(0, 59));//40%
+            O.OrderDate = DateTime.Now.AddDays(-5).AddHours(4);
+            O.ShipDate = DateTime.Now.AddDays(-3).AddHours(6); //80%
+            O.DeliveryDate = DateTime.Now.AddDays(-1).AddHours(8);
             _order.Add(O);
         }
         for (;i<20;i++)
@@ -127,9 +128,9 @@ internal static class DataSource
             O.CustomerName = customer_Name[i];
             O.CustomerEmail = customer_Email[i];
             O.CustomerAdress = customer_Adress[i];
-            O.OrderDate = DateTime.Now;
-            O.ShipDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 2), Rnd.Next(0, 59), Rnd.Next(0, 59));//20%
-            O.DeliveryDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 7), Rnd.Next(0, 59), Rnd.Next(0, 59));//40%
+            O.OrderDate = DateTime.Now.AddDays(-5).AddHours(4);
+            O.ShipDate = DateTime.Now.AddDays(-3).AddHours(6); //80%
+            O.DeliveryDate = DateTime.Now.AddDays(-1).AddHours(8);
             _order.Add(O);
         }
     }

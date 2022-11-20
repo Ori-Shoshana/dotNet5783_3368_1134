@@ -25,7 +25,7 @@ public class DalOrder : IOrder
         {
             if(ord.PrivateId == order.PrivateId)
             {
-                throw new Exception("they have the same order alrady");
+                throw new IdAlreadyExistException("Id already exist");
             }
         }
         DataSource._order.Add(ord);
@@ -49,7 +49,7 @@ public class DalOrder : IOrder
         }
         if(found == false)
         {
-            throw new Exception("no order found");
+            throw new IdNotExistException("Id not found");
         }
     }
 
@@ -72,7 +72,7 @@ public class DalOrder : IOrder
         }
         if(found == false)
         {
-            throw new Exception("no order found");
+            throw new IdNotExistException("Id not found");
         }
     }
     /// <summary>
@@ -85,7 +85,7 @@ public class DalOrder : IOrder
             if (order.PrivateId == orderId)
                 return order;
         }
-        throw new Exception("no ordeer found");
+        throw new IdNotExistException("Id not found");
     }
 
     /// <summary>
