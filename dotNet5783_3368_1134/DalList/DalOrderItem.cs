@@ -13,7 +13,7 @@ using DalApi;
 /// class DalOrderItem: 
 /// Implementation of add, delete, update and return operations
 /// </summary>
-public class DalOrderItem : IOrderItem
+public class DalOrderItem //: IOrderItem
 {
     /// <summary>
     /// The operation accepts an order item and adds it in the array
@@ -21,14 +21,14 @@ public class DalOrderItem : IOrderItem
     /// <returns> returns order item id </returns>
     public int AddOrderItem(OrderItem orderIt)
     {
-        foreach (OrderItem orderItem in DataSource._orderItem)
+        foreach (OrderItem orderItem in DataSource.ListOrderItem)
         {
             if (orderIt.PrivateId == orderItem.PrivateId)
             {
                 throw new IdAlreadyExistException("Id already exist");
             }
         }
-        DataSource._orderItem.Add(orderIt);
+        DataSource.ListOrderItem.Add(orderIt);
         return orderIt.PrivateId;
     }
 
@@ -38,11 +38,11 @@ public class DalOrderItem : IOrderItem
     public void DeleteOrderItem(int ID)
     {
         bool found = false;
-        foreach (OrderItem orderItem in DataSource._orderItem)
+        foreach (OrderItem orderItem in DataSource.ListOrderItem)
         {
             if (ID == orderItem.PrivateId)
             {
-                _orderItem.Remove(orderItem);
+                ListOrderItem.Remove(orderItem);
                 found = true;
                 break;
             }
@@ -61,13 +61,13 @@ public class DalOrderItem : IOrderItem
 
         int index = 0;
         bool found = false;
-        foreach(OrderItem ordIt in DataSource._orderItem)
+        foreach(OrderItem ordIt in DataSource.ListOrderItem)
         {
             index++;
             if (ordIt.PrivateId == orderItem.PrivateId)
             {
                 found = true;
-                DataSource._orderItem[index] = orderItem;
+                DataSource.ListOrderItem[index] = orderItem;
                 break;
             }
         }
@@ -82,7 +82,7 @@ public class DalOrderItem : IOrderItem
     /// </summary>
     public OrderItem Get(int orderItemId)
     {
-        foreach (OrderItem orderItem in DataSource._orderItem)
+        foreach (OrderItem orderItem in DataSource.ListOrderItem)
         {
             if (orderItem.PrivateId == orderItemId)
                 return orderItem;
@@ -95,7 +95,7 @@ public class DalOrderItem : IOrderItem
     /// </summary>
     public IEnumerable<OrderItem> GetOrderItemList()
     {
-        List<OrderItem> orderItems = new List<OrderItem>(DataSource._orderItem);
+        List<OrderItem> orderItems = new List<OrderItem>(DataSource.ListOrderItem);
         return orderItems;
     }
 
@@ -104,7 +104,7 @@ public class DalOrderItem : IOrderItem
     /// </summary>
     public int OrderItemLeangth()
     {
-        return DataSource._orderItem.Count();
+        return DataSource.ListOrderItem.Count();
     }
 
 }

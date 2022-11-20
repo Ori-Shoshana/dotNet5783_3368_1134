@@ -15,9 +15,9 @@ namespace Dal;
 internal static class DataSource
 {
     public static readonly Random Rnd = new Random();
-    internal static List<Order> _order = new List<Order>();
-    internal static List<OrderItem> _orderItem = new List<OrderItem>();
-    internal static List<Product> _product = new List<Product>();
+    internal static List<Order> ListOrder = new List<Order>();
+    internal static List<OrderItem> ListOrderItem = new List<OrderItem>();
+    internal static List<Product> ListProduct = new List<Product>();
 
     internal static class config
     {
@@ -63,8 +63,7 @@ internal static class DataSource
                 p.InStock = Rnd.Next(3, 50); 
             else 
                 p.InStock = 0;
-
-            _product.Add(p);
+            ListProduct.Add(p);
         }
     }
 
@@ -106,10 +105,10 @@ internal static class DataSource
             O.CustomerName = customer_Name[i];
             O.CustomerEmail = customer_Email[i];
             O.CustomerAdress = customer_Adress[i];
-            O.OrderDate = DateTime.Now.AddDays(-5).AddHours(4);
-            O.ShipDate = DateTime.Now.AddDays(-3).AddHours(6);///////80%
-            O.DeliveryDate = DateTime.Now.AddDays(-1).AddHours(8);//////60%
-            _order.Add(O);
+            O.OrderDate = DateTime.Now.AddDays(-5).AddHours(-4);
+            O.ShipDate = DateTime.Now;///////80%
+            O.DeliveryDate = DateTime.Now;//////60%
+            ListOrder.Add(O);
         }
         for(;i<16;i++)
         {
@@ -117,10 +116,10 @@ internal static class DataSource
             O.CustomerName = customer_Name[i];
             O.CustomerEmail = customer_Email[i];
             O.CustomerAdress = customer_Adress[i];
-            O.OrderDate = DateTime.Now.AddDays(-5).AddHours(4);
-            O.ShipDate = DateTime.Now.AddDays(-3).AddHours(6); //80%
-            O.DeliveryDate = DateTime.Now.AddDays(-1).AddHours(8);
-            _order.Add(O);
+            O.OrderDate = DateTime.Now.AddDays(-5).AddHours(-4);
+            O.ShipDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 2), Rnd.Next(0, 59), Rnd.Next(0, 59)); //80%
+            O.DeliveryDate = null;
+            ListOrder.Add(O);
         }
         for (;i<20;i++)
         {
@@ -128,10 +127,10 @@ internal static class DataSource
             O.CustomerName = customer_Name[i];
             O.CustomerEmail = customer_Email[i];
             O.CustomerAdress = customer_Adress[i];
-            O.OrderDate = DateTime.Now.AddDays(-5).AddHours(4);
-            O.ShipDate = DateTime.Now.AddDays(-3).AddHours(6); //80%
-            O.DeliveryDate = DateTime.Now.AddDays(-1).AddHours(8);
-            _order.Add(O);
+            O.OrderDate = DateTime.Now.AddDays(-5).AddHours(-4);
+            O.ShipDate = DateTime.Now;//20%
+            O.DeliveryDate = null;//40%
+            ListOrder.Add(O);
         }
     }
 
@@ -144,11 +143,11 @@ internal static class DataSource
         {
             OrderItem OI = new OrderItem();
             OI.PrivateId = config.runOrderitem_Number;
-            OI.OrderId = _product[i].PrivateId;
-            OI.ProductId = _product[i].PrivateId;
-            OI.PriceItem = _product[i].Price;
+            OI.OrderId = ListProduct[i].PrivateId;
+            OI.ProductId = ListProduct[i].PrivateId;
+            OI.PriceItem = ListProduct[i].Price;
             OI.Amount = Rnd.Next(1,4);
-            _orderItem.Add(OI);
+            ListOrderItem.Add(OI);
         }
     }
 }
