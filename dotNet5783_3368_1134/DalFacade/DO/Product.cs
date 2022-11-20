@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using static DO.Enums;
 
 namespace DO;
 
@@ -10,7 +11,7 @@ public struct Product
 {
     public int PrivateId { get; set; }
     public string ProdoctName { get; set; }
-    public string Category { get; set; }
+    public productCategory Category { get; set; }
     public double Price { get; set; }
     public int InStock { get; set; }
 

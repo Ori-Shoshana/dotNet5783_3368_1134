@@ -1,5 +1,6 @@
 ﻿using DalApi;
 using DO;
+using static DO.Enums;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -49,18 +50,14 @@ internal static class DataSource
             "GalaxyS22", "Lenovo Pc" ,"Dell PC",
             "Mouse Logiteck", "Keyboard Logiteck", "Headphones5s"
         };
-        string[] My_Category =
-        {
-            "Phone", "PC", "Mouse", "Keybord", "Hadphones" 
-        };
-        int[] ProductPrice = new int[10]
-        {4000, 3500, 3500, 4000, 50000, 6000, 4000, 70, 100, 350};
+        int[] ProductPrice = new int[10] {4000, 3500, 3500, 4000, 50000, 6000, 4000, 70, 100, 350};
         for(int i=0; i < 10; i++)
         {
             Product p = new Product();
             p.PrivateId = Rnd.Next(100000, 999999);
             p.ProdoctName = Name[i];
-            p.Category = My_Category[Rnd.Next(0,4)];
+           // p.Category = productCategory.
+          //  p.Category = My_Category[Rnd.Next(0,4)];
             p.Price = ProductPrice[i];
             if(i < 10)
             {

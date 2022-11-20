@@ -3,6 +3,7 @@ using DO;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Linq.Expressions;
+using static DO.Enums;
 
 /// <summary>
 /// Main - testing that the structs and the operations on them are actually works
@@ -58,7 +59,10 @@ internal class Project
                             Console.WriteLine("Add Prodoct name");
                             TestAddProduct.ProdoctName = Console.ReadLine();
                             Console.WriteLine("Add Prodoct Category");
-                            TestAddProduct.Category = Console.ReadLine();
+                            productCategory categoryPro;
+                            productCategory.TryParse(Console.ReadLine(), out categoryPro);
+                            TestAddProduct.Category = categoryPro;
+                        //    TestAddProduct.Category = Console.ReadLine();
                             Console.WriteLine("Add product price");
                             check = double.TryParse(Console.ReadLine(), out tempDouble);
                             TestAddProduct.Price = tempDouble;
@@ -117,7 +121,10 @@ internal class Project
                             Console.WriteLine("Add Prodoct name");
                             TestUpdateProduct.ProdoctName = Console.ReadLine();
                             Console.WriteLine("Add Prodoct Category");
-                            TestUpdateProduct.Category = Console.ReadLine();
+                            productCategory categoryPr;
+                            productCategory.TryParse(Console.ReadLine(), out categoryPr);
+                            TestUpdateProduct.Category = categoryPr;
+                            //TestUpdateProduct.Category = Console.ReadLine();
                             Console.WriteLine("Add product price");
                             check = double.TryParse(Console.ReadLine(), out tempDouble);
                             TestUpdateProduct.Price = tempDouble;
