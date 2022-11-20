@@ -1,8 +1,10 @@
 ﻿using Dal;
+using DalApi;
 using DO;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using static DO.Enums;
 
 /// <summary>
@@ -27,6 +29,9 @@ internal class Project
         double tempDouble;
 
         int option;
+        int Num;
+        //IDal dal = new DalList();
+
         check = int.TryParse(Console.ReadLine(), out option);
         while (option != 0) // 0 ends the program
         {
@@ -62,6 +67,7 @@ internal class Project
                             productCategory categoryPro;
                             productCategory.TryParse(Console.ReadLine(), out categoryPro);
                             TestAddProduct.Category = categoryPro;
+                            //TestAddProduct.Category = Console.ReadLine();
                             Console.WriteLine("Add product price");
                             check = double.TryParse(Console.ReadLine(), out tempDouble);
                             TestAddProduct.Price = tempDouble;
@@ -183,6 +189,8 @@ internal class Project
                             TestAddOrder.CustomerName = Console.ReadLine();
                             Console.WriteLine("Add order customer email");
                             TestAddOrder.CustomerEmail = Console.ReadLine();
+                            Console.WriteLine("Add order customer address");
+                            TestAddOrder.CustomerAdress = Console.ReadLine();
                             Console.WriteLine("Add Order date");
                             TestAddOrder.OrderDate = Convert.ToDateTime(Console.ReadLine());
                             Console.WriteLine("Add ship date");
@@ -240,6 +248,8 @@ internal class Project
                             TestupdateOrder.CustomerName = Console.ReadLine();
                             Console.WriteLine("Add order customer email");
                             TestupdateOrder.CustomerEmail = Console.ReadLine();
+                            Console.WriteLine("Add order customer address");
+                            TestupdateOrder.CustomerAdress = Console.ReadLine();
                             Console.WriteLine("Add Order date");
                             TestupdateOrder.OrderDate = Convert.ToDateTime(Console.ReadLine());
                             Console.WriteLine("Add ship date");

@@ -11,7 +11,7 @@ namespace Dal;
 /// class Dal product: 
 /// Implementation of add, delete, update and return operations
 /// </summary>
-public class DalProduct : IProduct
+public class DalProduct //: IProduct
 {
     public DalProduct()
     {
@@ -24,12 +24,12 @@ public class DalProduct : IProduct
     /// <returns> returns order id </returns>
     public int AddProduct(Product prod)
     {
-        foreach (Product product in DataSource._product)
+        foreach (Product product in DataSource.ListProduct)
         {
             if (prod.PrivateId == product.PrivateId)
                 throw new Exception("they have the same product alrady");
         }
-        DataSource._product.Add(prod);  
+        DataSource.ListProduct.Add(prod);  
         return prod.PrivateId;
     }
 
@@ -40,11 +40,11 @@ public class DalProduct : IProduct
     {
         {
             bool found = false;
-            foreach(Product prod in DataSource._product)
+            foreach(Product prod in DataSource.ListProduct)
             {
                 if(prod.PrivateId == ID)
                 {
-                    _product.Remove(prod);
+                    ListProduct.Remove(prod);
                     found = true;
                     break;
                 }
@@ -61,17 +61,18 @@ public class DalProduct : IProduct
     /// </summary>
     public void UpdateProduct(Product product)
     {
-        int index =0;
+        int index = 0;
         bool found = false; 
-        foreach(Product prod in DataSource._product)
-            {
-             index++;   
+        foreach(Product prod in DataSource.ListProduct)
+            { 
                 if(prod.PrivateId == product.PrivateId)
                 {
                     found = true;
-                DataSource._product[index] = product;
+                    ListProduct[index] = product;
+                    break;
                 }
-            }
+            index++;
+        }
         if (found == false)
         {
             throw new Exception("no Prodoct found");
@@ -83,7 +84,7 @@ public class DalProduct : IProduct
     /// </summary>
     public Product Get(int productId)
     {
-        foreach (Product prod in DataSource._product)
+        foreach (Product prod in DataSource.ListProduct)
         {
             if(prod.PrivateId == productId)
             {
@@ -98,7 +99,7 @@ public class DalProduct : IProduct
     /// </summary>
     public IEnumerable<Product> GetProductList()
     {
-       List<Product> products = new List<Product>(DataSource._product);
+       List<Product> products = new List<Product>(DataSource.ListProduct);
        
        return products;
     }
@@ -108,6 +109,6 @@ public class DalProduct : IProduct
     /// </summary>
     public int ProductLeangth()
     {
-        return DataSource._product.Count;
+        return DataSource.ListProduct.Count;
     }
 }
