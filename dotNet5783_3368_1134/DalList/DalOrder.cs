@@ -2,14 +2,18 @@
 using Microsoft.VisualBasic.FileIO;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Security.Cryptography;
+
 namespace Dal;
 using static Dal.DataSource;
+using DalApi;
+
 
 /// <summary>
 /// class DalOrder: 
 /// Implementation of add, delete, update and return operations
 /// </summary>
-public class DalOrder
+internal class DalOrder : IOrder
 {
     /// <summary>
     /// The operation accepts an order and adds it in the array
@@ -17,8 +21,14 @@ public class DalOrder
     /// <returns> returns order id </returns>
     public int AddOrder(Order ord)
     {
-        ord.PrivateId = DataSource.config.OrderIndex;
-        DataSource._order[DataSource.config.OrderIndex++] = ord;
+        foreach(Order order in DataSource._order)
+        {
+            if(ord.PrivateId == order.PrivateId)
+            {
+                throw new Exception("they have the same order alrady");
+            }
+        }
+        DataSource._order.Add(ord);
         return ord.PrivateId;
     }
 
@@ -27,21 +37,19 @@ public class DalOrder
     /// </summary>
     public void DeleteOrder(int ID)
     {
-        int i;
-        for (i=0; i<DataSource.config.OrderIndex; i++)
+        bool found = false;
+        foreach (Order order in DataSource._order)
         {
-            if (_order[i].PrivateId == ID)
-                break;
-        }
-        if (i == DataSource.config.OrderIndex)
-            throw new Exception("no order found");
-        else
-        {
-            for (; i < DataSource.config.OrderIndex; i++)
+            if (ID == order.PrivateId)
             {
-                _order[i] = _order[i++];
+                _order.Remove(order);
+                found = true;
+                break;
             }
-            DataSource.config.OrderIndex--;
+        }
+        if(found == false)
+        {
+            throw new Exception("no order found");
         }
     }
 
@@ -50,18 +58,19 @@ public class DalOrder
     /// </summary>
     public void UpdateOrder(Order order)
     {
-        int i;
-        int x = 0;
-        for (i = 0; i < DataSource.config.OrderItemIndex; i++)
+        int index =0;
+        bool found = false;
+        foreach (Order ord in DataSource._order)
         {
-            if (_order[i].PrivateId == order.PrivateId)
+            index++;
+            if(ord.PrivateId == order.PrivateId)
             {
-                _order[i] = order;
-                x = 1;
+                found = true;
+                DataSource._order[index] = order;
                 break;
             }
         }
-        if(x == 0)
+        if(found == false)
         {
             throw new Exception("no order found");
         }
@@ -71,10 +80,10 @@ public class DalOrder
     /// </summary>
     public Order Get(int orderId)
     {
-        for(int i=0; i<DataSource.config.OrderIndex; i++)
+        foreach (Order order in DataSource._order)
         {
-            if (_order[i].PrivateId == orderId)
-                return _order[i];
+            if (order.PrivateId == orderId)
+                return order;
         }
         throw new Exception("no ordeer found");
     }
@@ -82,20 +91,16 @@ public class DalOrder
     /// <summary>
     /// The operation updates the array and returns him
     /// </summary>
-    public static IEnumerable<Order> GetOrderArray()
+    public IEnumerable<Order> GetOrderList()
     {
-        List<Order> orderArrey = new Order[100];
-        for (int i = 0; i < DataSource.config.OrderIndex; i++)
-        {
-            orderArrey[i] = _order[i];
-        }
-        return orderArrey;
+       List<Order> orders = new List<Order>(DataSource._order);
+        return orders;
     }
     /// <summary>
     /// returns array length
     /// </summary>
     public int OrderLeangth()
     {
-        return DataSource.config.OrderIndex;
+        return DataSource._order.Count();
     }
 }

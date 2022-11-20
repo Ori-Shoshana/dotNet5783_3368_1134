@@ -100,7 +100,7 @@ internal class Project
                         case 3://print all prodocts
                      
                             int counter = 0;
-                            Product[] products = DalProduct.GetProductArray();
+                            List<Product> products = new List<Product>(TestProduct.GetProductList());
                             foreach (Product product in products)
                             {
                                 if (counter == TestProduct.ProductLeangth())
@@ -218,7 +218,7 @@ internal class Project
 
                         case 3://print all orders
 
-                            Order[] orders = DalOrder.GetOrderArray();
+                            List<Order> orders = new List<Order>(TestOrder.GetOrderList());
                             int counter = 0;
                             foreach(Order order in orders)
                             { 
@@ -335,7 +335,7 @@ internal class Project
 
                         case 3://print OrderItem
 
-                            OrderItem[] orderItems = DalOrderItem.GetOrderItemArray();
+                            List<OrderItem> orderItems = new List<OrderItem>(TestOrderItem.GetOrderItemList());
                             int counter = 0;
                             foreach (OrderItem orderItem in orderItems)
                             {

@@ -1,6 +1,8 @@
 ﻿using DO;
 using System;
 using static Dal.DataSource;
+using DalApi;
+
 
 
 namespace Dal;
@@ -9,7 +11,7 @@ namespace Dal;
 /// class Dal product: 
 /// Implementation of add, delete, update and return operations
 /// </summary>
-public class DalProduct
+internal class DalProduct : IProduct
 {
     public DalProduct()
     {
@@ -37,7 +39,7 @@ public class DalProduct
     public void DeleteProdoct(int ID)
     {
         {
-            bool? found = false;
+            bool found = false;
             foreach(Product prod in DataSource._product)
             {
                 if(prod.PrivateId == ID)
@@ -81,10 +83,12 @@ public class DalProduct
     /// </summary>
     public Product Get(int productId)
     {
-        for (int i = 0; i < DataSource.config.ProductIndex; i++)
+        foreach (Product prod in DataSource._product)
         {
-            if (_product[i].PrivateId == productId)
-                return _product[i];
+            if(prod.PrivateId == productId)
+            {
+                return prod;
+            }
         }
         throw new Exception("no product found");
     }
@@ -92,14 +96,11 @@ public class DalProduct
     /// <summary>
     /// The operation updates the array and returns him
     /// </summary>
-    public static Product[] GetProductArray()
+    public IEnumerable<Product> GetProductList()
     {
-        Product[] productArr = new Product[50];
-        for (int i = 0; i < DataSource.config.ProductIndex; i++)
-        {
-            productArr[i] = _product[i];
-        }
-        return productArr;
+       List<Product> products = new List<Product>(DataSource._product);
+       
+       return products;
     }
 
     /// <summary>
@@ -107,6 +108,6 @@ public class DalProduct
     /// </summary>
     public int ProductLeangth()
     {
-        return DataSource.config.ProductIndex;
+        return DataSource._product.Count;
     }
 }
