@@ -11,7 +11,7 @@ namespace Dal;
 /// class Dal product: 
 /// Implementation of add, delete, update and return operations
 /// </summary>
-internal class DalProduct : IProduct
+public class DalProduct : IProduct
 {
     public DalProduct()
     {

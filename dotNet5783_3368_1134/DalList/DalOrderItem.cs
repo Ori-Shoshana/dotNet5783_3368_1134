@@ -13,7 +13,7 @@ using DalApi;
 /// class DalOrderItem: 
 /// Implementation of add, delete, update and return operations
 /// </summary>
-internal class DalOrderItem : IOrderItem
+public class DalOrderItem : IOrderItem
 {
     /// <summary>
     /// The operation accepts an order item and adds it in the array

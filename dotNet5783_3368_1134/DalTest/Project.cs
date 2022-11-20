@@ -62,7 +62,6 @@ internal class Project
                             productCategory categoryPro;
                             productCategory.TryParse(Console.ReadLine(), out categoryPro);
                             TestAddProduct.Category = categoryPro;
-                        //    TestAddProduct.Category = Console.ReadLine();
                             Console.WriteLine("Add product price");
                             check = double.TryParse(Console.ReadLine(), out tempDouble);
                             TestAddProduct.Price = tempDouble;
