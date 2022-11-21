@@ -9,6 +9,10 @@ internal class BoProduct : IBoProduct
 {
     private IDal dal = new Dal.DalList();
 
+    public IEnumerable<ProductForList> GetProducts()
+    {
+        throw new NotImplementedException();
+    }
 
     public void Add(Product product)
     {
@@ -16,11 +20,6 @@ internal class BoProduct : IBoProduct
     }
 
     public void Delete(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<ProductForList> GetProducts()
     {
         throw new NotImplementedException();
     }

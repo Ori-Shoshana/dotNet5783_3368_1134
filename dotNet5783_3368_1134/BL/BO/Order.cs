@@ -7,16 +7,16 @@ namespace BO
 {
     public class Order
     {
-        int ID { get; set; }    
-        string CustomerName { get; set; }
-        String CustomerEmail { get; set; }  
-        string CustomerAdress { get; set; } 
-        DateTime OrderDate { get; set; }    
-        DateTime ShipDate { get; set; }
-        DateTime DeliveryDate { get; set; }
-        OrderItem Items { get; set; }
-        double TotalPrice { get; set; }
-        OrderStatus Status {get; set;}
+        public int ID { get; set; }
+        public string CustomerName { get; set; }
+        public String CustomerEmail { get; set; }
+        public string CustomerAdress { get; set; }
+        public DateTime OrderDate { get; set; }
+        public DateTime ShipDate { get; set; }
+        public DateTime DeliveryDate { get; set; }
+        public OrderItem Items { get; set; }
+        public double TotalPrice { get; set; }
+        public OrderStatus Status {get; set;}
         public override string ToString() => $@"
     private Id : {ID}
     Customer Name : {CustomerName}

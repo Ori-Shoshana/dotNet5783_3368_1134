@@ -5,11 +5,11 @@ namespace BO;
 
 public class Cart
 {
-    string CustomerName { get; set; }
-    String CustomerEmail { get; set; }
-    string CustomerAdress { get; set; }
-    OrderItem Items { get; set; }
-    double TotalPrice { get; set; }
+    public string? CustomerName { get; set; }
+    public String? CustomerEmail { get; set; }
+    public string? CustomerAdress { get; set; }
+    public OrderItem? Items { get; set; }
+    public double TotalPrice { get; set; }
     public override string ToString() => $@"
     Customer Name : {CustomerName}
     Customer Email : {CustomerEmail}

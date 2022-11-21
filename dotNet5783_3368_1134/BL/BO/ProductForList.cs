@@ -6,10 +6,10 @@ namespace BO;
 
 public class ProductForList
 {
-    int ID { get; set; }
-    string? Name { get; set; }
-    double Price { get; set; }
-    ProductCategory Category { get; set; }
+    public int ID { get; set; }
+    public string? Name { get; set; }
+    public double Price { get; set; }
+    public ProductCategory Category { get; set; }
 
 
     public override string ToString() => $@"

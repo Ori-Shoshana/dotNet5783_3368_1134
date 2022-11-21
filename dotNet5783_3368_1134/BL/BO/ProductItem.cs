@@ -6,12 +6,12 @@ namespace BO;
 
 public class ProductItem
 {
-    int ID { get; set; }
-    string? Name { get; set; }
-    double Price { get; set; }
-    ProductCategory Category { get; set; }
-    bool InStock { get; set; }
-    int Amount { get; set; }   
+    public int ID { get; set; }
+    public string? Name { get; set; }
+    public double Price { get; set; }
+    public ProductCategory Category { get; set; }
+    public bool InStock { get; set; }
+    public int Amount { get; set; }   
 
 
 

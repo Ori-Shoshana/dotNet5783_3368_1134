@@ -5,7 +5,7 @@ namespace Dal;
 
 public class DalList : IDal
 {
-    public IOrder order => new DalOrder();
+    public IOrder Order => new DalOrder();
 
     public IOrderItem OrderItem => new DalOrderItem();
 

@@ -1,12 +1,20 @@
 ﻿using BlApi;
+using DalApi;
 using BO;
 
 namespace BlImplementation;
 
 internal class BoCart : IBoCart
 {
-    public Cart Add(Cart C)
+    private IDal dal = new Dal.DalList();
+
+    public BO.Cart Add(Cart C, int id)
     {
+        //IEnumerable<DO.Product> DoProducts = dal.Product.GetAll();
+        //BO.Product BoProduct;
+        //BO.OrderItem BoOrderItem;
+        
+        //if(id == dal.Product.ID)
         throw new NotImplementedException();
     }
 
@@ -15,7 +23,7 @@ internal class BoCart : IBoCart
         throw new NotImplementedException();
     }
 
-    public Cart Update(Cart C, int ID, int amount)
+    public BO.Cart Update(Cart C, int ID, int amount)
     {
         throw new NotImplementedException();
     }
