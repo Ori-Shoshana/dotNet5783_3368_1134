@@ -95,7 +95,6 @@ internal class DalProduct : IProduct
     public IEnumerable<Product> GetAll()
     {
        List<Product> products = new List<Product>(DataSource.ListProduct);
-       
        return products;
     }
 

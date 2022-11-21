@@ -75,7 +75,7 @@ internal class Project
                             TestAddProduct.InStock = tempInt;
                             try
                             {
-                                dal.Product.Add (TestAddProduct);
+                                dal.Product.Add(TestAddProduct);
                             }
                             catch (IdAlreadyExistException ex)
                             {
@@ -102,18 +102,18 @@ internal class Project
                     break;
 
                         case 3://print all prodocts
-                     
+
+
                             int counter = 0;
-                            List<Product> products = new List<Product>(dal.Product.GetAll());
-                            foreach (Product product in products)
+                            //List<Product> products = new List<Product>(dal.Product.GetAll());
+                            foreach (Product product in dal.Product.GetAll())
                             {
                                 if (counter == dal.Product.ListLeangth())
                                 {
                                     break;
                                 }
-                                    counter++;
-                                    Console.WriteLine(product);
-                                
+                                counter++;
+                                Console.WriteLine(product);
                             }
                             break;
 
