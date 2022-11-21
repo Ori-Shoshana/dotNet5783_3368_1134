@@ -37,20 +37,15 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     public void Delete(int ID)
     {
-        bool found = false;
         foreach (OrderItem orderItem in DataSource.ListOrderItem)
         {
             if (ID == orderItem.PrivateId)
             {
                 ListOrderItem.Remove(orderItem);
-                found = true;
-                break;
+                return;
             }
         }
-        if (found == false)
-        {
             throw new IdNotExistException("Order Id not found");
-        }
     }
 
     /// <summary>
@@ -60,21 +55,16 @@ internal class DalOrderItem : IOrderItem
     {
 
         int index = 0;
-        bool found = false;
         foreach(OrderItem ordIt in DataSource.ListOrderItem)
         {
-            index++;
             if (ordIt.PrivateId == orderItem.PrivateId)
             {
-                found = true;
                 DataSource.ListOrderItem[index] = orderItem;
-                break;
+                return;
             }
+            index++;
         }
-        if (found == false)
-        {
             throw new IdNotExistException("Order Id not found");
-        }
     }
 
     /// <summary>
