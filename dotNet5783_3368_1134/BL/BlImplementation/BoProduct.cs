@@ -10,9 +10,9 @@ internal class BoProduct : IBoProduct
     private IDal dal = new Dal.DalList();
 
 
-    public void Add(Product product)
+    public void Add(BO.Product product)
     {
-        throw new NotImplementedException();
+        if(product.ID)
     }
 
     public void Delete(int id)
@@ -32,6 +32,10 @@ internal class BoProduct : IBoProduct
 
     public Product ProductDetailsM(int id)
     {
+        if(id > 0)
+        {
+
+        }
         throw new NotImplementedException();
     }
 
