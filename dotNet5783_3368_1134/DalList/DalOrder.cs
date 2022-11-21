@@ -14,14 +14,14 @@ using DalApi;
 /// Implementation of add, delete, update and return operations
 /// </summary>
 //internal class DalOrder : IOrder
-public class DalOrder //: IOrder
+internal class DalOrder : IOrder
 
 {
     /// <summary>
     /// The operation accepts an order and adds it in the array
     /// </summary>
     /// <returns> returns order id </returns>
-    public int AddOrder(Order ord)
+    public int Add(Order ord)
     {
         foreach(Order order in DataSource.ListOrder)
         {
@@ -37,7 +37,7 @@ public class DalOrder //: IOrder
     /// <summary>
     ///  The operation deletes an order from the array (finds him by id)
     /// </summary>
-    public void DeleteOrder(int ID)
+    public void Delete(int ID)
     {
         bool found = false;
         foreach (Order order in DataSource.ListOrder)
@@ -58,7 +58,7 @@ public class DalOrder //: IOrder
     /// <summary>
     /// The operation updates an order in the array (finds him by id)
     /// </summary>
-    public void UpdateOrder(Order order)
+    public void Update(Order order)
     {
         int index =0;
         bool found = false;
@@ -80,7 +80,7 @@ public class DalOrder //: IOrder
     /// <summary>
     ///  The operation finds the order (finds him by id) and returns his details
     /// </summary>
-    public Order Get(int orderId)
+    public Order GetById(int orderId)
     {
         foreach (Order order in DataSource.ListOrder)
         {
@@ -93,7 +93,7 @@ public class DalOrder //: IOrder
     /// <summary>
     /// The operation updates the array and returns him
     /// </summary>
-    public IEnumerable<Order> GetOrderList()
+    public IEnumerable<Order> GetAll()
     {
        List<Order> orders = new List<Order>(DataSource.ListOrder);
         return orders;
@@ -101,7 +101,7 @@ public class DalOrder //: IOrder
     /// <summary>
     /// returns array length
     /// </summary>
-    public int OrderLeangth()
+    public int ListLeangth()
     {
         return DataSource.ListOrder.Count();
     }

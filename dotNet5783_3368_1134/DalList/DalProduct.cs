@@ -11,7 +11,7 @@ namespace Dal;
 /// class Dal product: 
 /// Implementation of add, delete, update and return operations
 /// </summary>
-public class DalProduct //: IProduct
+internal class DalProduct : IProduct
 {
     public DalProduct()
     {
@@ -22,7 +22,7 @@ public class DalProduct //: IProduct
     /// The operation accepts a product and adds it in the array
     /// </summary>
     /// <returns> returns order id </returns>
-    public int AddProduct(Product prod)
+    public int Add(Product prod)
     {
         foreach (Product product in DataSource.ListProduct)
         {
@@ -36,7 +36,7 @@ public class DalProduct //: IProduct
     /// <summary>
     ///  The operation deletes a product from the array (finds him by id)
     /// </summary>
-    public void DeleteProdoct(int ID)
+    public void Delete(int ID)
     {
         {
             bool found = false;
@@ -59,7 +59,7 @@ public class DalProduct //: IProduct
     /// <summary>
     /// The operation updates an order in the array (finds him by id)
     /// </summary>
-    public void UpdateProduct(Product product)
+    public void Update(Product product)
     {
         int index = 0;
         bool found = false; 
@@ -82,7 +82,7 @@ public class DalProduct //: IProduct
     /// <summary>
     ///  The operation finds the order (finds him by id) and returns his details
     /// </summary>
-    public Product Get(int productId)
+    public Product GetById(int productId)
     {
         foreach (Product prod in DataSource.ListProduct)
         {
@@ -97,7 +97,7 @@ public class DalProduct //: IProduct
     /// <summary>
     /// The operation updates the array and returns him
     /// </summary>
-    public IEnumerable<Product> GetProductList()
+    public IEnumerable<Product> GetAll()
     {
        List<Product> products = new List<Product>(DataSource.ListProduct);
        
@@ -107,7 +107,7 @@ public class DalProduct //: IProduct
     /// <summary>
     /// returns array length
     /// </summary>
-    public int ProductLeangth()
+    public int ListLeangth() 
     {
         return DataSource.ListProduct.Count;
     }

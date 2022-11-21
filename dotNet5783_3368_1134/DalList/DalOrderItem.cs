@@ -13,13 +13,13 @@ using DalApi;
 /// class DalOrderItem: 
 /// Implementation of add, delete, update and return operations
 /// </summary>
-public class DalOrderItem //: IOrderItem
+internal class DalOrderItem : IOrderItem
 {
     /// <summary>
     /// The operation accepts an order item and adds it in the array
     /// </summary>
     /// <returns> returns order item id </returns>
-    public int AddOrderItem(OrderItem orderIt)
+    public int Add(OrderItem orderIt)
     {
         foreach (OrderItem orderItem in DataSource.ListOrderItem)
         {
@@ -35,7 +35,7 @@ public class DalOrderItem //: IOrderItem
     /// <summary>
     ///  The operation deletes an order item from the array (finds him by id)
     /// </summary>
-    public void DeleteOrderItem(int ID)
+    public void Delete(int ID)
     {
         bool found = false;
         foreach (OrderItem orderItem in DataSource.ListOrderItem)
@@ -56,7 +56,7 @@ public class DalOrderItem //: IOrderItem
     /// <summary>
     /// The operation updates an order item in the array (finds him by id)
     /// </summary>
-    public void UpdateOrderItem(OrderItem orderItem)
+    public void Update(OrderItem orderItem)
     {
 
         int index = 0;
@@ -80,7 +80,7 @@ public class DalOrderItem //: IOrderItem
     /// <summary>
     ///  The operation finds the order item (finds him by id) and returns his details
     /// </summary>
-    public OrderItem Get(int orderItemId)
+    public OrderItem GetById(int orderItemId)
     {
         foreach (OrderItem orderItem in DataSource.ListOrderItem)
         {
@@ -93,7 +93,7 @@ public class DalOrderItem //: IOrderItem
     /// <summary>
     /// The operation updates the array and returns him
     /// </summary>
-    public IEnumerable<OrderItem> GetOrderItemList()
+    public IEnumerable<OrderItem> GetAll()
     {
         List<OrderItem> orderItems = new List<OrderItem>(DataSource.ListOrderItem);
         return orderItems;
@@ -102,7 +102,7 @@ public class DalOrderItem //: IOrderItem
     /// <summary>
     /// returns array length
     /// </summary>
-    public int OrderItemLeangth()
+    public int ListLeangth()
     {
         return DataSource.ListOrderItem.Count();
     }

@@ -1,13 +1,13 @@
 ﻿
-//using DalApi;
+using DalApi;
 
-//namespace Dal;
+namespace Dal;
 
-//public class DalList : IDal
-//{
-//    public IOrder order => new DalOrder();
+public class DalList : IDal
+{
+    public IOrder order => new DalOrder();
 
-//    public IOrderItem OrderItem => new DalOrderItem();
+    public IOrderItem OrderItem => new DalOrderItem();
 
-//    public IProduct Product => new DalProduct();
-//}
+    public IProduct Product => new DalProduct();
+}
