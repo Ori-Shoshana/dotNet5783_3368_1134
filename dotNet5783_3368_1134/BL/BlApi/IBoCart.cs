@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace BlApi;
 
-public interface ICart
+public interface IBoCart
 {
     public Cart Add(Cart C);
     public Cart Update(Cart C, int ID,int amount);

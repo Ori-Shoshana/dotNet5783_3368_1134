@@ -1,9 +1,9 @@
 ﻿using BO;
 namespace BlApi;
 
-public interface IProduct
+public interface IBoProduct
 {
-    // public ProductForList ()
+    public IEnumerable<ProductForList> GetProducts();
     public Product ProductDetailsM(int id);
     public Product ProductDetailsC(int id,Cart cart);
     public void Add(Product product);

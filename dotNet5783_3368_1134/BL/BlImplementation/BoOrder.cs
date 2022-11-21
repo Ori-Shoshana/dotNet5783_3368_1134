@@ -1,12 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BlApi;
+using BO;
+using DalApi;
 
-namespace BlImplementation
+namespace BlImplementation;
+
+internal class BoOrder : IBoOrder
 {
-    internal class BoOrder
+    private IDal dal = new Dal.DalList();
+
+    public IEnumerable<OrderForList> GetOrders()
     {
+        throw new NotImplementedException();
+    }
+
+    public Order OrderDetails(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Order Track(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Order UpdateDelivery(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Order UpdateShip(int id)
+    {
+        throw new NotImplementedException();
     }
 }
