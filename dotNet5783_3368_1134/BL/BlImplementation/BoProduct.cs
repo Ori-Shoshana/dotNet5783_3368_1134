@@ -16,7 +16,10 @@ internal class BoProduct : IBoProduct
 
     public void Add(BO.Product product)
     {
-        if(product.ID)
+        if( product.ID > 0 && product.Price > 0 && product.InStock > 0 )
+        {
+                
+        }
     }
 
     public void Delete(int id)
