@@ -28,8 +28,8 @@ internal static class DataSource
     }
     internal static void S_Initialize()
     {
-        S_order();
         S_product();
+        S_order();
         S_orderItem();
     }
 

@@ -15,7 +15,6 @@ using DalApi;
 /// </summary>
 //internal class DalOrder : IOrder
 internal class DalOrder : IOrder
-
 {
     /// <summary>
     /// The operation accepts an order and adds it in the array
@@ -39,20 +38,17 @@ internal class DalOrder : IOrder
     /// </summary>
     public void Delete(int ID)
     {
-        bool found = false;
+
         foreach (Order order in DataSource.ListOrder)
         {
             if (ID == order.PrivateId)
             {
                 ListOrder.Remove(order);
-                found = true;
-                break;
+                return;
             }
         }
-        if(found == false)
-        {
+
             throw new IdNotExistException("Id not found");
-        }
     }
 
     /// <summary>
@@ -61,21 +57,17 @@ internal class DalOrder : IOrder
     public void Update(Order order)
     {
         int index =0;
-        bool found = false;
         foreach (Order ord in DataSource.ListOrder)
         {
-            index++;
             if(ord.PrivateId == order.PrivateId)
             {
-                found = true;
                 ListOrder[index] = order;
-                break;
+                return;
             }
+            index++;
         }
-        if(found == false)
-        {
+
             throw new IdNotExistException("Id not found");
-        }
     }
     /// <summary>
     ///  The operation finds the order (finds him by id) and returns his details
@@ -87,6 +79,7 @@ internal class DalOrder : IOrder
             if (order.PrivateId == orderId)
                 return order;
         }
+
         throw new IdNotExistException("Id not found");
     }
 
