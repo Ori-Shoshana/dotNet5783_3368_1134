@@ -1,7 +1,11 @@
 ﻿using BO;
+using System.ComponentModel;
+
 namespace BlApi;
 
-public class ICart
-{ 
-    
+public interface ICart
+{
+    public Cart Add(Cart C);
+    public Cart Update(Cart C, int ID,int amount);
+    public void Confermation(Cart C);
 }
