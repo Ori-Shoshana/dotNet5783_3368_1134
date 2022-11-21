@@ -10,12 +10,15 @@ internal class BoCart : IBoCart
 
     public BO.Cart Add(Cart C, int id)
     {
-        //IEnumerable<DO.Product> DoProducts = dal.Product.GetAll();
-        //BO.Product BoProduct;
-        //BO.OrderItem BoOrderItem;
-        
-        //if(id == dal.Product.ID)
-        throw new NotImplementedException();
+        IEnumerable<DO.Product> DoProducts = dal.Product.GetAll();
+        BO.Product BoProduct;
+        BO.OrderItem BoOrderItem;
+
+        if (id == null)
+        {
+
+        }
+            throw new NotImplementedException();
     }
 
     public void Confermation(Cart C)
