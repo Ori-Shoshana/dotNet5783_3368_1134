@@ -12,6 +12,8 @@ using static DO.Enums;
 /// </summary>
 internal class Project
 {
+   
+   
     public static IDal dal = new DalList();
     static void Main(string[] args)
     {

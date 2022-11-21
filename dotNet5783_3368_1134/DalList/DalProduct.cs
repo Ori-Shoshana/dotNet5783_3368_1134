@@ -13,11 +13,6 @@ namespace Dal;
 /// </summary>
 internal class DalProduct : IProduct
 {
-    public DalProduct()
-    {
-        DataSource.S_Initialize();
-    }
-
     /// <summary>
     /// The operation accepts a product and adds it in the array
     /// </summary>
@@ -27,7 +22,7 @@ internal class DalProduct : IProduct
         foreach (Product product in DataSource.ListProduct)
         {
             if (prod.PrivateId == product.PrivateId)
-                throw new IdAlreadyExistException("Product Id already exist");
+                throw new IdAlreadyExistException("Product Id already exist's");
         }
         DataSource.ListProduct.Add(prod);  
         return prod.PrivateId;

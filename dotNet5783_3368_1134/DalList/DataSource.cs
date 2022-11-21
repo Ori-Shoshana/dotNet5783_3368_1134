@@ -14,6 +14,11 @@ namespace Dal;
 /// </summary>
 internal static class DataSource
 {
+    static DataSource()
+    {
+        S_Initialize();
+    }
+
     public static readonly Random Rnd = new Random();
     internal static List<Order> ListOrder = new List<Order>();
     internal static List<OrderItem> ListOrderItem = new List<OrderItem>();
@@ -47,7 +52,8 @@ internal static class DataSource
             "Keyboard Logiteck","Keyboard Razer",
             "airpods pro2", "galaxy buds2"
         };
-        int[] ProductPrice = new int[10] { 4000, 3900, 3000, 4000, 200, 150, 250, 270, 850, 50 };
+        int[] ProductPrice = new int[10] 
+        { 4000, 3900, 3000, 4000, 200, 150, 250, 270, 850, 50 };
         for (int i = 0; i < 10; i++)
         {
             Product p = new Product();
@@ -59,10 +65,8 @@ internal static class DataSource
             if (i < 6 && i >= 4) { p.Category = productCategory.Mouse; }
             if (i < 8 && i >= 6) { p.Category = productCategory.Keybord; }
             if (i < 10 && i >= 8) { p.Category = productCategory.Hadphones; }
-            if (i < 10) 
-                p.InStock = Rnd.Next(3, 50); 
-            else 
-                p.InStock = 0;
+            p.InStock = Rnd.Next(0, 10); 
+         
             ListProduct.Add(p);
         }
     }
