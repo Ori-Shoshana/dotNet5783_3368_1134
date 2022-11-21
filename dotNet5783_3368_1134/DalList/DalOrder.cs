@@ -88,8 +88,7 @@ internal class DalOrder : IOrder
     /// </summary>
     public IEnumerable<Order> GetAll()
     {
-       List<Order> orders = new List<Order>(DataSource.ListOrder);
-        return orders;
+        return DataSource.ListOrder;
     }
     /// <summary>
     /// returns array length
