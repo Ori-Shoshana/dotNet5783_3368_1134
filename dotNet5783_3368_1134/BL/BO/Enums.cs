@@ -3,6 +3,6 @@ namespace BO;
 
 public class Enums
 {
-    public enum ProductCategory {  h,u,o};
+    public enum ProductCategory { Phone, Laptop, Mouse, Keybord, Hadphones };
     public enum OrderStatus { Order,};
 }

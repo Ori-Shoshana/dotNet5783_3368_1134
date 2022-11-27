@@ -13,7 +13,6 @@ using DalApi;
 /// class DalOrder: 
 /// Implementation of add, delete, update and return operations
 /// </summary>
-//internal class DalOrder : IOrder
 internal class DalOrder : IOrder
 {
     /// <summary>

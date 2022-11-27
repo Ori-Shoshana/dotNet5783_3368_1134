@@ -12,8 +12,8 @@ using static DO.Enums;
 /// </summary>
 internal class Project
 {
-   
-   
+
+
     public static IDal dal = new DalList();
     static void Main(string[] args)
     {
@@ -37,6 +37,7 @@ internal class Project
             
             switch (option)
             {
+            //***************************** all the options for product *************************//
                 case 1: //product
                    
                     Console.WriteLine("Enter 0 to end\n " +
@@ -105,7 +106,7 @@ internal class Project
 
 
                             int counter = 0;
-                            //List<Product> products = new List<Product>(dal.Product.GetAll());
+                            List<Product> products = new List<Product>(dal.Product.GetAll());
                             foreach (Product product in dal.Product.GetAll())
                             {
                                 if (counter == dal.Product.ListLeangth())
@@ -163,7 +164,7 @@ internal class Project
                             break;
                     }
                     break;
-
+                //**************************** all the options for order ************************//
                 case 2://Order
 
                     Console.WriteLine("Enter 0 to end\n " +
@@ -201,7 +202,7 @@ internal class Project
                             TestAddOrder.DeliveryDate = Convert.ToDateTime(Console.ReadLine());
                             try
                             {
-                                dal.order.Add(TestAddOrder);
+                                dal.Order.Add(TestAddOrder);
                             }
                             catch (IdAlreadyExistException ex)
                             {
@@ -216,7 +217,7 @@ internal class Project
                             int getId = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                GetOrder = dal.order.GetById(getId);
+                                GetOrder = dal.Order.GetById(getId);
                             }
                             catch (IdNotExistException ex)
                             {
@@ -227,12 +228,12 @@ internal class Project
 
                         case 3://print all orders
 
-                            List<Order> orders = new List<Order>(dal.order.GetAll());
+                            List<Order> orders = new List<Order>(dal.Order.GetAll());
                             int counter = 0;
                             foreach(Order order in orders)
                             { 
                                    
-                                if(counter == dal.order.ListLeangth())
+                                if(counter == dal.Order.ListLeangth())
                                 {
                                     break;
                                 }
@@ -261,7 +262,7 @@ internal class Project
                             TestupdateOrder.DeliveryDate = Convert.ToDateTime(Console.ReadLine());
                             try
                             {
-                                dal.order.Update(TestupdateOrder);
+                                dal.Order.Update(TestupdateOrder);
                             }
                             catch (IdNotExistException ex)
                             {
@@ -274,7 +275,7 @@ internal class Project
                             int ID = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                dal.order.Delete(ID);
+                                dal.Order.Delete(ID);
                             }
                             catch (IdNotExistException ex)
                             {
@@ -283,7 +284,7 @@ internal class Project
                             break;
                     }
                     break;
-
+                //************************* all the options for order item **********************//
                 case 3: //order Item
 
                     Console.WriteLine("Enter 0 to end\n " +
@@ -404,7 +405,7 @@ internal class Project
                     }
                     break;
             }
-
+        //******************************************************************************//
             Console.WriteLine("Enter 0 to end\n " +
                 "Enter 1 for product\n " +
                 "Enter 2 for order\n " +

@@ -10,7 +10,4 @@ public interface IBoProduct
     public void Delete(int id);
     public void update(Product product);
 
-
-
-
 }
