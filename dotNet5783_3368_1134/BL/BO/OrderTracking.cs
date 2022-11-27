@@ -5,15 +5,15 @@ using static BO.Enums;
 
 namespace BO;
 
-internal class OrderTracking
+public class OrderTracking
 {
     public int ID { get; set; }
-    public OrderStatus status {get; set;}
-    public List<Tuple<DateTime, string>>? Tracking { get; set;}
+    public OrderStatus? Status {get; set;}
+    public List<(DateTime, string)>? Tracking { get; set;}
 
     public override string ToString() => $@"
     ID : {ID}
-    status : {status}
+    status : {Status}
     Tracking : {Tracking}
     ";
 }

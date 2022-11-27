@@ -15,7 +15,7 @@ namespace BO
         public DateTime? DeliveryDate { get; set; }
         public List<OrderItem> Items { get; set; }
         public double TotalPrice { get; set; }
-        public OrderStatus Status {get; set;}
+        public OrderStatus? Status {get; set;}
         public override string ToString() => $@"
     private Id : {ID}
     Customer Name : {CustomerName}

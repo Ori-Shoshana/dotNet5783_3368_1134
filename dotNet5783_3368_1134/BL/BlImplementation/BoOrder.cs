@@ -115,39 +115,6 @@ internal class BoOrder : BlApi.IOrder
         throw new VariableIsSmallerThanZeroExeption("id is smaller than 0");
     }
 
-    public BO.Order Track(int id)
-    {      
-        int i = 0;
-
-        List<DO.Order>? DoOrders = new List<DO.Order>();
-        DoOrders = (List<DO.Order>)dal.Order.GetAll();
-        BO.Order BoOrder = new BO.Order();
-
-        foreach (DO.Order doOrder in DoOrders)
-        {
-            if (id == doOrder.OrderID)
-            {
-                if (BoOrder.ShipDate == null) // לבדוק אם ככה הוא כשהוא לא מאותחל
-                {
-                    BoOrder.ShipDate = DateTime.Now;
-                    BoOrder.Status = OrderStatus.Sent;
-                    DO.Order order = new DO.Order();
-                    order.OrderID = id;
-                    order.CustomerName = BoOrder.CustomerName;
-                    order.CustomerEmail = BoOrder.CustomerEmail;
-                    order.CustomerAdress = BoOrder.CustomerAdress;
-                    order.OrderDate = (DateTime)BoOrder.OrderDate;
-                    order.ShipDate = (DateTime)BoOrder.ShipDate;
-                    order.DeliveryDate = (DateTime)BoOrder.DeliveryDate;
-                    dal.Order.Update(order);
-                    return BoOrder;
-                }
-            }
-        }
-    
-           throw new BO.IdNotExistException("No Id in list");
-    }
-
     public BO.Order UpdateDelivery(int id)
     {
         List<DO.Order>? DoOrders = new List<DO.Order>();
@@ -179,10 +146,71 @@ internal class BoOrder : BlApi.IOrder
         throw new BO.IdNotExistException("No Id in list");
     }
 
-    //********************************************************************//
     public BO.Order UpdateShip(int id)
     {
-        throw new NotImplementedException();
+        List<DO.Order>? DoOrders = new List<DO.Order>();
+        DoOrders = (List<DO.Order>)dal.Order.GetAll();
+        BO.Order BoOrder = new BO.Order();
+
+        foreach (DO.Order doOrder in DoOrders)
+        {
+            if (id == doOrder.OrderID)
+            {
+                if (BoOrder.ShipDate == null) // לבדוק אם ככה הוא כשהוא לא מאותחל
+                {
+                    BoOrder.ShipDate = DateTime.Now;
+                    BoOrder.Status = OrderStatus.Sent;
+                    DO.Order order = new DO.Order();
+                    order.OrderID = id;
+                    order.CustomerName = BoOrder.CustomerName;
+                    order.CustomerEmail = BoOrder.CustomerEmail;
+                    order.CustomerAdress = BoOrder.CustomerAdress;
+                    order.OrderDate = (DateTime)BoOrder.OrderDate;
+                    order.ShipDate = (DateTime)BoOrder.ShipDate;
+                    order.DeliveryDate = (DateTime)BoOrder.DeliveryDate;
+                    dal.Order.Update(order);
+                    return BoOrder;
+                }
+            }
+        }
+
+        throw new BO.IdNotExistException("No Id in list");
     }
-    //********************************************************************//
+
+    public BO.OrderTracking Track(int id)
+    {
+        string Item;
+        List<DO.Order> DoOrders = new List<DO.Order>();
+        DoOrders = (List<DO.Order>)dal.Order.GetAll();
+        BO.OrderTracking BoOrderTracking = new BO.OrderTracking();  
+        foreach (DO.Order doOrder in DoOrders)
+        {
+            if (id == doOrder.OrderID)
+            {
+                BoOrderTracking.ID = (int)doOrder.OrderID;
+                if (doOrder.DeliveryDate <= DateTime.Now)
+                {
+                    BoOrderTracking.Status = OrderStatus.Deliverd;
+                    Item = "the package was deliverd";
+                }
+                else if (doOrder.ShipDate <= DateTime.Now)
+                {
+                    BoOrderTracking.Status = OrderStatus.Sent;
+                    Item = "the package was sent";
+                }
+                else
+                {
+                    BoOrderTracking.Status = OrderStatus.Confirmed;
+                    Item = "the order is confermed in the system";
+                }
+                var tupleList = new List<(DateTime myTime, string Name)>
+                {
+                     (DateTime.Now, Item)
+                };
+                BoOrderTracking.Tracking = tupleList;
+             }
+        }
+        return BoOrderTracking;
+
+    }
 }

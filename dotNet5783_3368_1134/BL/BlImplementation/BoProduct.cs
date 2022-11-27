@@ -102,7 +102,7 @@ internal class BoProduct : BlApi.IProduct
         }    
         dal.Product.Delete(id);
     }
-    public void update(BO.Product product)
+    public void Update(BO.Product product)
     {
         if (product.ID < 0) throw new VariableIsSmallerThanZeroExeption("Id is less than 0");
         if (product.Name == null) throw new VariableIsNullExeption("The name is null");
