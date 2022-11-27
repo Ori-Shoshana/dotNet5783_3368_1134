@@ -60,9 +60,9 @@ internal class Project
                             Product TestAddProduct = new Product();
                             Console.WriteLine("Add a Id");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
-                            TestAddProduct.PrivateId = tempInt;
+                            TestAddProduct.ProductID = tempInt;
                             Console.WriteLine("Add Prodoct name");
-                            TestAddProduct.ProdoctName = Console.ReadLine();
+                            TestAddProduct.ProductName = Console.ReadLine();
                             Console.WriteLine("Add Prodoct Category");
                             productCategory categoryPro;
                             productCategory.TryParse(Console.ReadLine(), out categoryPro);
@@ -122,10 +122,10 @@ internal class Project
                             Product TestUpdateProduct = new Product();
                             Console.WriteLine("Add a Id");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
-                            TestUpdateProduct.PrivateId = tempInt;
+                            TestUpdateProduct.ProductID = tempInt;
                             Console.WriteLine("Add Prodoct name");
 
-                            TestUpdateProduct.ProdoctName = Console.ReadLine();
+                            TestUpdateProduct.ProductName = Console.ReadLine();
 
 
                             Console.WriteLine("Add Prodoct Category");
@@ -187,7 +187,7 @@ internal class Project
                             Order TestAddOrder = new Order();
                             Console.WriteLine("Add order Private ID");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
-                            TestAddOrder.PrivateId = tempInt;
+                            TestAddOrder.OrderID = tempInt;
                             Console.WriteLine("Add order customer name");
                             TestAddOrder.CustomerName = Console.ReadLine();
                             Console.WriteLine("Add order customer email");
@@ -247,7 +247,7 @@ internal class Project
                             Order TestupdateOrder = new Order();
                             Console.WriteLine("Add order Private ID");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
-                            TestupdateOrder.PrivateId = tempInt;
+                            TestupdateOrder.OrderID = tempInt;
                             Console.WriteLine("Add order customer name");
                             TestupdateOrder.CustomerName = Console.ReadLine();
                             Console.WriteLine("Add order customer email");
@@ -307,13 +307,13 @@ internal class Project
                             OrderItem TestAddOrderItem = new OrderItem();
                             Console.WriteLine("Add Private ID");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
-                            TestAddOrderItem.PrivateId = tempInt;
+                            TestAddOrderItem.OrderItemID = tempInt;
                             Console.WriteLine("Add order id");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
                             TestAddOrderItem.OrderId = tempInt;
                             Console.WriteLine("Add product id");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
-                            TestAddOrderItem.ProductId = tempInt;
+                            TestAddOrderItem.ProductID = tempInt;
                             Console.WriteLine("Add price item");
                             check = double.TryParse(Console.ReadLine(), out tempDouble);
                             TestAddOrderItem.PriceItem = tempDouble;
@@ -367,13 +367,13 @@ internal class Project
                             OrderItem TestUpdateOrderItem = new OrderItem();
                             Console.WriteLine("Add Private ID");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
-                            TestUpdateOrderItem.PrivateId = tempInt;
+                            TestUpdateOrderItem.OrderItemID = tempInt;
                             Console.WriteLine("Add order id");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
                             TestUpdateOrderItem.OrderId = tempInt;
                             Console.WriteLine("Add product id");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
-                            TestUpdateOrderItem.ProductId = tempInt;
+                            TestUpdateOrderItem.ProductID = tempInt;
                             Console.WriteLine("Add price item");
                             check = double.TryParse(Console.ReadLine(), out tempDouble);
                             TestUpdateOrderItem.PriceItem = tempDouble;

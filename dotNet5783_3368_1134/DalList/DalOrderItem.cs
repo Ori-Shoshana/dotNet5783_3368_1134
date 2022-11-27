@@ -23,13 +23,13 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (OrderItem orderItem in DataSource.ListOrderItem)
         {
-            if (orderIt.PrivateId == orderItem.PrivateId)
+            if (orderIt.OrderItemID == orderItem.OrderItemID)
             {
                 throw new IdAlreadyExistException("Id already exist");
             }
         }
         DataSource.ListOrderItem.Add(orderIt);
-        return orderIt.PrivateId;
+        return orderIt.OrderItemID;
     }
 
     /// <summary>
@@ -39,7 +39,7 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (OrderItem orderItem in DataSource.ListOrderItem)
         {
-            if (ID == orderItem.PrivateId)
+            if (ID == orderItem.OrderItemID)
             {
                 ListOrderItem.Remove(orderItem);
                 return;
@@ -57,7 +57,7 @@ internal class DalOrderItem : IOrderItem
         int index = 0;
         foreach(OrderItem ordIt in DataSource.ListOrderItem)
         {
-            if (ordIt.PrivateId == orderItem.PrivateId)
+            if (ordIt.OrderItemID == orderItem.OrderItemID)
             {
                 DataSource.ListOrderItem[index] = orderItem;
                 return;
@@ -74,7 +74,7 @@ internal class DalOrderItem : IOrderItem
     {
         foreach (OrderItem orderItem in DataSource.ListOrderItem)
         {
-            if (orderItem.PrivateId == orderItemId)
+            if (orderItem.OrderItemID == orderItemId)
                 return orderItem;
         }
         throw new IdNotExistException("Order Id not found");

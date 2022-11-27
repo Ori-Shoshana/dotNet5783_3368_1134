@@ -57,8 +57,8 @@ internal static class DataSource
         for (int i = 0; i < 10; i++)
         {
             Product p = new Product();
-            p.PrivateId = Rnd.Next(100000, 999999);
-            p.ProdoctName = Name[i];
+            p.ProductID = Rnd.Next(100000, 999999);
+            p.ProductName = Name[i];
             p.Price = ProductPrice[i];
             if (i < 2) { p.Category = productCategory.Phone; }
             if (i < 4 && i >= 2) { p.Category = productCategory.Laptop; }
@@ -105,7 +105,7 @@ internal static class DataSource
         Order O = new Order();
         for (i=0; i<12; i++)
         {
-            O.PrivateId = config.order_Number;
+            O.OrderID = config.order_Number;
             O.CustomerName = customer_Name[i];
             O.CustomerEmail = customer_Email[i];
             O.CustomerAdress = customer_Adress[i];
@@ -116,7 +116,7 @@ internal static class DataSource
         }
         for(;i<16;i++)
         {
-            O.PrivateId = config.order_Number;
+            O.OrderID = config.order_Number;
             O.CustomerName = customer_Name[i];
             O.CustomerEmail = customer_Email[i];
             O.CustomerAdress = customer_Adress[i];
@@ -127,7 +127,7 @@ internal static class DataSource
         }
         for (;i<20;i++)
         {
-            O.PrivateId = config.order_Number;
+            O.OrderID = config.order_Number;
             O.CustomerName = customer_Name[i];
             O.CustomerEmail = customer_Email[i];
             O.CustomerAdress = customer_Adress[i];
@@ -146,9 +146,9 @@ internal static class DataSource
         for (int i = 0; i < 10; i++)
         {
             OrderItem OI = new OrderItem();
-            OI.PrivateId = config.runOrderitem_Number;
-            OI.OrderId = ListProduct[i].PrivateId;
-            OI.ProductId = ListProduct[i].PrivateId;
+            OI.OrderItemID = config.runOrderitem_Number;
+            OI.OrderId = ListProduct[i].ProductID;
+            OI.ProductID = ListProduct[i].ProductID;
             OI.PriceItem = ListProduct[i].Price;
             OI.Amount = Rnd.Next(1,4);
             ListOrderItem.Add(OI);

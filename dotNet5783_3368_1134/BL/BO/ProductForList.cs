@@ -4,7 +4,7 @@ using static BO.Enums;
 
 namespace BO;
 
-public class ProductForList
+public struct ProductForList
 {
     public int ID { get; set; }
     public string? Name { get; set; }

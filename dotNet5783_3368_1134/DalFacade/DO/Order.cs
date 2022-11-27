@@ -6,7 +6,7 @@
 public struct Order
 {
    
-    public int PrivateId { get; set; }
+    public int OrderID { get; set; }
     public string CustomerName { get; set; }
     public string CustomerEmail { get; set; }
     public string CustomerAdress { get; set; }
@@ -14,7 +14,7 @@ public struct Order
     public DateTime? ShipDate { get; set; }
     public DateTime? DeliveryDate { get; set; }
     public override string ToString() => $@"
-    private Id : {PrivateId}
+    private Id : {OrderID}
     Customer Name : {CustomerName}
     Customer Email : {CustomerEmail}
     Customer Adress : {CustomerAdress}

@@ -1,7 +1,7 @@
 ﻿using BO;
 namespace BlApi;
 
-public interface IBoProduct
+public interface IProduct
 {
     public IEnumerable<ProductForList> GetProducts();
     public Product ProductDetailsM(int id);

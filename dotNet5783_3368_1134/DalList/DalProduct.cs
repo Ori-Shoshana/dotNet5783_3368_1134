@@ -21,11 +21,11 @@ internal class DalProduct : IProduct
     {
         foreach (Product product in DataSource.ListProduct)
         {
-            if (prod.PrivateId == product.PrivateId)
+            if (prod.ProductID == product.ProductID)
                 throw new IdAlreadyExistException("Product Id already exist's");
         }
         DataSource.ListProduct.Add(prod);  
-        return prod.PrivateId;
+        return prod.ProductID;
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ internal class DalProduct : IProduct
             bool found = false;
             foreach(Product prod in DataSource.ListProduct)
             {
-                if(prod.PrivateId == ID)
+                if(prod.ProductID == ID)
                 {
                     ListProduct.Remove(prod);
                     found = true;
@@ -60,7 +60,7 @@ internal class DalProduct : IProduct
         bool found = false; 
         foreach(Product prod in DataSource.ListProduct)
             { 
-                if(prod.PrivateId == product.PrivateId)
+                if(prod.ProductID == product.ProductID)
                 {
                     found = true;
                     ListProduct[index] = product;
@@ -81,7 +81,7 @@ internal class DalProduct : IProduct
     {
         foreach (Product prod in DataSource.ListProduct)
         {
-            if(prod.PrivateId == productId)
+            if(prod.ProductID == productId)
             {
                 return prod;
             }

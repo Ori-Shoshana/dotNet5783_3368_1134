@@ -5,15 +5,15 @@
 /// </summary>
 public struct OrderItem
 {
-    public int PrivateId { get; set; }
+    public int OrderItemID { get; set; }
     public int OrderId { get; set; }
-    public int ProductId { get; set; }
+    public int ProductID { get; set; }
     public double PriceItem { get; set; }
     public int Amount { get; set; }
     public override string ToString() => $@"
-    private Id : {PrivateId}
+    private Id : {OrderItemID}
     Order Id : {OrderId}
-    Prodoct Id : {ProductId}
+    Prodoct Id : {ProductID}
     Price : {PriceItem}
     Amount : {Amount}
     ";

@@ -9,15 +9,15 @@ namespace DO;
 /// </summary>
 public struct Product
 {
-    public int PrivateId { get; set; }
-    public string ProdoctName { get; set; }
+    public int ProductID { get; set; }
+    public string ProductName { get; set; }
     public productCategory Category { get; set; }
     public double Price { get; set; }
     public int InStock { get; set; }
 
     public override string ToString() => $@"
-    private Id : {PrivateId}
-    Prodoct Name : {ProdoctName}
+    private Id : {ProductID}
+    Prodoct Name : {ProductName}
     Category : {Category}
     Price : {Price} 
     In Stock : {InStock}

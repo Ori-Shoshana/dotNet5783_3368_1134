@@ -4,11 +4,11 @@ using BO;
 
 namespace BlImplementation;
 
-internal class BoCart : IBoCart
+internal class BoCart : ICart
 {
     private IDal dal = new Dal.DalList();
 
-    public BO.Cart Add(Cart C, int id)
+    public BO.Cart Add(BO.Cart C, int id)
     {
         IEnumerable<DO.Product> DoProducts = dal.Product.GetAll();
         BO.Product BoProduct;
@@ -21,12 +21,12 @@ internal class BoCart : IBoCart
             throw new NotImplementedException();
     }
 
-    public void Confermation(Cart C)
+    public void Confermation(BO.Cart C)
     {
         throw new NotImplementedException();
     }
 
-    public BO.Cart Update(Cart C, int ID, int amount)
+    public BO.Cart Update(BO.Cart C, int ID, int amount)
     {
         throw new NotImplementedException();
     }
