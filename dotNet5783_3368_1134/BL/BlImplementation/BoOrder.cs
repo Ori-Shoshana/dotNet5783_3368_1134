@@ -179,9 +179,10 @@ internal class BoOrder : BlApi.IOrder
 
         throw new BO.IdNotExistException("No Id in list");
     }
-
+    //********************************************************************//
     public BO.Order UpdateShip(int id)
     {
         throw new NotImplementedException();
     }
+    //********************************************************************//
 }
