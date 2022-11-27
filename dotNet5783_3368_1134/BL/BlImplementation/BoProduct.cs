@@ -10,7 +10,6 @@ namespace BlImplementation;
 internal class BoProduct : BlApi.IProduct
 {
     private IDal dal = new Dal.DalList();
-
     public IEnumerable<ProductForList> GetProducts()
     {
         List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
@@ -28,7 +27,6 @@ internal class BoProduct : BlApi.IProduct
         }
         return productsForList;
     }
-
     public BO.Product ProductDetailsM(int id)
     {
         DO.Product DoProduct = new DO.Product();
@@ -46,7 +44,6 @@ internal class BoProduct : BlApi.IProduct
         }
         throw new VariableIsSmallerThanZeroExeption("Id is les than 0");
     }
-    
     public BO.ProductItem ProductDetailsC(int id, BO.Cart cart)
     {
         if(id >= 0)

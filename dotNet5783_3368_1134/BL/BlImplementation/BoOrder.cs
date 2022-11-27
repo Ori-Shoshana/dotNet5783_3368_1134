@@ -1,7 +1,6 @@
 ﻿using BlApi;
 using BO;
 using DalApi;
-using DO;
 using System.Collections.Immutable;
 using System.Globalization;
 using static BO.Enums;
@@ -12,10 +11,9 @@ namespace BlImplementation;
 internal class BoOrder : BlApi.IOrder
 {
     private IDal dal = new Dal.DalList();
-
     public IEnumerable<OrderForList> GetOrders()
     {
-        List<BO.OrderForList> orderForList = new List<BO.OrderForList>(); 
+        List<BO.OrderForList> orderForList = new List<BO.OrderForList>();
         List<DO.Order> DoOrders = new List<DO.Order>();
         List<DO.OrderItem> DoOrderItems = new List<DO.OrderItem>();
 
@@ -40,17 +38,15 @@ internal class BoOrder : BlApi.IOrder
             {
                 orderForList1.Status = OrderStatus.Confirmed;
             }
+            foreach (DO.OrderItem orderItem in DoOrderItems)
+            {
+                orderForList1.TotalPrice += orderItem.PriceItem * orderItem.Amount;
+                orderForList1.AmountOfItems = orderItem.Amount;
+            }
+            orderForList.Add(orderForList1);
         }
-        foreach (DO.OrderItem orderItem in DoOrderItems)
-        {
-            orderForList1.TotalPrice += orderItem.PriceItem * orderItem.Amount;
-            orderForList1.AmountOfItems = orderItem.Amount;
-        }
-
-        orderForList.Add(orderForList1);
         return orderForList;
     }
-
     public BO.Order OrderDetails(int id)
     {
         DO.Order DoOrder = new DO.Order();
@@ -114,7 +110,6 @@ internal class BoOrder : BlApi.IOrder
         }
         throw new VariableIsSmallerThanZeroExeption("id is smaller than 0");
     }
-
     public BO.Order UpdateDelivery(int id)
     {
         List<DO.Order>? DoOrders = new List<DO.Order>();
@@ -145,7 +140,6 @@ internal class BoOrder : BlApi.IOrder
 
         throw new BO.IdNotExistException("No Id in list");
     }
-
     public BO.Order UpdateShip(int id)
     {
         List<DO.Order>? DoOrders = new List<DO.Order>();
@@ -176,7 +170,6 @@ internal class BoOrder : BlApi.IOrder
 
         throw new BO.IdNotExistException("No Id in list");
     }
-
     public BO.OrderTracking Track(int id)
     {
         string Item;
