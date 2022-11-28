@@ -9,4 +9,5 @@ public interface ICart
     public Cart Add(Cart C, int id);
     public Cart Update(Cart C, int ID,int amount);
     public void Confirmation(Cart C);
+
 }

@@ -20,7 +20,7 @@ internal class BoOrder : BlApi.IOrder
         DoOrders = (List<DO.Order>)dal.Order.GetAll();
         DoOrderItems = (List<DO.OrderItem>)dal.OrderItem.GetAll();
         BO.OrderForList orderForList1 = new BO.OrderForList();
-
+        int i = 0;
 
         foreach (DO.Order DoOrder in DoOrders)
         {
@@ -38,12 +38,12 @@ internal class BoOrder : BlApi.IOrder
             {
                 orderForList1.Status = OrderStatus.Confirmed;
             }
-            foreach(DO.OrderItem orderItem in DoOrderItems)
-            {
-                orderForList1.TotalPrice += orderItem.PriceItem * orderItem.Amount;
-                orderForList1.AmountOfItems = orderItem.Amount;
-            }
+            
+            orderForList1.TotalPrice += DoOrderItems[i].PriceItem * DoOrderItems[i].Amount;
+            orderForList1.AmountOfItems = DoOrderItems[i].Amount;
+            
             orderForList.Add(orderForList1);
+            i++;
         }
         return orderForList;
     }
@@ -206,6 +206,4 @@ internal class BoOrder : BlApi.IOrder
         return BoOrderTracking;
 
     }
-
-    
 }

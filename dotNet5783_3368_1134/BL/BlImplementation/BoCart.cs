@@ -85,8 +85,19 @@ internal class BoCart : ICart
         NewOrderDO.CustomerName = C.CustomerName;
         NewOrderDO.CustomerEmail = C.CustomerEmail;
         int IdOrder = dal.Order.Add(NewOrderDO);
+        int i = 0;
         foreach (var item in C.Items)
-            dal.OrderItem.Add(item);////////////אין לי שמץ
+        {
+            DO.OrderItem item1 = new DO.OrderItem();
+            List<DO.Order> order = new List<DO.Order>();
+            item1.OrderItemID = item1.OrderItemID;
+            item1.OrderId = order[i].OrderID;
+            item1.ProductID = item.ProductID;
+            item1.PriceItem = item.Price;
+            item1.Amount = item.Amount;
+            dal.OrderItem.Add(item1);
+            i++;
+        }
     }
 
     public BO.Cart Update(BO.Cart C, int id, int amount)
