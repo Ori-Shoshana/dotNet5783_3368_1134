@@ -304,12 +304,12 @@ internal class Project
                     {
                         case 1: //add
 
-                            OrderItem TestAddOrderItem = new OrderItem();
+                            DO.OrderItem TestAddOrderItem = new DO.OrderItem();
                             Console.WriteLine("Add Private ID");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
                             TestAddOrderItem.OrderItemID = tempInt;
                             Console.WriteLine("Add order id");
-                            check = int.TryParse(Console.ReadLine(), out tempInt); //netanel cool;
+                            check = int.TryParse(Console.ReadLine(), out tempInt);
                             TestAddOrderItem.OrderId = tempInt;
                             Console.WriteLine("Add product id");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
