@@ -1,19 +1,22 @@
 ﻿using BlApi;
-using DalApi;
 using BO;
-
+using DalApi;
+using System.Collections.Immutable;
+using System.Globalization;
+using static BO.Enums;
 namespace BlImplementation;
 
 internal class BoCart : ICart
 {
     private IDal dal = new Dal.DalList();
+    DO.Product i;
 
     public BO.Cart Add(BO.Cart C, int id)
     {
         IEnumerable<DO.Product> DoProducts = dal.Product.GetAll();
-        BO.Product BoProduct;
-        BO.OrderItem BoOrderItem;
-
+        BO.Product? Product;
+        BO.OrderItem? OrderItem;
+        
         if (id == null)
         {
 

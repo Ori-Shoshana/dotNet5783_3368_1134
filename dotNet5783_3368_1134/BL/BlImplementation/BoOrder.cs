@@ -1,7 +1,6 @@
 ﻿using BlApi;
 using BO;
 using DalApi;
-using DO;
 using System.Collections.Immutable;
 using System.Globalization;
 using static BO.Enums;
@@ -180,9 +179,25 @@ internal class BoOrder : BlApi.IOrder
         throw new BO.IdNotExistException("No Id in list");
     }
     //********************************************************************//
-    public BO.Order UpdateShip(int id)
+    public BO.Order ShippingUpdate(int id)
     {
-        throw new NotImplementedException();
+        if( id < 0 )
+            throw new VariableIsSmallerThanZeroExeption("id is smaller than 0");
+        DO.Order ord = new DO.Order();
+        try
+        {
+            ord = dal.Order.GetById(id);
+        }
+        catch(DO.IdNotExistException ex)
+        {
+            Console.WriteLine(ex);
+        }
+        if(ord.ShipDate != DateTime.MinValue)
+        {
+            ord.ShipDate = DateTime.Now;
+            dal.Order.Update(ord);
+        }
+        return BoOrder;
     }
     //********************************************************************//
 }
