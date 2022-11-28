@@ -309,7 +309,7 @@ internal class Project
                             check = int.TryParse(Console.ReadLine(), out tempInt);
                             TestAddOrderItem.OrderItemID = tempInt;
                             Console.WriteLine("Add order id");
-                            check = int.TryParse(Console.ReadLine(), out tempInt);
+                            check = int.TryParse(Console.ReadLine(), out tempInt); //netanel cool;
                             TestAddOrderItem.OrderId = tempInt;
                             Console.WriteLine("Add product id");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
