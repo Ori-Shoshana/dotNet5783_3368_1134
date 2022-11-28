@@ -38,7 +38,7 @@ internal class BoOrder : BlApi.IOrder
             {
                 orderForList1.Status = OrderStatus.Confirmed;
             }
-            foreach (DO.OrderItem orderItem in DoOrderItems)
+            foreach(DO.OrderItem orderItem in DoOrderItems)
             {
                 orderForList1.TotalPrice += orderItem.PriceItem * orderItem.Amount;
                 orderForList1.AmountOfItems = orderItem.Amount;
