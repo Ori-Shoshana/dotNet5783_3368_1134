@@ -140,7 +140,7 @@ internal class BoOrder : BlApi.IOrder
 
         throw new BO.IdNotExistException("No Id in list");
     }
-    public BO.Order UpdateShip(int id)
+    public BO.Order ShippingUpdate(int id)
     {
         List<DO.Order>? DoOrders = new List<DO.Order>();
         DoOrders = (List<DO.Order>)dal.Order.GetAll();
@@ -206,4 +206,6 @@ internal class BoOrder : BlApi.IOrder
         return BoOrderTracking;
 
     }
+
+    
 }

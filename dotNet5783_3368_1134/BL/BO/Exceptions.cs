@@ -21,4 +21,26 @@ public class VariableIsNullExeption : Exception
     public VariableIsNullExeption(string msg) : base(msg) { }   
 }
 
+public class SoldOutExeption : Exception
+{
+    public SoldOutExeption(string msg) : base(msg) { }
+}
 
+public class DataMissingException : Exception
+{
+    public DataMissingException(string msg) : base(msg) { }
+}
+
+public class ItemMissingException : Exception
+{
+    public ItemMissingException(string msg) : base(msg) { }
+}
+
+public class InvalidInputBO : Exception
+{
+    public InvalidInputBO(string msg) : base(msg) { }
+}
+public class noItemsInTheCart : Exception
+{
+    public noItemsInTheCart(string msg) : base(msg) { }
+}
