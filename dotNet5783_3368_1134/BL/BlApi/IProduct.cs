@@ -5,9 +5,9 @@ public interface IProduct
 {
     public IEnumerable<ProductForList> GetProducts();
     public Product ProductDetailsM(int id);
-    public Product ProductDetailsC(int id,Cart cart);
+    public ProductItem ProductDetailsC(int id,Cart cart);
     public void Add(Product product);
     public void Delete(int id);
-    public void update(Product product);
+    public void Update(Product product);
 
 }

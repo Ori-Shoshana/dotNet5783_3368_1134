@@ -3,16 +3,15 @@ using BO;
 using DalApi;
 using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Linq;
 using static BO.Enums;
 namespace BlImplementation;
 
 internal class BoProduct : BlApi.IProduct
 {
     private IDal dal = new Dal.DalList();
-
     public IEnumerable<ProductForList> GetProducts()
     {
-        int i = 0;
         List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
         List<DO.Product> products = new List<DO.Product>();
         products = (List<DO.Product>)dal.Product.GetAll();
@@ -20,21 +19,19 @@ internal class BoProduct : BlApi.IProduct
         {
             productsForList.Add(new ProductForList
             {
-                ID = products[i].ProductID,
-                Category = (Enums.ProductCategory)products[i].Category,
-                Name = products[i].ProductName,
-                Price = products[i].Price
+                ID = product.ProductID,
+                Category = (Enums.ProductCategory)product.Category,
+                Name = product.ProductName,
+                Price = product.Price
             });
-            i++;
         }
         return productsForList;
     }
-
     public BO.Product ProductDetailsM(int id)
     {
         DO.Product DoProduct = new DO.Product();
         BO.Product? BoProduct = new BO.Product();
-        if (id > 0)
+        if (id >= 0)
         {
         
             DoProduct = dal.Product.GetById(id);          
@@ -47,13 +44,26 @@ internal class BoProduct : BlApi.IProduct
         }
         throw new VariableIsSmallerThanZeroExeption("Id is les than 0");
     }
-    
-//********************************************************************//
-    public BO.Product ProductDetailsC(int id, BO.Cart cart)
+    public BO.ProductItem ProductDetailsC(int id, BO.Cart cart)
     {
-        throw new NotImplementedException();
+        if(id >= 0)
+        {
+            DO.Product product = new  DO.Product();
+            product = dal.Product.GetById(id);
+            BO.ProductItem productItem = new BO.ProductItem();
+            productItem.ID = product.ProductID;
+            productItem.Name = product.ProductName;
+            productItem.Price = product.Price;
+            productItem.Category = (ProductCategory)product.Category;
+            foreach(BO.OrderItem item in cart.Items)
+            {
+                productItem.Amount += item.Amount;
+            }
+            return productItem;
+
+        }
+        throw new VariableIsSmallerThanZeroExeption("the id is less than 0");
     }
-//*******************************************************************//
     public void Add(BO.Product product)
     {
         if (product.ID < 0) throw new VariableIsSmallerThanZeroExeption("Id is less than 0");
@@ -74,9 +84,10 @@ internal class BoProduct : BlApi.IProduct
     {
         int i = 0;
         List<DO.Product> products = new List<DO.Product>();
-        foreach(DO.Product product in (List<DO.Product>)dal.Product.GetAll())
+        products = (List<DO.Product>)dal.Product.GetAll();
+        foreach (DO.Product product in products)
         {
-            if (id == products[i].ProductID)
+            if (id == product.ProductID)
             {
                break;
             }
@@ -88,7 +99,7 @@ internal class BoProduct : BlApi.IProduct
         }    
         dal.Product.Delete(id);
     }
-    public void update(BO.Product product)
+    public void Update(BO.Product product)
     {
         if (product.ID < 0) throw new VariableIsSmallerThanZeroExeption("Id is less than 0");
         if (product.Name == null) throw new VariableIsNullExeption("The name is null");

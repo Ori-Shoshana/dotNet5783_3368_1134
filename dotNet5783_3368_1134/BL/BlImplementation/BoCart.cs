@@ -13,6 +13,7 @@ internal class BoCart : ICart
 
     public BO.Cart Add(BO.Cart C, int id)
     {
+
         IEnumerable<DO.Product> DoProducts = dal.Product.GetAll();
         BO.Product? Product;
         BO.OrderItem? OrderItem;
