@@ -127,16 +127,4 @@ internal class BoCart : ICart
         return C;
     }
 
-    //public static DO.Product  BO_TO_DO(BO.Product prod)
-    //{
-    //    DO.Product product = new DO.Product()
-    //    {
-    //        ProductID = (int)prod.ID,
-    //        ProductName = prod.Name,
-    //        Category = (DO.Enums.productCategory)prod.Category,
-    //        Price = prod.Price,
-    //        InStock = prod.InStock
-    //    };
-    //    return product;
-    //}
 }

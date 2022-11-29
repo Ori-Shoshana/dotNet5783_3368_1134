@@ -10,7 +10,7 @@ using static DO.Enums;
 /// <summary>
 /// Main - testing that the structs and the operations on them are actually works
 /// </summary>
-internal class Project
+internal class Program
 {
 
 

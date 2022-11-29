@@ -122,7 +122,7 @@ internal static class DataSource
             O.CustomerAdress = customer_Adress[i];
             O.OrderDate = DateTime.Now.AddDays(-5).AddHours(-4);
             O.ShipDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 2), Rnd.Next(0, 59), Rnd.Next(0, 59)); //80%
-            O.DeliveryDate = null;
+            //O.DeliveryDate = null;
             ListOrder.Add(O);
         }
         for (;i<20;i++)
@@ -133,7 +133,7 @@ internal static class DataSource
             O.CustomerAdress = customer_Adress[i];
             O.OrderDate = DateTime.Now.AddDays(-5).AddHours(-4);
             O.ShipDate = DateTime.Now;//20%
-            O.DeliveryDate = null;//40%
+            //O.DeliveryDate = DateTime.Now;//40%
             ListOrder.Add(O);
         }
     }
@@ -143,15 +143,22 @@ internal static class DataSource
     /// </summary>
     internal static void S_orderItem()
     {
-        for (int i = 0; i < 10; i++)
+        OrderItem OI = new OrderItem();
+        foreach (var orders in ListOrder)
         {
-            OrderItem OI = new OrderItem();
-            OI.OrderItemID = config.runOrderitem_Number;
-            OI.OrderId = ListProduct[i].ProductID;
-            OI.ProductID = ListProduct[i].ProductID;
-            OI.PriceItem = ListProduct[i].Price;
-            OI.Amount = Rnd.Next(1,4);
-            ListOrderItem.Add(OI);
+            foreach (var products in ListProduct)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    OI.OrderItemID = config.runOrderitem_Number;
+                    OI.OrderId = orders.OrderID;
+                    OI.ProductID = products.ProductID;
+                    OI.PriceItem = products.Price;
+                    OI.Amount = Rnd.Next(1, 5);
+                    ListOrderItem.Add(OI);
+                }
+                break;
+            }
         }
     }
 }

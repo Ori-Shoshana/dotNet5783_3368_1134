@@ -1,6 +1,7 @@
 ﻿using BlApi;
 using BO;
 using DalApi;
+using DO;
 using System.Collections.Immutable;
 using System.Globalization;
 using static BO.Enums;
@@ -19,11 +20,13 @@ internal class BoOrder : BlApi.IOrder
 
         DoOrders = (List<DO.Order>)dal.Order.GetAll();
         DoOrderItems = (List<DO.OrderItem>)dal.OrderItem.GetAll();
-        BO.OrderForList orderForList1 = new BO.OrderForList();
         int i = 0;
+        int j = 0;
 
         foreach (DO.Order DoOrder in DoOrders)
         {
+            BO.OrderForList orderForList1 = new BO.OrderForList();
+
             orderForList1.ID = DoOrder.OrderID;
             orderForList1.CustomerName = DoOrder.CustomerName;
             if (DoOrder.DeliveryDate <=DateTime.Now)
@@ -42,6 +45,8 @@ internal class BoOrder : BlApi.IOrder
             orderForList1.TotalPrice += DoOrderItems[i].PriceItem * DoOrderItems[i].Amount;
             orderForList1.AmountOfItems = DoOrderItems[i].Amount;
             
+
+            
             orderForList.Add(orderForList1);
             i++;
         }
@@ -51,47 +56,52 @@ internal class BoOrder : BlApi.IOrder
     {
         DO.Order DoOrder = new DO.Order();
         List<DO.OrderItem> DoOrderItem = new List<DO.OrderItem>();
-        List<DO.Product> DoProduct = new List<DO.Product>();
-
+        List<DO.Product> DoProducts = new List<DO.Product>();
+        List<BO.OrderItem> boOrderItems = new List<BO.OrderItem>();
         BO.Order? BoOrder = new BO.Order();
-        if (id >= 0)
+        if (id > 0)
         {
             int i = 0;
             double finalTotalPrice = 0;
             DoOrder = dal.Order.GetById(id);
             DoOrderItem = (List<DO.OrderItem>)dal.OrderItem.GetAll();
-            DoProduct = (List<DO.Product>)dal.Product.GetAll();
+            DoProducts = (List<DO.Product>)dal.Product.GetAll();
 
             BoOrder.ID = DoOrder.OrderID;
             BoOrder.CustomerName = DoOrder.CustomerName;
             BoOrder.CustomerEmail = DoOrder.CustomerEmail;
             BoOrder.CustomerAdress = DoOrder.CustomerAdress;
             BoOrder.OrderDate = (DateTime)DoOrder.OrderDate;
-            BoOrder.ShipDate = (DateTime)DoOrder.ShipDate;
-            BoOrder.DeliveryDate = (DateTime)DoOrder.DeliveryDate;
+            if (DoOrder.ShipDate != null)
+                BoOrder.ShipDate = (DateTime)DoOrder.ShipDate;
+            if (DoOrder.DeliveryDate != null)
+                BoOrder.DeliveryDate = (DateTime)DoOrder.DeliveryDate;
 
             foreach (DO.OrderItem item in DoOrderItem)
             {
-                if(id == item.OrderId)
+                if (id == item.OrderId)
                 {
-                    BO.OrderItem orderItems = new BO.OrderItem();
-                    orderItems.ID = item.OrderId;
-                    foreach (DO.Product product in DoProduct)
+                    BO.OrderItem BoOrderItem = new BO.OrderItem();
+                    BoOrderItem.ID = item.OrderId;
+                    BoOrderItem.ProductID = item.ProductID;
+                    BoOrderItem.Price = item.PriceItem;
+                    BoOrderItem.Amount = item.Amount;
+                    BoOrderItem.TotalPrice = item.PriceItem * item.Amount;
+                    finalTotalPrice += item.PriceItem * item.Amount;
+                    foreach (var product in DoProducts)
                     {
-                        if (id == product.ProductID)
+                        if (BoOrderItem.ID == product.ProductID)
                         {
-                            orderItems.Name = DoProduct[i].ProductName;
+                            BoOrderItem.Name = product.ProductName;
+                            break;
                         }
                     }
-                    orderItems.ProductID = item.ProductID;
-                    orderItems.Price = item.PriceItem;
-                    orderItems.Amount = item.Amount;
-                    orderItems.TotalPrice = item.PriceItem * item.Amount;
-                    finalTotalPrice = item.PriceItem * item.Amount;
-                    BoOrder.Items.Add(orderItems);
+
+                    boOrderItems.Add(BoOrderItem);
                 }
-                
+
             }
+            BoOrder.Items = boOrderItems;
             BoOrder.TotalPrice = finalTotalPrice;
             if (DoOrder.DeliveryDate <= DateTime.Now)
             {
@@ -105,7 +115,6 @@ internal class BoOrder : BlApi.IOrder
             {
                 BoOrder.Status = OrderStatus.Confirmed;
             }
-
             return BoOrder;
         }
         throw new VariableIsSmallerThanZeroExeption("id is smaller than 0");
