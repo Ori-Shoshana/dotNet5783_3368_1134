@@ -55,23 +55,24 @@ internal class BoProduct : BlApi.IProduct
             productItem.Price = product.Price;
             productItem.Category = (ProductCategory)product.Category;
             if(product.InStock >0)
-            {
                 productItem.InStock = true;
-            }
-            else { productItem.InStock = false; }
+            else 
+                productItem.InStock = false;
+            productItem.Amount = 0;
             foreach(BO.OrderItem item in cart.Items)
             {
-                productItem.Amount += item.Amount;
+                if(item.ID == productItem.ID)
+                    productItem.Amount += item.Amount;
             }
             return productItem;
         }
         throw new VariableIsSmallerThanZeroExeption("the id is less than 0");
     }
-    public void Add(BO.Product product)
+    public void Add(BO.Product product)     
     {
         if (product.ID < 0) throw new VariableIsSmallerThanZeroExeption("Id is less than 0");
         if (product.Name == null) throw new VariableIsNullExeption("The name is null");
-        if (product.Price < 0) throw new VariableIsSmallerThanZeroExeption("the price is less than 0");
+        if (product.Price <= 0) throw new VariableIsSmallerThanZeroExeption("the price is less than 0");
         if (product.InStock < 0) throw new VariableIsSmallerThanZeroExeption("the stock is less than 0");
 
         DO.Product DoProduct = new DO.Product();
@@ -98,7 +99,7 @@ internal class BoProduct : BlApi.IProduct
         }
         if(i == products.Count)
         {
-            throw new IdNotExistException("there is no ptoduct to delete");
+            throw new VeriableNotExistException("there is no ptoduct to delete");
         }    
         dal.Product.Delete(id);
     }
@@ -121,7 +122,7 @@ internal class BoProduct : BlApi.IProduct
         {
             dal.Product.Update(DoProduct);
         }
-        catch(IdNotExistException ex)
+        catch(VeriableNotExistException ex)
         {
             Console.WriteLine(ex);
         }

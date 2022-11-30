@@ -1,6 +1,7 @@
 ﻿using BlApi;
 using BO;
 using DalApi;
+using DO;
 using System.Collections.Immutable;
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -12,45 +13,80 @@ internal class BoCart : ICart
     private IDal dal = new Dal.DalList();
     BO.OrderItem ordItemBO = new BO.OrderItem();
     DO.Product productDO = new DO.Product();
-    public BO.Cart Add(BO.Cart C, int id)
+    //The function adds an item to the shopping cart
+    public BO.Cart Add(BO.Cart cart, int id)
     {
-        IEnumerable<DO.Product> DoProducts = dal.Product.GetAll();
-        BO.OrderItem? OrderItem;
-        foreach (var x in C.Items)
+
+        List<DO.Product> Do_Products = new List<DO.Product>();
+        Do_Products = (List<DO.Product>)dal.Product.GetAll();
+        if (cart.Items == null)
         {
-            if (x.ProductID == id)
+            foreach (var product in Do_Products)
             {
-                productDO = dal.Product.GetById(x.ProductID);
-                if (productDO.InStock > 0)
+                if (product.ProductID == id)
                 {
-                    x.Amount++;
-                    x.TotalPrice += productDO.Price;
-                    C.TotalPrice += productDO.Price;
-                    return C;
+                    BO.OrderItem orderItem = new BO.OrderItem();
+                    orderItem.ProductID = id;
+                    orderItem.ID = dal.OrderItem.GetAll().ElementAt(dal.OrderItem.GetAll().Count() - 1).OrderId + 1;
+                    orderItem.Price = product.Price;
+                    orderItem.TotalPrice = product.Price;
+                    if (product.InStock >= 1) //Check if the product is in stock
+                    {
+                        orderItem.Amount = 1;
+                    }
+                    else throw new VariableIsSmallerThanZeroExeption("Out of stock");
+                    orderItem.Name = product.ProductName;
+                    List<BO.OrderItem> boOrderItems = new List<BO.OrderItem>();
+                    boOrderItems.Add(orderItem);
+                    cart.Items = boOrderItems;
+                    //cart.Items.Add(orderItem); // Add the order item to the list
+                    cart.TotalPrice += orderItem.TotalPrice; //Add this to the final amount
+                    return cart;
                 }
-                else
-                    throw new VariableIsSmallerThanZeroExeption("product sold out");
+
+            }
+            throw new VeriableNotExistException("The Id Does Not Exist");    
+        }
+        //In case the member already exists
+        foreach (var item in cart.Items)
+        {
+            if (item.ID == id)
+            {
+                foreach (var product in Do_Products)
+                {
+                    if (product.InStock > item.Amount)
+                    {
+                        item.TotalPrice = (++item.Amount) * (item.Price);
+                        cart.TotalPrice += item.Price;
+                    }
+                    else throw new VariableIsSmallerThanZeroExeption("Out of stock");
+                }
+                return cart;
             }
         }
-        productDO = dal.Product.GetById(id);
-        if (productDO.InStock > 0)
+        // In case the item does not exist in the cart
+        foreach (var product in Do_Products)
         {
-            OrderItem = new BO.OrderItem()
+            if (product.ProductID == id)
             {
-                Price = (double)productDO.Price,
-                Name = productDO.ProductName,
-                ProductID = id,
-                Amount = 1,
-                TotalPrice = productDO.Price
-            };
-            List<BO.OrderItem> Items = C.Items?.ToList() ?? new List<BO.OrderItem>();
-            Items.Add(OrderItem);
-            C.Items = Items;
-            C.TotalPrice += OrderItem.Price;
-            return C;
+                BO.OrderItem orderItem = new BO.OrderItem();
+                orderItem.ProductID = id;
+                orderItem.ID = dal.OrderItem.GetAll().ElementAt(dal.OrderItem.GetAll().Count() - 1).OrderItemID + 1;
+                orderItem.Price = product.Price;
+                orderItem.TotalPrice = product.Price;
+                if (product.InStock >= 1) //Check if the product is in stock
+                {
+                    orderItem.Amount = 1;
+                }
+                else throw new VariableIsSmallerThanZeroExeption("Out of stock");
+                orderItem.Name = product.ProductName;
+
+                cart.Items.Add(orderItem); // Add the order item to the list
+                cart.TotalPrice += orderItem.TotalPrice; //Add this to the final amount
+            }
+
         }
-        else
-            throw new VariableIsSmallerThanZeroExeption("product sold out");
+        return cart;
     }
 
     public void Confirmation(BO.Cart C)
