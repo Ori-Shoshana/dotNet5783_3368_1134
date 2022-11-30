@@ -95,7 +95,11 @@ internal class Program
                             {
                                 bl.Cart.Add(cart, tempInt);
                             }
-                            catch (Exception ex)
+                            catch (VariableIsSmallerThanZeroExeption ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
+                            catch (IdNotExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }

@@ -1,14 +1,14 @@
 ﻿
 
 namespace BO;
-public class IdNotExistException : Exception
+public class VeriableNotExistException : Exception
 {
-    public IdNotExistException(string msg) : base(msg) { }
+    public VeriableNotExistException(string msg) : base(msg) { }
 }
 
-public class IdAlreadyExistException : Exception
+public class VeriableAlreadyExistException : Exception
 {
-    public IdAlreadyExistException(string msg) : base(msg) { }
+    public VeriableAlreadyExistException(string msg) : base(msg) { }
 }
 
 public class VariableIsSmallerThanZeroExeption : Exception
@@ -21,26 +21,7 @@ public class VariableIsNullExeption : Exception
     public VariableIsNullExeption(string msg) : base(msg) { }   
 }
 
-public class SoldOutExeption : Exception
+public class InvalidInputExeption : Exception
 {
-    public SoldOutExeption(string msg) : base(msg) { }
-}
-
-public class DataMissingException : Exception
-{
-    public DataMissingException(string msg) : base(msg) { }
-}
-
-public class ItemMissingException : Exception
-{
-    public ItemMissingException(string msg) : base(msg) { }
-}
-
-public class InvalidInputBO : Exception
-{
-    public InvalidInputBO(string msg) : base(msg) { }
-}
-public class noItemsInTheCart : Exception
-{
-    public noItemsInTheCart(string msg) : base(msg) { }
+    public InvalidInputExeption(string msg) : base(msg) { }
 }

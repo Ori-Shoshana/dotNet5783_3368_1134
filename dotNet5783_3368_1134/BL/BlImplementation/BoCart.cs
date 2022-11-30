@@ -29,7 +29,7 @@ internal class BoCart : ICart
                     return C;
                 }
                 else
-                    throw new SoldOutExeption("product sold out");
+                    throw new VariableIsSmallerThanZeroExeption("product sold out");
             }
         }
         productDO = dal.Product.GetById(id);
@@ -50,7 +50,7 @@ internal class BoCart : ICart
             return C;
         }
         else
-            throw new SoldOutExeption("product sold out");
+            throw new VariableIsSmallerThanZeroExeption("product sold out");
     }
 
     public void Confirmation(BO.Cart C)
@@ -60,23 +60,23 @@ internal class BoCart : ICart
         {
             productDO = (dal.Product.GetById(item.ID));
             if (productDO.InStock < item.Amount)
-                throw new ItemMissingException("{item.productName} out of stock");
+                throw new VeriableNotExistException("{item.productName} out of stock");
             if (C.CustomerAdress == "")
-                throw new DataMissingException("the address is missing");
+                throw new VeriableNotExistException("the address is missing");
             if (C.CustomerName == "")
-                throw new DataMissingException("the name is missing");
+                throw new VeriableNotExistException("the name is missing");
             if (C.CustomerEmail == "")
-                throw new DataMissingException("the email is missing");
+                throw new VeriableNotExistException("the email is missing");
             if (!C.CustomerAdress.EndsWith("@gmail.com"))
-                throw new DataMissingException("email");
+                throw new VeriableNotExistException("email");
             if (item.Amount < 0)
-                throw new InvalidInputBO($"Error! quantity for {item.Name} is invalid");
+                throw new InvalidInputExeption($"Error! quantity for {item.Name} is invalid");
         }
         int totalAmount = 0;
         foreach (var item in C.Items)
             totalAmount += item.Amount;
         if (totalAmount == 0)
-            throw new noItemsInTheCart("can not confirm a cart without items");
+            throw new VeriableNotExistException("can not confirm a cart without items");
         DO.Order NewOrderDO = new DO.Order();
         NewOrderDO.OrderDate = DateTime.Now;
         NewOrderDO.ShipDate = DateTime.MinValue;

@@ -54,6 +54,7 @@ internal class BoOrder : BlApi.IOrder
     }
     public BO.Order OrderDetails(int id)
     {
+        List<DO.Order> DoOrders = new List<DO.Order>();
         DO.Order DoOrder = new DO.Order();
         List<DO.OrderItem> DoOrderItem = new List<DO.OrderItem>();
         List<DO.Product> DoProducts = new List<DO.Product>();
@@ -66,6 +67,7 @@ internal class BoOrder : BlApi.IOrder
             DoOrder = dal.Order.GetById(id);
             DoOrderItem = (List<DO.OrderItem>)dal.OrderItem.GetAll();
             DoProducts = (List<DO.Product>)dal.Product.GetAll();
+            DoOrders = (List<DO.Order>)dal.Order.GetAll();
 
             BoOrder.ID = DoOrder.OrderID;
             BoOrder.CustomerName = DoOrder.CustomerName;
@@ -88,11 +90,11 @@ internal class BoOrder : BlApi.IOrder
                     BoOrderItem.Amount = item.Amount;
                     BoOrderItem.TotalPrice = item.PriceItem * item.Amount;
                     finalTotalPrice += item.PriceItem * item.Amount;
-                    foreach (var product in DoProducts)
+                    foreach (var order in DoOrders)
                     {
-                        if (BoOrderItem.ID == product.ProductID)
+                        if (id == order.OrderID)
                         {
-                            BoOrderItem.Name = product.ProductName;
+                            BoOrderItem.Name = order.CustomerName;
                             break;
                         }
                     }
@@ -101,6 +103,7 @@ internal class BoOrder : BlApi.IOrder
                 }
 
             }
+            
             BoOrder.Items = boOrderItems;
             BoOrder.TotalPrice = finalTotalPrice;
             if (DoOrder.DeliveryDate <= DateTime.Now)
@@ -147,7 +150,7 @@ internal class BoOrder : BlApi.IOrder
             }
         }
 
-        throw new BO.IdNotExistException("No Id in list");
+        throw new BO.VeriableNotExistException("No Id in list");
     }
     public BO.Order ShippingUpdate(int id)
     {
@@ -177,7 +180,7 @@ internal class BoOrder : BlApi.IOrder
             }
         }
 
-        throw new BO.IdNotExistException("No Id in list");
+        throw new BO.VeriableNotExistException("No Id in list");
     }
     public BO.OrderTracking Track(int id)
     {

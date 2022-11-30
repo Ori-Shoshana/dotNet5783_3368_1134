@@ -1,10 +1,13 @@
 ﻿using BlApi;
 using BO;
 using DalApi;
+using DO;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
 using static BO.Enums;
+using Enums = BO.Enums;
+
 namespace BlImplementation;
 
 internal class BoProduct : BlApi.IProduct
@@ -29,11 +32,11 @@ internal class BoProduct : BlApi.IProduct
     }
     public BO.Product ProductDetailsM(int id)
     {
-        DO.Product DoProduct = new DO.Product();
-        BO.Product? BoProduct = new BO.Product();
+        
         if (id >= 0)
         {
-        
+            DO.Product DoProduct = new DO.Product();
+            BO.Product? BoProduct = new BO.Product();
             DoProduct = dal.Product.GetById(id);          
             BoProduct.ID = DoProduct.ProductID;
             BoProduct.Name = DoProduct.ProductName;
@@ -55,7 +58,11 @@ internal class BoProduct : BlApi.IProduct
             productItem.Name = product.ProductName;
             productItem.Price = product.Price;
             productItem.Category = (ProductCategory)product.Category;
-            foreach(BO.OrderItem item in cart.Items)
+            if (product.InStock > 0)
+            {
+                productItem.InStock = true;
+            }
+            foreach (BO.OrderItem item in cart.Items)
             {
                 productItem.Amount += item.Amount;
             }
@@ -95,7 +102,7 @@ internal class BoProduct : BlApi.IProduct
         }
         if(i == products.Count)
         {
-            throw new IdNotExistException("there is no ptoduct to delete");
+            throw new VeriableNotExistException("there is no ptoduct to delete");
         }    
         dal.Product.Delete(id);
     }
@@ -118,7 +125,7 @@ internal class BoProduct : BlApi.IProduct
         {
             dal.Product.Update(DoProduct);
         }
-        catch(IdNotExistException ex)
+        catch(VeriableNotExistException ex)
         {
             Console.WriteLine(ex);
         }
