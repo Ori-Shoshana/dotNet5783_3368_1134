@@ -4,6 +4,7 @@ using DalApi;
 using DO;
 using System.Collections.Immutable;
 using System.Globalization;
+using System.Net.Mail;
 using System.Runtime.CompilerServices;
 using static BO.Enums;
 namespace BlImplementation;
@@ -87,81 +88,140 @@ internal class BoCart : ICart
             }
 
         }
-        return cart;
+        throw new VeriableNotExistException("The Id Does Not Exist");
     }
 
-    public void Confirmation(BO.Cart C)
+    public void Confirmation(BO.Cart cart)
     {
-        BO.Product? prod;
-        foreach (var item in C.Items)
+        if (cart.Items == null)
         {
-            productDO = (dal.Product.GetById(item.ID));
-            if (productDO.InStock < item.Amount)
-                throw new VeriableNotExistException("{item.productName} out of stock");
-            if (C.CustomerAdress == "")
-                throw new VeriableNotExistException("the address is missing");
-            if (C.CustomerName == "")
-                throw new VeriableNotExistException("the name is missing");
-            if (C.CustomerEmail == "")
-                throw new VeriableNotExistException("the email is missing");
-            if (!C.CustomerAdress.EndsWith("@gmail.com"))
-                throw new VeriableNotExistException("email");
-            if (item.Amount < 0)
-                throw new InvalidInputExeption($"Error! quantity for {item.Name} is invalid");
+            throw new VeriableNotExistException("The shopping cart is empty");
         }
-        int totalAmount = 0;
-        foreach (var item in C.Items)
-            totalAmount += item.Amount;
-        if (totalAmount == 0)
-            throw new VeriableNotExistException("can not confirm a cart without items");
-        DO.Order NewOrderDO = new DO.Order();
-        NewOrderDO.OrderDate = DateTime.Now;
-        NewOrderDO.ShipDate = DateTime.MinValue;
-        NewOrderDO.DeliveryDate = DateTime.MinValue;
-        NewOrderDO.CustomerAdress = C.CustomerAdress;
-        NewOrderDO.CustomerName = C.CustomerName;
-        NewOrderDO.CustomerEmail = C.CustomerEmail;
-        int IdOrder = dal.Order.Add(NewOrderDO);
-        int i = 0;
-        foreach (var item in C.Items)
+        List<DO.Product> Do_Products = new List<DO.Product>();
+        Do_Products = (List<DO.Product>)dal.Product.GetAll();
+        foreach (var item in cart.Items) //Check that all data is correct
         {
-            DO.OrderItem item1 = new DO.OrderItem();
-            List<DO.Order> order = new List<DO.Order>();
-            item1.OrderItemID = item1.OrderItemID;
-            item1.OrderId = order[i].OrderID;
-            item1.ProductID = item.ProductID;
-            item1.PriceItem = item.Price;
-            item1.Amount = item.Amount;
-            dal.OrderItem.Add(item1);
-            i++;
+            if (item.Amount <= 0 || cart.CustomerName == null || cart.CustomerEmail == null || cart.CustomerAdress == null || !IsValid(cart.CustomerEmail))
+            {
+                throw new VeriableNotExistException("Input error");
+            }
+            foreach (var product in Do_Products)
+            {
+                if (item.ProductID == product.ProductID)
+                {
+                    if (item.Amount > product.InStock)  //check that the quantity is less than the quantity in stock
+                        throw new VariableIsSmallerThanZeroExeption("Out of stock");
+                }
+            }
+        }
+
+        DO.Order order = new DO.Order();
+        order.OrderID = dal.Order.GetAll().ElementAt(dal.Order.GetAll().Count() - 1).OrderID + 1;
+        order.CustomerName = cart.CustomerName;
+        order.CustomerEmail = cart.CustomerEmail;
+        order.CustomerAdress = cart.CustomerAdress;
+        order.OrderDate = DateTime.Now;
+        order.ShipDate = null;
+        order.DeliveryDate = null;
+        int orderId = dal.Order.Add(order); // Add an order to the data layer
+
+        foreach (var item in cart.Items)
+        {
+            DO.OrderItem orderItem = new DO.OrderItem();
+            orderItem.OrderItemID = dal.OrderItem.GetAll().ElementAt(dal.OrderItem.GetAll().Count() - 1).OrderItemID + 1;
+            orderItem.OrderId = orderId;
+            orderItem.ProductID = item.ProductID;
+            orderItem.PriceItem = item.Price;
+            orderItem.Amount = item.Amount;
+            int k = dal.OrderItem.Add(orderItem); //We will add list details to the data layer
+            foreach (var product in Do_Products)
+            {
+                if (product.ProductID == item.ProductID)
+                {
+                    DO.Product temp = new DO.Product();
+                    temp.ProductID = product.ProductID;
+                    temp.Price = product.Price;
+                    temp.Category = product.Category;
+                    temp.InStock = product.InStock - item.Amount;
+                    temp.ProductName = product.ProductName;
+                    dal.Product.Update(temp); //Updates the stock quantity in the data layer
+                    break;
+                }
+            }
         }
     }
 
-    public BO.Cart Update(BO.Cart C, int id, int amount)
+    public BO.Cart Update(BO.Cart cart, int id, int amount)
     {
-        BO.OrderItem? ordItem = C.Items?.FirstOrDefault(Item => Item.ID == id);
-        if (ordItem?.Amount < amount && amount > 0)
+        if (cart.Items == null)
         {
-            for (int i = ordItem.Amount; i < amount; i++)
-                C = Add(C, id);
+            throw new VariableIsSmallerThanZeroExeption("The shopping cart is empty");
         }
-        else if (ordItem?.Amount > amount && amount > 0)
+        if (amount < 0)  //check for correctness
         {
-            List<BO.OrderItem> ordItems = C.Items?.ToList() ?? new List<BO.OrderItem>();
-            ordItem = ordItems.Find(Item => Item.ID == id);
-            ordItem.Amount = amount;
-            ordItem.TotalPrice = ordItem.Price * amount;
-            C.Items = ordItems;
-            C.TotalPrice -= (ordItem.Amount - amount) * ordItem.Price;
+            throw new VariableIsSmallerThanZeroExeption("There is no such thing as a negative quantity");
         }
-        else if (amount == 0)
+        List<DO.Product> Do_Products = new List<DO.Product>();
+        Do_Products = (List<DO.Product>)dal.Product.GetAll();
+        foreach (var item in cart.Items)
         {
-            List<BO.OrderItem> ordItems = C.Items?.ToList() ?? new List<BO.OrderItem>();
-            C.TotalPrice -= ordItem.Amount * ordItem.Price;
-            ordItems.Remove(ordItem);
-            C.Items = ordItems;
+            if (item.ProductID == id)
+            {
+                if (item.Amount < amount) //In case he wants to add
+                {
+                    cart.TotalPrice -= item.TotalPrice;
+                    foreach (var product in Do_Products)
+                    {
+                        if (product.ProductID == id)
+                        {
+                            if (product.InStock >= amount)
+                            {
+                                item.Amount = amount;
+                                item.TotalPrice = item.Price * amount;
+                            }
+                            else throw new VariableIsSmallerThanZeroExeption("Out of stock");
+                        }
+                    }
+                    cart.TotalPrice += item.TotalPrice;
+                    return cart;
+                }
+                else
+                {
+                    if (item.Amount > amount) //In case he wants to subtract
+                    {
+                        if (amount == 0)
+                        {
+                            cart.TotalPrice -= item.TotalPrice;
+                            cart.Items.Remove(item);
+                        }
+                        else
+                        {
+                            cart.TotalPrice -= item.TotalPrice;
+                            item.Amount = amount;
+                            item.TotalPrice = (item.Price * amount);
+                            cart.TotalPrice += item.TotalPrice;
+                        }
+                    }
+                    return cart;
+                }
+            }
         }
-        return C;
+        throw new VeriableNotExistException("The Id Does Not Exist");
     }
 
+    private static bool IsValid(string email)
+    {
+        var valid = true;
+
+        try
+        {
+            var emailAddress = new MailAddress(email);
+        }
+        catch
+        {
+            valid = false;
+        }
+
+        return valid;
+    }
 }

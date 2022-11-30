@@ -59,7 +59,6 @@ internal class Program
             {
                 case Option.Exit:
                 return;
-//********************** actions fo cart ******************************//
                 case Option.Cart:
                     Console.WriteLine("Enter 0 to pick a different option\n " +
                         "Enter 1 to add a order\n " +
@@ -77,7 +76,7 @@ internal class Program
                             int.TryParse(Console.ReadLine(), out tempID);
                             try
                             {
-                                Console.WriteLine(bl.Cart.Add(cart, tempInt).ToString());
+                                Console.WriteLine(bl.Cart.Add(cart, tempID).ToString());
                             }
                             catch (VariableIsSmallerThanZeroExeption ex)
                             {
@@ -87,44 +86,20 @@ internal class Program
                             {
                                 Console.WriteLine(ex);
                             }
+                            catch (VeriableNotExistException ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
+                            
+
+
+
                             break;
 
                         case 2://confirm a order
-                            int count1 = 0;
-                            double total1 = 0;
-                            Cart cart1 = new Cart();
-                            List<BO.OrderItem> orderItems1 = new List<BO.OrderItem>();
-                            BO.OrderItem item1 = new BO.OrderItem();
-
-                            Console.WriteLine("Add customer name");
-                            cart1.CustomerName = Console.ReadLine();
-                            Console.WriteLine("Add customer email");
-                            cart1.CustomerEmail = Console.ReadLine();
-                            Console.WriteLine("Add customer address");
-                            cart1.CustomerAdress = Console.ReadLine();
-                            Console.WriteLine("how many Items do you want to add to the Order?");
-                            int.TryParse(Console.ReadLine(), out count1);
-                            for (int i = 0; i < count1; i++)
-                            {
-                                Console.WriteLine("add a ID, Name, Product ID, Price, Amount");
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item1.ID = tempInt;
-                                item1.Name = Console.ReadLine();
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item1.ProductID = tempInt;
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item1.Price = tempInt;
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item1.Amount = tempInt;
-                                item1.TotalPrice = item1.Amount * item1.Price;
-                                total1 += item1.Amount * item1.Price;
-                                orderItems1.Add(item1);
-                            }
-                            cart1.Items = orderItems1;
-                            cart1.TotalPrice = total1;
                             try
                             {
-                                bl.Cart.Confirmation(cart1);
+                                bl.Cart.Confirmation(cart);
                             }
                             catch (IdNotExistException ex)
                             {
@@ -141,55 +116,22 @@ internal class Program
                             break;
 
                         case 3://update order in cart
-                            int count2 = 0;
-                            int tempID2 = 0;
-                            double total2 = 0;
                             int amount = 0;
-                            Cart cart2 = new Cart();
-                            List<BO.OrderItem> orderItems2 = new List<BO.OrderItem>();
-                            BO.OrderItem item2 = new BO.OrderItem();
+                            Console.WriteLine("Entet id and the amount of the order to chsnge");
+                            int.TryParse(Console.ReadLine(), out tempID);
+                            int.TryParse(Console.ReadLine(), out amount);
 
-                            Console.WriteLine("type a ID");
-                            int.TryParse(Console.ReadLine(), out tempID2);
-
-                            Console.WriteLine("Add customer name");
-                            cart2.CustomerName = Console.ReadLine();
-                            Console.WriteLine("Add customer email");
-                            cart2.CustomerEmail = Console.ReadLine();
-                            Console.WriteLine("Add customer address");
-                            cart2.CustomerAdress = Console.ReadLine();
-                            Console.WriteLine("how many Items do you want to add to the Order?");
-                            int.TryParse(Console.ReadLine(), out count2);
-                            for (int i = 0; i < count2; i++)
-                            {
-                                Console.WriteLine("add a ID, Name, Product ID, Price, Amount");
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item2.ID = tempInt;
-                                item2.Name = Console.ReadLine();
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item2.ProductID = tempInt;
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item2.Price = tempInt;
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item2.Amount = tempInt;
-                                item2.TotalPrice = item2.Amount * item2.Price;
-                                amount += item2.Amount;
-                                total2 += item2.Amount * item2.Price;
-                                orderItems2.Add(item2);
-                            }
-                            cart2.Items = orderItems2;
-                            cart2.TotalPrice = total2;
                             try
                             {
-                                bl.Cart.Update(cart2, tempInt,amount);
+                                bl.Cart.Update(cart, tempID, amount);
                             }
                             catch (VariableIsSmallerThanZeroExeption ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             catch (IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             break;
                     }
