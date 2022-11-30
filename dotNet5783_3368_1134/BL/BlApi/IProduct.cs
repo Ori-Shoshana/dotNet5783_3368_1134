@@ -11,7 +11,7 @@ public interface IProduct
     public IEnumerable<ProductForList> GetProducts();
     /// <summary>
     /// decleration of function product details (for manager)
-    /// recieves product id
+    /// receives product id
     /// trying to request the product from the data layer 
     /// builds the product
     /// Throws exceptions when needed
@@ -19,7 +19,7 @@ public interface IProduct
     public Product ProductDetailsM(int id);
     /// <summary>
     /// decleration of function product details (for customer)
-    /// recieves product id and cart
+    /// receives product id and cart
     /// trying to request the product from the data layer 
     /// builds  productItem
     /// Throws exceptions when needed
@@ -27,15 +27,14 @@ public interface IProduct
     public ProductItem ProductDetailsC(int id,Cart cart);
     /// <summary>
     /// decleration of function add
-    /// receives product id and cart
-    /// trying to request the product from the data layer 
-    /// builds  productItem
+    /// receives product
+    /// checks data integrity
+    /// adds the product to the data layer
     /// Throws exceptions when needed
-    /// returns productItem
     public void Add(Product product);
     /// <summary>
     /// decleration of function delete 
-    /// receives 
+    /// receives the product id
     /// checks if the product exits
     /// trying to delete him from the data layer
     /// Throws exceptions when needed
@@ -43,6 +42,7 @@ public interface IProduct
     /// <summary>
     /// decleration of function update
     /// receives product 
+    /// checks integrity in the data layer
     /// updates the product
     /// Throws exceptions when needed
     public void Update(Product product);

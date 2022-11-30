@@ -1,15 +1,32 @@
-﻿
-using DO;
-
-namespace BO;
-
+﻿namespace BO;
+/// <summary>
+/// properties of cart
+/// </summary>
 public class Cart
 {
+    /// <summary>
+    /// customer name
+    /// </summary>
     public string? CustomerName { get; set; }
+    /// <summary>
+    /// CustomerEmail
+    /// </summary>
     public String? CustomerEmail { get; set; }
+    /// <summary>
+    /// CustomerAdress
+    /// </summary>
     public string? CustomerAdress { get; set; }
+    /// <summary>
+    /// list of order items
+    /// </summary>
     public List<OrderItem>? Items { get; set; }
+    /// <summary>
+    /// TotalPrice
+    /// </summary>
     public double TotalPrice { get; set; }
+    /// <summary>
+    /// prints all the cart data
+    /// </summary>
     public override string ToString()
     {
     string st = $@"

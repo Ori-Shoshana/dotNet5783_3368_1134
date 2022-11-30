@@ -2,6 +2,11 @@
 internal class BoProduct : BlApi.IProduct
 {
     private DalApi.IDal dal = new Dal.DalList();
+    /// <summary>
+    /// implemention of function get products
+    /// request products list from the data layer
+    /// Build a product list based on the data
+    /// returns the list
     public IEnumerable<BO.ProductForList> GetProducts()
     {
         List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
@@ -19,6 +24,13 @@ internal class BoProduct : BlApi.IProduct
         }
         return productsForList;
     }
+    /// <summary>
+    /// implemention of function product details (for manager)
+    /// receives product id
+    /// trying to request the product from the data layer 
+    /// builds the product
+    /// Throws exceptions when needed
+    /// returns the product
     public BO.Product ProductDetailsM(int id)
     {
         DO.Product DoProduct = new DO.Product();
@@ -35,6 +47,13 @@ internal class BoProduct : BlApi.IProduct
         }
         throw new BO.VariableIsSmallerThanZeroExeption("Id is les than 0");
     }
+    /// <summary>
+    /// implemention of function product details (for customer)
+    /// receives product id and cart
+    /// trying to request the product from the data layer 
+    /// builds  productItem
+    /// Throws exceptions when needed
+    /// returns productItem
     public BO.ProductItem ProductDetailsC(int id, BO.Cart cart)
     {
         if(cart.Items == null)
@@ -64,6 +83,12 @@ internal class BoProduct : BlApi.IProduct
         }
         throw new BO.VariableIsSmallerThanZeroExeption("the id is less than 0");
     }
+    /// <summary>
+    /// implemention of function add
+    /// receives product
+    /// checks data integrity
+    /// adds the product to the data layer
+    /// Throws exceptions when needed
     public void Add(BO.Product product)     
     {
         if (product.ID < 0) throw new BO.VariableIsSmallerThanZeroExeption("Id is less than 0");
@@ -80,6 +105,12 @@ internal class BoProduct : BlApi.IProduct
 
         dal.Product.Add(DoProduct);
     }
+    /// <summary>
+    /// implemention of function delete 
+    /// receives the product id
+    /// checks if the product exits
+    /// trying to delete him from the data layer
+    /// Throws exceptions when needed
     public void Delete(int id)
     {
         int i = 0;
@@ -99,6 +130,12 @@ internal class BoProduct : BlApi.IProduct
         }    
         dal.Product.Delete(id);
     }
+    /// <summary>
+    /// implemention of function update
+    /// receives product 
+    /// checks integrity
+    /// updates the product in the data layer
+    /// Throws exceptions when needed
     public void Update(BO.Product product)
     {
         if (product.ID < 0) throw new BO.VariableIsSmallerThanZeroExeption("Id is less than 0");
