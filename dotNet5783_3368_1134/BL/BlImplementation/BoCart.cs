@@ -232,12 +232,3 @@ internal class BoCart : BlApi.ICart
     }
 }
 
-internal class MailAddress
-{
-    private string email;
-
-    public MailAddress(string email)
-    {
-        this.email = email;
-    }
-}
