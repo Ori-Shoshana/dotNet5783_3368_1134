@@ -1,18 +1,12 @@
-﻿using BlApi;
-using BO;
-using DalApi;
-using DO;
-using System.Collections.Immutable;
-using System.Globalization;
-using System.Net.Mail;
-using System.Runtime.CompilerServices;
-using static BO.Enums;
+﻿
+
 namespace BlImplementation;
 
-internal class BoCart : ICart
+internal class BoCart : BlApi.ICart
 {
-    
-    private IDal dal = new Dal.DalList();
+  
+
+    private DalApi.IDal dal = new Dal.DalList();
     BO.OrderItem ordItemBO = new BO.OrderItem();
     DO.Product productDO = new DO.Product();
     //The function adds an item to the shopping cart
@@ -21,6 +15,19 @@ internal class BoCart : ICart
 
         List<DO.Product> Do_Products = new List<DO.Product>();
         Do_Products = (List<DO.Product>)dal.Product.GetAll();
+        bool check1 = false;
+        for (int i = 0; i < cart.CustomerEmail.Length; i++)
+        {
+            if (cart.CustomerEmail[i] == 64 )
+            {
+                check1 = true;
+                break;
+            }
+        }
+        if(check1 == false )
+        {
+            throw new BO.InvalidInputExeption("The input is not an email");
+        }
         if (cart.Items == null)
         {
             foreach (var product in Do_Products)
@@ -36,7 +43,7 @@ internal class BoCart : ICart
                     {
                         orderItem.Amount = 1;
                     }
-                    else throw new VariableIsSmallerThanZeroExeption("Out of stock");
+                    else throw new BO.VariableIsSmallerThanZeroExeption("Out of stock");
                     orderItem.Name = product.ProductName;
                     List<BO.OrderItem> boOrderItems = new List<BO.OrderItem>();
                     boOrderItems.Add(orderItem);
@@ -47,7 +54,7 @@ internal class BoCart : ICart
                 }
 
             }
-            throw new VeriableNotExistException("The Id Does Not Exist");    
+            throw new BO.VeriableNotExistException("The Id Does Not Exist");    
         }
         //In case the member already exists
         foreach (var item in cart.Items)
@@ -61,7 +68,7 @@ internal class BoCart : ICart
                         item.TotalPrice = (++item.Amount) * (item.Price);
                         cart.TotalPrice += item.Price;
                     }
-                    else throw new VariableIsSmallerThanZeroExeption("Out of stock");
+                    else throw new BO.VariableIsSmallerThanZeroExeption("Out of stock");
                 }
                 return cart;
             }
@@ -80,7 +87,7 @@ internal class BoCart : ICart
                 {
                     orderItem.Amount = 1;
                 }
-                else throw new VariableIsSmallerThanZeroExeption("Out of stock");
+                else throw new BO.VariableIsSmallerThanZeroExeption("Out of stock");
                 orderItem.Name = product.ProductName;
 
                 cart.Items.Add(orderItem); // Add the order item to the list
@@ -88,29 +95,29 @@ internal class BoCart : ICart
             }
 
         }
-        throw new VeriableNotExistException("The Id Does Not Exist");
+        throw new BO.VeriableNotExistException("The Id Does Not Exist");
     }
 
     public void Confirmation(BO.Cart cart)
     {
         if (cart.Items == null)
         {
-            throw new VeriableNotExistException("The shopping cart is empty");
-        }
+            throw new BO.VeriableNotExistException("The shopping cart is empty");
+        }     
         List<DO.Product> Do_Products = new List<DO.Product>();
         Do_Products = (List<DO.Product>)dal.Product.GetAll();
         foreach (var item in cart.Items) //Check that all data is correct
         {
-            if (item.Amount <= 0 || cart.CustomerName == null || cart.CustomerEmail == null || cart.CustomerAdress == null || !IsValid(cart.CustomerEmail))
+            if (item.Amount <= 0 || cart.CustomerName == null || cart.CustomerEmail == null || cart.CustomerAdress == null)
             {
-                throw new VeriableNotExistException("Input error");
+                throw new BO.VeriableNotExistException("Input error");
             }
             foreach (var product in Do_Products)
             {
                 if (item.ProductID == product.ProductID)
                 {
                     if (item.Amount > product.InStock)  //check that the quantity is less than the quantity in stock
-                        throw new VariableIsSmallerThanZeroExeption("Out of stock");
+                        throw new BO.VariableIsSmallerThanZeroExeption("Out of stock");
                 }
             }
         }
@@ -155,11 +162,11 @@ internal class BoCart : ICart
     {
         if (cart.Items == null)
         {
-            throw new VariableIsSmallerThanZeroExeption("The shopping cart is empty");
+            throw new BO.VariableIsSmallerThanZeroExeption("The shopping cart is empty");
         }
         if (amount < 0)  //check for correctness
         {
-            throw new VariableIsSmallerThanZeroExeption("There is no such thing as a negative quantity");
+            throw new BO.VariableIsSmallerThanZeroExeption("There is no such thing as a negative quantity");
         }
         List<DO.Product> Do_Products = new List<DO.Product>();
         Do_Products = (List<DO.Product>)dal.Product.GetAll();
@@ -179,7 +186,7 @@ internal class BoCart : ICart
                                 item.Amount = amount;
                                 item.TotalPrice = item.Price * amount;
                             }
-                            else throw new VariableIsSmallerThanZeroExeption("Out of stock");
+                            else throw new BO.VariableIsSmallerThanZeroExeption("Out of stock");
                         }
                     }
                     cart.TotalPrice += item.TotalPrice;
@@ -206,13 +213,12 @@ internal class BoCart : ICart
                 }
             }
         }
-        throw new VeriableNotExistException("The Id Does Not Exist");
+        throw new BO.VeriableNotExistException("The Id Does Not Exist");
     }
 
     private static bool IsValid(string email)
     {
         var valid = true;
-
         try
         {
             var emailAddress = new MailAddress(email);
@@ -223,5 +229,15 @@ internal class BoCart : ICart
         }
 
         return valid;
+    }
+}
+
+internal class MailAddress
+{
+    private string email;
+
+    public MailAddress(string email)
+    {
+        this.email = email;
     }
 }

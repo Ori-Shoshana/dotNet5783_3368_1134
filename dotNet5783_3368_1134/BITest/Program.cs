@@ -1,7 +1,7 @@
 ﻿using BlApi;
 using BO;
 using DalApi;
-using Dal; 
+using Dal;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Diagnostics.Metrics;
@@ -28,9 +28,9 @@ internal class Program
         cart.CustomerName = Console.ReadLine();
         Console.WriteLine("Enter customer email");
         cart.CustomerEmail = Console.ReadLine();
+        validEmail(cart.CustomerEmail);
         Console.WriteLine("Enter customer address");
         cart.CustomerAdress = Console.ReadLine();
-
         List<BO.ProductForList> products = new List<BO.ProductForList>();
         products = (List<ProductForList>)bl.Product.GetProducts();
         foreach (var product1 in products)
@@ -59,11 +59,12 @@ internal class Program
             {
                 case Option.Exit:
                 return;
+//********************** actions fo cart ******************************//
                 case Option.Cart:
                     Console.WriteLine("Enter 0 to pick a different option\n " +
-                        "Enter 1 to add a order\n " +
-                        "Enter 2 to confirm order\n " +
-                        "Enter 3 to update order\n ");
+                        "Enter 1 to add a product to the cart\n " +
+                        "Enter 2 to confirm product in cart\n " +
+                        "Enter 3 to update product in cart\n ");
                     int.TryParse(Console.ReadLine(), out option2);
                     switch(option2)
                     {
@@ -80,20 +81,16 @@ internal class Program
                             }
                             catch (VariableIsSmallerThanZeroExeption ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
-                            catch (IdNotExistException ex)
+                            catch (DO.IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             catch (VeriableNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
-                            
-
-
-
                             break;
 
                         case 2://confirm a order
@@ -101,17 +98,17 @@ internal class Program
                             {
                                 bl.Cart.Confirmation(cart);
                             }
-                            catch (IdNotExistException ex)
+                            catch (DO.IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             catch (VeriableNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             catch (InvalidInputExeption ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             break;
 
@@ -129,15 +126,14 @@ internal class Program
                             {
                                 Console.WriteLine(ex.Message);
                             }
-                            catch (IdNotExistException ex)
+                            catch (DO.IdNotExistException ex)
                             {
                                 Console.WriteLine(ex.Message);
                             }
                             break;
                     }
                     break;
-
-//********************** actions fo order ******************************//
+//********************** actions for order ******************************//
                 case Option.Order:
                     Console.WriteLine("Enter 0 to pick a different option\n " +
                         "Enter 1 to see list of Orders\n " +
@@ -152,7 +148,7 @@ internal class Program
                         case 0:
                             break;
 
-                        case 1://prints the last product only
+                        case 1://prints all the orders
                             List<OrderForList> list = new List<OrderForList>();
                            
                                 foreach (OrderForList item in (List<OrderForList>)bl.Order.GetOrders())
@@ -171,13 +167,13 @@ internal class Program
                                 order = bl.Order.OrderDetails(tempInt);
                                 Console.WriteLine(order.ToString());
                             }
-                            catch(IdNotExistException ex)
+                            catch(DO.IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             catch (VariableIsSmallerThanZeroExeption ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             break;
 
@@ -190,11 +186,11 @@ internal class Program
                             }
                             catch(VeriableNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
-                            catch (IdNotExistException ex)
+                            catch (DO.IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             break;
 
@@ -207,30 +203,28 @@ internal class Program
                             }
                             catch (VeriableNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
-                            catch (IdNotExistException ex)
+                            catch (DO.IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             } 
                             break;
 
                         case 5://reurns the trackng update of the order
                             Console.WriteLine("Enter the id to update for to see the order tracking");
-                            BO.OrderTracking orderTracking = new BO.OrderTracking();
                             int.TryParse(Console.ReadLine(), out tempInt);
-                            orderTracking = bl.Order.Track(tempInt);
-                            Console.WriteLine("ID:" + orderTracking.ID);
-                            Console.WriteLine("status:" + orderTracking.Status);
-                            foreach(var t in orderTracking.Tracking)
+                            try
                             {
-                                Console.WriteLine("Tracking:" + t);
+                                Console.WriteLine(bl.Order.Track(tempInt).ToString());
                             }
-                            
+                            catch(VariableIsNullExeption ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
                             break;
                     }
                     break;
-
 //********************** actions fo product ******************************//
                 case Option.Product:
                     Console.WriteLine("Enter 0 to pick a different option\n " +
@@ -263,13 +257,13 @@ internal class Program
                             {
                                 Console.WriteLine(bl.Product.ProductDetailsM(tempInt).ToString());
                             }
-                            catch(IdNotExistException ex)
+                            catch(DO.IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             catch (VariableIsSmallerThanZeroExeption ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             break;
 
@@ -282,21 +276,25 @@ internal class Program
                             {
                                 Console.WriteLine(bl.Product.ProductDetailsC(tempInt,cart).ToString());
                             }
-                            catch (IdNotExistException ex)
+                            catch (DO.IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             catch (VariableIsSmallerThanZeroExeption ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             catch (IdAlreadyExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
+                            }                            
+                            catch (VariableIsNullExeption ex)
+                            {
+                                Console.WriteLine(ex.Message);
                             }
                             break;
 
-                        case 4:
+                        case 4://add a product
                             productCategory categoryPro;
                             BO.Product product = new BO.Product(); 
                             Console.WriteLine("Enter ID to add");
@@ -317,27 +315,38 @@ internal class Program
                             {
                                 bl.Product.Add(product);
                             }
-                            catch(Exception ex)
+                            catch(VariableIsSmallerThanZeroExeption ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
-
+                            catch (VariableIsNullExeption ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                            catch (DO.IdAlreadyExistException ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }                        
                             break;
 
-                        case 5:
+                        case 5://delete a product
                             Console.WriteLine("Enter ID of product to delete");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             try
                             {
                                 bl.Product.Delete(tempInt);
                             }
-                            catch(Exception ex)
+                            catch(DO.IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
+                            catch (VeriableNotExistException ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }                      
                             break;
 
-                        case 6:
+                        case 6://update a product
                             productCategory categoryPro1;
                             BO.Product product2 = new BO.Product();
                             Console.WriteLine("Enter ID to update");
@@ -358,9 +367,17 @@ internal class Program
                             {
                                 bl.Product.Update(product2);
                             }
-                            catch(Exception ex)
+                            catch(VariableIsSmallerThanZeroExeption ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
+                            }
+                            catch (VariableIsNullExeption ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                            catch (DO.IdNotExistException ex)
+                            {
+                                Console.WriteLine(ex.Message);
                             }
                             break;
                     }
@@ -375,4 +392,27 @@ internal class Program
             Option.TryParse(Console.ReadLine(), out option);
         } while (option != 0);
     }
+    public static bool validEmail(string st)//there was no way to check exept in the main if the input was a valid email
+    {
+        bool check1 = false;
+        do
+        {
+            for (int i = 0; i < cart.CustomerEmail.Length; i++)
+            {
+                if (cart.CustomerEmail[i] == 64)
+                {
+                    check1 = true;
+                    return true;
+                }
+            }
+            if (check1 == false)
+            {
+                Console.WriteLine("The input is not an email\n");
+                Console.WriteLine("Enter customer email");
+                cart.CustomerEmail = Console.ReadLine();
+            }
+        } while (check1 == false);
+        return true;
+    }
 }
+
