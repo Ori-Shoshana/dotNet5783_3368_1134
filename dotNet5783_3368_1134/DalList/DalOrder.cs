@@ -78,7 +78,6 @@ internal class DalOrder : IOrder
             if (order.OrderID == orderId)
                 return order;
         }
-
         throw new IdNotExistException("Id not found");
     }
 

@@ -1,14 +1,8 @@
-﻿using BO;
-using DalApi;
-using static BO.Enums;
-
-
-namespace BlImplementation;
-
+﻿
 internal class BoOrder : BlApi.IOrder
 {
-    private IDal dal = new Dal.DalList();
-    public IEnumerable<OrderForList> GetOrders()
+    private DalApi.IDal dal = new Dal.DalList();
+    public IEnumerable<BO.OrderForList> GetOrders()
     {
         List<BO.OrderForList> orderForList = new List<BO.OrderForList>();
         List<DO.Order> DoOrders = new List<DO.Order>();
@@ -26,14 +20,14 @@ internal class BoOrder : BlApi.IOrder
             orderForList1.CustomerName = DoOrder.CustomerName;
             if (DoOrder.DeliveryDate <=DateTime.Now)
             {
-                orderForList1.Status = OrderStatus.Deliverd;
+                orderForList1.Status = BO.Enums.OrderStatus.Deliverd;
             }
             else  if (DoOrder.ShipDate <= DateTime.Now)
             {
-                orderForList1.Status = OrderStatus.Sent;
+                orderForList1.Status = BO.Enums.OrderStatus.Sent;
             }
             else
-            { orderForList1.Status = OrderStatus.Confirmed; }
+            { orderForList1.Status = BO.Enums.OrderStatus.Confirmed; }
             
             orderForList1.TotalPrice += DoOrderItems[i].PriceItem * DoOrderItems[i].Amount;
             orderForList1.AmountOfItems = DoOrderItems[i].Amount;
@@ -99,19 +93,19 @@ internal class BoOrder : BlApi.IOrder
             BoOrder.TotalPrice = finalTotalPrice;
             if (DoOrder.DeliveryDate <= DateTime.Now)
             {
-                BoOrder.Status = OrderStatus.Deliverd;
+                BoOrder.Status = BO.Enums.OrderStatus.Deliverd;
             }
             else if (DoOrder.ShipDate <= DateTime.Now)
             {
-                BoOrder.Status = OrderStatus.Sent;
+                BoOrder.Status = BO.Enums.OrderStatus.Sent;
             }
             else
             {
-                BoOrder.Status = OrderStatus.Confirmed;
+                BoOrder.Status = BO.Enums.OrderStatus.Confirmed;
             }
             return BoOrder;
         }
-        throw new VariableIsSmallerThanZeroExeption("id is smaller than 0");
+        throw new BO.VariableIsSmallerThanZeroExeption("id is smaller than 0");
     }
     public BO.Order UpdateDelivery(int id)
     {
@@ -126,7 +120,7 @@ internal class BoOrder : BlApi.IOrder
                 if (BoOrder.DeliveryDate == null) // לבדוק אם ככה הוא כשהוא לא מאותחל
                 {
                     BoOrder.DeliveryDate = DateTime.Now;
-                    BoOrder.Status = OrderStatus.Deliverd;
+                    BoOrder.Status = BO.Enums.OrderStatus.Deliverd;
                     DO.Order order = new DO.Order();
                     order.OrderID = id;
                     order.CustomerName = BoOrder.CustomerName;
@@ -165,7 +159,7 @@ internal class BoOrder : BlApi.IOrder
                 if (BoOrder.ShipDate == null) // לבדוק אם ככה הוא כשהוא לא מאותחל
                 {
                     BoOrder.ShipDate = DateTime.Now;
-                    BoOrder.Status = OrderStatus.Sent;
+                    BoOrder.Status = BO.Enums.OrderStatus.Sent;
                     DO.Order order = new DO.Order();
                     order.OrderID = id;
                     order.CustomerName = BoOrder.CustomerName;
@@ -196,25 +190,27 @@ internal class BoOrder : BlApi.IOrder
         string Item;
         List<DO.Order> DoOrders = new List<DO.Order>();
         DoOrders = (List<DO.Order>)dal.Order.GetAll();
-        BO.OrderTracking BoOrderTracking = new BO.OrderTracking();  
+        BO.OrderTracking BoOrderTracking = new BO.OrderTracking();
+        bool check = false;
         foreach (DO.Order doOrder in DoOrders)
         {
             if (id == doOrder.OrderID)
             {
+                check = true;
                 BoOrderTracking.ID = (int)doOrder.OrderID;
                 if (doOrder.DeliveryDate <= DateTime.Now)
                 {
-                    BoOrderTracking.Status = OrderStatus.Deliverd;
+                    BoOrderTracking.Status = BO.Enums.OrderStatus.Deliverd;
                     Item = "the package was deliverd";
                 }
                 else if (doOrder.ShipDate <= DateTime.Now)
                 {
-                    BoOrderTracking.Status = OrderStatus.Sent;
+                    BoOrderTracking.Status = BO.Enums.OrderStatus.Sent;
                     Item = "the package was sent";
                 }
                 else
                 {
-                    BoOrderTracking.Status = OrderStatus.Confirmed;
+                    BoOrderTracking.Status = BO.Enums.OrderStatus.Confirmed;
                     Item = "the order is confermed in the system";
                 }
                 var tupleList = new List<(DateTime myTime, string Name)>
@@ -223,6 +219,10 @@ internal class BoOrder : BlApi.IOrder
                 };
                 BoOrderTracking.Tracking = tupleList;
              }
+        }
+        if(check == false)
+        {
+            throw new BO.VariableIsNullExeption("There is no item to track");
         }
         return BoOrderTracking;
 

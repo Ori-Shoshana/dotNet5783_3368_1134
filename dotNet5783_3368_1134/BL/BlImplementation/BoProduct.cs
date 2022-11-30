@@ -1,26 +1,18 @@
-﻿using BlApi;
-using BO;
-using DalApi;
-using System.Collections.Immutable;
-using System.Diagnostics;
-using System.Linq;
-using static BO.Enums;
-namespace BlImplementation;
-
+﻿
 internal class BoProduct : BlApi.IProduct
 {
-    private IDal dal = new Dal.DalList();
-    public IEnumerable<ProductForList> GetProducts()
+    private DalApi.IDal dal = new Dal.DalList();
+    public IEnumerable<BO.ProductForList> GetProducts()
     {
         List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
         List<DO.Product> products = new List<DO.Product>();
         products = (List<DO.Product>)dal.Product.GetAll();
         foreach (DO.Product product in products)
         {
-            productsForList.Add(new ProductForList
+            productsForList.Add(new BO.ProductForList
             {
                 ID = product.ProductID,
-                Category = (Enums.ProductCategory)product.Category,
+                Category = (BO.Enums.ProductCategory)product.Category,
                 Name = product.ProductName,
                 Price = product.Price
             });
@@ -37,14 +29,18 @@ internal class BoProduct : BlApi.IProduct
             BoProduct.ID = DoProduct.ProductID;
             BoProduct.Name = DoProduct.ProductName;
             BoProduct.Price = DoProduct.Price;
-            BoProduct.Category = (ProductCategory)DoProduct.Category;
+            BoProduct.Category = (BO.Enums.ProductCategory)DoProduct.Category;
             BoProduct.InStock = DoProduct.InStock;
             return BoProduct;
         }
-        throw new VariableIsSmallerThanZeroExeption("Id is les than 0");
+        throw new BO.VariableIsSmallerThanZeroExeption("Id is les than 0");
     }
     public BO.ProductItem ProductDetailsC(int id, BO.Cart cart)
     {
+        if(cart.Items == null)
+        {
+            throw new BO.VariableIsNullExeption("The item is null");
+        }
         if(id >= 0)
         {
             DO.Product product = new  DO.Product();
@@ -53,7 +49,7 @@ internal class BoProduct : BlApi.IProduct
             productItem.ID = product.ProductID;
             productItem.Name = product.ProductName;
             productItem.Price = product.Price;
-            productItem.Category = (ProductCategory)product.Category;
+            productItem.Category = (BO.Enums.ProductCategory)product.Category;
             if(product.InStock >0)
                 productItem.InStock = true;
             else 
@@ -66,14 +62,14 @@ internal class BoProduct : BlApi.IProduct
             }
             return productItem;
         }
-        throw new VariableIsSmallerThanZeroExeption("the id is less than 0");
+        throw new BO.VariableIsSmallerThanZeroExeption("the id is less than 0");
     }
     public void Add(BO.Product product)     
     {
-        if (product.ID < 0) throw new VariableIsSmallerThanZeroExeption("Id is less than 0");
-        if (product.Name == null) throw new VariableIsNullExeption("The name is null");
-        if (product.Price <= 0) throw new VariableIsSmallerThanZeroExeption("the price is less than 0");
-        if (product.InStock < 0) throw new VariableIsSmallerThanZeroExeption("the stock is less than 0");
+        if (product.ID < 0) throw new BO.VariableIsSmallerThanZeroExeption("Id is less than 0");
+        if (product.Name == null) throw new BO.VariableIsNullExeption("The name is null");
+        if (product.Price <= 0) throw new BO.VariableIsSmallerThanZeroExeption("the price is less than 0");
+        if (product.InStock < 0) throw new BO.VariableIsSmallerThanZeroExeption("the stock is less than 0");
 
         DO.Product DoProduct = new DO.Product();
         DoProduct.ProductID = (int)product.ID;
@@ -99,16 +95,16 @@ internal class BoProduct : BlApi.IProduct
         }
         if(i == products.Count)
         {
-            throw new VeriableNotExistException("there is no ptoduct to delete");
+            throw new BO.VeriableNotExistException("there is no ptoduct to delete");
         }    
         dal.Product.Delete(id);
     }
     public void Update(BO.Product product)
     {
-        if (product.ID < 0) throw new VariableIsSmallerThanZeroExeption("Id is less than 0");
-        if (product.Name == null) throw new VariableIsNullExeption("The name is null");
-        if (product.Price < 0) throw new VariableIsSmallerThanZeroExeption("the price is less than 0");
-        if (product.InStock < 0) throw new VariableIsSmallerThanZeroExeption("the stock is less than 0");
+        if (product.ID < 0) throw new BO.VariableIsSmallerThanZeroExeption("Id is less than 0");
+        if (product.Name == null) throw new BO.VariableIsNullExeption("The name is null");
+        if (product.Price < 0) throw new BO.VariableIsSmallerThanZeroExeption("the price is less than 0");
+        if (product.InStock < 0) throw new BO.VariableIsSmallerThanZeroExeption("the stock is less than 0");
 
         DO.Product DoProduct = new DO.Product();
 
@@ -122,7 +118,7 @@ internal class BoProduct : BlApi.IProduct
         {
             dal.Product.Update(DoProduct);
         }
-        catch(VeriableNotExistException ex)
+        catch(BO.VeriableNotExistException ex)
         {
             Console.WriteLine(ex);
         }
