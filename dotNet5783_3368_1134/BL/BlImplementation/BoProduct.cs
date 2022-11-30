@@ -43,7 +43,7 @@ internal class BoProduct : BlApi.IProduct
         }
         throw new VariableIsSmallerThanZeroExeption("Id is les than 0");
     }
-    public BO.ProductItem ProductDetailsC(int id, BO.Cart cart)//
+    public BO.ProductItem ProductDetailsC(int id, BO.Cart cart)
     {
         if(id >= 0)
         {
@@ -54,6 +54,11 @@ internal class BoProduct : BlApi.IProduct
             productItem.Name = product.ProductName;
             productItem.Price = product.Price;
             productItem.Category = (ProductCategory)product.Category;
+            if(product.InStock >0)
+            {
+                productItem.InStock = true;
+            }
+            else { productItem.InStock = false; }
             foreach(BO.OrderItem item in cart.Items)
             {
                 productItem.Amount += item.Amount;
