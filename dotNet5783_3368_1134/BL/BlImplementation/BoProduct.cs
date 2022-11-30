@@ -43,7 +43,7 @@ internal class BoProduct : BlApi.IProduct
         }
         throw new VariableIsSmallerThanZeroExeption("Id is les than 0");
     }
-    public BO.ProductItem ProductDetailsC(int id, BO.Cart cart)
+    public BO.ProductItem ProductDetailsC(int id, BO.Cart cart)//
     {
         if(id >= 0)
         {
