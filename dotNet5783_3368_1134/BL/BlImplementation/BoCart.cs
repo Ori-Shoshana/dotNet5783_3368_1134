@@ -1,7 +1,9 @@
 ﻿
 
 namespace BlImplementation;
-
+/// <summary>
+/// implementoin of all the functions of cart
+/// </summary>
 internal class BoCart : BlApi.ICart
 {
   
@@ -9,7 +11,11 @@ internal class BoCart : BlApi.ICart
     private DalApi.IDal dal = new Dal.DalList();
     BO.OrderItem ordItemBO = new BO.OrderItem();
     DO.Product productDO = new DO.Product();
-    //The function adds an item to the shopping cart
+    /// <summary>
+    /// implemention of function Add
+    /// Adds a product to the cart and updates the quntity and the prices
+    /// the function receives cart and id of a product
+    /// returns cart
     public BO.Cart Add(BO.Cart cart, int id)
     {
 
@@ -97,7 +103,13 @@ internal class BoCart : BlApi.ICart
         }
         throw new BO.VeriableNotExistException("The Id Does Not Exist");
     }
-
+    /// <summary>
+    /// implemention of function confirmation
+    /// the function receives cart
+    /// Adds an order items updates the quntity and the prices
+    /// checks the integrity of the data
+    /// place an order and update the inventory
+    /// </summary>
     public void Confirmation(BO.Cart cart)
     {
         if (cart.Items == null)
@@ -157,7 +169,13 @@ internal class BoCart : BlApi.ICart
             }
         }
     }
-
+    /// <summary>
+    /// implemention of function update
+    /// the function updates the product amount 
+    /// and the total price of the order item and the total price of the cart
+    /// </summary>
+    /// the function receives cart and id of a product and the product amount
+    /// returns cart
     public BO.Cart Update(BO.Cart cart, int id, int amount)
     {
         if (cart.Items == null)
@@ -215,7 +233,8 @@ internal class BoCart : BlApi.ICart
         }
         throw new BO.VeriableNotExistException("The Id Does Not Exist");
     }
-
+    /// <summary>
+    /// checks the integrity of the email
     private static bool IsValid(string email)
     {
         var valid = true;

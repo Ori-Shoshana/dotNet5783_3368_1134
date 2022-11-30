@@ -10,7 +10,6 @@ public interface ICart
     /// <summary>
     /// decleration of function Add
     /// Adds a product to the cart and updates the quntity and the prices
-    /// </summary>
     /// the function receives cart and id of a product
     /// returns cart
     public Cart Add(Cart C, int id);
