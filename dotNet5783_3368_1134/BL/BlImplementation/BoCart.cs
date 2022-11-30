@@ -10,6 +10,7 @@ namespace BlImplementation;
 
 internal class BoCart : ICart
 {
+    
     private IDal dal = new Dal.DalList();
     BO.OrderItem ordItemBO = new BO.OrderItem();
     DO.Product productDO = new DO.Product();

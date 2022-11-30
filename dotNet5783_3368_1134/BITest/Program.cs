@@ -4,7 +4,6 @@ using DalApi;
 using Dal; 
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
-using DO;
 using System.Diagnostics.Metrics;
 using BlImplementation;
 using System.Collections.Immutable;
@@ -17,11 +16,29 @@ namespace BITest;
 
 internal class Program
 {
+  
     enum Option {Exit =0, Cart = 1, Order = 2, Product = 3 };
     public static IBl bl = new BlImplementation.BL();
+    static BO.Cart cart = new Cart();
+
 
     static void Main(string[] args)
     {
+        Console.WriteLine("Enter customer name");
+        cart.CustomerName = Console.ReadLine();
+        Console.WriteLine("Enter customer email");
+        cart.CustomerEmail = Console.ReadLine();
+        Console.WriteLine("Enter customer address");
+        cart.CustomerAdress = Console.ReadLine();
+
+        List<BO.ProductForList> products = new List<BO.ProductForList>();
+        products = (List<ProductForList>)bl.Product.GetProducts();
+        foreach (var product1 in products)
+        {
+            Console.WriteLine(product1.ToString());
+        }
+
+
         Console.WriteLine("Enter 0 to exit \n" +
            "Enter 1 for Cart \n" +
            "Enter 2 for Order \n" +
@@ -54,46 +71,13 @@ internal class Program
                         case 0://return
                             break;
 
-                        case 1://add order to cart
-                            int count = 0;
+                        case 1://add order item to cart
                             int tempID = 0;
-                            double total = 0;
-                            Cart cart = new Cart();
-                            List<BO.OrderItem> orderItems = new List<BO.OrderItem>();
-                            BO.OrderItem item = new BO.OrderItem();
-
-                            Console.WriteLine("type a ID");
+                            Console.WriteLine("Enter a ID");
                             int.TryParse(Console.ReadLine(), out tempID);
-
-                            Console.WriteLine("Add customer name");
-                            cart.CustomerName = Console.ReadLine();
-                            Console.WriteLine("Add customer email");
-                            cart.CustomerEmail = Console.ReadLine();
-                            Console.WriteLine("Add customer address");
-                            cart.CustomerAdress = Console.ReadLine();
-                            Console.WriteLine("how many Items do you want to add to the Order?");
-                            int.TryParse(Console.ReadLine(), out count);
-                            for (int i = 0; i < count; i++)
-                            {
-                                Console.WriteLine("add a ID, Name, Product ID, Price, Amount");
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item.ID = tempInt;
-                                item.Name = Console.ReadLine();
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item.ProductID = tempInt;
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item.Price = tempInt;
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item.Amount = tempInt;
-                                item.TotalPrice = item.Amount * item.Price;
-                                total += item.Amount * item.Price;
-                                orderItems.Add(item);
-                            }
-                            cart.Items = orderItems;
-                            cart.TotalPrice = total;
                             try
                             {
-                                bl.Cart.Add(cart, tempInt);
+                                Console.WriteLine(bl.Cart.Add(cart, tempInt).ToString());
                             }
                             catch (VariableIsSmallerThanZeroExeption ex)
                             {
@@ -103,7 +87,6 @@ internal class Program
                             {
                                 Console.WriteLine(ex);
                             }
-
                             break;
 
                         case 2://confirm a order
@@ -143,7 +126,15 @@ internal class Program
                             {
                                 bl.Cart.Confirmation(cart1);
                             }
-                            catch (Exception ex)
+                            catch (IdNotExistException ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
+                            catch (VeriableNotExistException ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
+                            catch (InvalidInputExeption ex)
                             {
                                 Console.WriteLine(ex);
                             }
@@ -192,7 +183,11 @@ internal class Program
                             {
                                 bl.Cart.Update(cart2, tempInt,amount);
                             }
-                            catch (Exception ex)
+                            catch (VariableIsSmallerThanZeroExeption ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
+                            catch (IdNotExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }
@@ -217,17 +212,12 @@ internal class Program
 
                         case 1://prints the last product only
                             List<OrderForList> list = new List<OrderForList>();
-                            try
-                            {
+                           
                                 foreach (OrderForList item in (List<OrderForList>)bl.Order.GetOrders())
                                 {
                                     Console.WriteLine(item.ToString());
                                 }
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex);
-                            }
+                       
                             break;
 
                         case 2://print by id
@@ -239,7 +229,11 @@ internal class Program
                                 order = bl.Order.OrderDetails(tempInt);
                                 Console.WriteLine(order.ToString());
                             }
-                            catch(Exception ex)
+                            catch(IdNotExistException ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
+                            catch (VariableIsSmallerThanZeroExeption ex)
                             {
                                 Console.WriteLine(ex);
                             }
@@ -252,7 +246,11 @@ internal class Program
                             {
                                 bl.Order.UpdateDelivery(tempInt);
                             }
-                            catch(Exception ex)
+                            catch(VeriableNotExistException ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
+                            catch (IdNotExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }
@@ -265,30 +263,28 @@ internal class Program
                             {
                                 bl.Order.ShippingUpdate(tempInt);
                             }
-                            catch (Exception ex)
+                            catch (VeriableNotExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }
+                            catch (IdNotExistException ex)
+                            {
+                                Console.WriteLine(ex);
+                            } 
                             break;
 
-                        case 5:
+                        case 5://reurns the trackng update of the order
                             Console.WriteLine("Enter the id to update for to see the order tracking");
                             BO.OrderTracking orderTracking = new BO.OrderTracking();
                             int.TryParse(Console.ReadLine(), out tempInt);
                             orderTracking = bl.Order.Track(tempInt);
-                            try
+                            Console.WriteLine("ID:" + orderTracking.ID);
+                            Console.WriteLine("status:" + orderTracking.Status);
+                            foreach(var t in orderTracking.Tracking)
                             {
-                                Console.WriteLine("ID:" + orderTracking.ID);
-                                Console.WriteLine("status:" + orderTracking.Status);
-                                foreach(var t in orderTracking.Tracking)
-                                {
-                                    Console.WriteLine("Tracking:" + t);
-                                }
+                                Console.WriteLine("Tracking:" + t);
                             }
-                            catch (Exception ex) 
-                            { 
-                                Console.WriteLine(ex); 
-                            }
+                            
                             break;
                     }
                     break;
@@ -309,78 +305,50 @@ internal class Program
                         case 0:
                             break;
 
-                        case 1:
-                            try
+                        case 1://prints all the products
+                            
+                            products = (List<ProductForList>)bl.Product.GetProducts();
+                            foreach (var product1 in products)
                             {
-                                List<BO.ProductForList> products = new List<BO.ProductForList>();
-                                products = (List<ProductForList>)bl.Product.GetProducts();
-                                foreach (var product1 in products)
-                                {
-                                    Console.WriteLine(product1.ToString());
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(product1.ToString());
                             }
                             break;
 
-                        case 2:
+                        case 2://prints the product by the id
                             Console.WriteLine("Enter the id of the product that you want to print");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             try
                             {
                                 Console.WriteLine(bl.Product.ProductDetailsM(tempInt).ToString());
                             }
-                            catch(Exception ex)
+                            catch(IdNotExistException ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
+                            catch (VariableIsSmallerThanZeroExeption ex)
                             {
                                 Console.WriteLine(ex);
                             }
                             break;
 
-                        case 3:
-                            int count = 0;
-                            double total = 0;
+                        case 3://prints the product by the id and the givin cart
                             Console.WriteLine("Enter the id of the product item that you want to print");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             BO.ProductItem productItem = new ProductItem();
-                            BO.Cart cart = new Cart();
-                            BO.OrderItem item = new BO.OrderItem();
                             List<BO.OrderItem> orderItems = new List<BO.OrderItem>();
-
-                            
-                            Console.WriteLine("Enter customer name");
-                            cart.CustomerName = Console.ReadLine();
-                            Console.WriteLine("Enter customer email");
-                            cart.CustomerEmail = Console.ReadLine();
-                            Console.WriteLine("Enter customer address");
-                            cart.CustomerAdress = Console.ReadLine();
-                            Console.WriteLine("how many Items do you want to add to the Order?");
-                            int.TryParse(Console.ReadLine(), out count);
-                            for (int i = 0; i < count; i++)
-                            {
-                                Console.WriteLine("add a ID, Name, Product ID, Price, Amount");
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item.ID = tempInt;
-                                item.Name = Console.ReadLine();
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item.ProductID = tempInt;
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item.Price = tempInt;
-                                int.TryParse(Console.ReadLine(), out tempInt);
-                                item.Amount = tempInt;
-                                item.TotalPrice = item.Amount * item.Price;
-                                total += item.Amount * item.Price;
-                                orderItems.Add(item);
-                            }
-                            cart.Items = orderItems;
-                            cart.TotalPrice = total;
-                            
                             try
                             {
                                 Console.WriteLine(bl.Product.ProductDetailsC(tempInt,cart).ToString());
                             }
-                            catch(Exception ex)
+                            catch (IdNotExistException ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
+                            catch (VariableIsSmallerThanZeroExeption ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
+                            catch (IdAlreadyExistException ex)
                             {
                                 Console.WriteLine(ex);
                             }
