@@ -120,7 +120,7 @@ internal class Program
 
                             try
                             {
-                                bl.Cart.Update(cart, tempID, amount);
+                                Console.WriteLine(bl.Cart.Update(cart, tempID, amount).ToString());
                             }
                             catch (VariableIsSmallerThanZeroExeption ex)
                             {
@@ -130,6 +130,10 @@ internal class Program
                             {
                                 Console.WriteLine(ex.Message);
                             }
+                            catch (VeriableNotExistException ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }                    
                             break;
                     }
                     break;

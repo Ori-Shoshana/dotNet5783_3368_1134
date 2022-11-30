@@ -65,7 +65,7 @@ internal class BoCart : BlApi.ICart
         //In case the member already exists
         foreach (var item in cart.Items)
         {
-            if (item.ID == id)
+            if (item.ProductID == id)
             {
                 foreach (var product in Do_Products)
                 {
@@ -91,13 +91,14 @@ internal class BoCart : BlApi.ICart
                 orderItem.TotalPrice = product.Price;
                 if (product.InStock >= 1) //Check if the product is in stock
                 {
-                    orderItem.Amount = 1;
+                    orderItem.Amount -= 1;
                 }
                 else throw new BO.VariableIsSmallerThanZeroExeption("Out of stock");
                 orderItem.Name = product.ProductName;
 
                 cart.Items.Add(orderItem); // Add the order item to the list
                 cart.TotalPrice += orderItem.TotalPrice; //Add this to the final amount
+                return cart; 
             }
 
         }
@@ -235,19 +236,6 @@ internal class BoCart : BlApi.ICart
     }
     /// <summary>
     /// checks the integrity of the email
-    private static bool IsValid(string email)
-    {
-        var valid = true;
-        try
-        {
-            var emailAddress = new MailAddress(email);
-        }
-        catch
-        {
-            valid = false;
-        }
-
-        return valid;
-    }
+  
 }
 
