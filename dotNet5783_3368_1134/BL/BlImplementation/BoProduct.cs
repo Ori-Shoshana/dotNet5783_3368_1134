@@ -98,7 +98,7 @@ internal class BoProduct : BlApi.IProduct
         }
         if(i == products.Count)
         {
-            throw new IdNotExistException("there is no ptoduct to delete");
+            throw new VeriableNotExistException("there is no ptoduct to delete");
         }    
         dal.Product.Delete(id);
     }
@@ -121,7 +121,7 @@ internal class BoProduct : BlApi.IProduct
         {
             dal.Product.Update(DoProduct);
         }
-        catch(IdNotExistException ex)
+        catch(VeriableNotExistException ex)
         {
             Console.WriteLine(ex);
         }

@@ -21,7 +21,6 @@ internal class BoOrder : BlApi.IOrder
         DoOrders = (List<DO.Order>)dal.Order.GetAll();
         DoOrderItems = (List<DO.OrderItem>)dal.OrderItem.GetAll();
         int i = 0;
-        int j = 0;
 
         foreach (DO.Order DoOrder in DoOrders)
         {
@@ -38,14 +37,10 @@ internal class BoOrder : BlApi.IOrder
                 orderForList1.Status = OrderStatus.Sent;
             }
             else
-            {
-                orderForList1.Status = OrderStatus.Confirmed;
-            }
+            { orderForList1.Status = OrderStatus.Confirmed; }
             
             orderForList1.TotalPrice += DoOrderItems[i].PriceItem * DoOrderItems[i].Amount;
             orderForList1.AmountOfItems = DoOrderItems[i].Amount;
-            
-
             
             orderForList.Add(orderForList1);
             i++;
@@ -141,9 +136,18 @@ internal class BoOrder : BlApi.IOrder
                     order.CustomerName = BoOrder.CustomerName;
                     order.CustomerEmail = BoOrder.CustomerEmail;
                     order.CustomerAdress = BoOrder.CustomerAdress;
-                    order.OrderDate = (DateTime)BoOrder.OrderDate;
-                    order.ShipDate = (DateTime)BoOrder.ShipDate;
-                    order.DeliveryDate = (DateTime)BoOrder.DeliveryDate;
+                    if(BoOrder.OrderDate != null)
+                    {
+                        order.OrderDate = (DateTime)BoOrder.OrderDate;
+                    }
+                    if(BoOrder.ShipDate != null)
+                    {
+                        order.ShipDate = (DateTime)BoOrder.ShipDate;
+                    }
+                    if(BoOrder.DeliveryDate != null)
+                    {
+                        order.DeliveryDate = (DateTime)BoOrder.DeliveryDate;
+                    }
                     dal.Order.Update(order);
                     return BoOrder;
                 }
@@ -171,9 +175,18 @@ internal class BoOrder : BlApi.IOrder
                     order.CustomerName = BoOrder.CustomerName;
                     order.CustomerEmail = BoOrder.CustomerEmail;
                     order.CustomerAdress = BoOrder.CustomerAdress;
-                    order.OrderDate = (DateTime)BoOrder.OrderDate;
-                    order.ShipDate = (DateTime)BoOrder.ShipDate;
-                    order.DeliveryDate = (DateTime)BoOrder.DeliveryDate;
+                    if (BoOrder.OrderDate != null)
+                    {
+                        order.OrderDate = (DateTime)BoOrder.OrderDate;
+                    }
+                    if (BoOrder.ShipDate != null)
+                    {
+                        order.ShipDate = (DateTime)BoOrder.ShipDate;
+                    }
+                    if (BoOrder.DeliveryDate != null)
+                    {
+                        order.DeliveryDate = (DateTime)BoOrder.DeliveryDate;
+                    }
                     dal.Order.Update(order);
                     return BoOrder;
                 }

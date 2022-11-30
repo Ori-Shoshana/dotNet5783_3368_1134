@@ -9,6 +9,7 @@ namespace BlImplementation;
 
 internal class BoCart : ICart
 {
+    
     private IDal dal = new Dal.DalList();
     BO.OrderItem ordItemBO = new BO.OrderItem();
     DO.Product productDO = new DO.Product();
@@ -16,6 +17,10 @@ internal class BoCart : ICart
     {
         IEnumerable<DO.Product> DoProducts = dal.Product.GetAll();
         BO.OrderItem? OrderItem;
+        if (C.Items == null)
+        {
+            OrderItem = new BO.OrderItem(); 
+        }
         foreach (var x in C.Items)
         {
             if (x.ProductID == id)
