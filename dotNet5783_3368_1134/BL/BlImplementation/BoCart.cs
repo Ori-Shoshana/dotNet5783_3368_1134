@@ -91,7 +91,7 @@ internal class BoCart : BlApi.ICart
                 orderItem.TotalPrice = product.Price;
                 if (product.InStock >= 1) //Check if the product is in stock
                 {
-                    orderItem.Amount -= 1;
+                    orderItem.Amount = 1;
                 }
                 else throw new BO.VariableIsSmallerThanZeroExeption("Out of stock");
                 orderItem.Name = product.ProductName;
