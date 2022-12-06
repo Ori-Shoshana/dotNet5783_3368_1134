@@ -1,15 +1,5 @@
 ﻿using BlApi;
 using BO;
-using DalApi;
-using Dal;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Diagnostics.Metrics;
-using BlImplementation;
-using System.Collections.Immutable;
-using System.Collections.Generic;
-using System.Runtime.Intrinsics.X86;
-using System.Drawing;
 using static DO.Enums;
 
 namespace BITest;

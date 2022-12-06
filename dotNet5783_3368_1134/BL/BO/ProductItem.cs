@@ -31,7 +31,7 @@ public class ProductItem
     /// <summary>
     /// amount (in the cart)
     /// </summary>
-    public int Amount { get; set; }   
+    public int? Amount { get; set; }   
 
 
     /// <summary>

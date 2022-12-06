@@ -12,19 +12,19 @@ public class OrderItem
     /// <summary>
     /// order name
     /// </summary>
-    public string Name { get; set; }
+    public string? Name { get; set; }
     /// <summary>
     /// product id
     /// </summary>
-    public int ProductID { get; set; }
+    public int? ProductID { get; set; }
     /// <summary>
     /// product price
     /// </summary>
-    public double Price { get; set; }
+    public double? Price { get; set; }
     /// <summary>
     /// products amount (in the order)
     /// </summary>
-    public int Amount { get; set; }
+    public int? Amount { get; set; }
     /// <summary>
     /// total price of product
     /// </summary>

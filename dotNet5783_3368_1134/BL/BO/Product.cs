@@ -27,7 +27,7 @@ public class Product
     /// <summary>
     /// in stock
     /// </summary>
-    public int InStock { get; set; }
+    public int? InStock { get; set; }
 
     /// <summary>
     /// prints all the data about the product

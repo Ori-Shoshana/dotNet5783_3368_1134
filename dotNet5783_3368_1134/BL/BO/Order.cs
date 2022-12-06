@@ -15,15 +15,15 @@ namespace BO
         /// <summary>
         /// Customer Name
         /// </summary>
-        public string CustomerName { get; set; }
+        public string? CustomerName { get; set; }
         /// <summary>
         /// Customer Email
         /// </summary>
-        public String CustomerEmail { get; set; }
+        public String? CustomerEmail { get; set; }
         /// <summary>
         /// Customer Adress
         /// </summary>
-        public string CustomerAdress { get; set; }
+        public string? CustomerAdress { get; set; }
         /// <summary>
         /// Order Date
         /// </summary>
@@ -39,7 +39,7 @@ namespace BO
         /// <summary>
         /// List of Items (type order item)
         /// </summary>
-        public List<OrderItem> Items { get; set; }
+        public List<OrderItem>? Items { get; set; }
         /// <summary>
         /// total price
         /// </summary>
