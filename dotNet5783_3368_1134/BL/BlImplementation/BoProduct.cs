@@ -7,11 +7,11 @@ internal class BoProduct : BlApi.IProduct
     /// request products list from the data layer
     /// Build a product list based on the data
     /// returns the list
-    public IEnumerable<BO.ProductForList> GetProducts()
+    public IEnumerable<BO.ProductForList?> GetProducts()
     {
-        List<BO.ProductForList> productsForList = new List<BO.ProductForList>();
-        List<DO.Product> products = new List<DO.Product>();
-        products = (List<DO.Product>)dal.Product.GetAll();
+        List<BO.ProductForList?> productsForList = new List<BO.ProductForList?>();
+        List<DO.Product?> products = new List<DO.Product?>();
+        products = (List<DO.Product?>)dal.Product.GetAll();
         foreach (DO.Product product in products)
         {
             productsForList.Add(new BO.ProductForList
@@ -34,7 +34,7 @@ internal class BoProduct : BlApi.IProduct
     public BO.Product ProductDetailsM(int id)
     {
         DO.Product DoProduct = new DO.Product();
-        BO.Product? BoProduct = new BO.Product();
+        BO.Product BoProduct = new BO.Product();
         if (id >= 0)
         {
             DoProduct = dal.Product.GetById(id);          
@@ -97,11 +97,11 @@ internal class BoProduct : BlApi.IProduct
         if (product.InStock < 0) throw new BO.VariableIsSmallerThanZeroExeption("the stock is less than 0");
 
         DO.Product DoProduct = new DO.Product();
-        if(product.ID != null)
+        //if(product.ID !=null)
         DoProduct.ProductID = (int)product.ID;
         DoProduct.ProductName = product.Name;
         DoProduct.Price = product.Price;
-        DoProduct.Category = (DO.Enums.productCategory)product.Category;
+        DoProduct.Category = (DO.Enums.productCategory?)product.Category;
         DoProduct.InStock = product.InStock;
 
         dal.Product.Add(DoProduct);
@@ -115,8 +115,8 @@ internal class BoProduct : BlApi.IProduct
     public void Delete(int id)
     {
         int i = 0;
-        List<DO.Product> products = new List<DO.Product>();
-        products = (List<DO.Product>)dal.Product.GetAll();
+        List<DO.Product?> products = new List<DO.Product?>();
+        products = (List<DO.Product?>)dal.Product.GetAll();
         foreach (DO.Product product in products)
         {
             if (id == product.ProductID)
@@ -145,11 +145,11 @@ internal class BoProduct : BlApi.IProduct
         if (product.InStock < 0) throw new BO.VariableIsSmallerThanZeroExeption("the stock is less than 0");
 
         DO.Product DoProduct = new DO.Product();
-        if(product.ID != null)
+        //if(product.ID != null)
         DoProduct.ProductID = (int)product.ID;
         DoProduct.ProductName = product.Name;
         DoProduct.Price = product.Price;
-        DoProduct.Category = (DO.Enums.productCategory)product.Category;
+        DoProduct.Category = (DO.Enums.productCategory?)product.Category;
         DoProduct.InStock = product.InStock;
 
         try

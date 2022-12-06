@@ -85,14 +85,14 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     public IEnumerable<OrderItem> GetAll()
     {
-        List<OrderItem> orderItems = new List<OrderItem>(DataSource.ListOrderItem);
-        return orderItems;
+        List<OrderItem?> orderItems = new List<OrderItem?>(DataSource.ListOrderItem);
+        return (IEnumerable<OrderItem>)orderItems;
     }
-
+    
     /// <summary>
     /// returns array length
     /// </summary>
-    public int ListLeangth()
+    public int ListLength()
     {
         return DataSource.ListOrderItem.Count();
     }

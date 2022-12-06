@@ -107,7 +107,7 @@ internal class Program
                             List<Product> products = new List<Product>(dal.Product.GetAll());
                             foreach (Product product in dal.Product.GetAll())
                             {
-                                if (counter == dal.Product.ListLeangth())
+                                if (counter == dal.Product.ListLength())
                                 {
                                     break;
                                 }
@@ -231,7 +231,7 @@ internal class Program
                             foreach(Order order in orders)
                             { 
                                    
-                                if(counter == dal.Order.ListLeangth())
+                                if(counter == dal.Order.ListLength())
                                 {
                                     break;
                                 }
@@ -351,7 +351,7 @@ internal class Program
                             foreach (OrderItem orderItem in orderItems)
                             {
                                
-                                if (counter == dal.OrderItem.ListLeangth())
+                                if (counter == dal.OrderItem.ListLength())
                                 {
                                     break;
                                 }

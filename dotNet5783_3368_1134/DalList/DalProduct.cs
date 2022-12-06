@@ -94,14 +94,14 @@ internal class DalProduct : IProduct
     /// </summary>
     public IEnumerable<Product> GetAll()
     {
-       List<Product> products = new List<Product>(DataSource.ListProduct);
-       return products;
+       List<Product?> products = new List<Product?>(DataSource.ListProduct);
+       return (IEnumerable<Product>)products;
     }
 
     /// <summary>
     /// returns array length
     /// </summary>
-    public int ListLeangth() 
+    public int ListLength() 
     {
         return DataSource.ListProduct.Count;
     }

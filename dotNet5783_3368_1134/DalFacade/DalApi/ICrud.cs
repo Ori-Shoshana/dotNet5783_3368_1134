@@ -9,6 +9,6 @@ public interface ICrud<T>
     T GetById(int id);      
     void Update(T entity);
     IEnumerable<T?> GetAll();
-    int ListLeangth();
+    int ListLength();
 
 }
