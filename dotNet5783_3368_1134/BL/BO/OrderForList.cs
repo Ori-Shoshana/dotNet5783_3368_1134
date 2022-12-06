@@ -15,7 +15,7 @@ public class OrderForList
     /// <summary>
     /// customer name
     /// </summary>
-    public string CustomerName { get; set; }
+    public string? CustomerName { get; set; }
     /// <summary>
     /// order status
     /// </summary>

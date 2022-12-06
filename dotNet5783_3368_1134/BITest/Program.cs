@@ -351,7 +351,6 @@ internal class Program
                             break;
 
                         case 6://update a product
-                            productCategory categoryPro1;
                             BO.Product product2 = new BO.Product();
                             Console.WriteLine("Enter ID to update");
                             int.TryParse(Console.ReadLine(), out tempInt);

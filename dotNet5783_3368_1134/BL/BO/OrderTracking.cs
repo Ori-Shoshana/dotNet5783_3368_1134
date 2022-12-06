@@ -20,7 +20,7 @@ public class OrderTracking
     /// <summary>
     /// list that contains date and order status description
     /// </summary>
-    public List<(DateTime, string)> Tracking { get; set; }
+    public List<(DateTime, string)>? Tracking { get; set; }
     /// <summary>
     /// prints all the data about order tracking
     /// </summary>

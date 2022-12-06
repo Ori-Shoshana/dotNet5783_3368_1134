@@ -59,7 +59,6 @@ internal class BoOrder : BlApi.IOrder
         BO.Order? BoOrder = new BO.Order();
         if (id > 0)
         {
-            int i = 0;
             double finalTotalPrice = 0;
             DoOrder = dal.Order.GetById(id);
             DoOrderItem = (List<DO.OrderItem>)dal.OrderItem.GetAll();
@@ -70,6 +69,7 @@ internal class BoOrder : BlApi.IOrder
             BoOrder.CustomerName = DoOrder.CustomerName;
             BoOrder.CustomerEmail = DoOrder.CustomerEmail;
             BoOrder.CustomerAdress = DoOrder.CustomerAdress;
+            if(DoOrder.OrderDate != null)
             BoOrder.OrderDate = (DateTime)DoOrder.OrderDate;
             if (DoOrder.ShipDate != null)
                 BoOrder.ShipDate = (DateTime)DoOrder.ShipDate;
