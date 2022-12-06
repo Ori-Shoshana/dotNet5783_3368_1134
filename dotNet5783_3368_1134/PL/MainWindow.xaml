@@ -12,6 +12,22 @@
             <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+        </Grid>
+        <ComboBox Name="AttributeSelector" HorizontalAlignment="Stretch" Margin="0,169,0,0" Grid.Row="1" VerticalAlignment="Stretch" Width="120" Grid.Column="1" SelectionChanged="AttributeSelector_SelectionChanged_1"/>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="362,103,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-5.14,-2.259" Grid.Column="0"/>
+        <ListView Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ListView_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                    
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 
 </Window>

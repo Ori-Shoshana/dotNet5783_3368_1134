@@ -5,7 +5,6 @@
 /// </summary>
 public struct Order
 {
-   
     public int OrderID { get; set; }
     public string? CustomerName { get; set; }
     public string? CustomerEmail { get; set; }
