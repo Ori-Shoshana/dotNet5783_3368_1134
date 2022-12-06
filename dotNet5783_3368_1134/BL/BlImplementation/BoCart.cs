@@ -9,7 +9,7 @@ internal class BoCart : BlApi.ICart
 
     private DalApi.IDal dal = new Dal.DalList();
     BO.OrderItem ordItemBO = new BO.OrderItem();
-    DO.Product productDO = new DO.Product();
+    // DO.Product productDO = new DO.Product();
     /// <summary>
     /// implemention of function Add
     /// Adds a product to the cart and updates the quntity and the prices
@@ -21,7 +21,7 @@ internal class BoCart : BlApi.ICart
         List<DO.Product> Do_Products = new List<DO.Product>();
         Do_Products = (List<DO.Product>)dal.Product.GetAll();
         bool check1 = false;
-        for (int i = 0; i < cart.CustomerEmail.Length; i++)
+        for (int i = 0; i < cart.CustomerEmail?.Length; i++)
         {
             if (cart.CustomerEmail[i] == 64 )
             {
@@ -90,7 +90,7 @@ internal class BoCart : BlApi.ICart
                 orderItem.TotalPrice = product.Price;
                 if (product.InStock >= 1) //Check if the product is in stock
                 {
-                    orderItem.Amount -= 1;
+                    orderItem.Amount += 1;
                 }
                 else throw new BO.VariableIsSmallerThanZeroExeption("Out of stock");
                 orderItem.Name = product.ProductName;
@@ -136,8 +136,11 @@ internal class BoCart : BlApi.ICart
 
         DO.Order order = new DO.Order();
         order.OrderID = dal.Order.GetAll().ElementAt(dal.Order.GetAll().Count() - 1).OrderID + 1;
+        if(cart.CustomerName != null)
         order.CustomerName = cart.CustomerName;
+        if(cart.CustomerEmail != null)
         order.CustomerEmail = cart.CustomerEmail;
+        if(cart.CustomerAdress != null)
         order.CustomerAdress = cart.CustomerAdress;
         order.OrderDate = DateTime.Now;
         order.ShipDate = null;

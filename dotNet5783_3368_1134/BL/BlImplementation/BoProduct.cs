@@ -97,6 +97,7 @@ internal class BoProduct : BlApi.IProduct
         if (product.InStock < 0) throw new BO.VariableIsSmallerThanZeroExeption("the stock is less than 0");
 
         DO.Product DoProduct = new DO.Product();
+        if(product.ID != null)
         DoProduct.ProductID = (int)product.ID;
         DoProduct.ProductName = product.Name;
         DoProduct.Price = product.Price;
@@ -144,7 +145,7 @@ internal class BoProduct : BlApi.IProduct
         if (product.InStock < 0) throw new BO.VariableIsSmallerThanZeroExeption("the stock is less than 0");
 
         DO.Product DoProduct = new DO.Product();
-
+        if(product.ID != null)
         DoProduct.ProductID = (int)product.ID;
         DoProduct.ProductName = product.Name;
         DoProduct.Price = product.Price;
