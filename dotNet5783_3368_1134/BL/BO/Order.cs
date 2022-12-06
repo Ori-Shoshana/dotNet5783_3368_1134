@@ -39,7 +39,7 @@ namespace BO
         /// <summary>
         /// List of Items (type order item)
         /// </summary>
-        public List<OrderItem>? Items { get; set; }
+        public List<OrderItem?>? Items { get; set; }
         /// <summary>
         /// total price
         /// </summary>

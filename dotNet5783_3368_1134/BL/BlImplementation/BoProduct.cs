@@ -17,7 +17,7 @@ internal class BoProduct : BlApi.IProduct
             productsForList.Add(new BO.ProductForList
             {
                 ID = product.ProductID,
-                Category = (BO.Enums.ProductCategory)product.Category,
+                Category = (BO.Enums.ProductCategory?)product.Category,
                 Name = product.ProductName,
                 Price = product.Price
             });
@@ -68,7 +68,7 @@ internal class BoProduct : BlApi.IProduct
             productItem.ID = product.ProductID;
             productItem.Name = product.ProductName;
             productItem.Price = product.Price;
-            productItem.Category = (BO.Enums.ProductCategory)product.Category;
+            productItem.Category = (BO.Enums.ProductCategory?)product.Category;
             if(product.InStock >0)
                 productItem.InStock = true;
             else 

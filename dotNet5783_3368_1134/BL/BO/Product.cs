@@ -11,7 +11,7 @@ public class Product
     /// <summary>
     /// product id
     /// </summary>
-    public int? ID { get; set; }    
+    public int ID { get; set; }    
     /// <summary>
     /// product name
     /// </summary>
@@ -23,11 +23,11 @@ public class Product
     /// <summary>
     /// product category
     /// </summary>
-    public ProductCategory Category { get; set; }
+    public ProductCategory? Category { get; set; }
     /// <summary>
     /// in stock
     /// </summary>
-    public int? InStock { get; set; }
+    public int InStock { get; set; }
 
     /// <summary>
     /// prints all the data about the product
