@@ -29,8 +29,6 @@ internal class Program
         double tempDouble;
 
         int option;
-        int Num;
-
         check = int.TryParse(Console.ReadLine(), out option);
         while (option != 0) // 0 ends the program
         {

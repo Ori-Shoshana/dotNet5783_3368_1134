@@ -23,11 +23,11 @@ public class OrderForList
     /// <summary>
     /// amount of items
     /// </summary>
-    public int? AmountOfItems { get; set; }
+    public int AmountOfItems { get; set; }
     /// <summary>
     /// total price
     /// </summary>
-    public double? TotalPrice { get; set; }
+    public double TotalPrice { get; set; }
     /// <summary>
     /// prints all the data about order for list
     /// </summary>

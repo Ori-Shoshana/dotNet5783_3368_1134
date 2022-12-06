@@ -10,8 +10,8 @@ namespace DO;
 public struct Product
 {
     public int ProductID { get; set; }
-    public string ProductName { get; set; }
-    public productCategory Category { get; set; }
+    public string? ProductName { get; set; }
+    public productCategory? Category { get; set; }
     public double Price { get; set; }
     public int InStock { get; set; }
 

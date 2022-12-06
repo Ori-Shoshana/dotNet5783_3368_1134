@@ -20,9 +20,11 @@ internal static class DataSource
     }
 
     public static readonly Random Rnd = new Random();
-    internal static List<Order> ListOrder = new List<Order>();
+    internal static List<Order> listOrder = new List<Order>();
     internal static List<OrderItem> ListOrderItem = new List<OrderItem>();
     internal static List<Product> ListProduct = new List<Product>();
+
+    internal static List<Order>? ListOrder { get => listOrder; set => listOrder = value; }
 
     internal static class config
     {
@@ -112,7 +114,7 @@ internal static class DataSource
             O.OrderDate = DateTime.Now.AddDays(-5).AddHours(-4);
             O.ShipDate = DateTime.Now;///////80%
             O.DeliveryDate = DateTime.Now;//////60%
-            ListOrder.Add(O);
+            ListOrder?.Add(O);
         }
         for(;i<16;i++)
         {
@@ -123,7 +125,7 @@ internal static class DataSource
             O.OrderDate = DateTime.Now.AddDays(-5).AddHours(-4);
             O.ShipDate = DateTime.Now + new TimeSpan(Rnd.Next(0, 2), Rnd.Next(0, 59), Rnd.Next(0, 59)); //80%
             //O.DeliveryDate = null;
-            ListOrder.Add(O);
+            ListOrder?.Add(O);
         }
         for (;i<20;i++)
         {
@@ -134,7 +136,7 @@ internal static class DataSource
             O.OrderDate = DateTime.Now.AddDays(-5).AddHours(-4);
             O.ShipDate = DateTime.Now;//20%
             //O.DeliveryDate = DateTime.Now;//40%
-            ListOrder.Add(O);
+            ListOrder?.Add(O);
         }
     }
 

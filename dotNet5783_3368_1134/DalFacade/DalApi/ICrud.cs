@@ -8,7 +8,7 @@ public interface ICrud<T>
     void Delete(int id);
     T GetById(int id);      
     void Update(T entity);
-    IEnumerable<T> GetAll();
+    IEnumerable<T?> GetAll();
     int ListLeangth();
 
 }

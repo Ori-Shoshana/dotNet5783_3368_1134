@@ -23,7 +23,7 @@ public struct ProductForList
     /// <summary>
     /// product category
     /// </summary>
-    public ProductCategory Category { get; set; }
+    public ProductCategory? Category { get; set; }
 
     /// <summary>
     /// prints all the data of product for list

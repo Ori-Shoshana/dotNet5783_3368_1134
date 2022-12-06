@@ -19,7 +19,7 @@ public class Cart
     /// <summary>
     /// list of order items
     /// </summary>
-    public List<OrderItem>? Items { get; set; }
+    public List<OrderItem?>? Items { get; set; }
     /// <summary>
     /// TotalPrice
     /// </summary>
