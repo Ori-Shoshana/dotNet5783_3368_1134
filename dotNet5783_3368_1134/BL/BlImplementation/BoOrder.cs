@@ -7,13 +7,13 @@ internal class BoOrder : BlApi.IOrder
     /// requests a list of orders from the data layer
     /// returns list of orders (from type order for list)
     /// </summary>
-    public IEnumerable<BO.OrderForList> GetOrders()
+    public IEnumerable<BO.OrderForList?> GetOrders()
     {
-        List<BO.OrderForList> orderForList = new List<BO.OrderForList>();
-        List<DO.Order> DoOrders = new List<DO.Order>();
+        List<BO.OrderForList?> orderForList = new List<BO.OrderForList?>();
+        List<DO.Order?> DoOrders = new List<DO.Order?>();
         List<DO.OrderItem> DoOrderItems = new List<DO.OrderItem>();
 
-        DoOrders = (List<DO.Order>)dal.Order.GetAll();
+        DoOrders = (List<DO.Order?>)dal.Order.GetAll();
         DoOrderItems = (List<DO.OrderItem>)dal.OrderItem.GetAll();
         int i = 0;
 
@@ -245,7 +245,7 @@ internal class BoOrder : BlApi.IOrder
                     BoOrderTracking.Status = BO.Enums.OrderStatus.Confirmed;
                     Item = "the order is confermed in the system";
                 }
-                var tupleList = new List<(DateTime myTime, string Name)>
+                var tupleList = new List<(DateTime? myTime, string? Name)>
                 {
                      (DateTime.Now, Item)
                 };

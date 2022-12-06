@@ -8,7 +8,7 @@ public interface IProduct
     /// request products list from the data layer
     /// Build a product list based on the data
     /// returns the list
-    public IEnumerable<ProductForList> GetProducts();
+    public IEnumerable<ProductForList?> GetProducts();
     /// <summary>
     /// decleration of function product details (for manager)
     /// receives product id

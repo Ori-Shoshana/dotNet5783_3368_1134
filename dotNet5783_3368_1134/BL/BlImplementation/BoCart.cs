@@ -1,5 +1,7 @@
 ﻿
 
+using BO;
+
 namespace BlImplementation;
 /// <summary>
 /// implementoin of all the functions of cart
@@ -18,8 +20,8 @@ internal class BoCart : BlApi.ICart
     public BO.Cart Add(BO.Cart cart, int id)
     {
 
-        List<DO.Product> Do_Products = new List<DO.Product>();
-        Do_Products = (List<DO.Product>)dal.Product.GetAll();
+        List<DO.Product?> Do_Products = new List<DO.Product?>();
+        Do_Products = (List<DO.Product?>)dal.Product.GetAll();
         bool check1 = false;
         for (int i = 0; i < cart.CustomerEmail?.Length; i++)
         {
@@ -35,7 +37,7 @@ internal class BoCart : BlApi.ICart
         }
         if (cart.Items == null)
         {
-            foreach (var product in Do_Products)
+            foreach (DO.Product product in Do_Products)
             {
                 if (product.ProductID == id)
                 {
@@ -50,7 +52,7 @@ internal class BoCart : BlApi.ICart
                     }
                     else throw new BO.VariableIsSmallerThanZeroExeption("Out of stock");
                     orderItem.Name = product.ProductName;
-                    List<BO.OrderItem> boOrderItems = new List<BO.OrderItem>();
+                    List<BO.OrderItem?> boOrderItems = new List<BO.OrderItem?>();
                     boOrderItems.Add(orderItem);
                     cart.Items = boOrderItems;
                     //cart.Items.Add(orderItem); // Add the order item to the list
@@ -62,11 +64,11 @@ internal class BoCart : BlApi.ICart
             throw new BO.VeriableNotExistException("The Id Does Not Exist");    
         }
         //In case the member already exists
-        foreach (var item in cart.Items)
+        foreach (OrderItem item in cart.Items)
         {
             if (item.ProductID == id)
             {
-                foreach (var product in Do_Products)
+                foreach (DO.Product product in Do_Products)
                 {
                     if (product.InStock > item.Amount)
                     {
@@ -79,7 +81,7 @@ internal class BoCart : BlApi.ICart
             }
         }
         // In case the item does not exist in the cart
-        foreach (var product in Do_Products)
+        foreach (DO.Product product in Do_Products)
         {
             if (product.ProductID == id)
             {
@@ -116,15 +118,15 @@ internal class BoCart : BlApi.ICart
         {
             throw new BO.VeriableNotExistException("The shopping cart is empty");
         }     
-        List<DO.Product> Do_Products = new List<DO.Product>();
-        Do_Products = (List<DO.Product>)dal.Product.GetAll();
-        foreach (var item in cart.Items) //Check that all data is correct
+        List<DO.Product?> Do_Products = new List<DO.Product?>();
+        Do_Products = (List<DO.Product?>)dal.Product.GetAll();
+        foreach (OrderItem item in cart.Items) //Check that all data is correct
         {
             if (item.Amount <= 0 || cart.CustomerName == null || cart.CustomerEmail == null || cart.CustomerAdress == null)
             {
                 throw new BO.VeriableNotExistException("Input error");
             }
-            foreach (var product in Do_Products)
+            foreach (DO.Product product in Do_Products)
             {
                 if (item.ProductID == product.ProductID)
                 {
@@ -136,18 +138,15 @@ internal class BoCart : BlApi.ICart
 
         DO.Order order = new DO.Order();
         order.OrderID = dal.Order.GetAll().ElementAt(dal.Order.GetAll().Count() - 1).OrderID + 1;
-        if(cart.CustomerName != null)
         order.CustomerName = cart.CustomerName;
-        if(cart.CustomerEmail != null)
         order.CustomerEmail = cart.CustomerEmail;
-        if(cart.CustomerAdress != null)
         order.CustomerAdress = cart.CustomerAdress;
         order.OrderDate = DateTime.Now;
         order.ShipDate = null;
         order.DeliveryDate = null;
         int orderId = dal.Order.Add(order); // Add an order to the data layer
 
-        foreach (var item in cart.Items)
+        foreach (OrderItem item in cart.Items)
         {
             DO.OrderItem orderItem = new DO.OrderItem();
             orderItem.OrderItemID = dal.OrderItem.GetAll().ElementAt(dal.OrderItem.GetAll().Count() - 1).OrderItemID + 1;
@@ -156,7 +155,7 @@ internal class BoCart : BlApi.ICart
             orderItem.PriceItem = item.Price;
             orderItem.Amount = item.Amount;
             int k = dal.OrderItem.Add(orderItem); //We will add list details to the data layer
-            foreach (var product in Do_Products)
+            foreach (DO.Product product in Do_Products)
             {
                 if (product.ProductID == item.ProductID)
                 {
@@ -189,16 +188,16 @@ internal class BoCart : BlApi.ICart
         {
             throw new BO.VariableIsSmallerThanZeroExeption("There is no such thing as a negative quantity");
         }
-        List<DO.Product> Do_Products = new List<DO.Product>();
-        Do_Products = (List<DO.Product>)dal.Product.GetAll();
-        foreach (var item in cart.Items)
+        List<DO.Product?> Do_Products = new List<DO.Product?>();
+        Do_Products = (List<DO.Product?>)dal.Product.GetAll();
+        foreach (OrderItem item in cart.Items)
         {
             if (item.ProductID == id)
             {
                 if (item.Amount < amount) //In case he wants to add
                 {
                     cart.TotalPrice -= item.TotalPrice;
-                    foreach (var product in Do_Products)
+                    foreach (DO.Product product in Do_Products)
                     {
                         if (product.ProductID == id)
                         {

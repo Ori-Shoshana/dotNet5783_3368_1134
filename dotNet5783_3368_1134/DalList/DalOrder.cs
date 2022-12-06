@@ -86,12 +86,12 @@ internal class DalOrder : IOrder
     /// </summary>
     public IEnumerable<Order> GetAll()
     {
-        return DataSource.ListOrder;
+        return (IEnumerable<Order>)DataSource.ListOrder;
     }
     /// <summary>
     /// returns array length
     /// </summary>
-    public int ListLeangth()
+    public int ListLength()
     {
         return DataSource.ListOrder.Count();
     }
