@@ -24,5 +24,16 @@ namespace PL
         {
             InitializeComponent();
         }
+
+        private void AttributeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        //x: Name = "StudentListview";
+        //    Grid.Row = "1";
+        }
     }
 }
