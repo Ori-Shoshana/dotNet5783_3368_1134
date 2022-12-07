@@ -92,10 +92,28 @@ internal class DalProduct : IProduct
     /// <summary>
     /// The operation updates the array and returns him
     /// </summary>
-    public IEnumerable<Product> GetAll()
+    public IEnumerable<Product> GetAll(Func<Product, bool>? func)
     {
-       List<Product?> products = new List<Product?>(DataSource.ListProduct);
-       return (IEnumerable<Product>)products;
+        List<Product> products = new List<Product>();
+        if (func != null)
+        {
+            foreach (Product prod in ListProduct)
+            {
+                if (func(prod))
+                {
+                    products.Add(prod);
+                }
+            }
+            return products;
+        }
+        else 
+        {
+            foreach (Product prod in ListProduct)
+            {              
+                    products.Add(prod);
+            }
+            return products;
+        }
     }
 
     /// <summary>

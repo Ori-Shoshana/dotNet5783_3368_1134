@@ -9,11 +9,11 @@ internal class BoOrder : BlApi.IOrder
     /// </summary>
     public IEnumerable<BO.OrderForList?> GetOrders()
     {
-        List<BO.OrderForList?> orderForList = new List<BO.OrderForList?>();
-        List<DO.Order?> DoOrders = new List<DO.Order?>();
+        List<BO.OrderForList> orderForList = new List<BO.OrderForList>();
+        List<DO.Order> DoOrders = new List<DO.Order>();
         List<DO.OrderItem> DoOrderItems = new List<DO.OrderItem>();
 
-        DoOrders = (List<DO.Order?>)dal.Order.GetAll();
+        DoOrders = (List<DO.Order>)dal.Order.GetAll();
         DoOrderItems = (List<DO.OrderItem>)dal.OrderItem.GetAll();
         int i = 0;
 
@@ -128,7 +128,7 @@ internal class BoOrder : BlApi.IOrder
     /// returns the order (after update)
     public BO.Order UpdateDelivery(int id)
     {
-        List<DO.Order>? DoOrders = new List<DO.Order>();
+        List<DO.Order> DoOrders = new List<DO.Order>();
         DoOrders = (List<DO.Order>)dal.Order.GetAll();
         BO.Order BoOrder = new BO.Order();
 
@@ -174,7 +174,7 @@ internal class BoOrder : BlApi.IOrder
     /// returns the order (after update)
     public BO.Order ShippingUpdate(int id)
     {
-        List<DO.Order>? DoOrders = new List<DO.Order>();
+        List<DO.Order> DoOrders = new List<DO.Order>();
         DoOrders = (List<DO.Order>)dal.Order.GetAll();
         BO.Order BoOrder = new BO.Order();
 

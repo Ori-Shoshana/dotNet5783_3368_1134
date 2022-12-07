@@ -10,8 +10,8 @@ internal class BoProduct : BlApi.IProduct
     public IEnumerable<BO.ProductForList?> GetProducts()
     {
         List<BO.ProductForList?> productsForList = new List<BO.ProductForList?>();
-        List<DO.Product?> products = new List<DO.Product?>();
-        products = (List<DO.Product?>)dal.Product.GetAll();
+        List<DO.Product> products = new List<DO.Product>();
+        products = (List<DO.Product>)dal.Product.GetAll();
         foreach (DO.Product product in products)
         {
             productsForList.Add(new BO.ProductForList
@@ -74,9 +74,9 @@ internal class BoProduct : BlApi.IProduct
             else 
                 productItem.InStock = false;
             productItem.Amount = 0;
-            foreach(BO.OrderItem item in cart.Items)
+            foreach(BO.OrderItem? item in cart.Items)
             {
-                if(item.ID == productItem.ID)
+                if(item?.ID == productItem.ID)
                     productItem.Amount += item.Amount;
             }
             return productItem;
@@ -115,8 +115,8 @@ internal class BoProduct : BlApi.IProduct
     public void Delete(int id)
     {
         int i = 0;
-        List<DO.Product?> products = new List<DO.Product?>();
-        products = (List<DO.Product?>)dal.Product.GetAll();
+        List<DO.Product> products = new List<DO.Product>();
+        products = (List<DO.Product>)dal.Product.GetAll();
         foreach (DO.Product product in products)
         {
             if (id == product.ProductID)

@@ -1,7 +1,4 @@
 ﻿
-
-using BO;
-
 namespace BlImplementation;
 /// <summary>
 /// implementoin of all the functions of cart
@@ -20,8 +17,8 @@ internal class BoCart : BlApi.ICart
     public BO.Cart Add(BO.Cart cart, int id)
     {
 
-        List<DO.Product?> Do_Products = new List<DO.Product?>();
-        Do_Products = (List<DO.Product?>)dal.Product.GetAll();
+        List<DO.Product> Do_Products = new List<DO.Product>();
+        Do_Products = (List<DO.Product>)dal.Product.GetAll();
         bool check1 = false;
         for (int i = 0; i < cart.CustomerEmail?.Length; i++)
         {
@@ -52,7 +49,7 @@ internal class BoCart : BlApi.ICart
                     }
                     else throw new BO.VariableIsSmallerThanZeroExeption("Out of stock");
                     orderItem.Name = product.ProductName;
-                    List<BO.OrderItem?> boOrderItems = new List<BO.OrderItem?>();
+                    List<BO.OrderItem> boOrderItems = new List<BO.OrderItem>();
                     boOrderItems.Add(orderItem);
                     cart.Items = boOrderItems;
                     //cart.Items.Add(orderItem); // Add the order item to the list
@@ -64,9 +61,9 @@ internal class BoCart : BlApi.ICart
             throw new BO.VeriableNotExistException("The Id Does Not Exist");    
         }
         //In case the member already exists
-        foreach (OrderItem item in cart.Items)
+        foreach (BO.OrderItem? item in cart.Items)
         {
-            if (item.ProductID == id)
+            if (item?.ProductID == id)
             {
                 foreach (DO.Product product in Do_Products)
                 {
@@ -118,17 +115,17 @@ internal class BoCart : BlApi.ICart
         {
             throw new BO.VeriableNotExistException("The shopping cart is empty");
         }     
-        List<DO.Product?> Do_Products = new List<DO.Product?>();
-        Do_Products = (List<DO.Product?>)dal.Product.GetAll();
-        foreach (OrderItem item in cart.Items) //Check that all data is correct
+        List<DO.Product> Do_Products = new List<DO.Product>();
+        Do_Products = (List<DO.Product>)dal.Product.GetAll();
+        foreach (BO.OrderItem? item in cart.Items) //Check that all data is correct
         {
-            if (item.Amount <= 0 || cart.CustomerName == null || cart.CustomerEmail == null || cart.CustomerAdress == null)
+            if (item?.Amount <= 0 || cart.CustomerName == null || cart.CustomerEmail == null || cart.CustomerAdress == null)
             {
                 throw new BO.VeriableNotExistException("Input error");
             }
             foreach (DO.Product product in Do_Products)
             {
-                if (item.ProductID == product.ProductID)
+                if (item?.ProductID == product.ProductID)
                 {
                     if (item.Amount > product.InStock)  //check that the quantity is less than the quantity in stock
                         throw new BO.VariableIsSmallerThanZeroExeption("Out of stock");
@@ -146,7 +143,7 @@ internal class BoCart : BlApi.ICart
         order.DeliveryDate = null;
         int orderId = dal.Order.Add(order); // Add an order to the data layer
 
-        foreach (OrderItem item in cart.Items)
+        foreach (BO.OrderItem? item in cart.Items)
         {
             DO.OrderItem orderItem = new DO.OrderItem();
             orderItem.OrderItemID = dal.OrderItem.GetAll().ElementAt(dal.OrderItem.GetAll().Count() - 1).OrderItemID + 1;
@@ -188,11 +185,11 @@ internal class BoCart : BlApi.ICart
         {
             throw new BO.VariableIsSmallerThanZeroExeption("There is no such thing as a negative quantity");
         }
-        List<DO.Product?> Do_Products = new List<DO.Product?>();
-        Do_Products = (List<DO.Product?>)dal.Product.GetAll();
-        foreach (OrderItem item in cart.Items)
+        List<DO.Product> Do_Products = new List<DO.Product>();
+        Do_Products = (List<DO.Product>)dal.Product.GetAll();
+        foreach (BO.OrderItem? item in cart.Items)
         {
-            if (item.ProductID == id)
+            if (item?.ProductID == id)
             {
                 if (item.Amount < amount) //In case he wants to add
                 {

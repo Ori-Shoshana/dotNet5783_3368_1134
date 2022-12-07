@@ -226,7 +226,7 @@ internal class Program
 
                         case 3://print all orders
 
-                            List<Order> orders = new List<Order>(dal.Order.GetAll());
+                            List<Order?> orders = new List<Order?>(dal.Order.GetAll());
                             int counter = 0;
                             foreach(Order order in orders)
                             { 
