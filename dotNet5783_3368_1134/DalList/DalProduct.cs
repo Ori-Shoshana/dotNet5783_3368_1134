@@ -92,12 +92,12 @@ internal class DalProduct : IProduct
     /// <summary>
     /// The operation updates the array and returns him
     /// </summary>
-    public IEnumerable<Product> GetAll(Func<Product, bool>? func)
+    public IEnumerable<Product?> GetAll(Func<Product?, bool>? func)
     {
-        List<Product> products = new List<Product>();
+        List<Product?> products = new List<Product?>();
         if (func != null)
         {
-            foreach (Product prod in ListProduct)
+            foreach (Product? prod in ListProduct)
             {
                 if (func(prod))
                 {
@@ -108,7 +108,7 @@ internal class DalProduct : IProduct
         }
         else 
         {
-            foreach (Product prod in ListProduct)
+            foreach (Product? prod in ListProduct)
             {              
                     products.Add(prod);
             }
@@ -122,5 +122,20 @@ internal class DalProduct : IProduct
     public int ListLength() 
     {
         return DataSource.ListProduct.Count;
+    }
+
+    public Product GetByDelegate(Func<Product?, bool>? func)
+    {
+        if (func != null)
+        {
+            foreach (Product prod in ListProduct)
+            {
+                if (func(prod))
+                {
+                    return prod;
+                }
+            }
+        }
+        throw new NoObjectFoundExeption("No object is of the delegate");
     }
 }

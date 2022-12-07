@@ -84,13 +84,13 @@ internal class DalOrder : IOrder
     /// <summary>
     /// The operation updates the array and returns him
     /// </summary>
-    public IEnumerable<Order> GetAll(Func<Order, bool>? func)
+    public IEnumerable<Order?> GetAll(Func<Order?, bool>? func)
     {
 
-        List<Order> order = new List<Order>();
+        List<Order?> order = new List<Order?>();
         if (func != null)
         {
-            foreach (Order item1 in ListOrder)
+            foreach (Order? item1 in ListOrder)
             {
                 if (func(item1))
                 {
@@ -101,7 +101,7 @@ internal class DalOrder : IOrder
         }
         else
         {
-            foreach (Order item1 in ListOrder)
+            foreach (Order? item1 in ListOrder)
             {
                 order.Add(item1);
             }
@@ -115,5 +115,20 @@ internal class DalOrder : IOrder
     public int ListLength()
     {
         return DataSource.ListOrder.Count();
+    }
+
+    public Order GetByDelegate(Func<Order?, bool>? func)
+    {
+        if (func != null)
+        {
+            foreach (Order order in ListOrder)
+            {
+                if (func(order))
+                {
+                    return order;
+                }
+            }
+        }
+        throw new NoObjectFoundExeption("No object is of the delegate");
     }
 }

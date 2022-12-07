@@ -21,9 +21,9 @@ internal class DalOrderItem : IOrderItem
     /// <returns> returns order item id </returns>
     public int Add(OrderItem orderIt)
     {
-        foreach (OrderItem orderItem in DataSource.ListOrderItem)
+        foreach (OrderItem? orderItem in DataSource.ListOrderItem)
         {
-            if (orderIt.OrderItemID == orderItem.OrderItemID)
+            if (orderIt.OrderItemID == orderItem?.OrderItemID)
             {
                 throw new IdAlreadyExistException("Id already exist");
             }
@@ -83,13 +83,13 @@ internal class DalOrderItem : IOrderItem
     /// <summary>
     /// The operation updates the array and returns him
     /// </summary>
-    public IEnumerable<OrderItem> GetAll(Func<OrderItem, bool>? func)
+    public IEnumerable<OrderItem?> GetAll(Func<OrderItem?, bool>? func)
     {
    
-        List<OrderItem> orderItem = new List<OrderItem>();
+        List<OrderItem?> orderItem = new List<OrderItem?>();
         if (func != null)
         {
-            foreach (OrderItem item1 in ListOrderItem)
+            foreach (OrderItem? item1 in ListOrderItem)
             {
                 if (func(item1))
                 {
@@ -100,7 +100,7 @@ internal class DalOrderItem : IOrderItem
         }
         else
         {
-            foreach (OrderItem item1 in ListOrderItem)
+            foreach (OrderItem? item1 in ListOrderItem)
             {
                 orderItem.Add(item1);
             }
@@ -116,4 +116,18 @@ internal class DalOrderItem : IOrderItem
         return DataSource.ListOrderItem.Count();
     }
 
+    public OrderItem GetByDelegate(Func<OrderItem?, bool>? func)
+    {
+        if (func != null)
+        {
+            foreach (OrderItem orderItem in ListOrderItem)
+            {
+                if (func(orderItem))
+                {
+                    return orderItem;
+                }
+            }
+        }
+        throw new NoObjectFoundExeption("No object is of the delegate");
+    }
 }

@@ -17,8 +17,8 @@ internal class BoCart : BlApi.ICart
     public BO.Cart Add(BO.Cart cart, int id)
     {
 
-        List<DO.Product> Do_Products = new List<DO.Product>();
-        Do_Products = (List<DO.Product>)dal.Product.GetAll();
+        List<DO.Product?> Do_Products = new List<DO.Product?>();
+        Do_Products = (List<DO.Product?>)dal.Product.GetAll();
         bool check1 = false;
         for (int i = 0; i < cart.CustomerEmail?.Length; i++)
         {
@@ -40,7 +40,7 @@ internal class BoCart : BlApi.ICart
                 {
                     BO.OrderItem orderItem = new BO.OrderItem();
                     orderItem.ProductID = id;
-                    orderItem.ID = dal.OrderItem.GetAll().ElementAt(dal.OrderItem.GetAll().Count() - 1).OrderId + 1;
+                    orderItem.ID = dal.OrderItem.GetAll().Last()?.OrderId + 1 ?? 0;
                     orderItem.Price = product.Price;
                     orderItem.TotalPrice = product.Price;
                     if (product.InStock >= 1) //Check if the product is in stock
@@ -84,7 +84,7 @@ internal class BoCart : BlApi.ICart
             {
                 BO.OrderItem orderItem = new BO.OrderItem();
                 orderItem.ProductID = id;
-                orderItem.ID = dal.OrderItem.GetAll().ElementAt(dal.OrderItem.GetAll().Count() - 1).OrderItemID + 1;
+                orderItem.ID = dal.OrderItem.GetAll().Last()?.OrderId + 1 ?? 0;
                 orderItem.Price = product.Price;
                 orderItem.TotalPrice = product.Price;
                 if (product.InStock >= 1) //Check if the product is in stock
@@ -115,26 +115,26 @@ internal class BoCart : BlApi.ICart
         {
             throw new BO.VeriableNotExistException("The shopping cart is empty");
         }     
-        List<DO.Product> Do_Products = new List<DO.Product>();
-        Do_Products = (List<DO.Product>)dal.Product.GetAll();
+        List<DO.Product?> Do_Products = new List<DO.Product?>();
+        Do_Products = (List<DO.Product?>)dal.Product.GetAll();
         foreach (BO.OrderItem? item in cart.Items) //Check that all data is correct
         {
             if (item?.Amount <= 0 || cart.CustomerName == null || cart.CustomerEmail == null || cart.CustomerAdress == null)
             {
                 throw new BO.VeriableNotExistException("Input error");
             }
-            foreach (DO.Product product in Do_Products)
+            foreach (DO.Product? product in Do_Products)
             {
-                if (item?.ProductID == product.ProductID)
+                if (item?.ProductID == product?.ProductID)
                 {
-                    if (item.Amount > product.InStock)  //check that the quantity is less than the quantity in stock
+                    if (item?.Amount > product?.InStock)  //check that the quantity is less than the quantity in stock
                         throw new BO.VariableIsSmallerThanZeroExeption("Out of stock");
                 }
             }
         }
 
         DO.Order order = new DO.Order();
-        order.OrderID = dal.Order.GetAll().ElementAt(dal.Order.GetAll().Count() - 1).OrderID + 1;
+        order.OrderID = dal.OrderItem.GetAll().Last()?.OrderId + 1 ?? 0;
         order.CustomerName = cart.CustomerName;
         order.CustomerEmail = cart.CustomerEmail;
         order.CustomerAdress = cart.CustomerAdress;
@@ -146,7 +146,7 @@ internal class BoCart : BlApi.ICart
         foreach (BO.OrderItem? item in cart.Items)
         {
             DO.OrderItem orderItem = new DO.OrderItem();
-            orderItem.OrderItemID = dal.OrderItem.GetAll().ElementAt(dal.OrderItem.GetAll().Count() - 1).OrderItemID + 1;
+            orderItem.OrderItemID = dal.OrderItem.GetAll().Last()?.OrderId + 1 ?? 0;
             orderItem.OrderId = orderId;
             orderItem.ProductID = item.ProductID;
             orderItem.PriceItem = item.Price;
@@ -185,8 +185,8 @@ internal class BoCart : BlApi.ICart
         {
             throw new BO.VariableIsSmallerThanZeroExeption("There is no such thing as a negative quantity");
         }
-        List<DO.Product> Do_Products = new List<DO.Product>();
-        Do_Products = (List<DO.Product>)dal.Product.GetAll();
+        List<DO.Product?> Do_Products = new List<DO.Product?>();
+        Do_Products = (List<DO.Product?>)dal.Product.GetAll();
         foreach (BO.OrderItem? item in cart.Items)
         {
             if (item?.ProductID == id)
