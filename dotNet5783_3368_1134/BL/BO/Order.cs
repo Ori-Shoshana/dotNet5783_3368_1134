@@ -70,12 +70,12 @@ namespace BO
                 foreach(var item in Items)
                 {
                     st+= $@" {i++}:
-                    ID:{item.ID}
-                    Name:{item.Name}
-                    Price:{item.Price}
-                    ProductID:{item.ProductID}
-                    Amount:{item.Amount}
-                    TotalProce:{item.TotalPrice}
+                    ID:{item?.ID}
+                    Name:{item?.Name}
+                    Price:{item?.Price}
+                    ProductID:{item?.ProductID}
+                    Amount:{item?.Amount}
+                    TotalProce:{item?.TotalPrice}
                     ";
                 }
             }

@@ -9,3 +9,8 @@ public class IdAlreadyExistException : Exception
 {
     public IdAlreadyExistException(string msg) : base(msg) { }
 }
+
+public class NoObjectFoundExeption : Exception
+{
+    public NoObjectFoundExeption(string msg) : base(msg) { }
+}

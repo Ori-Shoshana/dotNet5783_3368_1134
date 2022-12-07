@@ -74,9 +74,9 @@ internal class BoProduct : BlApi.IProduct
             else 
                 productItem.InStock = false;
             productItem.Amount = 0;
-            foreach(BO.OrderItem item in cart.Items)
+            foreach(BO.OrderItem? item in cart.Items)
             {
-                if(item.ID == productItem.ID)
+                if(item?.ID == productItem.ID)
                     productItem.Amount += item.Amount;
             }
             return productItem;

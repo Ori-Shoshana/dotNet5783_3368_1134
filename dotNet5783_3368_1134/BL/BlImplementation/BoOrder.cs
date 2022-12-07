@@ -11,10 +11,10 @@ internal class BoOrder : BlApi.IOrder
     {
         List<BO.OrderForList?> orderForList = new List<BO.OrderForList?>();
         List<DO.Order?> DoOrders = new List<DO.Order?>();
-        List<DO.OrderItem> DoOrderItems = new List<DO.OrderItem>();
+        List<DO.OrderItem?> DoOrderItems = new List<DO.OrderItem?>();
 
         DoOrders = (List<DO.Order?>)dal.Order.GetAll();
-        DoOrderItems = (List<DO.OrderItem>)dal.OrderItem.GetAll();
+        DoOrderItems = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
         int i = 0;
 
         foreach (DO.Order DoOrder in DoOrders)
@@ -34,8 +34,8 @@ internal class BoOrder : BlApi.IOrder
             else
             { orderForList1.Status = BO.Enums.OrderStatus.Confirmed; }
             
-            orderForList1.TotalPrice += DoOrderItems[i].PriceItem * DoOrderItems[i].Amount;
-            orderForList1.AmountOfItems = DoOrderItems[i].Amount;
+            orderForList1.TotalPrice += (DoOrderItems[i]?.PriceItem?? 0) * (DoOrderItems[i]?.Amount?? 0) ;
+            orderForList1.AmountOfItems = DoOrderItems[i]?.Amount?? 0;
             
             orderForList.Add(orderForList1);
             i++;
@@ -51,19 +51,19 @@ internal class BoOrder : BlApi.IOrder
     /// returns order
     public BO.Order OrderDetails(int id)
     {
-        List<DO.Order> DoOrders = new List<DO.Order>();
+        List<DO.Order?> DoOrders = new List<DO.Order?>();
         DO.Order DoOrder = new DO.Order();
-        List<DO.OrderItem> DoOrderItem = new List<DO.OrderItem>();
-        List<DO.Product> DoProducts = new List<DO.Product>();
-        List<BO.OrderItem> boOrderItems = new List<BO.OrderItem>();
+        List<DO.OrderItem?> DoOrderItem = new List<DO.OrderItem?>();
+        List<DO.Product?> DoProducts = new List<DO.Product?>();
+        List<BO.OrderItem?> boOrderItems = new List<BO.OrderItem?>();
         BO.Order? BoOrder = new BO.Order();
         if (id > 0)
         {
             double finalTotalPrice = 0;
             DoOrder = dal.Order.GetById(id);
-            DoOrderItem = (List<DO.OrderItem>)dal.OrderItem.GetAll();
-            DoProducts = (List<DO.Product>)dal.Product.GetAll();
-            DoOrders = (List<DO.Order>)dal.Order.GetAll();
+            DoOrderItem = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
+            DoProducts = (List<DO.Product?>)dal.Product.GetAll();
+            DoOrders = (List<DO.Order?>)dal.Order.GetAll();
 
             BoOrder.ID = DoOrder.OrderID;
             BoOrder.CustomerName = DoOrder.CustomerName;
@@ -89,9 +89,9 @@ internal class BoOrder : BlApi.IOrder
                     finalTotalPrice += item.PriceItem * item.Amount;
                     foreach (var order in DoOrders)
                     {
-                        if (id == order.OrderID)
+                        if (id == order?.OrderID)
                         {
-                            BoOrderItem.Name = order.CustomerName;
+                            BoOrderItem.Name = order?.CustomerName;
                             break;
                         }
                     }
@@ -128,8 +128,8 @@ internal class BoOrder : BlApi.IOrder
     /// returns the order (after update)
     public BO.Order UpdateDelivery(int id)
     {
-        List<DO.Order>? DoOrders = new List<DO.Order>();
-        DoOrders = (List<DO.Order>)dal.Order.GetAll();
+        List<DO.Order?> DoOrders = new List<DO.Order?>();
+        DoOrders = (List<DO.Order?>)dal.Order.GetAll();
         BO.Order BoOrder = new BO.Order();
 
         foreach (DO.Order doOrder in DoOrders)
@@ -174,8 +174,8 @@ internal class BoOrder : BlApi.IOrder
     /// returns the order (after update)
     public BO.Order ShippingUpdate(int id)
     {
-        List<DO.Order>? DoOrders = new List<DO.Order>();
-        DoOrders = (List<DO.Order>)dal.Order.GetAll();
+        List<DO.Order?> DoOrders = new List<DO.Order?>();
+        DoOrders = (List<DO.Order?>)dal.Order.GetAll();
         BO.Order BoOrder = new BO.Order();
 
         foreach (DO.Order doOrder in DoOrders)
@@ -220,8 +220,8 @@ internal class BoOrder : BlApi.IOrder
     public BO.OrderTracking Track(int id)
     {
         string Item;
-        List<DO.Order> DoOrders = new List<DO.Order>();
-        DoOrders = (List<DO.Order>)dal.Order.GetAll();
+        List<DO.Order?> DoOrders = new List<DO.Order?>();
+        DoOrders = (List<DO.Order?>)dal.Order.GetAll();
         BO.OrderTracking BoOrderTracking = new BO.OrderTracking();
         bool check = false;
         foreach (DO.Order doOrder in DoOrders)

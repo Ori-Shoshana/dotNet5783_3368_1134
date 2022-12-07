@@ -3,7 +3,7 @@ namespace BO;
 /// <summary>
 /// properties of order item
 /// </summary>
-public class OrderItem
+public class OrderItem 
 {
     /// <summary>
     /// order item id
