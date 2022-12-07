@@ -94,8 +94,8 @@ internal class DalProduct : IProduct
     /// </summary>
     public IEnumerable<Product> GetAll()
     {
-       List<Product?> products = new List<Product?>(DataSource.ListProduct);
-       return (IEnumerable<Product>)products;
+        List<Product?> products = new List<Product?>(DataSource.ListProduct);
+        return (IEnumerable<Product>)products;
     }
 
     /// <summary>
@@ -105,4 +105,6 @@ internal class DalProduct : IProduct
     {
         return DataSource.ListProduct.Count;
     }
+
+
 }

@@ -32,8 +32,8 @@ namespace PL
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-        //x: Name = "StudentListview";
-        //    Grid.Row = "1";
+            //x: Name = "StudentListview";
+            //    Grid.Row = "1";
         }
     }
 }
