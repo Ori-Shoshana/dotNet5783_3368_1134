@@ -8,19 +8,14 @@
   Title="MainWindow" Height="450" Width="800">
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="47*"/>
-            <RowDefinition Height="387*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="43*"/>
+            <RowDefinition Height="341*"/>
+            <RowDefinition Height="Auto" MinHeight="50.04"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" Height="auto" Grid.Row="1" Width="auto" Margin="0,340,0,0" Grid.RowSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions >
-        </Grid>
-        <Button Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="620,5,0,5" Padding="5" Width="175" FontSize="14" FontWeight="Bold" Click="Button_Click"/>
+        <Button Content="Add new Product" Grid.Row="2" HorizontalAlignment="Left" Margin="610,0,0,5" Padding="5" Width="175" FontSize="14" FontWeight="Bold" Click="Button_Click"/>
+        <Button Name="Home" Content="Home" HorizontalAlignment="Left" Margin="10,0,0,5" Padding="5" Width="108" FontSize="14" FontWeight="Bold" Click="Home_Click" Grid.Row="2" RenderTransformOrigin="-1.272,8.826"/>
 
-        <ListView  x:Name="ProductListview" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ListView_SelectionChanged" Margin="0,43,0,14" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2" Width="NaN">
+        <ListView  x:Name="ProductListview" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ListView_SelectionChanged" Margin="0,0,0,2" RenderTransformOrigin="0.5,0.5" Width="NaN" Grid.Row="1">
             <ListView.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -36,7 +31,7 @@
             </ListView.View>
         </ListView>
         <ComboBox Name="CategorySelector" Margin="450,3,10,10" SelectionChanged="CategorySelector_SelectionChanged"/>
-        <Label Content="Category options:" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="0" Height="37" Width="152" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Category options:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Height="37" Width="152" FontSize="16" FontWeight="Bold" Margin="10,0,0,0"/>
     </Grid>
 
 </Window>

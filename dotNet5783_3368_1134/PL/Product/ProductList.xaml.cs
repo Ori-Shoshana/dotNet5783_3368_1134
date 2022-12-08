@@ -40,7 +40,16 @@ namespace PL.Product
             ProductListview.ItemsSource = bl.Product.GetProducts(a => a?.Category.ToString() == CategorySelector.SelectedItem.ToString());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) => new Product.AddNewProduct().Show();
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new Product.AddNewProduct().Show();
+            Close();
+        }
 
+        private void Home_Click(object sender, RoutedEventArgs e)
+        {
+            new PL.MainWindow().Show();
+            Close();
+        }
     }
 }

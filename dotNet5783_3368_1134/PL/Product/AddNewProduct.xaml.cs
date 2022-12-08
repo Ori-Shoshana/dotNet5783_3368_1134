@@ -37,5 +37,11 @@ namespace PL.Product
         {
 
         }
+
+        private void GoBackToList_Click(object sender, RoutedEventArgs e)
+        {
+            new Product.ProductList().Show();
+            Close();
+        }
     }
 }
