@@ -7,7 +7,7 @@ internal class BoProduct : BlApi.IProduct
     /// request products list from the data layer
     /// Build a product list based on the data
     /// returns the list
-    public IEnumerable<BO.ProductForList?> GetProducts()
+    public IEnumerable<BO.ProductForList?> GetProducts(Func<DO.Product?, bool>? func)
     {
         List<BO.ProductForList?> productsForList = new List<BO.ProductForList?>();
         List<DO.Product?> products = new List<DO.Product?>();

@@ -5,6 +5,30 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+	  <BaseOutputPath>$(SolutionDir)\bin\</BaseOutputPath>
+	  <OutputPath>$(SolutionDir)\bin\</OutputPath>
+	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	  <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
+	  <AppDesignerFolder>Properties.1</AppDesignerFolder>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="0x0.jpg" />
+    <None Remove="download.jpg" />
+    <None Remove="electro.jpg" />
+    <None Remove="Photo.webp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="0x0.jpg" />
+    <Resource Include="download.jpg" />
+    <Resource Include="electro.jpg" />
+    <Resource Include="Photo.webp" />
+  </ItemGroup>
 
 </Project>
