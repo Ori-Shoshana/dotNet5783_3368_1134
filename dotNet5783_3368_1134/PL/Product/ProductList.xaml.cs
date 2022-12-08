@@ -39,5 +39,8 @@ namespace PL.Product
             IBl bl = new BlImplementation.BL();
             ProductListview.ItemsSource = bl.Product.GetProducts(a => a?.Category.ToString() == CategorySelector.SelectedItem.ToString());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e) => new Product.AddNewProduct().Show();
+
     }
 }

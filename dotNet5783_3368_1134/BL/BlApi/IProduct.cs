@@ -1,4 +1,6 @@
 ﻿using BO;
+using System.Collections;
+
 namespace BlApi;
 
 public interface IProduct
@@ -46,5 +48,4 @@ public interface IProduct
     /// updates the product
     /// Throws exceptions when needed
     public void Update(Product product);
-
 }

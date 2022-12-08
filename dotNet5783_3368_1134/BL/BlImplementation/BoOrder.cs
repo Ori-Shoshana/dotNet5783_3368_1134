@@ -17,17 +17,17 @@ internal class BoOrder : BlApi.IOrder
         DoOrderItems = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
         int i = 0;
 
-        foreach (DO.Order DoOrder in DoOrders)
+        foreach (DO.Order? DoOrder in DoOrders)
         {
             BO.OrderForList orderForList1 = new BO.OrderForList();
 
-            orderForList1.ID = DoOrder.OrderID;
-            orderForList1.CustomerName = DoOrder.CustomerName;
-            if (DoOrder.DeliveryDate <=DateTime.Now)
+            orderForList1.ID = (int)DoOrder?.OrderID!;
+            orderForList1.CustomerName = DoOrder?.CustomerName;
+            if (DoOrder?.DeliveryDate <=DateTime.Now)
             {
                 orderForList1.Status = BO.Enums.OrderStatus.Deliverd;
             }
-            else  if (DoOrder.ShipDate <= DateTime.Now)
+            else  if (DoOrder?.ShipDate <= DateTime.Now)
             {
                 orderForList1.Status = BO.Enums.OrderStatus.Sent;
             }
@@ -76,17 +76,17 @@ internal class BoOrder : BlApi.IOrder
             if (DoOrder.DeliveryDate != null)
                 BoOrder.DeliveryDate = (DateTime)DoOrder.DeliveryDate;
 
-            foreach (DO.OrderItem item in DoOrderItem)
+            foreach (DO.OrderItem? item in DoOrderItem)
             {
-                if (id == item.OrderId)
+                if (id == item?.OrderId)
                 {
                     BO.OrderItem BoOrderItem = new BO.OrderItem();
-                    BoOrderItem.ID = item.OrderId;
-                    BoOrderItem.ProductID = item.ProductID;
-                    BoOrderItem.Price = item.PriceItem;
-                    BoOrderItem.Amount = item.Amount;
-                    BoOrderItem.TotalPrice = item.PriceItem * item.Amount;
-                    finalTotalPrice += item.PriceItem * item.Amount;
+                    BoOrderItem.ID = (int)item?.OrderId!;
+                    BoOrderItem.ProductID = (int)item?.ProductID!;
+                    BoOrderItem.Price = (int)item?.PriceItem!;
+                    BoOrderItem.Amount = (int)item?.Amount!;
+                    BoOrderItem.TotalPrice = (int)item?.PriceItem! * (int)item?.Amount!;
+                    finalTotalPrice += (int)item?.PriceItem! * (int)item?.Amount!;
                     foreach (var order in DoOrders)
                     {
                         if (id == order?.OrderID)
@@ -132,9 +132,9 @@ internal class BoOrder : BlApi.IOrder
         DoOrders = (List<DO.Order?>)dal.Order.GetAll();
         BO.Order BoOrder = new BO.Order();
 
-        foreach (DO.Order doOrder in DoOrders)
+        foreach (DO.Order? doOrder in DoOrders)
         {
-            if (id == doOrder.OrderID)
+            if (id == doOrder?.OrderID)
             {
                 if (BoOrder.DeliveryDate == null) // לבדוק אם ככה הוא כשהוא לא מאותחל
                 {
@@ -178,9 +178,9 @@ internal class BoOrder : BlApi.IOrder
         DoOrders = (List<DO.Order?>)dal.Order.GetAll();
         BO.Order BoOrder = new BO.Order();
 
-        foreach (DO.Order doOrder in DoOrders)
+        foreach (DO.Order? doOrder in DoOrders)
         {
-            if (id == doOrder.OrderID)
+            if (id == doOrder?.OrderID)
             {
                 if (BoOrder.ShipDate == null) // לבדוק אם ככה הוא כשהוא לא מאותחל
                 {
@@ -224,18 +224,18 @@ internal class BoOrder : BlApi.IOrder
         DoOrders = (List<DO.Order?>)dal.Order.GetAll();
         BO.OrderTracking BoOrderTracking = new BO.OrderTracking();
         bool check = false;
-        foreach (DO.Order doOrder in DoOrders)
+        foreach (DO.Order? doOrder in DoOrders)
         {
-            if (id == doOrder.OrderID)
+            if (id == doOrder?.OrderID)
             {
                 check = true;
-                BoOrderTracking.ID = (int)doOrder.OrderID;
-                if (doOrder.DeliveryDate <= DateTime.Now)
+                BoOrderTracking.ID = (int)doOrder?.OrderID!;
+                if (doOrder?.DeliveryDate <= DateTime.Now)
                 {
                     BoOrderTracking.Status = BO.Enums.OrderStatus.Deliverd;
                     Item = "the package was deliverd";
                 }
-                else if (doOrder.ShipDate <= DateTime.Now)
+                else if (doOrder?.ShipDate <= DateTime.Now)
                 {
                     BoOrderTracking.Status = BO.Enums.OrderStatus.Sent;
                     Item = "the package was sent";

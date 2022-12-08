@@ -12,17 +12,40 @@ internal class BoProduct : BlApi.IProduct
         List<BO.ProductForList?> productsForList = new List<BO.ProductForList?>();
         List<DO.Product?> products = new List<DO.Product?>();
         products = (List<DO.Product?>)dal.Product.GetAll();
-        foreach (DO.Product product in products)
+        if (func != null)
         {
-            productsForList.Add(new BO.ProductForList
+            foreach (DO.Product? product in products)
             {
-                ID = product.ProductID,
-                Category = (BO.Enums.ProductCategory?)product.Category,
-                Name = product.ProductName,
-                Price = product.Price
-            });
+                if (func(product))
+                {
+                    productsForList.Add(new BO.ProductForList
+                    {
+                        ID = (int)product?.ProductID!,
+                        Category = (BO.Enums.ProductCategory?)product?.Category,
+                        Name = product?.ProductName,
+                        Price = (int)product?.Price!
+                    });
+                }
+            }
+            return productsForList;
         }
-        return productsForList;
+        else
+        {
+            foreach (DO.Product? product in products)
+            {
+               
+                productsForList.Add(new BO.ProductForList
+                {
+                    ID = (int)product?.ProductID!,
+                    Category = (BO.Enums.ProductCategory?)product?.Category,
+                    Name = product?.ProductName,
+                    Price = (int)product?.Price!
+                });
+                
+            }
+            return productsForList;
+        }
+        
     }
     /// <summary>
     /// implemention of function product details (for manager)
@@ -41,7 +64,7 @@ internal class BoProduct : BlApi.IProduct
             BoProduct.ID = DoProduct.ProductID;
             BoProduct.Name = DoProduct.ProductName;
             BoProduct.Price = DoProduct.Price;
-            BoProduct.Category = (BO.Enums.ProductCategory)DoProduct.Category;
+            BoProduct.Category = (BO.Enums.ProductCategory)DoProduct.Category!;
             BoProduct.InStock = DoProduct.InStock;
             return BoProduct;
         }
