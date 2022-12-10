@@ -21,8 +21,7 @@
             Content="Click Me!"
             IsTabStop="False"
             Canvas.Left="10"
-            Canvas.Top="10"
-           
+            Canvas.Top="10"           
             MouseEnter="Button_MouseEnter" Height="57" Width="126" FontWeight="Bold" FontSize="22" Foreground="#FFE31A1A"/>
         </Canvas>
         <Label Content="Welcome to electro" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Width="588" FontSize="36" FontWeight="Bold" Grid.Row="1" FontFamily="Wide Latin" RenderTransformOrigin="0.497,0.406" Foreground="Black">

@@ -21,27 +21,39 @@ namespace PL.Product
     /// </summary>
     public partial class AddNewProduct : Window
     {
+        IBl bl = new BlImplementation.BL();
+
         public AddNewProduct()
         {
             InitializeComponent();
-            IBl bl = new BlImplementation.BL();          
-            //ProductListview.ItemsSource = bl.Product.Add();
-        }
-
-        private void AddProductList(object sender, TextCompositionEventArgs e)
-        {
-
-        }
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.ProductCategory));
         }
 
         private void GoBackToList_Click(object sender, RoutedEventArgs e)
         {
             new Product.ProductList().Show();
             Close();
+        }
+
+        private void AddBottun_Click(object sender, RoutedEventArgs e)
+        {
+            int tempInt1 = 0;
+            BO.Product product1 = new BO.Product();
+            int.TryParse(ID.Text, out tempInt1);
+            product1.ID = tempInt1;
+            product1.Name = Name.Text;
+            int.TryParse(Price.Text, out tempInt1);
+            product1.Price = tempInt1;
+            product1.Category = (BO.Enums.ProductCategory?)CategorySelector.SelectedItem;
+            int.TryParse(InStock.Text, out tempInt1);
+            product1.InStock = tempInt1;
+            bl.Product.Add(product1);
+            AddBottun.Visibility = Visibility.Hidden;
+        }
+
+        private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
         }
     }
 }

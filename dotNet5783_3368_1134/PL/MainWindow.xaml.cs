@@ -39,6 +39,8 @@ namespace PL
 
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
+         
+
             //Work out where the button is going to move to.
             double newLeft = rnd.Next(Convert.ToInt32(cnv.ActualWidth - btn.ActualWidth));
             double newTop = rnd.Next(Convert.ToInt32(cnv.ActualHeight*10 - btn.ActualHeight));
@@ -55,13 +57,6 @@ namespace PL
             //Start the animation.
             btn.BeginAnimation(Canvas.LeftProperty, animLeft, HandoffBehavior.SnapshotAndReplace);
             btn.BeginAnimation(Canvas.TopProperty, animTop, HandoffBehavior.SnapshotAndReplace);
-
-
-            if (btn.IsPressed)
-            {
-                new CatchMe.CatchMeIfYouCan().Show();
-                Close();
-            }
             
         }
     }

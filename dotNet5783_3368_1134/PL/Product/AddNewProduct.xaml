@@ -6,27 +6,25 @@
         xmlns:local="clr-namespace:PL.Product"
         mc:Ignorable="d"
         Title="AddNewProduct" Height="469" Width="800">
-    <Grid TextInput="AddProductList" Margin="0,0,0,0">
+    <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="199*"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="27*"/>
+            <ColumnDefinition Width="371*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Enter new product:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" FontSize="16" FontWeight="Bold" Margin="321,61,0,0" RenderTransformOrigin="0.462,-2.636"/>
-        <ListView  x:Name="ProductListview" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ListView_SelectionChanged" Margin="200,100,196,100" RenderTransformOrigin="0.5,0.5" Width="NaN">
-            <ListView.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="-0.179"/>
-                    <RotateTransform/>
-                    <TranslateTransform X="0.612"/>
-                </TransformGroup>
-            </ListView.RenderTransform>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Name="GoBackToList" Content="See products" HorizontalAlignment="Left" Margin="10,385,0,10" Padding="5" Width="108" FontSize="14" FontWeight="Bold" Click="GoBackToList_Click" RenderTransformOrigin="-1.272,8.826"/>
+        <Label Content="Enter the ID:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="267,70,0,0" RenderTransformOrigin="0.462,-2.636" Grid.Column="1"/>
+        <Button Name="GoBackToList" Content="See products" HorizontalAlignment="Left" Margin="10,385,0,10" Padding="5" Width="108" FontSize="14" FontWeight="Bold" Click="GoBackToList_Click" RenderTransformOrigin="-1.272,8.826" Grid.ColumnSpan="2"/>
+        <Label Content="Enter new product:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" FontSize="16" FontWeight="Bold" Margin="267,39,0,0" RenderTransformOrigin="0.462,-2.636" Grid.Column="1"/>
+        <TextBox Name="ID" Grid.Column="1" HorizontalAlignment="Left" Margin="267,100,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Width="160"/>
+        <Label Content="Enter a name" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="267,120,0,0" RenderTransformOrigin="0.462,-2.636" Grid.Column="1"/>
+        <TextBox Name="Name" Grid.Column="1" HorizontalAlignment="Left" Margin="267,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <Label Content="Enter a price:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="267,170,0,0" RenderTransformOrigin="0.462,-2.636" Grid.Column="1"/>
+        <TextBox Name="Price" Grid.Column="1" HorizontalAlignment="Left" Margin="267,200,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <Label Content="Enter category" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="267,230,0,0" RenderTransformOrigin="0.462,-2.636" Grid.Column="1"/>
+        <ComboBox Name="CategorySelector" Margin="267,260,302,145" SelectionChanged="CategorySelector_SelectionChanged" Grid.Column="1" />
+        <Label Content="Enter amount in stock:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="267,290,0,0" RenderTransformOrigin="0.462,-2.636" Grid.Column="1"/>
+        <TextBox Name="InStock" Grid.Column="1" HorizontalAlignment="Left" Margin="267,320,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <Button Name="AddBottun" Grid.Column="1" Content="Add" HorizontalAlignment="Left" Margin="301,350,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.692,0.618" Width="90" Height="26" FontSize="18" FontWeight="Bold" Click="AddBottun_Click"/>
+
     </Grid>
 </Window>
