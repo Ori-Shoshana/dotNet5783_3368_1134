@@ -42,7 +42,7 @@ namespace PL.Product
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new Product.AddNewProduct().Show();
+            new Product.UpdateProduct().Show();
             Close();
         }
 
