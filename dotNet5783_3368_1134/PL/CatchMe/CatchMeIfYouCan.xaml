@@ -8,7 +8,7 @@
         Title="CatchMeIfYouCan" Height="450" Width="800">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/CatchMe/download.jpg"/>
+            <ImageBrush ImageSource="/CatchMe/download.png"/>
         </Grid.Background>
     </Grid>
 </Window>

@@ -1,7 +1,9 @@
 ﻿using BlApi;
 using BlImplementation;
+using BO;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,11 +24,22 @@ namespace PL.Product
     public partial class UpdateProduct : Window
     {
         IBl bl = new BlImplementation.BL();
-
-        public UpdateProduct()
+        
+        public UpdateProduct(int? id)
         {
             InitializeComponent();
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.ProductCategory));
+            ID.Text = id.ToString();
+            if(id!=null)
+            {
+                AddBottun.Visibility = Visibility.Hidden;
+                TextBoxLable.Content = "Update product:";
+            }
+            else
+            {
+                UpdateBottun.Visibility = Visibility.Hidden;
+                TextBoxLable.Content = "Add product:";
+            }
         }
 
         private void GoBackToList_Click(object sender, RoutedEventArgs e)
@@ -35,8 +48,9 @@ namespace PL.Product
             Close();
         }
 
-        private void AddBottun_Click(object sender, RoutedEventArgs e)
+        private void UpdateBottun_Click(object sender, RoutedEventArgs e)
         {
+            bool check = false;
             int tempInt1 = 0;
             BO.Product product1 = new BO.Product();
             int.TryParse(ID.Text, out tempInt1);
@@ -47,11 +61,79 @@ namespace PL.Product
             product1.Category = (BO.Enums.ProductCategory?)CategorySelector.SelectedItem;
             int.TryParse(InStock.Text, out tempInt1);
             product1.InStock = tempInt1;
-            bl.Product.Update(product1);
-            AddBottun.Visibility = Visibility.Hidden;
+             try
+                {
+                    bl.Product.Update(product1);
+                    check = true;
+                }
+             catch (VariableIsSmallerThanZeroExeption ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            catch (VariableIsNullExeption ex)
+                {
+                   MessageBox.Show(ex.Message);
+                }
+            catch (DO.IdNotExistException ex)
+                {
+                   MessageBox.Show(ex.Message);
+                }
+            if (check == true)
+            {
+                UpdateBottun.Visibility = Visibility.Hidden;
+            }
         }
 
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            bool check = false;
+            int tempInt1 = 0;
+            BO.Product product1 = new BO.Product();
+            int.TryParse(ID.Text, out tempInt1);
+            product1.ID = tempInt1;
+            product1.Name = Name.Text;
+            int.TryParse(Price.Text, out tempInt1);
+            product1.Price = tempInt1;
+            product1.Category = (BO.Enums.ProductCategory?)CategorySelector.SelectedItem;
+            int.TryParse(InStock.Text, out tempInt1);
+            product1.InStock = tempInt1;
+            try
+            {
+                bl.Product.Add(product1);
+                check = true;
+            }
+            catch (VariableIsSmallerThanZeroExeption ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (VariableIsNullExeption ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (DO.IdAlreadyExistException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            if (check == true)
+            {
+                AddBottun.Visibility = Visibility.Hidden;
+            }
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ID_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }

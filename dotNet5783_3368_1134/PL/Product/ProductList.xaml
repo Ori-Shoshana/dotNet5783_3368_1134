@@ -7,20 +7,25 @@
         mc:Ignorable="d"
   Title="MainWindow" Height="450" Width="800">
     <Grid Name="MainGrid">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Product/MYPhoto.jpg"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="507*"/>
-            <ColumnDefinition Width="293*"/>
+            <ColumnDefinition Width="205*"/>
+            <ColumnDefinition Width="88*"/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="43*"/>
-            <RowDefinition Height="341*"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="329*"/>
             <RowDefinition Height="Auto" MinHeight="50.04"/>
         </Grid.RowDefinitions>
-        <Button Content="Add new product" Grid.Row="2" HorizontalAlignment="Left" Margin="108,0,0,5" Padding="5" Width="175" FontSize="14" Click="Button_Click" Grid.Column="1" FontWeight="Bold"/>
+        <Button Name="AddButton" Content="Add new product" Grid.Row="2" HorizontalAlignment="Left" Margin="108,0,0,5" Padding="5" Width="175" FontSize="14" Click="AddButton_Click" Grid.Column="1" FontWeight="Bold" Grid.ColumnSpan="2"/>
         <Button Name="Home" Content="Back" HorizontalAlignment="Left" Margin="10,0,0,0" Padding="5" Width="108" FontSize="14" FontWeight="Bold" Click="Home_Click" Grid.Row="2" RenderTransformOrigin="-1.272,8.826" Height="45" VerticalAlignment="Top"/>
-        <Button Content="Update a Product" Grid.Row="2" HorizontalAlignment="Left" Margin="417,0,0,5" Padding="5" Width="175" FontSize="14" Click="Button_Click" FontWeight="Bold" Grid.ColumnSpan="2"/>
 
-        <ListView  x:Name="ProductListview" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ListView_SelectionChanged" Margin="0,0,0,2" RenderTransformOrigin="0.5,0.5" Width="NaN" Grid.Row="1" Grid.ColumnSpan="2">
+        <ListView  x:Name="ProductListview" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ListView_SelectionChanged" Margin="150,20,62,50" RenderTransformOrigin="0.5,0.5" Width="NaN" Grid.Row="1" 
+            Grid.ColumnSpan="2" MouseDoubleClick="ProductListview_MouseDoubleClick" FontSize="14" FontFamily="Verdana">
             <ListView.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -31,12 +36,39 @@
             </ListView.RenderTransform>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn  DisplayMemberBinding = "{Binding Path = ID}"
+                    Header = "ID"
+                    Width = "100" />
+
+                    <GridViewColumn
+                    DisplayMemberBinding = "{Binding Path = Name}"
+                    Header = "Name"
+                    Width = "180" />
+
+                    <GridViewColumn
+                    DisplayMemberBinding = "{Binding Path = Category}"
+                    Header = "Category"
+                    Width = "100" />
+
+                    <GridViewColumn
+                    DisplayMemberBinding = "{Binding Path = Price}"
+                    Header = "Price"
+                    Width = "100" />
+
                 </GridView>
             </ListView.View>
         </ListView>
-        <ComboBox Name="CategorySelector" Margin="450,3,10,10" SelectionChanged="CategorySelector_SelectionChanged" Grid.ColumnSpan="2"/>
-        <Label Content="Category options:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Height="37" Width="152" FontSize="16" FontWeight="Bold" Margin="10,0,0,0"/>
+        <ComboBox Name="CategorySelector" Margin="368,5,65,5" SelectionChanged="CategorySelector_SelectionChanged" Grid.ColumnSpan="3" FontFamily="Verdana" FontSize="14"/>
+        <Label Content="Category options:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="47" Width="301" FontSize="24" FontWeight="Bold" FontFamily="Verdana" Margin="65,2,0,0" Foreground="#FFE4E4EC" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.071"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
     </Grid>
 
 </Window>

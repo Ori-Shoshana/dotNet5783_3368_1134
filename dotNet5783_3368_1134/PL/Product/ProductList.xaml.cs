@@ -31,7 +31,7 @@ namespace PL.Product
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            
         }
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -39,16 +39,25 @@ namespace PL.Product
             IBl bl = new BlImplementation.BL();
             ProductListview.ItemsSource = bl.Product.GetProducts(a => a?.Category.ToString() == CategorySelector.SelectedItem.ToString());
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            new Product.UpdateProduct().Show();
-            Close();
-        }
+     
 
         private void Home_Click(object sender, RoutedEventArgs e)
         {
             new PL.MainWindow().Show();
+            Close();
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            int? X  =  null;
+            new Product.UpdateProduct(X).Show();
+            Close();
+        }
+
+        private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var product = (BO.ProductForList)ProductListview.SelectedItem;
+            new Product.UpdateProduct(product.ID).Show();
             Close();
         }
     }

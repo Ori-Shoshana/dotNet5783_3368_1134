@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid Name ="MainGrid">
         <Grid.Background>
-            <ImageBrush ImageSource="/0x0.jpg"/>
+            <ImageBrush ImageSource="/MYPhoto.jpg"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
@@ -22,9 +22,10 @@
             IsTabStop="False"
             Canvas.Left="10"
             Canvas.Top="10"           
-            MouseEnter="Button_MouseEnter" Height="57" Width="126" FontWeight="Bold" FontSize="22" Foreground="#FFE31A1A"/>
+            MouseEnter="Button_MouseEnter" Height="57" Width="126" FontWeight="Bold" FontSize="22" Foreground="#FFE31A1A"
+                    MouseDoubleClick="btn_MouseDoubleClick" Click="btn_Click"/>
         </Canvas>
-        <Label Content="Welcome to electro" HorizontalAlignment="Center" VerticalAlignment="Center" Height="56" Width="588" FontSize="36" FontWeight="Bold" Grid.Row="1" FontFamily="Wide Latin" RenderTransformOrigin="0.497,0.406" Foreground="Black">
+        <Label Content="Welcome to electro" HorizontalAlignment="Center" VerticalAlignment="Top" Height="56" Width="588" FontSize="36" FontWeight="Bold" Grid.Row="1" FontFamily="Wide Latin" RenderTransformOrigin="0.497,0.406" Foreground="#FFE4E4EC" Margin="0,129,0,0">
             <Label.Background>
                 <ImageBrush/>
             </Label.Background>
