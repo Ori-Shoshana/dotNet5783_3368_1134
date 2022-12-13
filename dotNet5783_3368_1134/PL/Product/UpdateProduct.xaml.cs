@@ -68,15 +68,15 @@ namespace PL.Product
                 }
              catch (VariableIsSmallerThanZeroExeption ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("❌  " + ex.Message);
                 }
             catch (VariableIsNullExeption ex)
                 {
-                   MessageBox.Show(ex.Message);
+                   MessageBox.Show("❌  " + ex.Message);
                 }
             catch (DO.IdNotExistException ex)
                 {
-                   MessageBox.Show(ex.Message);
+                   MessageBox.Show("❌  " + ex.Message);
                 }
             if (check == true)
             {
@@ -104,15 +104,15 @@ namespace PL.Product
             }
             catch (VariableIsSmallerThanZeroExeption ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("❌  "+ ex.Message);
             }
             catch (VariableIsNullExeption ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("❌  " + ex.Message);
             }
             catch (DO.IdAlreadyExistException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("❌  " + ex.Message);
             }
             if (check == true)
             {
@@ -134,6 +134,11 @@ namespace PL.Product
         }
 
         private void ID_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Price_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }

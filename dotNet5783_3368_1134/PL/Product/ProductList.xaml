@@ -69,6 +69,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
+        <Label Content="Double click product to update" HorizontalAlignment="Left" Margin="222,277,0,0" Grid.Row="1" VerticalAlignment="Top" Height="33" Width="356" Grid.ColumnSpan="2" Foreground="#FFE4E4EC" FontSize="20" FontFamily="Verdana" FontWeight="Bold"/>
     </Grid>
 
 </Window>

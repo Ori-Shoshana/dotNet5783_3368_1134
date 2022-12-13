@@ -17,7 +17,7 @@
         <Label Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="237,120,0,0" RenderTransformOrigin="0.462,-2.636" FontSize="16" FontFamily="Verdana" FontWeight="Bold" Foreground="#FFE4E4EC"/>
         <TextBox Name="Name" HorizontalAlignment="Left" Margin="346,130,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
         <Label Content="Price" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="238,160,0,0" RenderTransformOrigin="0.462,-2.636" FontSize="16" FontWeight="Bold" FontFamily="Verdana" Foreground="#FFE4E4EC"/>
-        <TextBox Name="Price" HorizontalAlignment="Left" Margin="346,170,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <TextBox Name="Price" HorizontalAlignment="Left" Margin="346,170,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160" TextChanged="Price_TextChanged"/>
         <Label Content="Category" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="237,200,0,0" RenderTransformOrigin="0.462,-2.636" FontSize="16" FontFamily="Verdana" FontWeight="Bold" Foreground="#FFE4E4EC" />
         <ComboBox Name="CategorySelector" Margin="346,205,270,185" SelectionChanged="CategorySelector_SelectionChanged" FontFamily="Verdana" FontSize="14" />
         <Label Content="Amount" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="235,240,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC"/>

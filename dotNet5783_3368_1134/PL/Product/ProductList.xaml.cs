@@ -26,7 +26,12 @@ namespace PL.Product
             InitializeComponent();
             IBl bl = new BlImplementation.BL();
             ProductListview.ItemsSource = bl.Product.GetProducts();
-            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.ProductCategory));
+
+            for (int i = 0; i < 4; i++)
+            {
+                CategorySelector.Items.Add($"{(BO.Enums.ProductCategory)i}");
+            }
+            CategorySelector.Items.Add("All");
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -37,7 +42,14 @@ namespace PL.Product
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             IBl bl = new BlImplementation.BL();
-            ProductListview.ItemsSource = bl.Product.GetProducts(a => a?.Category.ToString() == CategorySelector.SelectedItem.ToString());
+            if (CategorySelector.SelectedItem.ToString() != "All")
+            {
+                ProductListview.ItemsSource = bl.Product.GetProducts(a => a?.Category.ToString() == CategorySelector.SelectedItem.ToString());
+            }
+            else
+            {
+                ProductListview.ItemsSource = bl.Product.GetProducts();
+            }
         }
      
 
