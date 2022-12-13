@@ -26,29 +26,50 @@ namespace PL.Product
             InitializeComponent();
             IBl bl = new BlImplementation.BL();
             ProductListview.ItemsSource = bl.Product.GetProducts();
-            CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.ProductCategory));
+
+            for (int i = 0; i < 4; i++)
+            {
+                CategorySelector.Items.Add($"{(BO.Enums.ProductCategory)i}");
+            }
+            CategorySelector.Items.Add("All");
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            
         }
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             IBl bl = new BlImplementation.BL();
-            ProductListview.ItemsSource = bl.Product.GetProducts(a => a?.Category.ToString() == CategorySelector.SelectedItem.ToString());
+            if (CategorySelector.SelectedItem.ToString() != "All")
+            {
+                ProductListview.ItemsSource = bl.Product.GetProducts(a => a?.Category.ToString() == CategorySelector.SelectedItem.ToString());
+            }
+            else
+            {
+                ProductListview.ItemsSource = bl.Product.GetProducts();
+            }
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            new Product.UpdateProduct().Show();
-            Close();
-        }
+     
 
         private void Home_Click(object sender, RoutedEventArgs e)
         {
             new PL.MainWindow().Show();
+            Close();
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            int? X  =  null;
+            new Product.UpdateProduct(X).Show();
+            Close();
+        }
+
+        private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var product = (BO.ProductForList)ProductListview.SelectedItem;
+            new Product.UpdateProduct(product.ID).Show();
             Close();
         }
     }
