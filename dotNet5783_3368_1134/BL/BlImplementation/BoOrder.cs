@@ -1,4 +1,6 @@
 ﻿
+using System.Net.Http.Headers;
+
 internal class BoOrder : BlApi.IOrder
 {
     private DalApi.IDal dal = new Dal.DalList();
@@ -258,5 +260,69 @@ internal class BoOrder : BlApi.IOrder
         }
         return BoOrderTracking;
 
+    }
+
+    public void updateOrederM(int amount, int orderId, int prodId, int password)
+    {
+        if (password == 76567)
+        {
+            BO.Order ord = OrderDetails(orderId);
+            List<DO.Product> products = new List<DO.Product>();
+            products = (List<DO.Product>)dal.Product.GetAll();
+            DO.Product product = new DO.Product();
+            BO.OrderItem order_item = new BO.OrderItem();
+            List<BO.OrderItem> order_items = new List<BO.OrderItem>();
+            bool flag = false;
+            if (ord.Items == null)
+            {
+                throw new BO.VeriableNotExistException("can't find the list of items");
+            }
+            foreach (BO.OrderItem orderItem in ord.Items)
+            {
+                if (prodId == orderItem.ProductID)
+                {
+                    if (orderItem.Amount + amount < 0)
+                    {
+                        throw new BO.VariableIsSmallerThanZeroExeption("The quantity is less than the quantity to be reduced");
+                    }
+                    foreach (DO.Product prod in products)
+                    {
+                        if (prod.ProductID == prodId)
+                        {
+                            if (amount > prod.InStock)
+                            {
+                                throw new BO.VeriableNotExistException("not existing enough items in stock");
+                            }
+                            product.ProductID = prod.ProductID;
+                            product.ProductName = prod.ProductName;
+                            product.Price = prod.Price;
+                            product.InStock -= amount;
+                            product.Category = prod.Category;
+                            dal.Product.Update(product);
+                            flag = true;
+                        }
+                      
+                    }
+                    if (flag == false)
+                        throw new BO.VeriableNotExistException("product id not exists");
+
+                    order_item.Price = orderItem.Price;
+                    order_item.ProductID = orderItem.ProductID;
+                    order_item.Amount = orderItem.Amount + amount;
+                    order_item.ID = orderItem.ID;
+                    order_item.Name = orderItem.Name;
+                    order_item.TotalPrice = orderItem.TotalPrice + amount * order_item.Price;
+                    order_items.Add(order_item);
+                    ord.TotalPrice += amount * order_item.Price;
+                }
+                else
+                    order_items.Add(orderItem);
+            }
+            ord.Items = order_items;
+        }
+        else
+        {
+            throw new BO.VeriableNotExistException("The password is incorrect");
+        }
     }
 }
