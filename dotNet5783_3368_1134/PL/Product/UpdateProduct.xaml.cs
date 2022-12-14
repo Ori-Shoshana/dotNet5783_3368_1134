@@ -122,16 +122,8 @@ namespace PL.Product
                 AddBottun.Visibility = Visibility.Hidden;
             }
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+      
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

@@ -66,10 +66,6 @@ namespace PL.Product
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             BO.ProductForList product = new BO.ProductForList();
-            product.ID = 0;
-            product.Name = "";           
-            product.Category = null;
-            product.Price = 0;
             new Product.UpdateProduct(product).Show();
             Close();
         }
