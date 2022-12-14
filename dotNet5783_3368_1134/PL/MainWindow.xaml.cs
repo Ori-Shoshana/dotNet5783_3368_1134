@@ -60,7 +60,7 @@ namespace PL
         private void btn_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             new CatchMe.CatchMeIfYouCan().Show();
-            Close();
+            
         }
 
         private void btn_Click(object sender, RoutedEventArgs e)

@@ -25,14 +25,17 @@ namespace PL.Product
     {
         IBl bl = new BlImplementation.BL();
         
-        public UpdateProduct(int? id)
+        public UpdateProduct(BO.ProductForList product)
         {
             InitializeComponent();
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.ProductCategory));
-            ID.Text = id.ToString();
-            if(id!=null)
+            if(product.ID != 0)
             {
                 AddBottun.Visibility = Visibility.Hidden;
+                ID.Text = product.ID.ToString();
+                Name.Text = product.Name;
+                Price.Text = product.Price.ToString();
+                CategorySelector.Text = product.Category.ToString();
                 TextBoxLable.Content = "Update product:";
             }
             else

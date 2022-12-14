@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +22,16 @@ namespace PL.Product
     /// </summary>
     public partial class ProductList : Window
     {
+        IBl bl = new BlImplementation.BL();
+
         public ProductList()
         {
             InitializeComponent();
-            IBl bl = new BlImplementation.BL();
-            ProductListview.ItemsSource = bl.Product.GetProducts();
+            IBl bl1 = new BlImplementation.BL();
 
-            for (int i = 0; i < 4; i++)
+            ProductListview.ItemsSource = bl1.Product.GetProducts();
+
+            for (int i = 0; i < 5; i++)
             {
                 CategorySelector.Items.Add($"{(BO.Enums.ProductCategory)i}");
             }
@@ -61,16 +65,24 @@ namespace PL.Product
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            int? X  =  null;
-            new Product.UpdateProduct(X).Show();
+            BO.ProductForList product = new BO.ProductForList();
+            product.ID = 0;
+            product.Name = "";           
+            product.Category = null;
+            product.Price = 0;
+            new Product.UpdateProduct(product).Show();
             Close();
         }
 
         private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var product = (BO.ProductForList)ProductListview.SelectedItem;
-            new Product.UpdateProduct(product.ID).Show();
+            BO.ProductForList product = new BO.ProductForList();
+        
+            product = (BO.ProductForList)ProductListview.SelectedItem;
+            new Product.UpdateProduct(product).Show();
             Close();
+          
         }
+
     }
 }
