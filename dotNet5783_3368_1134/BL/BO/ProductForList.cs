@@ -6,7 +6,7 @@ namespace BO;
 /// <summary>
 /// properties of product for list
 /// </summary>
-public struct ProductForList
+public class ProductForList
 {
     /// <summary>
     /// product id

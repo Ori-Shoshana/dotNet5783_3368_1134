@@ -79,8 +79,12 @@ namespace PL.Product
             BO.ProductForList product = new BO.ProductForList();
         
             product = (BO.ProductForList)ProductListview.SelectedItem;
-            new Product.UpdateProduct(product).Show();
-            Close();
+            if ((BO.ProductForList)ProductListview.SelectedItem != null)
+            {
+                new Product.UpdateProduct(product).Show();
+                Close();
+            }
+            
           
         }
 
