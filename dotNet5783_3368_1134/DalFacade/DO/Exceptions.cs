@@ -14,3 +14,11 @@ public class NoObjectFoundExeption : Exception
 {
     public NoObjectFoundExeption(string msg) : base(msg) { }
 }
+
+[Serializable]
+public class DalConfigException : Exception
+{
+    public DalConfigException(string msg) : base(msg) { }
+    public DalConfigException(string msg, Exception ex) : base(msg, ex) { }
+}
+

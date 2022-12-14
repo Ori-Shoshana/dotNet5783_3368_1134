@@ -1,6 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
-using BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,8 +21,10 @@ namespace PL.Product
     /// </summary>
     public partial class UpdateProduct : Window
     {
-        IBl bl = new BlImplementation.BL();
-        
+        BlApi.IBl? bl = BlApi.Factory.Get();
+        /// <summary>
+        /// entering the product update window
+        /// </summary>
         public UpdateProduct(BO.ProductForList product)
         {
             InitializeComponent();
@@ -44,13 +44,17 @@ namespace PL.Product
                 TextBoxLable.Content = "Add product:";
             }
         }
-
+        /// <summary>
+        /// back button to return to get back to the list
+        /// </summary>
         private void GoBackToList_Click(object sender, RoutedEventArgs e)
         {
             new Product.ProductList().Show();
             Close();
         }
-
+        /// <summary>
+        /// updating product (by the data that the user entered
+        /// </summary>
         private void UpdateBottun_Click(object sender, RoutedEventArgs e)
         {
             bool check = false;
@@ -66,11 +70,12 @@ namespace PL.Product
             product1.InStock = tempInt1;
              try
                 {
-                    bl.Product.Update(product1);
+                    bl?.Product.Update(product1);
                     check = true;
                 }
              catch (VariableIsSmallerThanZeroExeption ex)
                 {
+
                     MessageBox.Show("❌  " + ex.Message);
                 }
             catch (VariableIsNullExeption ex)
@@ -86,7 +91,9 @@ namespace PL.Product
                 UpdateBottun.Visibility = Visibility.Hidden;
             }
         }
-
+        /// <summary>
+        /// adding a product to the products list
+        /// </summary>
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             bool check = false;
@@ -102,7 +109,7 @@ namespace PL.Product
             product1.InStock = tempInt1;
             try
             {
-                bl.Product.Add(product1);
+                bl?.Product.Add(product1);
                 check = true;
             }
             catch (VariableIsSmallerThanZeroExeption ex)

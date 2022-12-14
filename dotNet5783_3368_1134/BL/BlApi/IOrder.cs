@@ -40,5 +40,5 @@ public interface IOrder
     /// Throws exceptions when needed
     /// returns OrderTracking
     public OrderTracking Track(int id);
-    public void updateOrederM(int amount, int id, int prodId, int password);
+    public void updateOrederM(int amount, int id, int prodId);
 }
