@@ -48,7 +48,7 @@ namespace PL.Product
             IBl bl = new BlImplementation.BL();
             if (CategorySelector.SelectedItem.ToString() != "All")
             {
-                ProductListview.ItemsSource = bl.Product.GetProducts(a => a?.Category.ToString() == CategorySelector.SelectedItem.ToString());
+                ProductListview.ItemsSource = bl.Product.GetProducts(send => send?.Category.ToString() == CategorySelector.SelectedItem.ToString());
             }
             else
             {
