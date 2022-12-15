@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Button x:Name ="MyProgramButton" Content="Press to enter" HorizontalAlignment="Center" Margin="0,280,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="124" Click="Button_Click" RenderTransformOrigin="0.514,-2.947" FontWeight="Bold" FontSize="14"/>
-        <!--<Canvas Name="cnv">
+        <Canvas Name="cnv">
             <Button Name="btn"
             Content="Click Me!"
             IsTabStop="False"
@@ -24,7 +24,7 @@
             Canvas.Top="10"           
             MouseEnter="Button_MouseEnter" Height="57" Width="126" FontWeight="Bold" FontSize="22" Foreground="#FFE31A1A"
                     MouseDoubleClick="btn_MouseDoubleClick" Click="btn_Click"/>
-        </Canvas>-->
+        </Canvas>
         <Label Content="Welcome to electro" HorizontalAlignment="Center" VerticalAlignment="Top" Height="56" Width="588" FontSize="36" FontWeight="Bold" Grid.Row="1" FontFamily="Wide Latin" RenderTransformOrigin="0.497,0.406" Foreground="#FFE4E4EC" Margin="0,129,0,0">
             <Label.Background>
                 <ImageBrush/>
