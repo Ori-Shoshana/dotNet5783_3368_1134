@@ -8,7 +8,7 @@ internal class Program
 {
   
     enum Option {Exit =0, Cart = 1, Order = 2, Product = 3 };
-    public static IBl bl = new BlImplementation.BL();
+    public static  BlApi.IBl? bl = BlApi.Factory.Get();
     static BO.Cart cart = new Cart();
 
 
@@ -25,7 +25,7 @@ internal class Program
         products = (List<ProductForList?>)bl.Product.GetProducts();
         foreach (var product1 in products)
         {
-            Console.WriteLine(product1.ToString());
+            Console.WriteLine(product1?.ToString());
         }
 
 
@@ -240,7 +240,7 @@ internal class Program
                             products = (List<ProductForList?>)bl.Product.GetProducts();
                             foreach (var product1 in products)
                             {
-                                Console.WriteLine(product1.ToString());
+                                Console.WriteLine(product1?.ToString());
                             }
                             break;
 

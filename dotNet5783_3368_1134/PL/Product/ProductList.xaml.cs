@@ -1,5 +1,4 @@
-﻿using BlApi;
-using BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,14 +21,16 @@ namespace PL.Product
     /// </summary>
     public partial class ProductList : Window
     {
-        IBl bl = new BlImplementation.BL();
-
+        BlApi.IBl? bl = BlApi.Factory.Get();
+        /// <summary>
+        ///  showing all the products  
+        /// </summary>
         public ProductList()
         {
             InitializeComponent();
-            IBl bl1 = new BlImplementation.BL();
+            BlApi.IBl? bl1 = BlApi.Factory.Get();
 
-            ProductListview.ItemsSource = bl1.Product.GetProducts();
+            ProductListview.ItemsSource = bl1?.Product.GetProducts();
 
             for (int i = 0; i < 5; i++)
             {
@@ -42,38 +43,42 @@ namespace PL.Product
         {
             
         }
-
+        /// <summary>
+        ///  showing the products of a specific category 
+        /// </summary>
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            IBl bl = new BlImplementation.BL();
+            BlApi.IBl? bl = BlApi.Factory.Get();
             if (CategorySelector.SelectedItem.ToString() != "All")
             {
-                ProductListview.ItemsSource = bl.Product.GetProducts(send => send?.Category.ToString() == CategorySelector.SelectedItem.ToString());
+                ProductListview.ItemsSource = bl?.Product.GetProducts(a => a?.Category.ToString() == CategorySelector.SelectedItem.ToString());
             }
             else
             {
-                ProductListview.ItemsSource = bl.Product.GetProducts();
+                ProductListview.ItemsSource = bl?.Product.GetProducts();
             }
         }
-     
 
+        /// <summary>
+        ///  get back to the main window
+        /// </summary>
         private void Home_Click(object sender, RoutedEventArgs e)
         {
             new PL.MainWindow().Show();
             Close();
         }
-
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// open the window of adding product   
+        /// </summary>
+        private void AddButton_Click(object sender, RoutedEventArgs e) 
         {
             BO.ProductForList product = new BO.ProductForList();
-            product.ID = 0;
-            product.Name = "";           
-            product.Category = null;
-            product.Price = 0;
             new Product.UpdateProduct(product).Show();
             Close();
         }
-
+        /// <summary>
+        /// open an option to update a product (after double click on product) 
+        /// </summary>
         private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.ProductForList product = new BO.ProductForList();
@@ -83,9 +88,7 @@ namespace PL.Product
             {
                 new Product.UpdateProduct(product).Show();
                 Close();
-            }
-            
-          
+            }      
         }
 
     }

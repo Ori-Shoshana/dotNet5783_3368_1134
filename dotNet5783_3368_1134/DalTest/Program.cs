@@ -14,7 +14,7 @@ internal class Program
 {
 
 
-    public static IDal dal = new DalList();
+    public static DalApi.IDal? dal = DalApi.Factory.Get();
     static void Main(string[] args)
     {
          

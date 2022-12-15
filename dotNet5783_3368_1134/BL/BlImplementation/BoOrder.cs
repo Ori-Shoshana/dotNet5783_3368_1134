@@ -3,12 +3,11 @@ using System.Net.Http.Headers;
 
 internal class BoOrder : BlApi.IOrder
 {
-    private DalApi.IDal dal = new Dal.DalList();
-    /// <summary>
-    ///implemention of function get orders
-    /// requests a list of orders from the data layer
-    /// returns list of orders (from type order for list)
-    /// </summary>
+    DalApi.IDal? dal = DalApi.Factory.Get();    /// <summary>
+                                                ///implemention of function get orders
+                                                /// requests a list of orders from the data layer
+                                                /// returns list of orders (from type order for list)
+                                                /// </summary>
     public IEnumerable<BO.OrderForList?> GetOrders()
     {
         List<BO.OrderForList?> orderForList = new List<BO.OrderForList?>();
@@ -25,20 +24,20 @@ internal class BoOrder : BlApi.IOrder
 
             orderForList1.ID = (int)DoOrder?.OrderID!;
             orderForList1.CustomerName = DoOrder?.CustomerName;
-            if (DoOrder?.DeliveryDate <=DateTime.Now)
+            if (DoOrder?.DeliveryDate <= DateTime.Now)
             {
                 orderForList1.Status = BO.Enums.OrderStatus.Deliverd;
             }
-            else  if (DoOrder?.ShipDate <= DateTime.Now)
+            else if (DoOrder?.ShipDate <= DateTime.Now)
             {
                 orderForList1.Status = BO.Enums.OrderStatus.Sent;
             }
             else
             { orderForList1.Status = BO.Enums.OrderStatus.Confirmed; }
-            
-            orderForList1.TotalPrice += (DoOrderItems[i]?.PriceItem?? 0) * (DoOrderItems[i]?.Amount?? 0) ;
-            orderForList1.AmountOfItems = DoOrderItems[i]?.Amount?? 0;
-            
+
+            orderForList1.TotalPrice += (DoOrderItems[i]?.PriceItem ?? 0) * (DoOrderItems[i]?.Amount ?? 0);
+            orderForList1.AmountOfItems = DoOrderItems[i]?.Amount ?? 0;
+
             orderForList.Add(orderForList1);
             i++;
         }
@@ -71,8 +70,8 @@ internal class BoOrder : BlApi.IOrder
             BoOrder.CustomerName = DoOrder.CustomerName;
             BoOrder.CustomerEmail = DoOrder.CustomerEmail;
             BoOrder.CustomerAdress = DoOrder.CustomerAdress;
-            if(DoOrder.OrderDate != null)
-            BoOrder.OrderDate = (DateTime)DoOrder.OrderDate;
+            if (DoOrder.OrderDate != null)
+                BoOrder.OrderDate = (DateTime)DoOrder.OrderDate;
             if (DoOrder.ShipDate != null)
                 BoOrder.ShipDate = (DateTime)DoOrder.ShipDate;
             if (DoOrder.DeliveryDate != null)
@@ -102,7 +101,7 @@ internal class BoOrder : BlApi.IOrder
                 }
 
             }
-            
+
             BoOrder.Items = boOrderItems;
             BoOrder.TotalPrice = finalTotalPrice;
             if (DoOrder.DeliveryDate <= DateTime.Now)
@@ -147,15 +146,15 @@ internal class BoOrder : BlApi.IOrder
                     order.CustomerName = BoOrder.CustomerName;
                     order.CustomerEmail = BoOrder.CustomerEmail;
                     order.CustomerAdress = BoOrder.CustomerAdress;
-                    if(BoOrder.OrderDate != null)
+                    if (BoOrder.OrderDate != null)
                     {
                         order.OrderDate = (DateTime)BoOrder.OrderDate;
                     }
-                    if(BoOrder.ShipDate != null)
+                    if (BoOrder.ShipDate != null)
                     {
                         order.ShipDate = (DateTime)BoOrder.ShipDate;
                     }
-                    if(BoOrder.DeliveryDate != null)
+                    if (BoOrder.DeliveryDate != null)
                     {
                         order.DeliveryDate = (DateTime)BoOrder.DeliveryDate;
                     }
@@ -252,9 +251,9 @@ internal class BoOrder : BlApi.IOrder
                      (DateTime.Now, Item)
                 };
                 BoOrderTracking.Tracking = tupleList;
-             }
+            }
         }
-        if(check == false)
+        if (check == false)
         {
             throw new BO.VariableIsNullExeption("There is no item to track");
         }
@@ -262,67 +261,61 @@ internal class BoOrder : BlApi.IOrder
 
     }
 
-    public void updateOrederM(int amount, int orderId, int prodId, int password)
+    public void updateOrederM(int amount, int orderId, int prodId)
     {
-        if (password == 76567)
-        {
-            BO.Order ord = OrderDetails(orderId);
-            List<DO.Product> products = new List<DO.Product>();
-            products = (List<DO.Product>)dal.Product.GetAll();
-            DO.Product product = new DO.Product();
-            BO.OrderItem order_item = new BO.OrderItem();
-            List<BO.OrderItem> order_items = new List<BO.OrderItem>();
-            bool flag = false;
-            if (ord.Items == null)
-            {
-                throw new BO.VeriableNotExistException("can't find the list of items");
-            }
-            foreach (BO.OrderItem orderItem in ord.Items)
-            {
-                if (prodId == orderItem.ProductID)
-                {
-                    if (orderItem.Amount + amount < 0)
-                    {
-                        throw new BO.VariableIsSmallerThanZeroExeption("The quantity is less than the quantity to be reduced");
-                    }
-                    foreach (DO.Product prod in products)
-                    {
-                        if (prod.ProductID == prodId)
-                        {
-                            if (amount > prod.InStock)
-                            {
-                                throw new BO.VeriableNotExistException("not existing enough items in stock");
-                            }
-                            product.ProductID = prod.ProductID;
-                            product.ProductName = prod.ProductName;
-                            product.Price = prod.Price;
-                            product.InStock -= amount;
-                            product.Category = prod.Category;
-                            dal.Product.Update(product);
-                            flag = true;
-                        }
-                      
-                    }
-                    if (flag == false)
-                        throw new BO.VeriableNotExistException("product id not exists");
 
-                    order_item.Price = orderItem.Price;
-                    order_item.ProductID = orderItem.ProductID;
-                    order_item.Amount = orderItem.Amount + amount;
-                    order_item.ID = orderItem.ID;
-                    order_item.Name = orderItem.Name;
-                    order_item.TotalPrice = orderItem.TotalPrice + amount * order_item.Price;
-                    order_items.Add(order_item);
-                    ord.TotalPrice += amount * order_item.Price;
-                }
-                else
-                    order_items.Add(orderItem);
-            }
-            ord.Items = order_items;
-        }
-        else
+        BO.Order ord = OrderDetails(orderId);
+        List<DO.Product> products = new List<DO.Product>();
+        products = (List<DO.Product>)dal.Product.GetAll();
+        DO.Product product = new DO.Product();
+        BO.OrderItem order_item = new BO.OrderItem();
+        List<BO.OrderItem> order_items = new List<BO.OrderItem>();
+        bool flag = false;
+        if (ord.Items == null)
         {
-            throw new BO.VeriableNotExistException("The password is incorrect");
+            throw new BO.VeriableNotExistException("can't find the list of items");
         }
+        foreach (BO.OrderItem orderItem in ord.Items)
+        {
+            if (prodId == orderItem.ProductID)
+            {
+                if (orderItem.Amount + amount < 0)
+                {
+                    throw new BO.VariableIsSmallerThanZeroExeption("The quantity is less than the quantity to be reduced");
+                }
+                foreach (DO.Product prod in products)
+                {
+                    if (prod.ProductID == prodId)
+                    {
+                        if (amount > prod.InStock)
+                        {
+                            throw new BO.VeriableNotExistException("not existing enough items in stock");
+                        }
+                        product.ProductID = prod.ProductID;
+                        product.ProductName = prod.ProductName;
+                        product.Price = prod.Price;
+                        product.InStock -= amount;
+                        product.Category = prod.Category;
+                        dal.Product.Update(product);
+                        flag = true;
+                    }
+
+                }
+                if (flag == false)
+                    throw new BO.VeriableNotExistException("product id not exists");
+
+                order_item.Price = orderItem.Price;
+                order_item.ProductID = orderItem.ProductID;
+                order_item.Amount = orderItem.Amount + amount;
+                order_item.ID = orderItem.ID;
+                order_item.Name = orderItem.Name;
+                order_item.TotalPrice = orderItem.TotalPrice + amount * order_item.Price;
+                order_items.Add(order_item);
+                ord.TotalPrice += amount * order_item.Price;
+            }
+            else
+                order_items.Add(orderItem);
+        }
+        ord.Items = order_items;
     }
 }

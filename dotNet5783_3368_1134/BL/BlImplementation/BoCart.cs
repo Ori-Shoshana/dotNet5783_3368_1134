@@ -6,7 +6,7 @@ namespace BlImplementation;
 internal class BoCart : BlApi.ICart
 {
 
-    private DalApi.IDal dal = new Dal.DalList();
+    DalApi.IDal? dal = DalApi.Factory.Get();
     BO.OrderItem ordItemBO = new BO.OrderItem();
     // DO.Product productDO = new DO.Product();
     /// <summary>

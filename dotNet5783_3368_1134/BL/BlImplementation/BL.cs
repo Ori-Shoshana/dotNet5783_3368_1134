@@ -2,7 +2,7 @@
 using BlApi;
 namespace BlImplementation;
 
-public class BL : IBl
+internal class BL : IBl
 {
     /// <summary>
     /// Allows creation of order

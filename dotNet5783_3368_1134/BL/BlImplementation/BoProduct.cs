@@ -1,12 +1,11 @@
 ﻿
 internal class BoProduct : BlApi.IProduct
 {
-    private DalApi.IDal dal = new Dal.DalList();
-    /// <summary>
-    /// implemention of function get products
-    /// request products list from the data layer
-    /// Build a product list based on the data
-    /// returns the list
+    DalApi.IDal? dal = DalApi.Factory.Get();    /// <summary>
+                                                /// implemention of function get products
+                                                /// request products list from the data layer
+                                                /// Build a product list based on the data
+                                                /// returns the list
     public IEnumerable<BO.ProductForList?> GetProducts(Func<DO.Product?, bool>? func)
     {
         List<BO.ProductForList?> productsForList = new List<BO.ProductForList?>();
