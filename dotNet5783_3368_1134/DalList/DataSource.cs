@@ -145,22 +145,19 @@ internal static class DataSource
     {
         OrderItem OI = new OrderItem();
 
-        foreach (Order orders in ListOrder)
+        ListOrder.SelectMany(item => ListProduct.Take(4), (item, productTemp) =>
         {
-            foreach (Product products in ListProduct)
+            for (int i = 0; i < 1; i++)
             {
-                for (int i = 0; i < 4; i++)
-                {
-                    OI.OrderItemID = config.runOrderitem_Number;
-                    OI.OrderId = orders.OrderID;
-                    OI.ProductID = products.ProductID;
-                    OI.PriceItem = products.Price;
-                    OI.Amount = Rnd.Next(1, 5);
-                    ListOrderItem.Add(OI);
-                }
-                break;
+                OI.OrderItemID = config.runOrderitem_Number;
+                OI.OrderId = (int)item?.OrderID!;
+                OI.ProductID = (int)productTemp?.ProductID!;
+                OI.PriceItem = (double)productTemp?.Price!;
+                OI.Amount = Rnd.Next(1, 5);
+                ListOrderItem.Add(OI);
             }
-        }
+            return true;
+        }).ToList();
 
 
     }
