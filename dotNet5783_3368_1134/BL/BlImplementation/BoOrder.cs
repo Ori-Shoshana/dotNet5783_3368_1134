@@ -10,7 +10,7 @@ internal class BoOrder : BlApi.IOrder
                                                 /// </summary>
     public IEnumerable<BO.OrderForList?> GetOrders()
     {
-        List<BO.OrderForList?> orderForList = new List<BO.OrderForList?>();
+        List<BO.OrderForList> orderForList = new List<BO.OrderForList>();
         List<DO.Order?> DoOrders = new List<DO.Order?>();
         List<DO.OrderItem?> DoOrderItems = new List<DO.OrderItem?>();
 
@@ -18,12 +18,36 @@ internal class BoOrder : BlApi.IOrder
         DoOrderItems = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
         int i = 0;
 
-        foreach (DO.Order? DoOrder in DoOrders)
+        //foreach (DO.Order? DoOrder in DoOrders)
+        //{
+        //    BO.OrderForList orderForList1 = new BO.OrderForList();
+
+        //    orderForList1.ID = (int)DoOrder?.OrderID!;
+        //    orderForList1.CustomerName = DoOrder?.CustomerName;
+        //    if (DoOrder?.DeliveryDate <= DateTime.Now)
+        //    {
+        //        orderForList1.Status = BO.Enums.OrderStatus.Deliverd;
+        //    }
+        //    else if (DoOrder?.ShipDate <= DateTime.Now)
+        //    {
+        //        orderForList1.Status = BO.Enums.OrderStatus.Sent;
+        //    }
+        //    else
+        //    { orderForList1.Status = BO.Enums.OrderStatus.Confirmed; }
+
+        //    orderForList1.TotalPrice += (DoOrderItems[i]?.PriceItem ?? 0) * (DoOrderItems[i]?.Amount ?? 0);
+        //    orderForList1.AmountOfItems = DoOrderItems[i]?.Amount ?? 0;
+
+        //    orderForList.Add(orderForList1);
+        //    i++;
+        //}
+
+     orderForList = DoOrders.Select((DoOrder, index) =>
         {
             BO.OrderForList orderForList1 = new BO.OrderForList();
-
             orderForList1.ID = (int)DoOrder?.OrderID!;
             orderForList1.CustomerName = DoOrder?.CustomerName;
+
             if (DoOrder?.DeliveryDate <= DateTime.Now)
             {
                 orderForList1.Status = BO.Enums.OrderStatus.Deliverd;
@@ -33,14 +57,17 @@ internal class BoOrder : BlApi.IOrder
                 orderForList1.Status = BO.Enums.OrderStatus.Sent;
             }
             else
-            { orderForList1.Status = BO.Enums.OrderStatus.Confirmed; }
+            {
+                orderForList1.Status = BO.Enums.OrderStatus.Confirmed;
+            }
 
-            orderForList1.TotalPrice += (DoOrderItems[i]?.PriceItem ?? 0) * (DoOrderItems[i]?.Amount ?? 0);
-            orderForList1.AmountOfItems = DoOrderItems[i]?.Amount ?? 0;
+            orderForList1.TotalPrice += (DoOrderItems[index]?.PriceItem ?? 0) * (DoOrderItems[index]?.Amount ?? 0);
+            orderForList1.AmountOfItems = DoOrderItems[index]?.Amount ?? 0;
 
-            orderForList.Add(orderForList1);
-            i++;
-        }
+            return orderForList1;
+        })
+        .ToList();
+
         return orderForList;
     }
     /// <summary>
@@ -101,6 +128,7 @@ internal class BoOrder : BlApi.IOrder
                 }
 
             }
+
 
             BoOrder.Items = boOrderItems;
             BoOrder.TotalPrice = finalTotalPrice;
