@@ -2,7 +2,6 @@
 using static Dal.DataSource;
 using DalApi;
 using System.Security.Cryptography;
-
 namespace Dal;
 
 /// <summary>
@@ -28,15 +27,12 @@ internal class DalProduct : IProduct
     /// <summary>
     ///  The operation deletes a product from the array (finds him by id)
     /// </summary>
-    public void Delete(int ID)
+    public void Delete(int prodId)
     {
-        var found = (from p in DataSource.ListProduct
-                     select
-                     p?.ProductID).Where(temp => temp == ID);
-        if (found.Count() == 1)
-            DataSource.ListProduct.Remove(GetById(ID));
+        if (DataSource.ListProduct.Any(product => product?.ProductID == prodId))
+            DataSource.ListProduct.Remove(GetById(prodId));
         else
-            throw new DO.IdNotExistException("Product not exist");
+            throw new DO.IdNotExistException("product does not exist");
     }
 
     /// <summary>
@@ -61,14 +57,12 @@ internal class DalProduct : IProduct
     /// </summary>
     public DO.Product GetById(int productId)
     {
-        foreach (DO.Product prod in DataSource.ListProduct)
-        {
-            if(prod.ProductID == productId)
-            {
-                return prod;
-            }
-        }
-        throw new DO.IdNotExistException("Product Id not found");
+        var product = DataSource.ListProduct.FirstOrDefault(x => x?.ProductID == productId);
+
+        if (product == null)
+            throw new DO.IdNotExistException("Product Id not found");
+        else
+            return (DO.Product)product;
     }
 
     /// <summary>
@@ -76,26 +70,8 @@ internal class DalProduct : IProduct
     /// </summary>
     public IEnumerable<DO.Product?> GetAll(Func<DO.Product?, bool>? func)
     {
-        List<DO.Product?> products = new List<DO.Product?>();
-        if (func != null)
-        {
-            foreach (DO.Product? prod in ListProduct)
-            {
-                if (func(prod))
-                {
-                    products.Add(prod);
-                }
-            }
-            return products;
-        }
-        else 
-        {
-            foreach (DO.Product? prod in ListProduct)
-            {              
-                    products.Add(prod);
-            }
-            return products;
-        }
+        var products = ListProduct.Where(prod => func == null || func(prod)).ToList();
+        return products;
     }
 
     /// <summary>
@@ -110,13 +86,9 @@ internal class DalProduct : IProduct
     {
         if (func != null)
         {
-            foreach (DO.Product prod in ListProduct)
-            {
-                if (func(prod))
-                {
-                    return prod;
-                }
-            }
+            var p = ListProduct.FirstOrDefault(p => func(p));
+            if (p != null)
+                return (DO.Product) p;
         }
         throw new DO.NoObjectFoundExeption("No object is of the delegate");
     }
