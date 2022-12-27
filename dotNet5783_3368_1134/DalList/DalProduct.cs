@@ -33,7 +33,7 @@ internal class DalProduct : IProduct
     /// </summary>
     public void Delete(int ID)
     {
-        {
+        
             bool found = false;
             foreach(Product prod in DataSource.ListProduct)
             {
@@ -47,8 +47,8 @@ internal class DalProduct : IProduct
             if(found == false)
             {
                 throw new  IdNotExistException("Product Id not found");
-            }
         }
+
     }
 
     /// <summary>
@@ -56,22 +56,15 @@ internal class DalProduct : IProduct
     /// </summary>
     public void Update(Product product)
     {
-        int index = 0;
-        bool found = false; 
-        foreach(Product prod in DataSource.ListProduct)
-            { 
-                if(prod.ProductID == product.ProductID)
-                {
-                    found = true;
-                    ListProduct[index] = product;
-                    break;
-                }
-            index++;
-        }
-        if (found == false)
+        Product? itemToUpdate = DataSource.ListProduct
+            .FirstOrDefault(prod => prod?.ProductID == product.ProductID);
+        if (itemToUpdate == null)
         {
             throw new IdNotExistException("Product Id not found");
         }
+
+        int index = DataSource.ListProduct.IndexOf(itemToUpdate);
+        DataSource.ListProduct[index] = product;
     }
 
     /// <summary>

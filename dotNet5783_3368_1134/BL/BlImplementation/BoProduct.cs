@@ -1,47 +1,45 @@
 ﻿
 internal class BoProduct : BlApi.IProduct
 {
-    DalApi.IDal? dal = DalApi.Factory.Get();    /// <summary>
-                                                /// implemention of function get products
-                                                /// request products list from the data layer
-                                                /// Build a product list based on the data
-                                                /// returns the list
+    DalApi.IDal? dal = DalApi.Factory.Get();
+
+    /// <summary>                                
+    /// implemention of function get products
+    /// request products list from the data layer
+    /// Build a product list based on the data
+    /// returns the list
     public IEnumerable<BO.ProductForList?> GetProducts(Func<DO.Product?, bool>? func)
     {
-        List<BO.ProductForList?> productsForList = new List<BO.ProductForList?>();
+        //List<BO.ProductForList?> productsForList = new List<BO.ProductForList?>();
         List<DO.Product?> products = new List<DO.Product?>();
         products = (List<DO.Product?>)dal.Product.GetAll();
         if (func != null)
         {
-            foreach (DO.Product? product in products)
-            {
-                if (func(product))
-                {
-                    productsForList.Add(new BO.ProductForList
-                    {
-                        ID = (int)product?.ProductID!,
-                        Category = (BO.Enums.ProductCategory?)product?.Category,
-                        Name = product?.ProductName,
-                        Price = (int)product?.Price!
-                    });
-                }
-            }
+      
+
+            List<BO.ProductForList> productsForList = (List<BO.ProductForList>)products
+                  .Where(product => func(product))
+                  .Select(product => new BO.ProductForList
+                  {
+                      ID = (int)product?.ProductID!,
+                      Category = (BO.Enums.ProductCategory?)product?.Category,
+                      Name = product?.ProductName,
+                      Price = (int)product?.Price!
+                  }).ToList();
+
             return productsForList;
         }
         else
-        {
-            foreach (DO.Product? product in products)
-            {
-               
-                productsForList.Add(new BO.ProductForList
+    {
+            List<BO.ProductForList> productsForList = (List<BO.ProductForList>)products
+                .Select(product => new BO.ProductForList
                 {
                     ID = (int)product?.ProductID!,
                     Category = (BO.Enums.ProductCategory?)product?.Category,
                     Name = product?.ProductName,
                     Price = (int)product?.Price!
-                });
-                
-            }
+                }).ToList();
+
             return productsForList;
         }
         
@@ -96,11 +94,10 @@ internal class BoProduct : BlApi.IProduct
             else 
                 productItem.InStock = false;
             productItem.Amount = 0;
-            foreach(BO.OrderItem? item in cart.Items)
-            {
-                if(item?.ID == productItem.ID)
-                    productItem.Amount += item.Amount;
-            }
+      
+            int totalAmount = cart.Items.Where(item => id == productItem.ID).Sum(item => item.Amount);
+            productItem.Amount += totalAmount;
+
             return productItem;
         }
         throw new BO.VariableIsSmallerThanZeroExeption("the id is less than 0");

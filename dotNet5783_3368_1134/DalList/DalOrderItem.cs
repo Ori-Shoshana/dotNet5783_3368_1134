@@ -15,21 +15,20 @@ using DalApi;
 /// </summary>
 internal class DalOrderItem : IOrderItem
 {
+
     /// <summary>
     /// The operation accepts an order item and adds it in the array
     /// </summary>
     /// <returns> returns order item id </returns>
-    public int Add(OrderItem orderIt)
+    public int Add(OrderItem orderId)
     {
-        foreach (OrderItem? orderItem in DataSource.ListOrderItem)
+
+        if (DataSource.ListOrderItem.Any(orderItem => orderId.OrderItemID == orderItem?.OrderItemID))
         {
-            if (orderIt.OrderItemID == orderItem?.OrderItemID)
-            {
-                throw new IdAlreadyExistException("Id already exist");
-            }
+            throw new IdAlreadyExistException("Id already exist");
         }
-        DataSource.ListOrderItem.Add(orderIt);
-        return orderIt.OrderItemID;
+        DataSource.ListOrderItem.Add(orderId);
+        return orderId.OrderItemID;
     }
 
     /// <summary>
@@ -37,15 +36,13 @@ internal class DalOrderItem : IOrderItem
     /// </summary>
     public void Delete(int ID)
     {
-        foreach (OrderItem orderItem in DataSource.ListOrderItem)
+       
+        if (!DataSource.ListOrderItem.Any(orderItem => ID == orderItem?.OrderItemID))
         {
-            if (ID == orderItem.OrderItemID)
-            {
-                ListOrderItem.Remove(orderItem);
-                return;
-            }
-        }
             throw new IdNotExistException("Order Id not found");
+        }
+
+        DataSource.ListOrderItem.RemoveAll(orderItem => ID == orderItem?.OrderItemID);
     }
 
     /// <summary>
@@ -55,7 +52,7 @@ internal class DalOrderItem : IOrderItem
     {
 
         int index = 0;
-        foreach(OrderItem ordIt in DataSource.ListOrderItem)
+        foreach (OrderItem ordIt in DataSource.ListOrderItem)
         {
             if (ordIt.OrderItemID == orderItem.OrderItemID)
             {
@@ -64,7 +61,8 @@ internal class DalOrderItem : IOrderItem
             }
             index++;
         }
-            throw new IdNotExistException("Order Id not found");
+        throw new IdNotExistException("Order Id not found");
+        
     }
 
     /// <summary>

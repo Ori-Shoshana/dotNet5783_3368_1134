@@ -18,29 +18,6 @@ internal class BoOrder : BlApi.IOrder
         DoOrderItems = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
         int i = 0;
 
-        //foreach (DO.Order? DoOrder in DoOrders)
-        //{
-        //    BO.OrderForList orderForList1 = new BO.OrderForList();
-
-        //    orderForList1.ID = (int)DoOrder?.OrderID!;
-        //    orderForList1.CustomerName = DoOrder?.CustomerName;
-        //    if (DoOrder?.DeliveryDate <= DateTime.Now)
-        //    {
-        //        orderForList1.Status = BO.Enums.OrderStatus.Deliverd;
-        //    }
-        //    else if (DoOrder?.ShipDate <= DateTime.Now)
-        //    {
-        //        orderForList1.Status = BO.Enums.OrderStatus.Sent;
-        //    }
-        //    else
-        //    { orderForList1.Status = BO.Enums.OrderStatus.Confirmed; }
-
-        //    orderForList1.TotalPrice += (DoOrderItems[i]?.PriceItem ?? 0) * (DoOrderItems[i]?.Amount ?? 0);
-        //    orderForList1.AmountOfItems = DoOrderItems[i]?.Amount ?? 0;
-
-        //    orderForList.Add(orderForList1);
-        //    i++;
-        //}
 
      orderForList = DoOrders.Select((DoOrder, index) =>
         {
@@ -115,19 +92,36 @@ internal class BoOrder : BlApi.IOrder
                     BoOrderItem.Amount = (int)item?.Amount!;
                     BoOrderItem.TotalPrice = (int)item?.PriceItem! * (int)item?.Amount!;
                     finalTotalPrice += (int)item?.PriceItem! * (int)item?.Amount!;
-                    foreach (var order in DoOrders)
-                    {
-                        if (id == order?.OrderID)
-                        {
-                            BoOrderItem.Name = order?.CustomerName;
-                            break;
-                        }
-                    }
 
+                    var order1 = DoOrders.FirstOrDefault(order => id == order?.OrderID);
+                    if (order1 != null)
+                    {
+                        BoOrderItem.Name = order1?.CustomerName;
+                    }
                     boOrderItems.Add(BoOrderItem);
                 }
 
             }
+
+            //DO.OrderItem? orderItem = DoOrderItem.FirstOrDefault(item => id == item?.OrderId);
+            //if (orderItem != null)
+            //{
+            //    BO.OrderItem BoOrderItem = new BO.OrderItem();
+            //    BoOrderItem.ID = (int)orderItem?.OrderId!;
+            //    BoOrderItem.ProductID = (int)orderItem?.ProductID!;
+            //    BoOrderItem.Price = (int)orderItem?.PriceItem!;
+            //    BoOrderItem.Amount = (int)orderItem?.Amount!;
+            //    BoOrderItem.TotalPrice = (int)orderItem?.PriceItem! * (int)orderItem?.Amount!;
+            //    finalTotalPrice += (int)orderItem?.PriceItem! * (int)orderItem?.Amount!;
+
+            //    var order1 = DoOrders.FirstOrDefault(order => id == order?.OrderID);
+            //    if (order1 != null)
+            //    {
+            //        BoOrderItem.Name = order1?.CustomerName;
+            //    }
+            //    boOrderItems.Add(BoOrderItem);
+            //}
+
 
 
             BoOrder.Items = boOrderItems;
