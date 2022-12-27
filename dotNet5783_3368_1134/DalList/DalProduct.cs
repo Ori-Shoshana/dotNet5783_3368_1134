@@ -1,9 +1,7 @@
-﻿using DO;
-using System;
+﻿using System;
 using static Dal.DataSource;
 using DalApi;
-
-
+using System.Security.Cryptography;
 
 namespace Dal;
 
@@ -17,12 +15,11 @@ internal class DalProduct : IProduct
     /// The operation accepts a product and adds it in the array
     /// </summary>
     /// <returns> returns order id </returns>
-    public int Add(Product prod)
+    public int Add(DO.Product prod)
     {
-        foreach (Product product in DataSource.ListProduct)
+        if (DataSource.ListProduct.Any(product => prod.ProductID == product?.ProductID))
         {
-            if (prod.ProductID == product.ProductID)
-                throw new IdAlreadyExistException("Product Id already exist's");
+            throw new DO.IdAlreadyExistException("Product Id already exists");
         }
         DataSource.ListProduct.Add(prod);  
         return prod.ProductID;
@@ -33,64 +30,56 @@ internal class DalProduct : IProduct
     /// </summary>
     public void Delete(int ID)
     {
-        
-            bool found = false;
-            foreach(Product prod in DataSource.ListProduct)
-            {
-                if(prod.ProductID == ID)
-                {
-                    ListProduct.Remove(prod);
-                    found = true;
-                    break;
-                }
-            }
-            if(found == false)
-            {
-                throw new  IdNotExistException("Product Id not found");
-        }
-
+        var found = (from p in DataSource.ListProduct
+                     select
+                     p?.ProductID).Where(temp => temp == ID);
+        if (found.Count() == 1)
+            DataSource.ListProduct.Remove(GetById(ID));
+        else
+            throw new DO.IdNotExistException("Product not exist");
     }
 
     /// <summary>
     /// The operation updates an order in the array (finds him by id)
     /// </summary>
-    public void Update(Product product)
-    {
-        Product? itemToUpdate = DataSource.ListProduct
-            .FirstOrDefault(prod => prod?.ProductID == product.ProductID);
-        if (itemToUpdate == null)
+    public void Update(DO.Product product)
+    { 
+        bool found = false; 
+        var foundProduct = DataSource.ListProduct.FirstOrDefault(p => p?.ProductID == product.ProductID);
+        if (foundProduct != null)
         {
-            throw new IdNotExistException("Product Id not found");
+            found = true;
+            int index = DataSource.ListProduct.IndexOf(foundProduct);
+            DataSource.ListProduct[index] = product;
         }
-
-        int index = DataSource.ListProduct.IndexOf(itemToUpdate);
-        DataSource.ListProduct[index] = product;
+        if (found == false)
+            throw new DO.IdNotExistException("Product Id not found");
     }
 
     /// <summary>
     ///  The operation finds the order (finds him by id) and returns his details
     /// </summary>
-    public Product GetById(int productId)
+    public DO.Product GetById(int productId)
     {
-        foreach (Product prod in DataSource.ListProduct)
+        foreach (DO.Product prod in DataSource.ListProduct)
         {
             if(prod.ProductID == productId)
             {
                 return prod;
             }
         }
-        throw new IdNotExistException("Product Id not found");
+        throw new DO.IdNotExistException("Product Id not found");
     }
 
     /// <summary>
     /// The operation updates the array and returns him
     /// </summary>
-    public IEnumerable<Product?> GetAll(Func<Product?, bool>? func)
+    public IEnumerable<DO.Product?> GetAll(Func<DO.Product?, bool>? func)
     {
-        List<Product?> products = new List<Product?>();
+        List<DO.Product?> products = new List<DO.Product?>();
         if (func != null)
         {
-            foreach (Product? prod in ListProduct)
+            foreach (DO.Product? prod in ListProduct)
             {
                 if (func(prod))
                 {
@@ -101,7 +90,7 @@ internal class DalProduct : IProduct
         }
         else 
         {
-            foreach (Product? prod in ListProduct)
+            foreach (DO.Product? prod in ListProduct)
             {              
                     products.Add(prod);
             }
@@ -117,11 +106,11 @@ internal class DalProduct : IProduct
         return DataSource.ListProduct.Count;
     }
 
-    public Product GetByDelegate(Func<Product?, bool>? func)
+    public DO.Product GetByDelegate(Func<DO.Product?, bool>? func)
     {
         if (func != null)
         {
-            foreach (Product prod in ListProduct)
+            foreach (DO.Product prod in ListProduct)
             {
                 if (func(prod))
                 {
@@ -129,6 +118,6 @@ internal class DalProduct : IProduct
                 }
             }
         }
-        throw new NoObjectFoundExeption("No object is of the delegate");
+        throw new DO.NoObjectFoundExeption("No object is of the delegate");
     }
 }
