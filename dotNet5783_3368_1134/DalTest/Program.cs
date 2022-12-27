@@ -78,7 +78,7 @@ internal class Program
                             }
                             catch (IdAlreadyExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             break;
 
@@ -93,7 +93,7 @@ internal class Program
                             }
                             catch (IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             
                             Console.WriteLine(GetProduct);
@@ -143,7 +143,7 @@ internal class Program
                             }
                             catch (IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             break;
 
@@ -157,7 +157,7 @@ internal class Program
                             }
                             catch (IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             break;
                     }
@@ -204,7 +204,7 @@ internal class Program
                             }
                             catch (IdAlreadyExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             break;
 
@@ -219,7 +219,7 @@ internal class Program
                             }
                             catch (IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             Console.WriteLine(GetOrder);
                             break;
@@ -264,7 +264,7 @@ internal class Program
                             }
                             catch (IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             break;
 
@@ -277,7 +277,7 @@ internal class Program
                             }
                             catch (IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             break;
                     }
@@ -324,7 +324,7 @@ internal class Program
                             }
                             catch(IdAlreadyExistException ex)
                             {
-                                    Console.WriteLine(ex);
+                                    Console.WriteLine(ex.Message);
                             }
                             break;
 
@@ -339,7 +339,7 @@ internal class Program
                             }
                             catch (IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             Console.WriteLine(GetOrderItem);
                             break;
@@ -384,7 +384,7 @@ internal class Program
                             }
                             catch (IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             break;
 
@@ -397,7 +397,7 @@ internal class Program
                             }
                             catch (IdNotExistException ex)
                             {
-                                Console.WriteLine(ex);
+                                Console.WriteLine(ex.Message);
                             }
                             break;
                     }
