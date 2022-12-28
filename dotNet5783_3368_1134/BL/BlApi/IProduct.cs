@@ -10,7 +10,13 @@ public interface IProduct
     /// request products list from the data layer
     /// Build a product list based on the data
     /// returns the list
-    public IEnumerable<ProductForList?> GetProducts(Func<DO.Product?, bool>? func = null);
+    public IEnumerable<ProductForList?> GetProductForList(Func<DO.Product?, bool>? func = null);
+    /// <summary>
+    /// decleration of function get products
+    /// request products list from the data layer
+    /// Build a product list based on the data
+    /// returns the list
+    public IEnumerable<ProductItem?> GetProductItem(Func<DO.Product?, bool>? func = null);
     /// <summary>
     /// decleration of function product details (for manager)
     /// receives product id

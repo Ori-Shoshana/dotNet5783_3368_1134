@@ -26,18 +26,17 @@ public class OrderTracking
     /// </summary>
     public override string ToString()
     {
-        string st = "ID: " + ID + "\nStatus" + Status + "\nTracking:\n";
+        string st = "ID: " + ID + "\nStatus:" + Status + "\nTracking: ";
         int i = 1;
         if (Tracking != null)
         { 
             foreach (var track in Tracking)
                 {
-                    st += i + ":\n" + track.Item1;
-                    st += "\n" + track.Item2;
+                    st += i + ": " + track.Item1;
+                    st += " " + track.Item2;
                     i++;
                 }
         }
-       
         return st;
     }
 }

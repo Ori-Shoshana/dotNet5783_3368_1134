@@ -30,7 +30,7 @@ namespace PL.Product
             InitializeComponent();
             BlApi.IBl? bl1 = BlApi.Factory.Get();
 
-            ProductListview.ItemsSource = bl1?.Product.GetProducts();
+            ProductListview.ItemsSource = bl1?.Product.GetProductForList();
 
             for (int i = 0; i < 5; i++)
             {
@@ -51,11 +51,11 @@ namespace PL.Product
             BlApi.IBl? bl = BlApi.Factory.Get();
             if (CategorySelector.SelectedItem.ToString() != "All")
             {
-                ProductListview.ItemsSource = bl?.Product.GetProducts(a => a?.Category.ToString() == CategorySelector.SelectedItem.ToString());
+                ProductListview.ItemsSource = bl?.Product.GetProductForList(a => a?.Category.ToString() == CategorySelector.SelectedItem.ToString());
             }
             else
             {
-                ProductListview.ItemsSource = bl?.Product.GetProducts();
+                ProductListview.ItemsSource = bl?.Product.GetProductForList();
             }
         }
 
@@ -64,7 +64,7 @@ namespace PL.Product
         /// </summary>
         private void Home_Click(object sender, RoutedEventArgs e)
         {
-            new PL.MainWindow().Show();
+            new Order.PathToProductAndOrder().Show();
             Close();
         }
         /// <summary>

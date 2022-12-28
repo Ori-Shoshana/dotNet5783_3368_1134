@@ -15,11 +15,9 @@
 
   <ItemGroup>
     <None Remove="9-01.jpg" />
-    <None Remove="CatchMe\download.jpg" />
-    <None Remove="CatchMe\download.png" />
-    <None Remove="CatchMe\giphy.gif" />
-    <None Remove="CatchMe\WhatsApp Image 2022-12-08 at 12.11.49.jpg" />
+    <None Remove="Cart\MYPhoto.jpg" />
     <None Remove="MYPhoto.jpg" />
+    <None Remove="Order\MYPhoto.jpg" />
     <None Remove="Photo.webp" />
     <None Remove="Product\9-01.jpg" />
     <None Remove="Product\MYPhoto.jpg" />
@@ -31,11 +29,9 @@
 
   <ItemGroup>
     <Resource Include="9-01.jpg" />
-    <Resource Include="CatchMe\download.jpg" />
-    <Resource Include="CatchMe\download.png" />
-    <Resource Include="CatchMe\giphy.gif" />
-    <Resource Include="CatchMe\WhatsApp Image 2022-12-08 at 12.11.49.jpg" />
+    <Resource Include="Cart\MYPhoto.jpg" />
     <Resource Include="MYPhoto.jpg" />
+    <Resource Include="Order\MYPhoto.jpg" />
     <Resource Include="Photo.webp" />
     <Resource Include="Product\9-01.jpg" />
     <Resource Include="Product\MYPhoto.jpg" />

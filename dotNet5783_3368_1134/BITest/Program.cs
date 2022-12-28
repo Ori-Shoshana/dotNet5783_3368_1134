@@ -22,7 +22,7 @@ internal class Program
         Console.WriteLine("Enter customer address:");
         cart.CustomerAdress = Console.ReadLine();
         List<BO.ProductForList?> products = new List<BO.ProductForList?>();
-        products = (List<ProductForList?>)bl.Product.GetProducts();
+        products = (List<ProductForList?>)bl.Product.GetProductForList();
         foreach (var product1 in products)
         {
             Console.WriteLine(product1?.ToString());
@@ -239,7 +239,7 @@ internal class Program
 
                         case 1://prints all the products
                             
-                            products = (List<ProductForList?>)bl.Product.GetProducts();
+                            products = (List<ProductForList?>)bl.Product.GetProductForList();
                             foreach (var product1 in products)
                             {
                                 Console.WriteLine(product1?.ToString());
