@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -56,6 +57,27 @@ namespace PL.Cart
         {
             new PL.MainWindow().Show();
             Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            new Cart.CartList().Show();
+            Close();
+        }
+
+        private void ProductItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+            BO.ProductItem? product = new BO.ProductItem();
+
+            product = (BO.ProductItem)ProductItemListView.SelectedItem;
+            if ((BO.ProductItem)ProductItemListView.SelectedItem != null)
+            {
+                new Cart.ProductItemDetails(product).Show();
+                Close();
+            }
+
+
         }
     }
 }

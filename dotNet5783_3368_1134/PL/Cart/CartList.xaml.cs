@@ -19,9 +19,24 @@ namespace PL.Cart
     /// </summary>
     public partial class CartList : Window
     {
+        BlApi.IBl? bl = BlApi.Factory.Get();
+
         public CartList()
         {
             InitializeComponent();
+
+            //CartListView.ItemsSource = 
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new Cart.ProductItemList().Show();
+            Close();
         }
     }
 }

@@ -7,6 +7,17 @@
         mc:Ignorable="d"
         Title="CartList" Height="450" Width="800">
     <Grid>
-        
+        <Grid.Background>
+            <ImageBrush ImageSource="/Cart/MYPhoto.jpg"/>
+        </Grid.Background>
+        <ListView x:Name="CartListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="100,59,100,95" SelectionChanged="ListView_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Back" HorizontalAlignment="Left" Margin="10,356,0,0" VerticalAlignment="Top" Height="36" Width="78" FontSize="18" Click="Button_Click"/>
+
     </Grid>
 </Window>
