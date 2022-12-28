@@ -16,25 +16,32 @@ internal class DalProduct : IProduct
     /// <returns> returns order id </returns>
     public int Add(DO.Product prod)
     {
-        if (DataSource.ListProduct.Any(product => prod.ProductID == product?.ProductID))
+        var check = (from p in ListProduct select p?.ProductID).Where(temp => temp == prod.ProductID);
+        if (check.Count()==0)
         {
-            throw new DO.IdAlreadyExistException("Product Id already exists");
+            ListProduct.Add(prod);
+            return prod.ProductID;
         }
-        DataSource.ListProduct.Add(prod);  
-        return prod.ProductID;
+        throw new DO.IdAlreadyExistException("Product Id already exists");
     }
-
+    //if (DataSource.ListProduct.Any(product => prod.ProductID == product?.ProductID))
+    //    throw new DO.IdAlreadyExistException("Product Id already exists");
+    //DataSource.ListProduct.Add(prod);   return prod.ProductID;*/
     /// <summary>
     ///  The operation deletes a product from the array (finds him by id)
     /// </summary>
     public void Delete(int prodId)
     {
-        if (DataSource.ListProduct.Any(product => product?.ProductID == prodId))
-            DataSource.ListProduct.Remove(GetById(prodId));
+        var check = (from p in ListProduct let temp = p?.ProductID select p?.ProductID).Where(temp => temp == prodId);
+        if(check.Count()==1)
+            ListProduct.Remove(GetById(prodId));
         else
             throw new DO.IdNotExistException("product does not exist");
     }
-
+    //if (DataSource.ListProduct.Any(product => product?.ProductID == prodId))
+    //    DataSource.ListProduct.Remove(GetById(prodId));
+    //else
+    //    throw new DO.IdNotExistException("product does not exist");
     /// <summary>
     /// The operation updates an order in the array (finds him by id)
     /// </summary>
@@ -70,7 +77,7 @@ internal class DalProduct : IProduct
     /// </summary>
     public IEnumerable<DO.Product?> GetAll(Func<DO.Product?, bool>? func)
     {
-        var products = ListProduct.Where(prod => func == null || func(prod)).ToList();
+        var products = ListProduct.Where(prod => func == null || func(prod)).OrderBy(prod => prod?.ProductID).ToList();
         return products;
     }
 
