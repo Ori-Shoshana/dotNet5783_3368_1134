@@ -29,11 +29,10 @@ public class Cart
     /// </summary>
     public override string ToString()
     {
-    string st = $@"
-    Customer Name : {CustomerName}
-    Customer Email : {CustomerEmail}
-    Customer Adress : {CustomerAdress}
-    ";
+    string st = $@" 
+        Customer Name : {CustomerName} 
+        Customer Email : {CustomerEmail} 
+        Customer Adress : {CustomerAdress}";
              int i = 1;
             if (Items != null)
             {
@@ -45,7 +44,7 @@ public class Cart
                     Price:{item?.Price}
                     ProductID:{item?.ProductID}
                     Amount:{item?.Amount}
-                    TotalProce:{item?.TotalPrice}
+                    TotalPrice:{item?.TotalPrice}
                     ";
                 }
             }

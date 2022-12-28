@@ -14,12 +14,12 @@ internal class Program
 
     static void Main(string[] args)
     {
-        Console.WriteLine("Enter customer name");
+        Console.WriteLine("Enter customer name:");
         cart.CustomerName = Console.ReadLine();
-        Console.WriteLine("Enter customer email");
+        Console.WriteLine("Enter customer email:");
         cart.CustomerEmail = Console.ReadLine();
-        validEmail(cart.CustomerEmail);
-        Console.WriteLine("Enter customer address");
+        validEmail(cart.CustomerEmail!);
+        Console.WriteLine("Enter customer address:");
         cart.CustomerAdress = Console.ReadLine();
         List<BO.ProductForList?> products = new List<BO.ProductForList?>();
         products = (List<ProductForList?>)bl.Product.GetProducts();
@@ -30,19 +30,17 @@ internal class Program
 
 
         Console.WriteLine("Enter 0 to exit \n" +
-           "Enter 1 for Cart \n" +
-           "Enter 2 for Order \n" +
-           "Enter 3 for product.\n" +
-           "please enter a choice\n");
-
+           "Enter 1 for Cart: \n" +
+           "Enter 2 for Order: \n" +
+           "Enter 3 for product: \n" +
+           "please enter a choice: \n");
         
         Option option;
         int option2;
         int tempInt=0;
         
         Option.TryParse(Console.ReadLine(), out option);
-
-        
+      
         do
         {
             switch (option)
@@ -51,10 +49,10 @@ internal class Program
                 return;
 //********************** actions fo cart ******************************//
                 case Option.Cart:
-                    Console.WriteLine("Enter 0 to pick a different option\n " +
-                        "Enter 1 to add a product to the cart\n " +
-                        "Enter 2 to confirm product in cart\n " +
-                        "Enter 3 to update product in cart\n ");
+                    Console.WriteLine("Enter 0 to pick a different option:\n " +
+                        "Enter 1 to add a product to the cart:\n " +
+                        "Enter 2 to confirm product in cart:\n " +
+                        "Enter 3 to update product in cart:\n ");
                     int.TryParse(Console.ReadLine(), out option2);
                     switch(option2)
                     {
@@ -88,6 +86,10 @@ internal class Program
                             {
                                 bl.Cart.Confirmation(cart);
                             }
+                            catch (DO.IdAlreadyExistException ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
                             catch (DO.IdNotExistException ex)
                             {
                                 Console.WriteLine(ex.Message);
@@ -104,7 +106,7 @@ internal class Program
 
                         case 3://update order in cart
                             int amount = 0;
-                            Console.WriteLine("Entet id and the amount of the order to chsnge");
+                            Console.WriteLine("Entet id and the amount of the order to change:");
                             int.TryParse(Console.ReadLine(), out tempID);
                             int.TryParse(Console.ReadLine(), out amount);
 
@@ -129,12 +131,12 @@ internal class Program
                     break;
 //********************** actions for order ******************************//
                 case Option.Order:
-                    Console.WriteLine("Enter 0 to pick a different option\n " +
-                        "Enter 1 to see list of Orders\n " +
-                        "Enter 2 to print order Details\n " +
-                        "Enter 3 to update order delivrary\n " +
-                        "Enter 4 to update order shiping\n " +
-                        "Enter 5 to see the order tracking"
+                    Console.WriteLine("Enter 0 to pick a different option:\n " +
+                        "Enter 1 to see list of Orders:\n " +
+                        "Enter 2 to print order Details:\n " +
+                        "Enter 3 to update order delivery:\n " +
+                        "Enter 4 to update order shiping:\n " +
+                        "Enter 5 to see the order tracking:"
                         );
                     int.TryParse(Console.ReadLine(), out option2);
                     switch (option2)
@@ -153,7 +155,7 @@ internal class Program
                             break;
 
                         case 2://print by id
-                            Console.WriteLine("Enter the ID of the order Details to print");
+                            Console.WriteLine("Enter the ID of the order Details to print:");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             BO.Order order = new BO.Order();
                             try
@@ -172,7 +174,7 @@ internal class Program
                             break;
 
                         case 3://update the dilevery
-                            Console.WriteLine("Enter the id to update for the delevary");
+                            Console.WriteLine("Enter the id to update for the delivery:");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             try
                             {
@@ -189,7 +191,7 @@ internal class Program
                             break;
 
                         case 4://update the shiping
-                            Console.WriteLine("Enter the id to update for the shiping");
+                            Console.WriteLine("Enter the id to update for the shipping:");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             try
                             {
@@ -206,7 +208,7 @@ internal class Program
                             break;
 
                         case 5://reurns the trackng update of the order
-                            Console.WriteLine("Enter the id to update for to see the order tracking");
+                            Console.WriteLine("Enter the id to update for to see the order tracking:");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             try
                             {
@@ -221,13 +223,13 @@ internal class Program
                     break;
 //********************** actions fo product ******************************//
                 case Option.Product:
-                    Console.WriteLine("Enter 0 to pick a different option\n " +
-                        "Enter 1 to see list of products\n " +
-                        "Enter 2 to print product by the id\n " +
-                        "Enter 3 to see the product by id and cart\n " +
-                        "Enter 4 to add a prodoct\n " +
-                        "Enter 5 to delete product\n  " +
-                        "Enter 6 to update product" 
+                    Console.WriteLine("Enter 0 to pick a different option:\n " +
+                        "Enter 1 to see list of products:\n " +
+                        "Enter 2 to print product by the id:\n " +
+                        "Enter 3 to see the product by id and cart:\n " +
+                        "Enter 4 to add a product:\n " +
+                        "Enter 5 to delete product:\n  " +
+                        "Enter 6 to update product:" 
                         );
                     int.TryParse(Console.ReadLine(), out option2);
                     switch (option2)
@@ -245,7 +247,7 @@ internal class Program
                             break;
 
                         case 2://prints the product by the id
-                            Console.WriteLine("Enter the id of the product that you want to print");
+                            Console.WriteLine("Enter the id of the product that you want to print:");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             try
                             {
@@ -262,7 +264,7 @@ internal class Program
                             break;
 
                         case 3://prints the product by the id and the givin cart
-                            Console.WriteLine("Enter the id of the product item that you want to print");
+                            Console.WriteLine("Enter the id of the product item that you want to print:");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             BO.ProductItem productItem = new ProductItem();
                             List<BO.OrderItem> orderItems = new List<BO.OrderItem>();
@@ -291,18 +293,18 @@ internal class Program
                         case 4://add a product
                             productCategory categoryPro;
                             BO.Product product = new BO.Product(); 
-                            Console.WriteLine("Enter ID to add");
+                            Console.WriteLine("Enter ID to add:");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             product.ID = tempInt;
-                            Console.WriteLine("Enter Name to add");
+                            Console.WriteLine("Enter Name to add:");
                             product.Name = Console.ReadLine();
-                            Console.WriteLine("Enter the price of the item");
+                            Console.WriteLine("Enter the price of the item:");
                             int.TryParse(Console.ReadLine(), out tempInt);
-                            product.Price = tempInt;
-                            Console.WriteLine("Enter the category of the item");
+                            product.Price = tempInt; 
+                            Console.WriteLine("Enter the category of the item:");
                             productCategory.TryParse(Console.ReadLine(), out categoryPro);
                             product.Category = (BO.Enums.ProductCategory)categoryPro;
-                            Console.WriteLine("Enter the amount in stock of the item");
+                            Console.WriteLine("Enter the amount in stock of the item:");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             product.InStock = tempInt;
                             try
@@ -324,7 +326,7 @@ internal class Program
                             break;
 
                         case 5://delete a product
-                            Console.WriteLine("Enter ID of product to delete");
+                            Console.WriteLine("Enter ID of product to delete:");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             try
                             {
@@ -342,18 +344,18 @@ internal class Program
 
                         case 6://update a product
                             BO.Product product2 = new BO.Product();
-                            Console.WriteLine("Enter ID to update");
+                            Console.WriteLine("Enter ID to update:");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             product2.ID = tempInt;
-                            Console.WriteLine("Enter Name to update");
+                            Console.WriteLine("Enter Name to update:");
                             product2.Name = Console.ReadLine();
-                            Console.WriteLine("Enter the price of the item");
+                            Console.WriteLine("Enter the price of the item:");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             product2.Price = tempInt;
-                            Console.WriteLine("Enter the category of the item");
+                            Console.WriteLine("Enter the category of the item:");
                             productCategory.TryParse(Console.ReadLine(), out categoryPro);
                             product2.Category = (BO.Enums.ProductCategory)categoryPro;
-                            Console.WriteLine("Enter the amount in stock of the item");
+                            Console.WriteLine("Enter the amount in stock of the item:");
                             int.TryParse(Console.ReadLine(), out tempInt);
                             product2.InStock = tempInt;
                             try
@@ -377,11 +379,11 @@ internal class Program
                     break;
             }
 
-            Console.WriteLine("Enter 0 to exit \n" +
-           "Enter 1 to Cart \n" +
-           "Enter 2 to Order \n" +
-           "Enter 3 to product.\n" +
-           "please enter a choice\n");
+            Console.WriteLine("Enter 0 to exit: \n" +
+           "Enter 1 to Cart: \n" +
+           "Enter 2 to Order: \n" +
+           "Enter 3 to product:\n" +
+           "please enter a choice:\n");
             Option.TryParse(Console.ReadLine(), out option);
         } while (option != 0);
     }
@@ -400,8 +402,8 @@ internal class Program
             }
             if (check1 == false)
             {
-                Console.WriteLine("The input is not an email\n");
-                Console.WriteLine("Enter customer email");
+                Console.WriteLine("The input is not an email:\n");
+                Console.WriteLine("Enter customer email:");
                 cart.CustomerEmail = Console.ReadLine();
             }
         } while (check1 == false);

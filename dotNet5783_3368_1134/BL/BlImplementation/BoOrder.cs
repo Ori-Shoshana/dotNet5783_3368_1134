@@ -1,52 +1,36 @@
 ﻿
 using System.Net.Http.Headers;
+using static BO.Enums;
 
 internal class BoOrder : BlApi.IOrder
 {
     DalApi.IDal? dal = DalApi.Factory.Get();    
     /// <summary>
-                                                ///implemention of function get orders
-                                                /// requests a list of orders from the data layer
-                                                /// returns list of orders (from type order for list)
-                                                /// </summary>
+    ///implemention of function get orders
+    /// requests a list of orders from the data layer
+    /// returns list of orders (from type order for list)
+    /// </summary>
     public IEnumerable<BO.OrderForList?> GetOrders()
     {
-        List<BO.OrderForList> orderForList = new List<BO.OrderForList>();
         List<DO.Order?> DoOrders = new List<DO.Order?>();
         List<DO.OrderItem?> DoOrderItems = new List<DO.OrderItem?>();
 
         DoOrders = (List<DO.Order?>)dal.Order.GetAll();
         DoOrderItems = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
-        int i = 0;
 
 
-     orderForList = DoOrders.Select((DoOrder, index) =>
+
+        var ordersForList = DoOrders.Select(doOrder => new BO.OrderForList
         {
-            BO.OrderForList orderForList1 = new BO.OrderForList();
-            orderForList1.ID = (int)DoOrder?.OrderID!;
-            orderForList1.CustomerName = DoOrder?.CustomerName;
+            ID = (int)(doOrder?.OrderID)!,
+            CustomerName = doOrder?.CustomerName,
+            Status = doOrder?.DeliveryDate != null ? OrderStatus.Deliverd : doOrder?.ShipDate != null ? OrderStatus.Sent : OrderStatus.Confirmed,
+            TotalPrice = (double)DoOrderItems.Where(item => item?.OrderId == doOrder?.OrderID).Sum(item => item?.PriceItem * (int)item?.Amount!)!,
+            AmountOfItems = DoOrderItems.Where(item => item?.OrderId == doOrder?.OrderID).Sum(item => (int)item?.Amount!)
+        }).ToList();
 
-            if (DoOrder?.DeliveryDate <= DateTime.Now)
-            {
-                orderForList1.Status = BO.Enums.OrderStatus.Deliverd;
-            }
-            else if (DoOrder?.ShipDate <= DateTime.Now)
-            {
-                orderForList1.Status = BO.Enums.OrderStatus.Sent;
-            }
-            else
-            {
-                orderForList1.Status = BO.Enums.OrderStatus.Confirmed;
-            }
+        return ordersForList!;
 
-            orderForList1.TotalPrice += (DoOrderItems[index]?.PriceItem ?? 0) * (DoOrderItems[index]?.Amount ?? 0);
-            orderForList1.AmountOfItems = DoOrderItems[index]?.Amount ?? 0;
-
-            return orderForList1;
-        })
-        .ToList();
-
-        return orderForList;
     }
     /// <summary>
     /// implemention of function order details
@@ -95,8 +79,6 @@ internal class BoOrder : BlApi.IOrder
                     }).ToList();
 
             finalTotalPrice = boOrderItems.Sum(item => item.TotalPrice);
-
-
 
             BoOrder.Items = boOrderItems;
             BoOrder.TotalPrice = finalTotalPrice;
@@ -157,9 +139,6 @@ internal class BoOrder : BlApi.IOrder
                 return BoOrder;
             }
         }
-
-        
-
         throw new BO.VeriableNotExistException("No Id in list");
     }
     /// <summary>
@@ -257,7 +236,6 @@ internal class BoOrder : BlApi.IOrder
     }
     public void updateOrederM(int amount, int orderId, int prodId)
     {
-
         BO.Order ord = OrderDetails(orderId);
         List<DO.Product> products = new List<DO.Product>();
         products = (List<DO.Product>)dal.Product.GetAll();
@@ -269,7 +247,6 @@ internal class BoOrder : BlApi.IOrder
         {
             throw new BO.VeriableNotExistException("can't find the list of items");
         }
-
             var updatedOrderItems = ord.Items
                     .Where(i => i.ProductID == prodId)
                     .Select(i => {
@@ -282,7 +259,7 @@ internal class BoOrder : BlApi.IOrder
                     .Where(p => p.ProductID == prodId)
                     .FirstOrDefault();
 
-            if (matchingProduct.ProductID != null)
+            if (matchingProduct.ProductName != null)
             {
                 if (amount > matchingProduct.InStock)
                 {
@@ -313,7 +290,7 @@ internal class BoOrder : BlApi.IOrder
             return order_item;
         });
 
-        order_items = updatedOrderItems?.Concat(ord?.Items.Where(i => i.ProductID != prodId)).ToList();
+        order_items = updatedOrderItems?.Concat(ord?.Items.Where(i => i.ProductID != prodId)!).ToList()!;
         ord.Items = order_items!;
     }
 }

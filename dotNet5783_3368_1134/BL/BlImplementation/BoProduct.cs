@@ -15,8 +15,6 @@ internal class BoProduct : BlApi.IProduct
         products = (List<DO.Product?>)dal.Product.GetAll();
         if (func != null)
         {
-      
-
             List<BO.ProductForList> productsForList = (List<BO.ProductForList>)products
                   .Where(product => func(product))
                   .Select(product => new BO.ProductForList
@@ -30,7 +28,7 @@ internal class BoProduct : BlApi.IProduct
             return productsForList;
         }
         else
-    {
+        {
             List<BO.ProductForList> productsForList = (List<BO.ProductForList>)products
                 .Select(product => new BO.ProductForList
                 {
@@ -78,7 +76,7 @@ internal class BoProduct : BlApi.IProduct
     {
         if(cart.Items == null)
         {
-            throw new BO.VariableIsNullExeption("The item is null");
+            throw new BO.VariableIsNullExeption("The cart is empty");
         }
         if(id >= 0)
         {
@@ -133,22 +131,16 @@ internal class BoProduct : BlApi.IProduct
     /// Throws exceptions when needed
     public void Delete(int id)
     {
-        int i = 0;
         List<DO.Product?> products = new List<DO.Product?>();
         products = (List<DO.Product?>)dal.Product.GetAll();
-        foreach (DO.Product product in products)
+
+        //Go through all the existing products in the data layer
+        if (products.Any(prod => prod?.ProductID==id))
         {
-            if (id == product.ProductID)
-            {
-               break;
-            }
-            i++;
+            dal.Product.Delete(id); //Delete the product in the data layer
         }
-        if(i == products.Count)
-        {
-            throw new BO.VeriableNotExistException("there is no ptoduct to delete");
-        }    
-        dal.Product.Delete(id);
+        else//If we did not delete = the member did not exist, we will throw an exception
+            throw new BO.VeriableNotExistException("The product does not exist");
     }
     /// <summary>
     /// implemention of function update
