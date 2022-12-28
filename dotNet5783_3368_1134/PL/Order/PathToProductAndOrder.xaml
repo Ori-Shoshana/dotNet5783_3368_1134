@@ -1,0 +1,19 @@
+﻿<Window x:Class="PL.Order.PathToProductAndOrder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Order"
+        mc:Ignorable="d"
+        Title="PathToProductAndOrder" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Order/MYPhoto.jpg"/>
+        </Grid.Background>
+        <Button Content="Product" HorizontalAlignment="Left" Margin="451,142,0,0" VerticalAlignment="Top" Height="56" Width="203" FontSize="22" Click="Button_Click_Product"/>
+        <Button Content="Order" HorizontalAlignment="Left" Margin="136,144,0,0" VerticalAlignment="Top" Height="54" Width="206" FontSize="22" Click="Button_Click_Order"/>
+        <Button Content="Home" HorizontalAlignment="Left" Margin="10,344,0,0" VerticalAlignment="Top" Height="44" Width="82" FontSize="18" Click="Button_Click"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="999,171,0,0" VerticalAlignment="Top" Width="100"/>
+
+    </Grid>
+</Window>

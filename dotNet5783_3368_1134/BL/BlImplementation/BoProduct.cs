@@ -1,4 +1,7 @@
 ﻿
+using BO;
+using DO;
+
 internal class BoProduct : BlApi.IProduct
 {
     DalApi.IDal? dal = DalApi.Factory.Get();
@@ -8,7 +11,7 @@ internal class BoProduct : BlApi.IProduct
     /// request products list from the data layer
     /// Build a product list based on the data
     /// returns the list
-    public IEnumerable<BO.ProductForList?> GetProducts(Func<DO.Product?, bool>? func)
+    public IEnumerable<BO.ProductForList?> GetProductForList(Func<DO.Product?, bool>? func)
     {
         //List<BO.ProductForList?> productsForList = new List<BO.ProductForList?>();
         List<DO.Product?> products = new List<DO.Product?>();
@@ -178,6 +181,46 @@ internal class BoProduct : BlApi.IProduct
         catch(BO.VeriableNotExistException ex)
         {
             Console.WriteLine(ex);
+        }
+    }
+
+    public IEnumerable<ProductItem?> GetProductItem(Func<DO.Product?, bool>? func = null)
+    {
+        List<DO.Product?> products = new List<DO.Product?>();
+        products = (List<DO.Product?>)dal.Product.GetAll();
+        if (func != null)
+        {
+
+
+            List<BO.ProductItem> productsItem = (List<BO.ProductItem>)products
+                  .Where(product => func(product))
+                  .Select(product => new BO.ProductItem
+                  {
+                      ID = (int)product?.ProductID!,
+                      Category = (BO.Enums.ProductCategory?)product?.Category,
+                      Name = product?.ProductName,
+                      Price = (int)product?.Price!,
+                      InStock = product?.InStock > 0 ? true : false,
+                      Amount = 0,
+
+                  }).ToList();
+
+            return productsItem;
+        }
+        else
+        {
+            List<BO.ProductItem> productsItem = (List<BO.ProductItem>)products
+                .Select(product => new BO.ProductItem
+                {
+                    ID = (int)product?.ProductID!,
+                    Category = (BO.Enums.ProductCategory?)product?.Category,
+                    Name = product?.ProductName,
+                    Price = (int)product?.Price!,
+                    InStock = product?.InStock > 0 ? true : false,
+                    Amount = 0,
+                }).ToList();
+
+            return productsItem;
         }
     }
 }

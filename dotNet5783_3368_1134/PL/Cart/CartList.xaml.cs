@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.CatchMe
+namespace PL.Cart
 {
     /// <summary>
-    /// Interaction logic for CatchMeIfYouCan.xaml
+    /// Interaction logic for CartList.xaml
     /// </summary>
-    public partial class CatchMeIfYouCan : Window
+    public partial class CartList : Window
     {
-        public CatchMeIfYouCan()
+        public CartList()
         {
             InitializeComponent();
         }

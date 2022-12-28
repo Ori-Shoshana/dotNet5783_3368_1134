@@ -89,6 +89,8 @@ namespace PL.Product
             if (check == true)
             {
                 UpdateBottun.Visibility = Visibility.Hidden;
+                new Product.ProductList().Show();
+                Close();
             }
         }
         /// <summary>
@@ -127,6 +129,8 @@ namespace PL.Product
             if (check == true)
             {
                 AddBottun.Visibility = Visibility.Hidden;
+                new Product.ProductList().Show();
+                Close();
             }
         }
       
