@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 namespace Dal;
 using static Dal.DataSource;
 using DalApi;
+using DO;
 
 
 /// <summary>
@@ -20,14 +21,17 @@ internal class DalOrder : IOrder
     /// <returns> returns order id </returns>
     public int Add(DO.Order ord)
     {
-        if (DataSource.ListOrder.Any(order => order?.OrderID == ord.OrderID))
+        var check = (from order in listOrder select order?.OrderID).Where(temp => temp == ord.OrderID);
+        if (check.Count() == 0)
         {
-            throw new DO.IdAlreadyExistException("Order Id already exists");
+            ListOrder.Add(ord);
+            return ord.OrderID;
         }
-        DataSource.ListOrder.Add(ord);
-        return ord.OrderID;
+        throw new DO.IdAlreadyExistException("order Id already exists");
     }
-
+    /*if (DataSource.ListOrder.Any(order => order?.OrderID == ord.OrderID))
+       throw new DO.IdAlreadyExistException("Order Id already exists");
+       DataSource.ListOrder.Add(ord);return ord.OrderID;*/
     /// <summary>
     ///  The operation deletes an order from the array (finds him by id)
     /// </summary>

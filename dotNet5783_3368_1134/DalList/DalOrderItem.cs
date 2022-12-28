@@ -21,14 +21,18 @@ internal class DalOrderItem : IOrderItem
     /// <returns> returns order item id </returns>
     public int Add(DO.OrderItem ordItem)
     {
-        if (DataSource.ListOrderItem.Any(orderItem => orderItem?.OrderItemID == ordItem.OrderItemID))
+        var check = (from ord in ListOrderItem select ord?.OrderItemID).Where(temp => temp == ordItem.OrderItemID);
+        if (check.Count() == 0)
         {
-            throw new DO.IdAlreadyExistException("Id already exist");
+            ListOrderItem.Add(ordItem);
+            return ordItem.OrderItemID;
         }
-        DataSource.ListOrderItem.Add(ordItem);
-        return ordItem.OrderItemID;
+        throw new DO.IdAlreadyExistException("order item Id already exists");
     }
-
+        /*if (DataSource.ListOrderItem.Any(orderItem => orderItem?.OrderItemID == ordItem.OrderItemID))
+        throw new DO.IdAlreadyExistException("Id already exist");
+        DataSource.ListOrderItem.Add(ordItem);
+        return ordItem.OrderItemID;*/
     /// <summary>
     ///  The operation deletes an order item from the array (finds him by id)
     /// </summary>
