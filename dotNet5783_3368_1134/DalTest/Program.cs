@@ -170,7 +170,7 @@ internal class Program
                         "Enter 2 to print order\n " +
                         "Enter 3 to see list of order\n " +
                         "Enter 4 to update order\n " +
-                        "Enter 5 to delet order  ");
+                        "Enter 5 to delete order  ");
 
                     int option2;
                     check = int.TryParse(Console.ReadLine(), out option2);
@@ -216,12 +216,12 @@ internal class Program
                             try
                             {
                                 GetOrder = dal.Order.GetById(getId);
+                                Console.WriteLine(GetOrder);
                             }
                             catch (IdNotExistException ex)
                             {
                                 Console.WriteLine(ex.Message);
                             }
-                            Console.WriteLine(GetOrder);
                             break;
 
                         case 3://print all orders
@@ -290,7 +290,7 @@ internal class Program
                         "Enter 2 to print orderItem\n " +
                         "Enter 3 to see list of orderItem\n " +
                         "Enter 4 to update orderItem\n " +
-                        "Enter 5 to delet orderItem  ");
+                        "Enter 5 to delete orderItem  ");
                     
                     int option3;
                     check = int.TryParse(Console.ReadLine(), out option3);

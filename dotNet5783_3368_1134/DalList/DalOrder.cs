@@ -1,5 +1,4 @@
-﻿using DO;
-using Microsoft.VisualBasic.FileIO;
+﻿using Microsoft.VisualBasic.FileIO;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Security.Cryptography;
@@ -19,14 +18,11 @@ internal class DalOrder : IOrder
     /// The operation accepts an order and adds it in the array
     /// </summary>
     /// <returns> returns order id </returns>
-    public int Add(Order ord)
+    public int Add(DO.Order ord)
     {
-        foreach(Order order in DataSource.ListOrder)
+        if (DataSource.ListOrder.Any(order => order?.OrderID == ord.OrderID))
         {
-            if(ord.OrderID == order.OrderID)
-            {
-                throw new IdAlreadyExistException("Id already exist");
-            }
+            throw new DO.IdAlreadyExistException("Order Id already exists");
         }
         DataSource.ListOrder.Add(ord);
         return ord.OrderID;
@@ -35,78 +31,50 @@ internal class DalOrder : IOrder
     /// <summary>
     ///  The operation deletes an order from the array (finds him by id)
     /// </summary>
-    public void Delete(int ID)
+    public void Delete(int OrderId)
     {
-
-        foreach (Order order in DataSource.ListOrder)
-        {
-            if (ID == order.OrderID)
-            {
-                ListOrder.Remove(order);
-                return;
-            }
-        }
-
-            throw new IdNotExistException("Id not found");
+        if (DataSource.ListOrder.Any(order => order?.OrderID == OrderId))
+            DataSource.listOrder.Remove(GetById(OrderId));
+        else
+            throw new DO.IdNotExistException("order does not exist");
     }
 
     /// <summary>
     /// The operation updates an order in the array (finds him by id)
     /// </summary>
-    public void Update(Order order)
+    public void Update(DO.Order order)
     {
-        int index =0;
-        foreach (Order ord in DataSource.ListOrder)
+        bool found = false;
+        var foundOrder = DataSource.listOrder.FirstOrDefault(ord => ord?.OrderID == order.OrderID);
+        if (foundOrder != null)
         {
-            if(ord.OrderID == order.OrderID)
-            {
-                ListOrder[index] = order;
-                return;
-            }
-            index++;
+            found = true;
+            int index = DataSource.listOrder.IndexOf(foundOrder);
+            DataSource.listOrder[index] = order;
         }
-
-            throw new IdNotExistException("Id not found");
+        if (found == false)
+            throw new DO.IdNotExistException("Order Id not found");
     }
     /// <summary>
     ///  The operation finds the order (finds him by id) and returns his details
     /// </summary>
-    public Order GetById(int orderId)
+    public DO.Order GetById(int orderId)
     {
-        foreach (Order order in DataSource.ListOrder)
-        {
-            if (order.OrderID == orderId)
-                return order;
-        }
-        throw new IdNotExistException("Id not found");
+        var ord = DataSource.listOrder.FirstOrDefault(x => x?.OrderID == orderId);
+
+        if (ord == null)
+            throw new DO.IdNotExistException("Order Id not found");
+        else
+            return (DO.Order) ord;
     }
 
     /// <summary>
     /// The operation updates the array and returns him
     /// </summary>
-    public IEnumerable<Order?> GetAll(Func<Order?, bool>? func)
+    public IEnumerable<DO.Order?> GetAll(Func<DO.Order?, bool>? func)
     {
-
-        List<Order?> order = new List<Order?>();
-        if (func != null)
-        {
-            foreach (Order? item1 in ListOrder)
-            {
-                if (func(item1))
-                {
-                    order.Add(item1);
-                }
-            }
-            return order;
-        }
-        else
-        {
-            foreach (Order? item1 in ListOrder)
-            {
-                order.Add(item1);
-            }
-            return order;
-        }
+        var orders = listOrder.Where(ord => func == null || func(ord)).ToList();
+        return orders;
     }
     
     /// <summary>
@@ -117,18 +85,14 @@ internal class DalOrder : IOrder
         return DataSource.ListOrder.Count();
     }
 
-    public Order GetByDelegate(Func<Order?, bool>? func)
+    public DO.Order GetByDelegate(Func<DO.Order?, bool>? func)
     {
         if (func != null)
         {
-            foreach (Order order in ListOrder)
-            {
-                if (func(order))
-                {
-                    return order;
-                }
-            }
+            var ord = listOrder.FirstOrDefault(x => func(x));
+            if (ord != null)
+                return (DO.Order) ord;
         }
-        throw new NoObjectFoundExeption("No object is of the delegate");
+        throw new DO.NoObjectFoundExeption("No object is of the delegate");
     }
 }
