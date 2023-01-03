@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         xmlns:local="clr-namespace:PL.Cart"
         mc:Ignorable="d"
         Title="ProductItemList" Height="450" Width="800">
@@ -11,19 +12,19 @@
             <ImageBrush ImageSource="/Cart/MYPhoto.jpg"/>
         </Grid.Background>
         <Button Content="Home" HorizontalAlignment="Left" Margin="10,350,0,0" VerticalAlignment="Top" Height="41" Width="97" FontSize="18" Click="Button_Click"/>
-        <ListView x:Name="ProductItemListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="105,58,105,89" SelectionChanged="ListView_SelectionChanged" MouseDoubleClick="ProductItemListView_MouseDoubleClick">
+        <ListView x:Name="ProductItemListView" d:ItemsSource="{Binding productItem}" Margin="110,58,110,89" SelectionChanged="ListView_SelectionChanged" MouseDoubleClick="ProductItemListView_MouseDoubleClick">
             <ListView.View>
 
                 <GridView>
 
                     <GridViewColumn  DisplayMemberBinding = "{Binding Path = ID}"
                     Header = "ID"
-                    Width = "100" />
+                    Width = "90" />
 
                     <GridViewColumn
                     DisplayMemberBinding = "{Binding Path = Name}"
                     Header = "Name"
-                    Width = "170" />
+                    Width = "130" />
 
                     <GridViewColumn
                     DisplayMemberBinding = "{Binding Path = Category}"
@@ -43,15 +44,26 @@
                     <GridViewColumn
                     DisplayMemberBinding = "{Binding Path = Amount}"
                     Header = "Amount"
-                    Width = "70" />
+                    Width = "56" />
+
+                    <GridViewColumn Header="Add" Width="65">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="+" Click="Button_Click_2" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
                 </GridView>
 
             </ListView.View>
         </ListView>
-        <ComboBox Name="CategorySelector" Margin="368,5,65,381" SelectionChanged="CategorySelector_SelectionChanged" FontFamily="Verdana" FontSize="14"/>
-        <Label Content="Category options:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="47" Width="301" FontSize="24" FontWeight="Bold" FontFamily="Verdana" Margin="65,2,0,0" Foreground="#FFE4E4EC" RenderTransformOrigin="0.5,0.5"/>
-        <Button Content="Click For Cart" HorizontalAlignment="Left" Margin="628,350,0,0" VerticalAlignment="Top" Height="41" Width="162" FontSize="18" RenderTransformOrigin="0.77,0.459" Click="Button_Click_1"/>
+        <ComboBox Name="CategorySelector" Margin="31,5,503,384" SelectionChanged="CategorySelector_SelectionChanged" FontFamily="Verdana" FontSize="14" SelectedIndex="5"/>
+        <Button Content="" HorizontalAlignment="Left" Margin="650,8,0,0" VerticalAlignment="Top" Height="40" Width="99" FontSize="18" RenderTransformOrigin="0.77,0.459" Click="Button_Click_1">
+            <Button.Background>
+                <ImageBrush ImageSource="/Cart/shopping-cart-vector-icon-260nw-777922456 (1).jpg"/>
+            </Button.Background>
+        </Button>
 
 
     </Grid>

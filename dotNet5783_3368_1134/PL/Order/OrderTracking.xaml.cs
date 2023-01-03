@@ -20,20 +20,13 @@ namespace PL.Order
     public partial class OrderTracking : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-
-        public OrderTracking()
+        int? ID;
+        public OrderTracking(int? id)
         {
             InitializeComponent();
-            //List<BO.OrderTracking?> ListOrderTracking = new List<BO.OrderTracking?>();
-            List<BO.OrderForList?> ListOrder = new List<BO.OrderForList?>();
-            ListOrder = (List<BO.OrderForList?>)bl.Order.GetOrders();
-           var ListOrderTracking = (List<BO.OrderTracking?>)ListOrder.Select((item) => new BO.OrderTracking
-            {
-                ID = (int)item?.ID!,
-                Status = bl.Order.Track(item.ID).Status,
-                Tracking = bl.Order.Track(item.ID).Tracking
-            }).ToList()!;
-            OrderTackingListView.ItemsSource = ListOrderTracking;
+
+            OrderTackingText.Text = (bl?.Order.Track((int)id!))?.ToString();
+            ID = id;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -47,17 +40,21 @@ namespace PL.Order
             Close();
         }
 
-        private void OrderTackingListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             BO.OrderForList? order = new BO.OrderForList();
             BO.OrderTracking? order1 = new BO.OrderTracking();
 
-            order1 = (BO.OrderTracking)OrderTackingListView.SelectedItem;
-            if ((BO.OrderTracking)OrderTackingListView.SelectedItem != null)
+            order1 = bl?.Order.Track((int)ID!);
+
+            if(order1 != null)
             {
                 new Order.UpdateOrder(order, order1).Show();
                 Close();
             }
         }
+
+        
     }
 }

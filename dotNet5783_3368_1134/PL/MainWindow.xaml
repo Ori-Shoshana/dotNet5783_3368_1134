@@ -15,7 +15,7 @@
             <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button x:Name ="MyProgramButton" Content="Admin" HorizontalAlignment="Center" Margin="0,280,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="124" Click="Button_Click" RenderTransformOrigin="0.514,-2.947" FontWeight="Bold" FontSize="20"/>
+        <Button x:Name ="MyProgramButton" Content="Admin" HorizontalAlignment="Center" Margin="0,223,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="124" Click="Button_Click" RenderTransformOrigin="0.514,-2.947" FontWeight="Bold" FontSize="20"/>
         <Canvas Name="cnv"/>
         <Label Content="Welcome to electro" HorizontalAlignment="Center" VerticalAlignment="Top" Height="56" Width="588" FontSize="36" FontWeight="Bold" Grid.Row="1" FontFamily="Wide Latin" RenderTransformOrigin="0.497,0.406" Foreground="#FFE4E4EC" Margin="0,129,0,0">
             <Label.Background>
@@ -23,8 +23,12 @@
             </Label.Background>
         </Label>
         <Button x:Name="UFManager" Content="Update for manager" Height="51" Width="192" HorizontalAlignment="Left" Margin="559,16,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Click="UpdateForManager" FontSize="16" Background="#FFDDDDDD" BorderBrush="{x:Null}" Foreground="#FF290000" FontWeight="Bold"/>
-        <Button Content="Order Tracking" HorizontalAlignment="Left" Margin="132,280,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="180" FontSize="20" FontWeight="Bold" Click="Button_Click_1"/>
-        <Button Content="Add Order" HorizontalAlignment="Left" Margin="496,280,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="142" FontSize="20" Click="Button_Click_2"/>
+        <Button Content="Add Order" HorizontalAlignment="Center" Margin="0,298,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="142" FontSize="20" Click="Button_Click_2"/>
+
+        <Label Content="Enter ID:" HorizontalAlignment="Left" Margin="42,217,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.011,1.348" Foreground="#FFE4E4EC" FontSize="22" FontWeight="Bold"/>
+        <TextBox x:Name="TextBox" Text="" HorizontalAlignment="Left" Margin="42,264,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Height="37" FontSize="22" FontWeight="Bold" FontFamily="Verdana"/>
+        <Button Content="Order Tracking" HorizontalAlignment="Left" Margin="42,306,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="180" FontSize="20" FontWeight="Bold" Click="Button_Click_1"/>
+
     </Grid>
 
 </Window>

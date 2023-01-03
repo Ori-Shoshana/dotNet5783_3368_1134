@@ -25,10 +25,10 @@ internal class BoCart : BlApi.ICart
                 break;
             }
         }
-        if (check == false)
-        {
-            throw new BO.InvalidInputExeption("The input is not an email");
-        }
+        //if (check == false)
+        //{
+        //    throw new BO.InvalidInputExeption("The input is not an email");
+        //}
 
         DO.Product prod = new DO.Product();
         prod = dal.Product.GetById(id);

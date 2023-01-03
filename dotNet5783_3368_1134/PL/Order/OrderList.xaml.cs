@@ -25,8 +25,7 @@ namespace PL.Order
         public OrderList()
         {
             InitializeComponent();
-            OrderListView.ItemsSource = bl?.Order.GetOrders();
-
+            DataContext = bl?.Order.GetOrders();
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

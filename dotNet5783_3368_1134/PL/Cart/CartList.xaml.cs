@@ -21,11 +21,11 @@ namespace PL.Cart
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
 
-        public CartList()
+        public CartList(BO.Cart? cart)
         {
             InitializeComponent();
 
-            //CartListView.ItemsSource = 
+            DataContext = cart?.ToString();
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -35,8 +35,7 @@ namespace PL.Cart
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new Cart.ProductItemList().Show();
-            Close();
+          
         }
     }
 }

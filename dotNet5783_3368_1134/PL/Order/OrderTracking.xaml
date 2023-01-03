@@ -10,32 +10,9 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Order/MYPhoto.jpg"/>
         </Grid.Background>
-        <Button Content="Home" HorizontalAlignment="Left" Margin="10,341,0,0" VerticalAlignment="Top" Height="45" Width="96" FontSize="18" Click="Button_Click"/>
-        <ListView x:Name="OrderTackingListView" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="128,38,154,124" SelectionChanged="ListView_SelectionChanged" MouseDoubleClick="OrderTackingListView_MouseDoubleClick">
-            <!--<ListView.View>
-                <GridView>
-
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>-->
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn  DisplayMemberBinding = "{Binding Path = ID}"
-                    Header = "ID"
-                    Width = "100" />
-
-                    <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = Status}"
-                    Header = "Status"
-                    Width = "100" />
-
-                    <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = Tracking}"
-                    Header = "Tracking"
-                    Width = "300" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Button Content="Home" HorizontalAlignment="Left" Margin="10,360,0,0" VerticalAlignment="Top" Height="45" Width="96" FontSize="18" Click="Button_Click"/>
+        <TextBlock Name="OrderTackingText" HorizontalAlignment="Left" Margin="236,75,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="231" Width="302" FontSize="22" Foreground="#FFEFE1E1" FontWeight="Bold" />
+        <Button Content="To See Order" HorizontalAlignment="Left" Margin="296,330,0,0" VerticalAlignment="Top" Width="182" Height="45" FontSize="18" Click="Button_Click_1"/>
 
     </Grid>
 </Window>

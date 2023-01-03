@@ -25,24 +25,32 @@ namespace PL.Product
         /// <summary>
         /// entering the product update window
         /// </summary>
-        public UpdateProduct(BO.ProductForList product)
+        public UpdateProduct(BO.Product? product, bool check)
         {
             InitializeComponent();
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.ProductCategory));
-            if(product.ID != 0)
+            if(product?.ID != 0 && check == false)
             {
+                GoBackToProductItem.Visibility = Visibility.Hidden;
                 AddBottun.Visibility = Visibility.Hidden;
-                ID.Text = product.ID.ToString();
-                Name.Text = product.Name;
-                Price.Text = product.Price.ToString();
-                CategorySelector.Text = product.Category.ToString();
+                GoBackToProductItem.Visibility = Visibility.Hidden;
                 TextBoxLable.Content = "Update product:";
             }
-            else
+            if(product?.ID == 0 && check == false)
             {
+                GoBackToProductItem.Visibility= Visibility.Hidden;  
                 UpdateBottun.Visibility = Visibility.Hidden;
+                GoBackToProductItem.Visibility = Visibility.Hidden;
                 TextBoxLable.Content = "Add product:";
             }
+            if(check == true)
+            {
+                AddBottun.Visibility = Visibility.Hidden;
+                UpdateBottun.Visibility = Visibility.Hidden;
+                GoBackToList.Visibility = Visibility.Hidden;
+                TextBoxLable.Content = "See product:";
+            }
+            this.DataContext = product;
         }
         /// <summary>
         /// back button to return to get back to the list
@@ -66,7 +74,7 @@ namespace PL.Product
             int.TryParse(Price.Text, out tempInt1);
             product1.Price = tempInt1;
             product1.Category = (BO.Enums.ProductCategory?)CategorySelector.SelectedItem;
-            int.TryParse(InStock.Text, out tempInt1);
+            int.TryParse(Amount.Text, out tempInt1);
             product1.InStock = tempInt1;
              try
                 {
@@ -107,7 +115,7 @@ namespace PL.Product
             int.TryParse(Price.Text, out tempInt1);
             product1.Price = tempInt1;
             product1.Category = (BO.Enums.ProductCategory?)CategorySelector.SelectedItem;
-            int.TryParse(InStock.Text, out tempInt1);
+            int.TryParse(Amount.Text, out tempInt1);
             product1.InStock = tempInt1;
             try
             {
@@ -147,6 +155,12 @@ namespace PL.Product
         private void Price_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void GoBackToProductItem_Click(object sender, RoutedEventArgs e)
+        {
+            new Cart.ProductItemList().Show();
+            Close();
         }
     }
 }

@@ -23,6 +23,7 @@ namespace PL.Order
     public partial class UpdateOrder : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
+        int ID1;
 
         public UpdateOrder(BO.OrderForList order, BO.OrderTracking order1)
         {
@@ -33,24 +34,19 @@ namespace PL.Order
             {
                 MyOrder = bl.Order.OrderDetails(order.ID);
                 GoBackToListOrderTracking.Visibility = Visibility.Hidden;
+                this.DataContext = MyOrder;
 
             }
             if (order1.Status != null)
             {
                 MyOrder = bl.Order.OrderDetails(order1.ID);
+                ID1 = order1.ID;
                 UpdateBottun.Visibility = Visibility.Hidden;
                 GoBackToListOrder.Visibility = Visibility.Hidden;
+                this.DataContext = MyOrder;
             }
+            ListUpdateOrder.ItemsSource = MyOrder.Items;
 
-            ID.Text = MyOrder.ID.ToString();
-            Name.Text = MyOrder.CustomerName;
-            Email.Text = MyOrder.CustomerEmail;
-            OrderDate.Text = MyOrder.OrderDate.ToString();
-            ShipDate.Text = MyOrder.ShipDate.ToString();
-            DelivoryDate.Text = MyOrder.DeliveryDate.ToString();
-            Adress.Text = MyOrder.CustomerAdress;
-            Status.Text = MyOrder.Status.ToString();
-            TotalPrice.Text = MyOrder.TotalPrice.ToString();
         }
 
        
@@ -67,10 +63,6 @@ namespace PL.Order
             BO.Order? Order1 = new BO.Order();
             int.TryParse(ID.Text, out tempInt1);
             Order1.ID = tempInt1;
-
-            //Order1.OrderDate = OrderDate.Text;
-            //Order1.ShipDate = ShipDate.Text;
-            //Order1.DeliveryDate = DelivoryDate.Text;
 
             try
             {
@@ -118,7 +110,8 @@ namespace PL.Order
 
         private void GoBackToListOrderTracking_Click(object sender, RoutedEventArgs e)
         {
-            new Order.OrderTracking().Show();
+            int? id = ID1;
+            new Order.OrderTracking(id).Show();
             Close();
         }
 
@@ -126,6 +119,11 @@ namespace PL.Order
         {
             new Order.OrderList().Show();
             Close();
+        }
+
+        private void ListUpdateOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

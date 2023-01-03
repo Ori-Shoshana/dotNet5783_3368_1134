@@ -22,6 +22,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,10 +37,6 @@ namespace PL
         }
 
         Random rnd = new Random();
-
-       
-
-    
 
         private void btn_Click(object sender, RoutedEventArgs e)
         {
@@ -56,8 +53,20 @@ namespace PL
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new Order.OrderTracking().Show();
-            Close();
+            int? ID;
+            int Temp;
+            int.TryParse(TextBox.Text, out Temp);
+            ID = Temp;
+
+            try
+            {
+                new Order.OrderTracking(ID).Show();
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

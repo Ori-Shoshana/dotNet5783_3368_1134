@@ -22,15 +22,16 @@ namespace PL.Product
     public partial class ProductList : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
+        public List<BO.ProductForList?> productForList = new List<ProductForList?>();
+
         /// <summary>
         ///  showing all the products  
         /// </summary>
         public ProductList()
         {
             InitializeComponent();
-            BlApi.IBl? bl1 = BlApi.Factory.Get();
 
-            ProductListview.ItemsSource = bl1?.Product.GetProductForList();
+            productForList = bl.Product.GetProductForList().ToList();
 
             for (int i = 0; i < 5; i++)
             {
@@ -72,8 +73,8 @@ namespace PL.Product
         /// </summary>
         private void AddButton_Click(object sender, RoutedEventArgs e) 
         {
-            BO.ProductForList product = new BO.ProductForList();
-            new Product.UpdateProduct(product).Show();
+            BO.Product product = new BO.Product();
+            new Product.UpdateProduct(product, false).Show();
             Close();
         }
         /// <summary>
@@ -81,12 +82,15 @@ namespace PL.Product
         /// </summary>
         private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            BO.ProductForList product = new BO.ProductForList();
+            BO.ProductForList? product1 = new BO.ProductForList();
+            BO.Product? product = new BO.Product();
+
         
-            product = (BO.ProductForList)ProductListview.SelectedItem;
+            product1 = (BO.ProductForList)ProductListview.SelectedItem;
+            product = bl?.Product.ProductDetailsM(product1.ID);
             if ((BO.ProductForList)ProductListview.SelectedItem != null)
             {
-                new Product.UpdateProduct(product).Show();
+                new Product.UpdateProduct(product, false).Show();
                 Close();
             }      
         }

@@ -16,6 +16,7 @@
   <ItemGroup>
     <None Remove="9-01.jpg" />
     <None Remove="Cart\MYPhoto.jpg" />
+    <None Remove="Cart\shopping-cart-vector-icon-260nw-777922456 %281%29.jpg" />
     <None Remove="MYPhoto.jpg" />
     <None Remove="Order\MYPhoto.jpg" />
     <None Remove="Photo.webp" />
@@ -30,6 +31,7 @@
   <ItemGroup>
     <Resource Include="9-01.jpg" />
     <Resource Include="Cart\MYPhoto.jpg" />
+    <Resource Include="Cart\shopping-cart-vector-icon-260nw-777922456 (1).jpg" />
     <Resource Include="MYPhoto.jpg" />
     <Resource Include="Order\MYPhoto.jpg" />
     <Resource Include="Photo.webp" />

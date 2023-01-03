@@ -1,5 +1,6 @@
 ﻿
 using BO;
+using DalApi;
 using DO;
 
 internal class BoProduct : BlApi.IProduct
@@ -43,7 +44,7 @@ internal class BoProduct : BlApi.IProduct
 
             return productsForList;
         }
-        
+
     }
     /// <summary>
     /// implemention of function product details (for manager)
@@ -58,7 +59,7 @@ internal class BoProduct : BlApi.IProduct
         BO.Product BoProduct = new BO.Product();
         if (id >= 0)
         {
-            DoProduct = dal.Product.GetById(id);          
+            DoProduct = dal.Product.GetById(id);
             BoProduct.ID = DoProduct.ProductID;
             BoProduct.Name = DoProduct.ProductName;
             BoProduct.Price = DoProduct.Price;
@@ -77,25 +78,25 @@ internal class BoProduct : BlApi.IProduct
     /// returns productItem
     public BO.ProductItem ProductDetailsC(int id, BO.Cart cart)
     {
-        if(cart.Items == null)
+        if (cart.Items == null)
         {
             throw new BO.VariableIsNullExeption("The cart is empty");
         }
-        if(id >= 0)
+        if (id >= 0)
         {
-            DO.Product product = new  DO.Product();
+            DO.Product product = new DO.Product();
             product = dal.Product.GetById(id);
             BO.ProductItem productItem = new BO.ProductItem();
             productItem.ID = product.ProductID;
             productItem.Name = product.ProductName;
             productItem.Price = product.Price;
             productItem.Category = (BO.Enums.ProductCategory?)product.Category;
-            if(product.InStock >0)
+            if (product.InStock > 0)
                 productItem.InStock = true;
-            else 
+            else
                 productItem.InStock = false;
             productItem.Amount = 0;
-      
+
             int totalAmount = cart.Items.Where(item => id == productItem.ID).Sum(item => item.Amount);
             productItem.Amount += totalAmount;
 
@@ -109,7 +110,7 @@ internal class BoProduct : BlApi.IProduct
     /// checks data integrity
     /// adds the product to the data layer
     /// Throws exceptions when needed
-    public void Add(BO.Product product)     
+    public void Add(BO.Product product)
     {
         if (product.ID < 0) throw new BO.VariableIsSmallerThanZeroExeption("Id is less than 0");
         if (product.Name == null) throw new BO.VariableIsNullExeption("The name is null");
@@ -138,7 +139,7 @@ internal class BoProduct : BlApi.IProduct
         products = (List<DO.Product?>)dal.Product.GetAll();
 
         //Go through all the existing products in the data layer
-        if (products.Any(prod => prod?.ProductID==id))
+        if (products.Any(prod => prod?.ProductID == id))
         {
             dal.Product.Delete(id); //Delete the product in the data layer
         }
@@ -170,20 +171,17 @@ internal class BoProduct : BlApi.IProduct
         {
             dal.Product.Update(DoProduct);
         }
-        catch(BO.VeriableNotExistException ex)
+        catch (BO.VeriableNotExistException ex)
         {
             Console.WriteLine(ex);
         }
     }
-
     public IEnumerable<ProductItem?> GetProductItem(Func<DO.Product?, bool>? func = null)
     {
         List<DO.Product?> products = new List<DO.Product?>();
         products = (List<DO.Product?>)dal.Product.GetAll();
         if (func != null)
         {
-
-
             List<BO.ProductItem> productsItem = (List<BO.ProductItem>)products
                   .Where(product => func(product))
                   .Select(product => new BO.ProductItem
@@ -193,9 +191,9 @@ internal class BoProduct : BlApi.IProduct
                       Name = product?.ProductName,
                       Price = (int)product?.Price!,
                       InStock = product?.InStock > 0 ? true : false,
-                      Amount = 0,
-
                   }).ToList();
+
+
 
             return productsItem;
         }
@@ -209,10 +207,62 @@ internal class BoProduct : BlApi.IProduct
                     Name = product?.ProductName,
                     Price = (int)product?.Price!,
                     InStock = product?.InStock > 0 ? true : false,
-                    Amount = 0,
                 }).ToList();
 
             return productsItem;
         }
+
+        //    List<BO.ProductItem?> productItems = new List<BO.ProductItem?>();
+
+        //    List<DO.Product?> products = (List<DO.Product?>)dal.Product.GetAll();
+        //    List<DO.OrderItem?> orderItems = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
+
+        //    if (func == null)
+        //    {
+        //        foreach (var item in products)
+        //        {
+        //            BO.ProductItem? productItem = new ProductItem();
+        //            productItem.ID = (int)(item?.ProductID)!;
+        //            productItem.Category = (BO.Enums.ProductCategory?)(item?.Category);
+        //            productItem.Name = item?.ProductName;
+        //            productItem.Price = (double)(item?.Price)!;
+        //            productItem.InStock = item?.InStock > 0 ? true : false;
+        //            productItem.Amount = 0;
+        //            foreach (var temp in orderItems)
+        //            {
+        //                if (temp?.ProductID == item?.ProductID)
+        //                {
+        //                    productItem.Amount += (int)temp?.Amount!;
+        //                }
+        //            }
+        //            productItems.Add(productItem);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        foreach (var item in products)
+        //        {
+        //            if (func(item))
+        //            {
+        //                BO.ProductItem? productItem = new ProductItem();
+        //                productItem.ID = (int)(item?.ProductID)!;
+        //                productItem.Category = (BO.Enums.ProductCategory?)(item?.Category);
+        //                productItem.Name = item?.ProductName;
+        //                productItem.Price = (double)(item?.Price)!;
+        //                productItem.InStock = item?.InStock > 0 ? true : false;
+        //                productItem.Amount = 0;
+        //                foreach (var temp in orderItems)
+        //                {
+        //                    if (temp?.ProductID == item?.ProductID)
+        //                    {
+        //                        productItem.Amount += (int)temp?.Amount!;
+        //                    }
+        //                }
+        //                productItems.Add(productItem);
+        //            }
+        //        }
+        //    }
+        //    return productItems;
+        //}
     }
 }

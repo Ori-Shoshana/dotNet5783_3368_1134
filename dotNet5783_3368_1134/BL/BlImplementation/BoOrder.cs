@@ -18,13 +18,13 @@ internal class BoOrder : BlApi.IOrder
         DoOrders = (List<DO.Order?>)dal.Order.GetAll();
         DoOrderItems = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
 
-
+        Random rnd = new Random();
 
         var ordersForList = DoOrders.Select(doOrder => new BO.OrderForList
         {
             ID = (int)(doOrder?.OrderID)!,
             CustomerName = doOrder?.CustomerName,
-            Status = doOrder?.DeliveryDate != null ? OrderStatus.Deliverd : doOrder?.ShipDate != null ? OrderStatus.Sent : OrderStatus.Confirmed,
+            Status = rnd.Next(0, 100) < 80 ?  OrderStatus.Deliverd : (doOrder?.ShipDate != null ? OrderStatus.Sent : OrderStatus.Confirmed),
             TotalPrice = (double)DoOrderItems.Where(item => item?.OrderId == doOrder?.OrderID).Sum(item => item?.PriceItem * (int)item?.Amount!)!,
             AmountOfItems = DoOrderItems.Where(item => item?.OrderId == doOrder?.OrderID).Sum(item => (int)item?.Amount!)
         }).ToList();

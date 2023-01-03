@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Order"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         mc:Ignorable="d"
         Title="OrderList" Height="450" Width="800">
     <Grid>
@@ -17,6 +18,7 @@
         </Grid.ColumnDefinitions>
         <ListView x:Name="OrderListView" 
                   d:ItemsSource="{d:SampleData ItemCount=6}" 
+                  ItemsSource="{Binding}"
                   Margin="115,37,115,122" 
                   RenderTransformOrigin="0.5,0.5" 
                   Foreground="#FF042271" 
