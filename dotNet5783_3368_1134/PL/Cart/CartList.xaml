@@ -60,7 +60,7 @@
         <Label Content="Email" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="548,74,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC"/>
         <TextBox HorizontalAlignment="Left" Margin="646,84,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
 
-        <Button Content="Confermation" HorizontalAlignment="Left" Margin="569,148,0,0" VerticalAlignment="Top" Height="36" Width="167" FontSize="18" Click="Button_Click" RenderTransformOrigin="0.485,-0.385"/>
+        <Button Content="Confermation" HorizontalAlignment="Left" Margin="569,148,0,0" VerticalAlignment="Top" Height="36" Width="167" FontSize="18" Click="Button_Click_1" RenderTransformOrigin="0.485,-0.385"/>
 
     </Grid>
 </Window>

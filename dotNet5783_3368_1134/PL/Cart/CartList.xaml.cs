@@ -35,7 +35,13 @@ namespace PL.Cart
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-          
+            new Cart.ProductItemList().Show();
+            Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
