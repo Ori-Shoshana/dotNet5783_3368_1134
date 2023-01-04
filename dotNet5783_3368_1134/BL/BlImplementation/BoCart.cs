@@ -101,6 +101,7 @@ internal class BoCart : BlApi.ICart
         {
             throw new BO.InvalidInputExeption("The input is not an email");
         }
+        
         var Do_Products = (List<DO.Product?>)dal.Product.GetAll();
 
         var order = new DO.Order
