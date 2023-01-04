@@ -20,12 +20,13 @@ namespace PL.Cart
     public partial class CartList : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-
+        BO.Cart dataCart =new BO.Cart();
         public CartList(BO.Cart? cart)
         {
             InitializeComponent();
-
-            DataContext = cart?.ToString();
+            CartListView.ItemsSource = cart.Items;
+            TotalPrice.Text = cart.TotalPrice.ToString();
+            dataCart = cart;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -35,13 +36,23 @@ namespace PL.Cart
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            new Cart.ProductItemList().Show();
             Close();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            dataCart.CustomerName = Name.Text;
+            dataCart.CustomerAdress = Adress.Text;
+            dataCart.CustomerEmail = Email.Text;
+            try
+            {
+                bl?.Cart.Confirmation(dataCart);
+                Confirmation.Visibility = Visibility.Hidden;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

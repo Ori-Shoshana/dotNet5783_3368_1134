@@ -67,7 +67,7 @@ namespace PL.Cart
         {
             
             new Cart.CartList(cart).Show();
-            Close();
+           // Close();
         }
 
         private void ProductItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -95,11 +95,14 @@ namespace PL.Cart
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            //BO.ProductItem? product = (sender as Button)?.DataContext as BO.ProductItem;
-            BO.ProductItem product = new BO.ProductItem();
-            product = (ProductItem?)ProductItemListView.SelectedItem;
+            //BO.ProductItem product = new BO.ProductItem();
+            //product = (ProductItem?)ProductItemListView.SelectedItem!;
+            BO.ProductItem? product = new BO.ProductItem();
+            product = (sender as Button)?.DataContext as BO.ProductItem;
+            int id = product.ID;
             try
             {
+                product.Amount++;
                 cart = bl?.Cart.Add(cart, (int)product?.ID!)!;
                 MessageBox.Show("Added !");
             }
