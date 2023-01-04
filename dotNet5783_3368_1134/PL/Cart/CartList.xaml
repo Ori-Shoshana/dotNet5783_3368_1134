@@ -15,7 +15,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Cart/MYPhoto.jpg"/>
         </Grid.Background>
-        <ListView x:Name="CartListView" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding Items}"  Margin="67,10,349,116" SelectionChanged="ListView_SelectionChanged">
+        <ListView x:Name="CartListView" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding Items}"  Margin="34,10,305,116" SelectionChanged="ListView_SelectionChanged">
             <ListView.View>
                 <GridView>
 
@@ -34,27 +34,38 @@
                     Width = "60" />
 
                     <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = Amount}"
-                    Header = "Amount"
-                    Width = "70" />
+                        Header="Amount"
+                        Width="70">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Amount}" Width="30" Margin="13,0,0,0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
-
+                    <GridViewColumn Header="Update" Width="65">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="✓" Click="Button_Click_Update" Margin="20,0,0,0"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
                 </GridView>
             </ListView.View>
         </ListView>
         <Button Content="Close" HorizontalAlignment="Left" Margin="10,363,0,0" VerticalAlignment="Top" Height="36" Width="78" FontSize="18" Click="Button_Click"/>
 
-        <Label Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="466,54,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC" Grid.ColumnSpan="2"/>
+        <Label Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="0,54,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC" Grid.Column="1"/>
         <TextBox Name="Name" HorizontalAlignment="Left" Margin="115,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.533,-0.789" Grid.Column="1"/>
 
-        <Label Content="Adress" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="466,86,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC" Grid.ColumnSpan="2"/>
+        <Label Content="Adress" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="0,86,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC" Grid.Column="1"/>
         <TextBox Name ="Adress" HorizontalAlignment="Left" Margin="115,96,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
 
-        <Label Content="Email" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="466,118,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC" Grid.ColumnSpan="2"/>
+        <Label Content="Email" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="0,118,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC" Grid.Column="1"/>
         <TextBox  Name ="Email" HorizontalAlignment="Left" Margin="115,128,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
 
-        <Label Content="Total Price" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="466,151,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC" Grid.ColumnSpan="2"/>
+        <Label Content="Total Price" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="0,151,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC" Grid.Column="1"/>
         <TextBox Name="TotalPrice" IsReadOnly="True"  HorizontalAlignment="Left" Margin="115,160,0,0" TextWrapping="Wrap" Text="{Binding TotalPrice}" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
 
         <Button x:Name="Confirmation" Content="Confirmation" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Top" Height="36" Width="167" FontSize="18" Click="Button_Click_1" RenderTransformOrigin="0.485,-0.385" Grid.Column="1"/>
