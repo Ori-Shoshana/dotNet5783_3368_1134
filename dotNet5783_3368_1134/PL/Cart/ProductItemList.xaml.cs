@@ -80,7 +80,6 @@ namespace PL.Cart
             if (ProductItemListView.SelectedItem != null)
             {
                 new Product.UpdateProduct(product,true).Show();
-                Close();
             }
 
 
