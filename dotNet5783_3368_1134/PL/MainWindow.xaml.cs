@@ -51,21 +51,23 @@ namespace PL
             Close();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            int? ID;
-            int Temp;
-            int.TryParse(TextBox.Text, out Temp);
-            ID = Temp;
-
-            try
+            if (e.Key == Key.Enter)
             {
-                new Order.OrderTracking(ID).Show();
-                Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                int? ID;
+                int Temp;
+                int.TryParse(TextBox.Text, out Temp);
+                ID = Temp;
+                try
+                {
+                    new Order.OrderTracking(ID).Show();
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -74,5 +76,7 @@ namespace PL
             new Cart.ProductItemList().Show();
             Close();
         }
+
+     
     }
 }

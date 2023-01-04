@@ -41,16 +41,16 @@ namespace PL.Order
 
         private void OrderListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            BO.OrderForList? order = new BO.OrderForList();
-            BO.OrderTracking? order1 = new BO.OrderTracking();
+            //BO.OrderForList? order = new BO.OrderForList();
+            //BO.OrderTracking? order1 = new BO.OrderTracking();
 
 
-            order = (BO.OrderForList)OrderListView.SelectedItem;
-            if ((BO.OrderForList)OrderListView.SelectedItem != null)
-            {
-                new Order.UpdateOrder(order,order1).Show();
+           var order = (BO.OrderForList)OrderListView.SelectedItem;
+            //if ((BO.OrderForList)OrderListView.SelectedItem != null)
+            //{
+                new Order.UpdateOrder(order,bl.Order.Track(order.ID)).Show();
                 Close();
-            }
+            //}
         }
     }
 }

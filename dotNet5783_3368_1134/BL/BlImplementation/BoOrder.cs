@@ -24,7 +24,7 @@ internal class BoOrder : BlApi.IOrder
         {
             ID = (int)(doOrder?.OrderID)!,
             CustomerName = doOrder?.CustomerName,
-            Status = rnd.Next(0, 100) < 80 ?  OrderStatus.Deliverd : (doOrder?.ShipDate != null ? OrderStatus.Sent : OrderStatus.Confirmed),
+            Status = doOrder?.DeliveryDate != null ? OrderStatus.Deliverd : (doOrder?.ShipDate != null ? OrderStatus.Sent : OrderStatus.Confirmed),
             TotalPrice = (double)DoOrderItems.Where(item => item?.OrderId == doOrder?.OrderID).Sum(item => item?.PriceItem * (int)item?.Amount!)!,
             AmountOfItems = DoOrderItems.Where(item => item?.OrderId == doOrder?.OrderID).Sum(item => (int)item?.Amount!)
         }).ToList();
@@ -89,6 +89,7 @@ internal class BoOrder : BlApi.IOrder
             else if (DoOrder.ShipDate <= DateTime.Now)
             {
                 BoOrder.Status = BO.Enums.OrderStatus.Sent;
+                BoOrder.DeliveryDate = null;
             }
             else
             {
@@ -107,40 +108,69 @@ internal class BoOrder : BlApi.IOrder
     /// returns the order (after update)
     public BO.Order UpdateDelivery(int id)
     {
+
+        List<BO.OrderItem?> boOrderItems = new List<BO.OrderItem?>();
+        List<DO.Product?> DoProducts = new List<DO.Product?>();
+        DoProducts = (List<DO.Product?>)dal.Product.GetAll();
+        double? finalTotalPrice = 0;
+        List<DO.OrderItem?> orderItems = new List<DO.OrderItem?>();
+        orderItems = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
         List<DO.Order?> DoOrders = new List<DO.Order?>();
         DoOrders = (List<DO.Order?>)dal.Order.GetAll();
         BO.Order BoOrder = new BO.Order();
+        DO.Order temp = new DO.Order();
+        bool? check = false;
 
-        DO.Order? order1 = (DO.Order?)DoOrders.FirstOrDefault(doOrder => id == doOrder?.OrderID);
-        if (order1 != null)
-        {
-            if (BoOrder.DeliveryDate == null) 
+
+
+
+                    var boOrder = DoOrders.Where(x => x?.OrderID == id)
+            .Select(x => new BO.Order
             {
-                BoOrder.DeliveryDate = DateTime.Now;
-                BoOrder.Status = BO.Enums.OrderStatus.Deliverd;
-                DO.Order order = new DO.Order();
-                order.OrderID = id;
-                order.CustomerName = BoOrder.CustomerName;
-                order.CustomerEmail = BoOrder.CustomerEmail;
-                order.CustomerAdress = BoOrder.CustomerAdress;
-                if (BoOrder.OrderDate != null)
+                DeliveryDate = x?.DeliveryDate ?? DateTime.Now,
+                ID = (int)(x?.OrderID)!,
+                CustomerName = x?.CustomerName,
+                CustomerAdress = x?.CustomerAdress,
+                CustomerEmail = x?.CustomerEmail,
+                OrderDate = x?.OrderDate,
+                ShipDate = x?.ShipDate,
+                Status = OrderStatus.Sent,
+                TotalPrice = (double)orderItems.Where(y => y?.OrderId == id)
+            .Select(y => y?.PriceItem * y?.Amount)
+            .Sum()!,
+                Items = orderItems.Where(y => y?.OrderId == id)
+            .Select(y => new BO.OrderItem
+            {
+                ID = (int)(y?.OrderId)!,
+                ProductID = (int)y?.ProductID!,
+                Price = (double)y?.PriceItem!,
+                Amount = (int)y?.Amount!,
+                TotalPrice = (double)y?.PriceItem! * (double)y?.Amount!,
+                Name = DoProducts.Where(z => z?.ProductID == y?.ProductID)
+            .Select(z => z?.ProductName)
+            .FirstOrDefault()
+            }).ToList()!
+            }).FirstOrDefault();
+
+            if (boOrder != null)
+            {
+                dal.Order.Update(new DO.Order
                 {
-                    order.OrderDate = (DateTime)BoOrder.OrderDate;
-                }
-                if (BoOrder.ShipDate != null)
-                {
-                    order.ShipDate = (DateTime)BoOrder.ShipDate;
-                }
-                if (BoOrder.DeliveryDate != null)
-                {
-                    order.DeliveryDate = (DateTime)BoOrder.DeliveryDate;
-                }
-                dal.Order.Update(order);
-                return BoOrder;
+                    DeliveryDate = boOrder.DeliveryDate,
+                    OrderID = boOrder.ID,
+                    CustomerName = boOrder.CustomerName,
+                    CustomerAdress = boOrder.CustomerAdress,
+                    CustomerEmail = boOrder.CustomerEmail,
+                    OrderDate = boOrder.OrderDate,
+                    ShipDate = boOrder.ShipDate,
+                    //Status = boOrder.Status
+                });
+                return boOrder;
             }
-        }
-        throw new BO.VeriableNotExistException("No Id in list");
-    }
+
+            throw new BO.VeriableNotExistException("No Id in list");
+    }
+
     /// <summary>
     /// implemention of function shipping update
     /// checks if the order exists in the data layer and updates ship date

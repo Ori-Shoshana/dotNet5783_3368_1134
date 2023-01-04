@@ -41,8 +41,8 @@ namespace PL.Order
             {
                 MyOrder = bl.Order.OrderDetails(order1.ID);
                 ID1 = order1.ID;
-                UpdateBottun.Visibility = Visibility.Hidden;
-                GoBackToListOrder.Visibility = Visibility.Hidden;
+              //  UpdateBottun.Visibility = Visibility.Hidden;
+              //  GoBackToListOrder.Visibility = Visibility.Hidden;
                 this.DataContext = MyOrder;
             }
             ListUpdateOrder.ItemsSource = MyOrder.Items;
@@ -60,13 +60,13 @@ namespace PL.Order
         {
             bool check = false;
             int tempInt1 = 0;
-            BO.Order? Order1 = new BO.Order();
+           // BO.Order? Order1 = new BO.Order();
             int.TryParse(ID.Text, out tempInt1);
-            Order1.ID = tempInt1;
+           // Order1.ID = tempInt1;
 
             try
             {
-                bl?.Order.UpdateDelivery(Order1.ID);
+                bl?.Order.UpdateDelivery(tempInt1);
 
                 check = true;
             }
