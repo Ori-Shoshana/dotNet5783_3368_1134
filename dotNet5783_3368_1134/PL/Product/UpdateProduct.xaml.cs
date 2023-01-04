@@ -159,7 +159,6 @@ namespace PL.Product
 
         private void GoBackToProductItem_Click(object sender, RoutedEventArgs e)
         {
-            new Cart.ProductItemList().Show();
             Close();
         }
     }
