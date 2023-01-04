@@ -20,7 +20,7 @@ namespace PL.Cart
     public partial class CartList : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        BO.Cart dataCart =new BO.Cart();
+        BO.Cart dataCart = new BO.Cart();
         public CartList(BO.Cart? cart)
         {
             InitializeComponent();

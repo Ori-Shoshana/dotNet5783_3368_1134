@@ -100,8 +100,7 @@ namespace PL.Cart
             BO.ProductItem? product = new BO.ProductItem();
             product = (sender as Button)?.DataContext as BO.ProductItem;
             try
-            {
-                product.Amount++;
+            { 
                 cart = bl?.Cart.Add(cart, (int)product?.ID!)!;
                 MessageBox.Show("Added !");
             }
@@ -111,5 +110,6 @@ namespace PL.Cart
             }
 
         }
+
     }
 }
