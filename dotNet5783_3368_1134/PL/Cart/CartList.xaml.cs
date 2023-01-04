@@ -24,8 +24,7 @@ namespace PL.Cart
         public CartList(BO.Cart? cart)
         {
             InitializeComponent();
-            CartListView.ItemsSource = cart.Items;
-            TotalPrice.Text = cart.TotalPrice.ToString();
+            DataContext = cart;
             dataCart = cart;
         }
 
