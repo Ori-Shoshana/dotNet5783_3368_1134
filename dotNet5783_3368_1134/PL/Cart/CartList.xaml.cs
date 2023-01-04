@@ -52,7 +52,9 @@ namespace PL.Cart
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return;
             }
+            MessageBox.Show("Succeded");
         }
     }
 }

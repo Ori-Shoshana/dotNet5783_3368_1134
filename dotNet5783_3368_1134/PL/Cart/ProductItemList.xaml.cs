@@ -99,7 +99,6 @@ namespace PL.Cart
             //product = (ProductItem?)ProductItemListView.SelectedItem!;
             BO.ProductItem? product = new BO.ProductItem();
             product = (sender as Button)?.DataContext as BO.ProductItem;
-            int id = product.ID;
             try
             {
                 product.Amount++;
