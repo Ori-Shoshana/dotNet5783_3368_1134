@@ -135,13 +135,14 @@ internal class BoCart : BlApi.ICart
                     ProductID = (int)product?.ProductID!,
                     Price = (double)product?.Price!,
                     Category = product?.Category,
-                    InStock = (int)product?.InStock! - item.Amount,
+                    InStock = (int)product?.InStock!,
                     ProductName = product?.ProductName
                 };
                 dal.Product.Update(temp);
             }
         }
     }
+    //-item.amount
     /// <summary>
     /// implemention of function update
     /// the function updates the product amount 
