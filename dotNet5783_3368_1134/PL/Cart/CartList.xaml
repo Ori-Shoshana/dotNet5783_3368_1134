@@ -57,7 +57,7 @@
         <Button Content="Close" HorizontalAlignment="Left" Margin="10,363,0,0" VerticalAlignment="Top" Height="36" Width="78" FontSize="18" Click="Button_Click"/>
 
         <Label Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="0,54,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC" Grid.Column="1"/>
-        <TextBox Name="Name" HorizontalAlignment="Left" Margin="115,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.533,-0.789" Grid.Column="1"/>
+        <TextBox Name="Name" HorizontalAlignment="Left" Margin="115,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.533,-0.789" Grid.Column="1" TextChanged="Name_TextChanged"/>
 
         <Label Content="Adress" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="0,86,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC" Grid.Column="1"/>
         <TextBox Name ="Adress" HorizontalAlignment="Left" Margin="115,96,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Grid.Column="1"/>

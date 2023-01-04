@@ -141,6 +141,8 @@ internal class BoCart : BlApi.ICart
                 dal.Product.Update(temp);
             }
         }
+        cart.Items = null;
+        cart.TotalPrice = 0;
     }
     //-item.amount
     /// <summary>

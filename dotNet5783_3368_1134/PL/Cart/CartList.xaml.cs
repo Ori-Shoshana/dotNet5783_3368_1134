@@ -30,7 +30,7 @@ namespace PL.Cart
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -54,9 +54,32 @@ namespace PL.Cart
                 return;
             }
             MessageBox.Show("Succeded");
+            Close();
         }
 
         private void Button_Click_Update(object sender, RoutedEventArgs e)
+        {
+            BO.OrderItem? item =  (sender as Button)?.DataContext as BO.OrderItem;
+            try
+            {
+                dataCart = bl?.Cart.Update(dataCart, item.ProductID, item.Amount)!;
+
+                if (item?.Amount == 0)
+                {
+                    dataCart?.Items?.Remove(item);
+                    MessageBox.Show("deleted !");
+                }
+                else
+                    MessageBox.Show("updated !");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            Close();
+        }
+
+        private void Name_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
