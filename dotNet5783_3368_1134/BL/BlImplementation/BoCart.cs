@@ -16,19 +16,6 @@ internal class BoCart : BlApi.ICart
     {
         List<DO.Product?> Do_Products = new List<DO.Product?>();
         Do_Products = (List<DO.Product?>)dal.Product.GetAll();
-        bool check = false;
-        for (int i = 0; i < cart.CustomerEmail?.Length; i++)
-        {
-            if (cart.CustomerEmail[i] == '@')
-            {
-                check = true;
-                break;
-            }
-        }
-        //if (check == false)
-        //{
-        //    throw new BO.InvalidInputExeption("The input is not an email");
-        //}
 
         DO.Product prod = new DO.Product();
         prod = dal.Product.GetById(id);
@@ -95,17 +82,25 @@ internal class BoCart : BlApi.ICart
     /// </summary>
     public void Confirmation(BO.Cart cart)
     {
+        bool check = false;
         if (cart.Items == null)
             throw new BO.VariableIsSmallerThanZeroExeption("the cart is empty");
         if (cart.CustomerName == null || cart.CustomerEmail == null || cart.CustomerAdress == null)
-        {
             throw new BO.VeriableNotExistException("one of the cart detaile is invalid (name/email/adress)");
-        }
         if (cart.Items == null)
-        {
             throw new BO.VeriableNotExistException("The shopping cart is empty");
-        }     
-
+        for (int i = 0; i < cart.CustomerEmail?.Length; i++)
+        {
+            if (cart.CustomerEmail[i] == '@')
+            {
+                check = true;
+                break;
+            }
+        }
+        if (check == false)
+        {
+            throw new BO.InvalidInputExeption("The input is not an email");
+        }
         var Do_Products = (List<DO.Product?>)dal.Product.GetAll();
 
         var order = new DO.Order
