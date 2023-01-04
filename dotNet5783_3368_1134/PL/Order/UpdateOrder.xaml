@@ -34,10 +34,10 @@
         <TextBox IsReadOnly="True" Name ="Adress" HorizontalAlignment="Left" Margin="250,264,0,0" Text="{Binding CustomerAdress}" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="17" TextChanged="Adress_TextChanged"/>
 
         <Label Content="TotalPrice" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="80,288,0,0" RenderTransformOrigin="0.462,-2.636" FontSize="16" FontFamily="Verdana" FontWeight="Bold" Foreground="#FFE4E4EC" />
-        <TextBox IsReadOnly="True" Name="TotalPrice" HorizontalAlignment="Left" Margin="250,298,0,0" TextWrapping="Wrap" Text="{Binding Status}" VerticalAlignment="Top" Width="160" TextChanged="Price_TextChanged" RenderTransformOrigin="0.499,0.871"/>
+        <TextBox IsReadOnly="True" Name="TotalPrice" HorizontalAlignment="Left" Margin="250,298,0,0" TextWrapping="Wrap" Text="{Binding TotalPrice}" VerticalAlignment="Top" Width="160" TextChanged="Price_TextChanged" RenderTransformOrigin="0.499,0.871"/>
 
         <Label Content="Status" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="80,318,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC"/>
-        <TextBox IsReadOnly="True" Name="Status" HorizontalAlignment="Left" Margin="250,328,0,0" TextWrapping="Wrap" Text="{Binding TotalPrice}" VerticalAlignment="Top" Width="160" TextChanged="Status_TextChanged" RenderTransformOrigin="0.485,0.501"/>
+        <TextBox IsReadOnly="True" Name="Status" HorizontalAlignment="Left" Margin="250,328,0,0" TextWrapping="Wrap" Text="{Binding Status}" VerticalAlignment="Top" Width="160" TextChanged="Status_TextChanged" RenderTransformOrigin="0.485,0.501"/>
 
         <Button Name="UpdateBottun" Content="Update" HorizontalAlignment="Left" Margin="304,357,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.049,0.718" Width="130" Height="42" FontSize="18" FontWeight="Bold" Click="UpdateBottun_Click"/>
         <Button Name="GoBackToListOrder" Content="Back" HorizontalAlignment="Left" Margin="10,350,0,29" Padding="5" Width="66" FontSize="14" FontWeight="Bold" Click="GoBackToListOrder_Click" RenderTransformOrigin="-1.272,8.826"/>

@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Order"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         mc:Ignorable="d"
         Title="OrderList" Height="450" Width="800">
     <Grid>
@@ -32,27 +31,27 @@
 
                 <GridView>
 
-                    <GridViewColumn  DisplayMemberBinding = "{Binding Path = ID}"
+                    <GridViewColumn  DisplayMemberBinding = "{Binding  ID}"
                     Header = "ID"
                     Width = "80" />
 
                     <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = CustomerName}"
+                    DisplayMemberBinding = "{Binding CustomerName}"
                     Header = "Name"
                     Width = "170" />
 
                     <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = Status}"
+                    DisplayMemberBinding = "{Binding  Status}"
                     Header = "Status"
                     Width = "120" />
 
                     <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = AmountOfItems}"
+                    DisplayMemberBinding = "{Binding  AmountOfItems}"
                     Header = "Amount"
                     Width = "70" />
                     
                     <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = TotalPrice}"
+                    DisplayMemberBinding = "{Binding TotalPrice}"
                     Header = "Total Price"
                     Width = "100" />
                 </GridView>
