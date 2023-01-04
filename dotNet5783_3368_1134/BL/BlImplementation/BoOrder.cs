@@ -75,7 +75,7 @@ internal class BoOrder : BlApi.IOrder
                         Price = (int)item?.PriceItem!,
                         Amount = (int)item?.Amount!,
                         TotalPrice = (int)item?.PriceItem! * (int)item?.Amount!,
-                        Name = DoOrders.FirstOrDefault(order => id == order?.OrderID)?.CustomerName
+                        Name = DoProducts.FirstOrDefault(prod => prod?.ProductID == item?.ProductID)?.ProductName
                     }).ToList();
 
             finalTotalPrice = boOrderItems.Sum(item => item.TotalPrice);
