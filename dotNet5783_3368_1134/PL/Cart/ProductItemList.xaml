@@ -44,11 +44,10 @@
                     <GridViewColumn Header="Add" Width="65">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="+" Command="{Binding IncrementCommand}" />
+                                <Button Content="+" Click="Button_Click_2" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-
                 </GridView>
 
             </ListView.View>

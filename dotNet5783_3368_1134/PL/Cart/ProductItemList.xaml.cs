@@ -65,9 +65,7 @@ namespace PL.Cart
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            
             new Cart.CartList(cart).Show();
-           // Close();
         }
 
         private void ProductItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
