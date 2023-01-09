@@ -12,7 +12,11 @@
             <ImageBrush ImageSource="/Cart/MYPhoto.jpg"/>
         </Grid.Background>
         <Button Content="Home" HorizontalAlignment="Left" Margin="10,350,0,0" VerticalAlignment="Top" Height="41" Width="97" FontSize="18" Click="Button_Click"/>
-        <ListView x:Name="ProductItemListView" d:ItemsSource="{Binding productItem}" Margin="135,58,135,89" SelectionChanged="ListView_SelectionChanged" MouseDoubleClick="ProductItemListView_MouseDoubleClick">
+        <ListView x:Name="ProductItemListView" 
+                  d:ItemsSource="{Binding productItem}" 
+                  Margin="135,58,135,89" 
+                  SelectionChanged="ListView_SelectionChanged" 
+                  MouseDoubleClick="ProductItemListView_MouseDoubleClick">
             <ListView.View>
 
                 <GridView>
