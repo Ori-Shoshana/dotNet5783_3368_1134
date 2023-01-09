@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace PL.Cart
         {
             InitializeComponent();
             DataContext = cart;
-            dataCart = cart;
+            dataCart = cart!;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -57,31 +58,17 @@ namespace PL.Cart
             Close();
         }
 
-        private void Button_Click_Update(object sender, RoutedEventArgs e)
-        {
-            BO.OrderItem? item =  (sender as Button)?.DataContext as BO.OrderItem;
-            try
-            {
-                dataCart = bl?.Cart.Update(dataCart, item.ProductID, item.Amount)!;
-
-                if (item?.Amount == 0)
-                {
-                    dataCart?.Items?.Remove(item);
-                    MessageBox.Show("deleted !");
-                }
-                else
-                    MessageBox.Show("updated !");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            Close();
-        }
-
+       
         private void Name_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void CartListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            OrderItem? p = (OrderItem?)CartListView.SelectedItem;
+            new Cart.newAmount(dataCart, p.ProductID).Show();
+            Close();
         }
     }
 }

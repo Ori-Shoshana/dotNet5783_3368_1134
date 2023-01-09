@@ -168,12 +168,15 @@ internal class BoCart : BlApi.ICart
         {
             if (item.Amount < amount) //In case he wants to add
             {
+                
                 cart.TotalPrice -= item.TotalPrice;
                 DO.Product product = dal.Product.GetById(id);
                 if (product.InStock >= amount)
                 {
+                    product.InStock -= amount-item.Amount;
                     item.Amount = amount;
                     item.TotalPrice = item.Price * amount;
+                    dal.Product.Update(product);
                 }
                 else 
                     throw new BO.VariableIsSmallerThanZeroExeption("Out of stock");
@@ -184,18 +187,23 @@ internal class BoCart : BlApi.ICart
             {
                 if (item.Amount > amount) //In case he wants to subtract
                 {
+                    DO.Product product = dal.Product.GetById(id);
                     if (amount == 0)
                     {
+                        product.InStock += amount;
                         cart.TotalPrice -= item.TotalPrice;
                         cart.Items.Remove(item);
                     }
                     else
                     {
+                        product.InStock += item.Amount -  amount;
+
                         cart.TotalPrice -= item.TotalPrice;
                         item.Amount = amount;
                         item.TotalPrice = (item.Price * amount);
                         cart.TotalPrice += item.TotalPrice;
                     }
+                    dal.Product.Update(product);
                 }
                 return cart;
             }

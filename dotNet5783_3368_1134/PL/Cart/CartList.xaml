@@ -15,7 +15,10 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Cart/MYPhoto.jpg"/>
         </Grid.Background>
-        <ListView x:Name="CartListView" d:ItemsSource="{d:SampleData ItemCount=5}" ItemsSource="{Binding Items}"  Margin="34,10,305,116" SelectionChanged="ListView_SelectionChanged">
+        <ListView x:Name="CartListView" d:ItemsSource="{d:SampleData ItemCount=5}" 
+                  ItemsSource="{Binding Items}"  
+                  Margin="34,10,305,116" SelectionChanged="ListView_SelectionChanged"
+                  MouseDoubleClick="CartListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
 
@@ -34,23 +37,12 @@
                     Width = "60" />
 
                     <GridViewColumn
+                        DisplayMemberBinding = "{Binding Path = Amount}"
                         Header="Amount"
                         Width="70">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBox Text="{Binding Amount}" Width="30" Margin="13,0,0,0"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-
-                    <GridViewColumn Header="Update" Width="65">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="✓" Click="Button_Click_Update" Margin="20,0,0,0"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-
+                    
+           
                 </GridView>
             </ListView.View>
         </ListView>
