@@ -44,7 +44,7 @@
                         Width="70">
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Update" Width="65">
+                    <GridViewColumn Header="Update" Width="75">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Update" Click="Button_Click_2" />
