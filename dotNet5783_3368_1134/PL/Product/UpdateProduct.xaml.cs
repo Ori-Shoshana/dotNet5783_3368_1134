@@ -1,4 +1,5 @@
 ﻿using BO;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,36 +22,56 @@ namespace PL.Product
     /// </summary>
     public partial class UpdateProduct : Window
     {
+
         BlApi.IBl? bl = BlApi.Factory.Get();
         /// <summary>
         /// entering the product update window
         /// </summary>
-        public UpdateProduct(BO.Product? product, bool check)
+        /// 
+
+        public BO.Product? product
         {
+            get { return (BO.Product)GetValue(productProperty); }
+            set { SetValue(productProperty, value); }
+        }
+        public static readonly DependencyProperty productProperty = DependencyProperty.Register(
+        "product", typeof(BO.Product), typeof(UpdateProduct), new PropertyMetadata(default(BO.Product)));
+
+        public UpdateProduct(BO.Product? product1, bool check)
+        {
+            product = new();
             InitializeComponent();
+            product = product1;           
+            
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.ProductCategory));
-            if(product?.ID != 0 && check == false)
+            if(product1?.ID != 0 && check == false)
             {
                 GoBackToProductItem.Visibility = Visibility.Hidden;
                 AddBottun.Visibility = Visibility.Hidden;
                 GoBackToProductItem.Visibility = Visibility.Hidden;
                 TextBoxLable.Content = "Update product:";
             }
-            if(product?.ID == 0 && check == false)
+            if(product1?.ID == 0 && check == false)
             {
                 GoBackToProductItem.Visibility= Visibility.Hidden;  
                 UpdateBottun.Visibility = Visibility.Hidden;
                 GoBackToProductItem.Visibility = Visibility.Hidden;
                 TextBoxLable.Content = "Add product:";
             }
-            if(check == true)
+            if(check == true) 
             {
                 AddBottun.Visibility = Visibility.Hidden;
                 UpdateBottun.Visibility = Visibility.Hidden;
                 GoBackToList.Visibility = Visibility.Hidden;
+                ID.IsReadOnly = true;
+                Name.IsReadOnly = true;
+                Price.IsReadOnly = true;
+                Category.IsReadOnly = true;
+                CategorySelector.Visibility = Visibility.Hidden;
+                Amount.IsReadOnly = true;
                 TextBoxLable.Content = "See product:";
             }
-            this.DataContext = product;
+            
         }
         /// <summary>
         /// back button to return to get back to the list
@@ -65,20 +86,10 @@ namespace PL.Product
         /// </summary>
         private void UpdateBottun_Click(object sender, RoutedEventArgs e)
         {
-            bool check = false;
-            int tempInt1 = 0;
-            BO.Product product1 = new BO.Product();
-            int.TryParse(ID.Text, out tempInt1);
-            product1.ID = tempInt1;
-            product1.Name = Name.Text;
-            int.TryParse(Price.Text, out tempInt1);
-            product1.Price = tempInt1;
-            product1.Category = (BO.Enums.ProductCategory?)CategorySelector.SelectedItem;
-            int.TryParse(Amount.Text, out tempInt1);
-            product1.InStock = tempInt1;
+            bool check = false;        
              try
                 {
-                    bl?.Product.Update(product1);
+                    bl?.Product.Update(product);
                     check = true;
                 }
              catch (VariableIsSmallerThanZeroExeption ex)
@@ -107,19 +118,9 @@ namespace PL.Product
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             bool check = false;
-            int tempInt1 = 0;
-            BO.Product product1 = new BO.Product();
-            int.TryParse(ID.Text, out tempInt1);
-            product1.ID = tempInt1;
-            product1.Name = Name.Text;
-            int.TryParse(Price.Text, out tempInt1);
-            product1.Price = tempInt1;
-            product1.Category = (BO.Enums.ProductCategory?)CategorySelector.SelectedItem;
-            int.TryParse(Amount.Text, out tempInt1);
-            product1.InStock = tempInt1;
             try
             {
-                bl?.Product.Add(product1);
+                bl?.Product.Add(product);
                 check = true;
             }
             catch (VariableIsSmallerThanZeroExeption ex)

@@ -21,11 +21,18 @@ namespace PL.Order
     public partial class OrderList : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-
+        public List<BO.OrderForList?> orderForList
+        {
+            get { return (List<BO.OrderForList?>)GetValue(OrderListProperty); }
+            set { SetValue(OrderListProperty, value); }
+        }
+        public static readonly DependencyProperty OrderListProperty = DependencyProperty.Register(
+        "orderForList", typeof(List<BO.OrderForList?>), typeof(OrderList), new PropertyMetadata(default(List<BO.OrderForList?>)));
         public OrderList()
         {
+            orderForList = new();
             InitializeComponent();
-            DataContext = bl?.Order.GetOrders();
+            orderForList = (List<OrderForList?>)(bl?.Order.GetOrders())!;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -41,16 +48,15 @@ namespace PL.Order
 
         private void OrderListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //BO.OrderForList? order = new BO.OrderForList();
-            //BO.OrderTracking? order1 = new BO.OrderTracking();
+            BO.OrderTracking? order1 = new BO.OrderTracking();
 
 
-           var order = (BO.OrderForList)OrderListView.SelectedItem;
-            //if ((BO.OrderForList)OrderListView.SelectedItem != null)
-            //{
-                new Order.UpdateOrder(order,bl.Order.Track(order.ID)).Show();
+            var order = (BO.OrderForList)OrderListView.SelectedItem;
+            if ((BO.OrderForList)OrderListView.SelectedItem != null)
+            {
+                new Order.UpdateOrder(order,order1).Show();
                 Close();
-            //}
+            }
         }
     }
 }

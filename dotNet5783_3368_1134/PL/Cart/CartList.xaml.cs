@@ -1,4 +1,4 @@
-﻿using BO;
+﻿using PL.Order;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +21,31 @@ namespace PL.Cart
     public partial class CartList : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        BO.Cart dataCart = new BO.Cart();
-        public CartList(BO.Cart? cart)
+        public List<BO.OrderItem?> cartItems
         {
+            get { return (List<BO.OrderItem?>) GetValue(cartProperty); }
+            set { SetValue(cartProperty, value); }
+        }
+        public static readonly DependencyProperty cartProperty = DependencyProperty.Register(
+        "cartItems", typeof(List<BO.OrderItem?>), typeof(CartList), new PropertyMetadata(default(List<BO.OrderItem?>)));
+
+        public BO.Cart? cart
+        {
+            get { return (BO.Cart?)GetValue(cartPropertyTotal); }
+            set { SetValue(cartPropertyTotal, value); }
+        }
+        public static readonly DependencyProperty cartPropertyTotal = DependencyProperty.Register(
+        "cart", typeof(BO.Cart), typeof(CartList), new PropertyMetadata(default(BO.Cart?)));
+
+        BO.Cart dataCart = new BO.Cart();
+        public CartList(BO.Cart? cart1)
+        {
+            cartItems = new();
+            cart = new();
             InitializeComponent();
-            DataContext = cart;
-            dataCart = cart!;
+            cartItems = cart1.Items!;
+            cart = cart1;
+            dataCart = cart1;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -58,17 +77,39 @@ namespace PL.Cart
             Close();
         }
 
-       
-        private void Name_TextChanged(object sender, TextChangedEventArgs e)
+        private void Button_Click_Update(object sender, RoutedEventArgs e)
         {
-
+            BO.OrderItem? item =  (sender as Button)?.DataContext as BO.OrderItem;
+            int c = item.Amount;
+            item.Amount = 0;
+            try
+            {
+                dataCart = bl?.Cart.Update(dataCart, item.ProductID,c)!;
+                item.Amount = c;
+                if (item?.Amount == 0)
+                {
+                    dataCart?.Items?.Remove(item);
+                    MessageBox.Show("deleted !");
+                }
+                else
+                    MessageBox.Show("updated !");
+            }
+            catch (Exception ex)
+            {
+                item.Amount = c;
+                MessageBox.Show(ex.Message);
+            }
+            Close();
         }
-
         private void CartListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             OrderItem? p = (OrderItem?)CartListView.SelectedItem;
             new Cart.newAmount(dataCart, p.ProductID).Show();
             Close();
+        }
+        private void Name_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

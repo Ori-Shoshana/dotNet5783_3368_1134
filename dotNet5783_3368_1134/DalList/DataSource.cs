@@ -67,8 +67,15 @@ internal static class DataSource
             if (i < 6 && i >= 4) { p.Category = productCategory.Mouse; }
             if (i < 8 && i >= 6) { p.Category = productCategory.Keybord; }
             if (i < 10 && i >= 8) { p.Category = productCategory.Hadphones; }
-            p.InStock = Rnd.Next(0, 10); 
-         
+            if(Rnd.Next(0, 4) == 0)
+            {
+                p.InStock = 0;
+            }
+            else
+            {
+                p.InStock = Rnd.Next(1, 200);
+            }
+
             ListProduct.Add(p);
         }
     }

@@ -180,39 +180,62 @@ internal class BoOrder : BlApi.IOrder
     /// returns the order (after update)
     public BO.Order ShippingUpdate(int id)
     {
+        List<BO.OrderItem?> boOrderItems = new List<BO.OrderItem?>();
+        List<DO.Product?> DoProducts = new List<DO.Product?>();
+        DoProducts = (List<DO.Product?>)dal.Product.GetAll();
+        double finalTotalPrice = 0;
+        List<DO.OrderItem?> orderItems = new List<DO.OrderItem?>();
+        orderItems = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
+
         List<DO.Order?> DoOrders = new List<DO.Order?>();
         DoOrders = (List<DO.Order?>)dal.Order.GetAll();
-        BO.Order BoOrder = new BO.Order();
 
-        DO.Order? order1 = (DO.Order?)DoOrders.FirstOrDefault(doOrder => id == doOrder?.OrderID);
-        if (order1 != null)
+        BO.Order BoOrder = new BO.Order();
+        DO.Order temp = new DO.Order();
+        bool check = false;
+        var doOrder = DoOrders.Where(o => o?.OrderID == id).FirstOrDefault();
+        if (doOrder != null)
         {
-            if (BoOrder.ShipDate == null)
-            {   
-                BoOrder.ShipDate = DateTime.Now;
-                BoOrder.Status = BO.Enums.OrderStatus.Sent;
-                DO.Order order = new DO.Order();
-                order.OrderID = id;
-                order.CustomerName = BoOrder.CustomerName;
-                order.CustomerEmail = BoOrder.CustomerEmail;
-                order.CustomerAdress = BoOrder.CustomerAdress;
-                if (BoOrder.OrderDate != null)
-                {
-                    order.OrderDate = (DateTime)BoOrder.OrderDate;
-                }
-                if (BoOrder.ShipDate != null)
-                {
-                    order.ShipDate = (DateTime)BoOrder.ShipDate;
-                }
-                if (BoOrder.DeliveryDate != null)
-                {
-                    order.DeliveryDate = (DateTime)BoOrder.DeliveryDate;
-                }
-                dal.Order.Update(order);
-                return BoOrder;
-                
+            check = true;
+            if (doOrder?.ShipDate == null)
+                BoOrder.ShipDate = temp.ShipDate = DateTime.Now;
+            else
+                BoOrder.ShipDate = temp.ShipDate = doOrder?.ShipDate;
+            BoOrder.ID = temp.OrderID = (int)(doOrder?.OrderID)!;
+            BoOrder.CustomerName = temp.CustomerName = doOrder?.CustomerName;
+            BoOrder.CustomerAdress = temp.CustomerAdress = doOrder?.CustomerAdress;
+            BoOrder.CustomerEmail = temp.CustomerEmail = doOrder?.CustomerEmail;
+            BoOrder.OrderDate = temp.OrderDate = doOrder?.OrderDate;
+
+            if (doOrder?.DeliveryDate != null)
+                BoOrder.DeliveryDate = temp.DeliveryDate = doOrder?.DeliveryDate;
+            BoOrder.Status = OrderStatus.Sent;
+
+            var orderItemsForOrder = orderItems.Where(i => i?.OrderId == id);
+            foreach (var item in orderItemsForOrder)
+            {
+                BO.OrderItem boOrderItem = new BO.OrderItem();
+                boOrderItem.ID = (int)(item?.OrderId)!;
+                boOrderItem.ProductID = (int)(item?.ProductID)!;
+                boOrderItem.Price = (double)(item?.PriceItem)!;
+                boOrderItem.Amount = (int)(item?.Amount)!;
+                boOrderItem.TotalPrice = (double)(item?.PriceItem * item?.Amount)!;
+                finalTotalPrice += (double)item?.PriceItem! * (int)item?.Amount!;
+                var product = DoProducts.Where(p => p?.ProductID == boOrderItem.ProductID).FirstOrDefault();
+                if (product != null)
+                    boOrderItem.Name = product?.ProductName;
+                boOrderItems.Add(boOrderItem);
             }
         }
+        if (check)
+        {
+            BoOrder.TotalPrice = finalTotalPrice;
+            BoOrder.Items = boOrderItems;
+            dal.Order.Update(temp);
+            BoOrder.TotalPrice = finalTotalPrice;
+            return BoOrder;
+        }
+
 
         throw new BO.VeriableNotExistException("No Id in list");
     }

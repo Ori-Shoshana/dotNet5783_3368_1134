@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Order"
         mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="UpdateOrder" Height="450" Width="800">
     <Grid>
         <Grid.Background>
@@ -13,66 +14,67 @@
         <Label Name="TextBoxLable" Content="Update Order:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="166" FontSize="20" FontWeight="Bold" Margin="286,0,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" Foreground="#FFE4E4EC"/>
 
         <Label Content="ID" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="80,35,0,0" RenderTransformOrigin="0.462,-2.636" FontWeight="Bold" FontSize="16" FontFamily="Verdana" Foreground="#FFE4E4EC"/>
-        <TextBox IsReadOnly="True" Name="ID" HorizontalAlignment="Left" Margin="250,45,0,0" TextWrapping="Wrap" Text="{Binding ID}" VerticalAlignment="Top" Width="160" TextChanged="ID_TextChanged"/>
+        <TextBox IsReadOnly="True" Name="ID" HorizontalAlignment="Left" Margin="250,45,0,0" TextWrapping="Wrap" Text="{Binding orderBinding.ID,  Mode=TwoWay}" VerticalAlignment="Top" Width="160" TextChanged="ID_TextChanged"/>
 
         <Label Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="80,68,0,0" RenderTransformOrigin="0.462,-2.636" FontSize="16" FontFamily="Verdana" FontWeight="Bold" Foreground="#FFE4E4EC"/>
-        <TextBox IsReadOnly="True" Name="Name" HorizontalAlignment="Left" Margin="250,78,0,0" TextWrapping="Wrap" Text="{Binding CustomerName}" VerticalAlignment="Top" Width="160" TextChanged="Name_TextChanged"/>
+        <TextBox IsReadOnly="True" Name="Name" HorizontalAlignment="Left" Margin="250,78,0,0" TextWrapping="Wrap" Text="{Binding orderBinding.CustomerName,  Mode=TwoWay}" VerticalAlignment="Top" Width="160" TextChanged="Name_TextChanged"/>
 
         <Label Content="Email" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="80,105,0,0" RenderTransformOrigin="0.462,-2.636" FontSize="16" FontWeight="Bold" FontFamily="Verdana" Foreground="#FFE4E4EC"/>
-        <TextBox IsReadOnly="True" Name="Email" HorizontalAlignment="Left" Margin="250,106,0,0" TextWrapping="Wrap" Text="{Binding CustomerEmail}" VerticalAlignment="Top" Width="160" TextChanged="Price_TextChanged"/>
+        <TextBox IsReadOnly="True" Name="Email" HorizontalAlignment="Left" Margin="250,106,0,0" TextWrapping="Wrap" Text="{Binding orderBinding.CustomerEmail,  Mode=TwoWay}" VerticalAlignment="Top" Width="160" TextChanged="Price_TextChanged"/>
 
         <Label Content="Order date" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="80,140,0,0" RenderTransformOrigin="0.462,-2.636" FontSize="16" FontFamily="Verdana" FontWeight="Bold" Foreground="#FFE4E4EC" />
-        <DatePicker Name ="OrderDate" HorizontalAlignment="Left" SelectedDate ="{Binding OrderDate}"  Margin="250,146,0,0" VerticalAlignment="Top" Width="160" RenderTransformOrigin="0.562,0.605"/>
+        <TextBox Name ="OrderDate" IsReadOnly="True" HorizontalAlignment="Left" Text ="{Binding orderBinding.OrderDate,  Mode=TwoWay}"  Margin="250,146,0,0" VerticalAlignment="Top" Width="160" RenderTransformOrigin="0.562,0.605"/>
 
         <Label Content="Ship date" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="80,181,0,0" RenderTransformOrigin="0.462,-2.636" FontSize="16" FontFamily="Verdana" FontWeight="Bold" Foreground="#FFE4E4EC" />
-        <DatePicker Name ="ShipDate" HorizontalAlignment="Left" SelectedDate="{Binding ShipDate}"  VerticalAlignment="Top" Width="160" Margin="250,188,0,0"/>
+        <TextBox Name ="ShipDate" IsReadOnly="True" HorizontalAlignment="Left" Text="{Binding orderBinding.ShipDate,  Mode=TwoWay}"  VerticalAlignment="Top" Width="119" Margin="250,188,0,0"/>
 
         <Label Content="Delivery date" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="80,223,0,0" RenderTransformOrigin="0.462,-2.636" FontSize="16" FontFamily="Verdana" FontWeight="Bold" Foreground="#FFE4E4EC" />
-        <DatePicker Name ="DelivoryDate" HorizontalAlignment="Left" SelectedDate="{Binding DeliveryDate}" Margin="250,230,0,0" VerticalAlignment="Top" Width="160"/>
+        <TextBox Name ="DelivoryDate" IsReadOnly="True" HorizontalAlignment="Left" Text="{Binding orderBinding.DeliveryDate,  Mode=TwoWay}" Margin="250,230,0,0" VerticalAlignment="Top" Width="119"/>
 
         <Label Content="Adress" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="80,254,0,0" RenderTransformOrigin="0.462,-2.636" FontSize="16" FontFamily="Verdana" FontWeight="Bold" Foreground="#FFE4E4EC" />
-        <TextBox IsReadOnly="True" Name ="Adress" HorizontalAlignment="Left" Margin="250,264,0,0" Text="{Binding CustomerAdress}" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="17" TextChanged="Adress_TextChanged"/>
+        <TextBox IsReadOnly="True" Name ="Adress" HorizontalAlignment="Left" Margin="250,264,0,0" Text="{Binding orderBinding.CustomerAdress,  Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" Height="17" TextChanged="Adress_TextChanged"/>
 
         <Label Content="TotalPrice" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="80,288,0,0" RenderTransformOrigin="0.462,-2.636" FontSize="16" FontFamily="Verdana" FontWeight="Bold" Foreground="#FFE4E4EC" />
-        <TextBox IsReadOnly="True" Name="TotalPrice" HorizontalAlignment="Left" Margin="250,298,0,0" TextWrapping="Wrap" Text="{Binding TotalPrice}" VerticalAlignment="Top" Width="160" TextChanged="Price_TextChanged" RenderTransformOrigin="0.499,0.871"/>
+        <TextBox IsReadOnly="True" Name="TotalPrice" HorizontalAlignment="Left" Margin="250,298,0,0" TextWrapping="Wrap" Text="{Binding orderBinding.TotalPrice,  Mode=TwoWay}" VerticalAlignment="Top" Width="160" TextChanged="Price_TextChanged" RenderTransformOrigin="0.499,0.871"/>
 
         <Label Content="Status" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="80,318,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC"/>
-        <TextBox IsReadOnly="True" Name="Status" HorizontalAlignment="Left" Margin="250,328,0,0" TextWrapping="Wrap" Text="{Binding Status}" VerticalAlignment="Top" Width="160" TextChanged="Status_TextChanged" RenderTransformOrigin="0.485,0.501"/>
+        <TextBox IsReadOnly="True" Name="Status" HorizontalAlignment="Left" Margin="250,328,0,0" TextWrapping="Wrap" Text="{Binding orderBinding.Status,  Mode=TwoWay}" VerticalAlignment="Top" Width="160" TextChanged="Status_TextChanged" RenderTransformOrigin="0.485,0.501"/>
 
-        <Button Name="UpdateBottun" Content="Update" HorizontalAlignment="Left" Margin="304,357,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.049,0.718" Width="130" Height="42" FontSize="18" FontWeight="Bold" Click="UpdateBottun_Click"/>
+        <Button Name="UpdateBottunDelivory" Content="Update" HorizontalAlignment="Left" Margin="374,232,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.049,0.718" Width="64" Height="20" FontSize="12" FontWeight="Bold" Click="UpdateBottun_Click"/>
+        <Button Name="UpdateBottunShiping" Content="Update" HorizontalAlignment="Left" Margin="374,190,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.049,0.718" Width="64" Height="20" FontSize="12" FontWeight="Bold" Click="UpdateBottunShiping_Click"/>
         <Button Name="GoBackToListOrder" Content="Back" HorizontalAlignment="Left" Margin="10,350,0,29" Padding="5" Width="66" FontSize="14" FontWeight="Bold" Click="GoBackToListOrder_Click" RenderTransformOrigin="-1.272,8.826"/>
         <Button Name="GoBackToListOrderTracking" Content="Back" HorizontalAlignment="Left" Margin="10,350,0,28" Padding="5" Width="66" FontSize="14" FontWeight="Bold" Click="GoBackToListOrderTracking_Click" RenderTransformOrigin="-1.272,8.826"/>
-      
+
         <ListView x:Name="ListUpdateOrder" d:ItemsSource="{d:SampleData ItemCount=5}" 
                   HorizontalAlignment="Left" 
                   Width="337" 
                   Margin="437,0,0,118" 
                   Height="248" 
-                  VerticalAlignment="Bottom" FontSize="10" SelectionChanged="ListUpdateOrder_SelectionChanged">
+                  VerticalAlignment="Bottom" FontSize="10" SelectionChanged="ListUpdateOrder_SelectionChanged" ItemsSource="{Binding OrderItems}">
             <ListView.View>
                 <GridView>
 
-                    <GridViewColumn  DisplayMemberBinding = "{Binding Path = ProductID}"
+                    <GridViewColumn  DisplayMemberBinding = "{Binding ProductID}"
                     Header = "ID"
                     Width = "70" />
 
                     <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = Name}"
+                    DisplayMemberBinding = "{Binding Name}"
                     Header = "Name"
                     Width = "80" />
 
                     <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = Price}"
+                    DisplayMemberBinding = "{Binding Price}"
                     Header = "Price"
                     Width = "50" />
 
                     <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = Amount}"
+                    DisplayMemberBinding = "{Binding Amount}"
                     Header = "Amount"
                     Width = "50" />
 
                     <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = TotalPrice}"
+                    DisplayMemberBinding = "{Binding TotalPrice}"
                     Header = "Total Price"
                     Width = "80" />
                 </GridView>
