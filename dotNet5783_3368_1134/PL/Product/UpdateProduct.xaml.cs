@@ -37,8 +37,6 @@ namespace PL.Product
         public static readonly DependencyProperty productProperty = DependencyProperty.Register(
         "product", typeof(BO.Product), typeof(UpdateProduct), new PropertyMetadata(default(BO.Product)));
 
-
-
         public UpdateProduct(BO.Product? product1, bool check)
         {
             product = new();

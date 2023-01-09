@@ -33,11 +33,20 @@ namespace PL.Order
         public static readonly DependencyProperty orderProperty = DependencyProperty.Register(
         "orderBinding", typeof(BO.Order), typeof(UpdateOrder), new PropertyMetadata(default(BO.Order)));
 
+        public List<BO.OrderItem?> OrderItems
+        {
+            get { return (List<BO.OrderItem?>)GetValue(itemsProperty); }
+            set { SetValue(itemsProperty, value); }
+        }
+        public static readonly DependencyProperty itemsProperty = DependencyProperty.Register(
+        "OrderItems", typeof(List<BO.OrderItem?>), typeof(UpdateOrder), new PropertyMetadata(default(List<BO.OrderItem?>)));
+
         int ID1;
 
         public UpdateOrder(BO.OrderForList order, BO.OrderTracking order1)
         {
             orderBinding = new();
+            OrderItems = new();
             InitializeComponent();
 
 
@@ -57,7 +66,8 @@ namespace PL.Order
                 GoBackToListOrder.Visibility = Visibility.Hidden;
                 orderBinding = MyOrder;
             }
-            ListUpdateOrder.ItemsSource = MyOrder.Items;
+            //ListUpdateOrder.ItemsSource = MyOrder.Items;
+            OrderItems = MyOrder.Items!;
 
             if (MyOrder.Status == BO.Enums.OrderStatus.Deliverd)
             {
@@ -85,12 +95,9 @@ namespace PL.Order
         private void UpdateBottun_Click(object sender, RoutedEventArgs e)
         {
             bool check = false;
-            int tempInt1 = 0;
-            int.TryParse(ID.Text, out tempInt1);
-
             try
             {
-                bl?.Order.UpdateDelivery(tempInt1);
+                bl?.Order.UpdateDelivery(orderBinding.ID);
 
                 check = true;
             }
@@ -115,12 +122,10 @@ namespace PL.Order
         private void UpdateBottunShiping_Click(object sender, RoutedEventArgs e)
         {
             bool check = false;
-            int tempInt1 = 0;
-            int.TryParse(ID.Text, out tempInt1);
 
             try
             {
-                bl?.Order.ShippingUpdate(tempInt1);
+                bl?.Order.ShippingUpdate(orderBinding.ID);
 
                 check = true;
             }

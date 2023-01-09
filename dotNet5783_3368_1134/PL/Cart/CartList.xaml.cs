@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Order;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,12 +21,31 @@ namespace PL.Cart
     public partial class CartList : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        BO.Cart dataCart = new BO.Cart();
-        public CartList(BO.Cart? cart)
+        public List<BO.OrderItem?> cartItems
         {
+            get { return (List<BO.OrderItem?>) GetValue(cartProperty); }
+            set { SetValue(cartProperty, value); }
+        }
+        public static readonly DependencyProperty cartProperty = DependencyProperty.Register(
+        "cartItems", typeof(List<BO.OrderItem?>), typeof(CartList), new PropertyMetadata(default(List<BO.OrderItem?>)));
+
+        public BO.Cart? cart
+        {
+            get { return (BO.Cart?)GetValue(cartPropertyTotal); }
+            set { SetValue(cartPropertyTotal, value); }
+        }
+        public static readonly DependencyProperty cartPropertyTotal = DependencyProperty.Register(
+        "cart", typeof(BO.Cart), typeof(CartList), new PropertyMetadata(default(BO.Cart?)));
+
+        BO.Cart dataCart = new BO.Cart();
+        public CartList(BO.Cart? cart1)
+        {
+            cartItems = new();
+            cart = new();
             InitializeComponent();
-            DataContext = cart;
-            dataCart = cart;
+            cartItems = cart1.Items!;
+            cart = cart1;
+            dataCart = cart1;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

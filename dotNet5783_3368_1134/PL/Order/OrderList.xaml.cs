@@ -21,11 +21,18 @@ namespace PL.Order
     public partial class OrderList : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-
+        public List<BO.OrderForList?> orderForList
+        {
+            get { return (List<BO.OrderForList?>)GetValue(OrderListProperty); }
+            set { SetValue(OrderListProperty, value); }
+        }
+        public static readonly DependencyProperty OrderListProperty = DependencyProperty.Register(
+        "orderForList", typeof(List<BO.OrderForList?>), typeof(OrderList), new PropertyMetadata(default(List<BO.OrderForList?>)));
         public OrderList()
         {
+            orderForList = new();
             InitializeComponent();
-            DataContext = bl?.Order.GetOrders();
+            orderForList = (List<OrderForList?>)(bl?.Order.GetOrders())!;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
