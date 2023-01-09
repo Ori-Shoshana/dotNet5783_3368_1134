@@ -46,10 +46,7 @@ namespace PL.Cart
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
-                        Close();
-                    }
-                    MessageBox.Show("update");
+                        MessageBox.Show(ex.Message);                    }
                 Close();
                 }
 

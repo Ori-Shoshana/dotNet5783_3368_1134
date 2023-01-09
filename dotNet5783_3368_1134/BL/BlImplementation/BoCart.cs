@@ -190,7 +190,7 @@ internal class BoCart : BlApi.ICart
                     DO.Product product = dal.Product.GetById(id);
                     if (amount == 0)
                     {
-                        product.InStock += amount;
+                        product.InStock += item.Amount;
                         cart.TotalPrice -= item.TotalPrice;
                         cart.Items.Remove(item);
                     }

@@ -77,39 +77,22 @@ namespace PL.Cart
             Close();
         }
 
-        private void Button_Click_Update(object sender, RoutedEventArgs e)
-        {
-            BO.OrderItem? item =  (sender as Button)?.DataContext as BO.OrderItem;
-            int c = item.Amount;
-            item.Amount = 0;
-            try
-            {
-                dataCart = bl?.Cart.Update(dataCart, item.ProductID,c)!;
-                item.Amount = c;
-                if (item?.Amount == 0)
-                {
-                    dataCart?.Items?.Remove(item);
-                    MessageBox.Show("deleted !");
-                }
-                else
-                    MessageBox.Show("updated !");
-            }
-            catch (Exception ex)
-            {
-                item.Amount = c;
-                MessageBox.Show(ex.Message);
-            }
-            Close();
-        }
+       
         private void CartListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            OrderItem? p = (OrderItem?)CartListView.SelectedItem;
+            BO.OrderItem? p = (BO.OrderItem?)CartListView.SelectedItem;
             new Cart.newAmount(dataCart, p.ProductID).Show();
             Close();
         }
         private void Name_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            BO.OrderItem? item = (sender as Button)?.DataContext as BO.OrderItem;
+            new Cart.newAmount(dataCart, item.ProductID).Show();
+            Close();
         }
     }
 }
