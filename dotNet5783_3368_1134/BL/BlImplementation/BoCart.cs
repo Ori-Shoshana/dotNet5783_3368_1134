@@ -171,7 +171,7 @@ internal class BoCart : BlApi.ICart
                 cart.TotalPrice -= item.TotalPrice;
                 DO.Product product = dal.Product.GetById(id);
                 if (product.InStock >= amount)
-                {
+                {  
                     item.Amount = amount;
                     item.TotalPrice = item.Price * amount;
                 }

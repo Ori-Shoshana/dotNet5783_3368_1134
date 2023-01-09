@@ -30,8 +30,8 @@
         <Button x:Name="UFManager" Content="Update for manager" Height="51" Width="192" HorizontalAlignment="Left" Margin="559,16,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Click="UpdateForManager" FontSize="16" Background="#FFDDDDDD" BorderBrush="{x:Null}" Foreground="#FF290000" FontWeight="Bold"/>
         <Button Content="New Order" HorizontalAlignment="Left" Margin="329,298,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="142" FontSize="20" Click="Button_Click_2"/>
 
-        <Label Content="Enter ID:" HorizontalAlignment="Left" Margin="42,217,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.011,1.348" Foreground="#FFE4E4EC" FontSize="22" FontWeight="Bold"/>
-        <TextBox x:Name="TextBox" KeyDown="TextBox_KeyDown" Text="" HorizontalAlignment="Left" Margin="42,264,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Height="37" FontSize="22" FontWeight="Bold" FontFamily="Verdana"/>
+        <Label Content="Enter ID for tracking:" HorizontalAlignment="Left" Margin="42,217,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.011,1.348" Foreground="#FFE4E4EC" FontSize="22" FontWeight="Bold"/>
+        <TextBox x:Name="TextBox" KeyDown="TextBox_KeyDown" Text="" HorizontalAlignment="Left" Margin="66,261,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Height="37" FontSize="22" FontWeight="Bold" FontFamily="Verdana" TextChanged="TextBox_TextChanged"/>
         <!--<Button Content="Order Tracking" HorizontalAlignment="Left" Margin="42,306,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="180" FontSize="20" FontWeight="Bold" Click="Button_Click_1"/>-->
 
     </Grid>

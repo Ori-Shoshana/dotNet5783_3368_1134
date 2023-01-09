@@ -60,10 +60,12 @@ namespace PL.Cart
         private void Button_Click_Update(object sender, RoutedEventArgs e)
         {
             BO.OrderItem? item =  (sender as Button)?.DataContext as BO.OrderItem;
+            int c = item.Amount;
+            item.Amount = 0;
             try
             {
-                dataCart = bl?.Cart.Update(dataCart, item.ProductID, item.Amount)!;
-
+                dataCart = bl?.Cart.Update(dataCart, item.ProductID,c)!;
+                item.Amount = c;
                 if (item?.Amount == 0)
                 {
                     dataCart?.Items?.Remove(item);
@@ -74,6 +76,7 @@ namespace PL.Cart
             }
             catch (Exception ex)
             {
+                item.Amount = c;
                 MessageBox.Show(ex.Message);
             }
             Close();
