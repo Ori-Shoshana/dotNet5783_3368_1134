@@ -46,7 +46,6 @@ namespace PL.Cart
 
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            BlApi.IBl? bl = BlApi.Factory.Get();
             if (CategorySelector.SelectedItem.ToString() != "All")
             {
                 ProductItemListView.ItemsSource = bl?.Product.GetProductItem(a => a?.Category.ToString() == CategorySelector.SelectedItem.ToString());

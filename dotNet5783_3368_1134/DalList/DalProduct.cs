@@ -80,7 +80,11 @@ internal class DalProduct : IProduct
         var products = ListProduct.Where(prod => func == null || func(prod)).OrderBy(prod => prod?.ProductID).ToList();
         return products;
     }
-
+    public IEnumerable<IGrouping<int, DO.Product?>> GetAllGroupedBy(Func<DO.Product?, bool>? func)
+    {
+        var products = ListProduct.Where(prod => func == null || func(prod)).GroupBy(prod => prod?.ProductID).OrderBy(group => group.Key);
+        return (IEnumerable<IGrouping<int, DO.Product?>>)products;
+    }
     /// <summary>
     /// returns array length
     /// </summary>
