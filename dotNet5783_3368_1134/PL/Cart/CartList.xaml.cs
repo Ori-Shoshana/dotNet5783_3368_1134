@@ -24,13 +24,13 @@ namespace PL.Cart
         BlApi.IBl? bl = BlApi.Factory.Get();
         private Action<int> Action;
 
-        public ObservableCollection<BO.OrderItem?> cartItems
+        public List<BO.OrderItem?>? cartItems
         {
-            get { return (ObservableCollection<BO.OrderItem?>) GetValue(cartProperty); }
+            get { return (List<BO.OrderItem?>) GetValue(cartProperty); }
             set { SetValue(cartProperty, value); }
         }
         public static readonly DependencyProperty cartProperty = DependencyProperty.Register(
-        "cartItems", typeof(ObservableCollection<BO.OrderItem?>), typeof(CartList), new PropertyMetadata(default(ObservableCollection<BO.OrderItem?>)));
+        "cartItems", typeof(List<BO.OrderItem?>), typeof(CartList), new PropertyMetadata(default(List<BO.OrderItem?>)));
 
         public BO.Cart? cart
         {
@@ -43,11 +43,13 @@ namespace PL.Cart
         BO.Cart dataCart = new BO.Cart();
         public CartList(BO.Cart? cart1 , Action<int> action)
         {
-            cartItems = new ObservableCollection<BO.OrderItem?>(list: cart1?.Items!);
+            if (cart1?.Items != null)
+            {
+                cartItems = new List<BO.OrderItem?>(cart1?.Items);
+            }
             cart = new();
             InitializeComponent();
-            //this.Action = action;
-            //cartItems = cart1.Items!;
+            this.Action = action;
             cart = cart1;
             dataCart = cart1;
         }
@@ -81,13 +83,7 @@ namespace PL.Cart
             Close();
         }
 
-       
-        private void CartListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            BO.OrderItem? p = (BO.OrderItem?)CartListView.SelectedItem;
-            new Cart.newAmount(dataCart, p.ProductID).Show();
-            Close();
-        }
+  
         private void Name_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -95,7 +91,23 @@ namespace PL.Cart
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             BO.OrderItem? item = (sender as Button)?.DataContext as BO.OrderItem;
-            new Cart.newAmount(dataCart, item.ProductID).Show();
+            new Cart.newAmount(dataCart, item, UpdateToOrders).Show();
+        }
+
+        private void UpdateToOrders(BO.Cart? ProductID1)
+        {
+            cartItems = ProductID1.Items;
+            //int x = 0;
+            //foreach(var item in ProductID1)
+            //{
+                
+            //    if (item.ProductID == ProductID1) 
+            //    {
+            //        cartItems[x++] = cartItems.FirstOrDefault(a => a?.ProductID == ProductID1);
+            //        break;
+            //    }
+            //}
+            
         }
     }
 }

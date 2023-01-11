@@ -50,7 +50,6 @@ namespace PL.Order
         {
             BO.OrderTracking? order1 = new BO.OrderTracking();
 
-
             var order = (BO.OrderForList)OrderListView.SelectedItem;
             if ((BO.OrderForList)OrderListView.SelectedItem != null)
             {

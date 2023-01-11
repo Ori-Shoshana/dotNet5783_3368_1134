@@ -15,7 +15,7 @@
         <ListView x:Name="ProductItemListView" 
                   ItemsSource="{Binding productItem}" 
                   d:ItemsSource="{d:SampleData ItemCount=5}" 
-                  Margin="120,58,100,89" 
+                  Margin="140,58,140,89" 
                   SelectionChanged="ListView_SelectionChanged" 
                   MouseDoubleClick="ProductItemListView_MouseDoubleClick">
             <ListView.View>
@@ -41,11 +41,6 @@
                     Header = "Price"
                     Width = "50" />
 
-                    <GridViewColumn
-                    DisplayMemberBinding = "{Binding Amount}"
-                    Header = "Amount"
-                    Width = "65" />
-                    
                     <GridViewColumn
                     DisplayMemberBinding = "{Binding InStock}"
                     Header = "In Stock"
