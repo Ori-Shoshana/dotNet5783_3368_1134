@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dal
+namespace Dal;
+
+internal class XmlTools
 {
-    internal class XmlTools
-    {
-    }
 }
