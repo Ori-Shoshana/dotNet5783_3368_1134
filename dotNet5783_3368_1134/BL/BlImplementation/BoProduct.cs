@@ -14,7 +14,6 @@ internal class BoProduct : BlApi.IProduct
     /// returns the list
     public IEnumerable<BO.ProductForList?> GetProductForList(Func<DO.Product?, bool>? func)
     {
-        //List<BO.ProductForList?> productsForList = new List<BO.ProductForList?>();
         List<DO.Product?> products = new List<DO.Product?>();
         products = (List<DO.Product?>)dal.Product.GetAll();
         if (func != null)

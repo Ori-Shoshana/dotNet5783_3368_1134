@@ -1,6 +1,8 @@
 ﻿using BO;
+using PL.Product;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,14 +25,19 @@ namespace PL.Cart
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         BO.Cart cart = new BO.Cart();
-
-        public List<BO.ProductItem?> productItem = new List<ProductItem?>();
+        public ObservableCollection<BO.ProductItem?> productItem
+        {
+            get { return (ObservableCollection<BO.ProductItem?>)GetValue(productsProperty); }
+            set { SetValue(productsProperty, value); }
+        }
+        public static readonly DependencyProperty productsProperty = DependencyProperty.Register(
+        "productItem", typeof(ObservableCollection<BO.ProductItem?>), typeof(ProductItemList), new PropertyMetadata(default(List<BO.ProductItem?>)));
 
         public ProductItemList()
         {
+            productItem = new ObservableCollection<BO.ProductItem>(bl?.Product.GetProductItem()!)!;
             InitializeComponent();
 
-            productItem = bl?.Product.GetProductItem().ToList()!;
 
             for (int i = 0; i < 5; i++)
             {
@@ -65,7 +72,8 @@ namespace PL.Cart
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new Cart.CartList(cart).Show();
+            Action<int>? action = null;
+            new Cart.CartList(cart, action).Show();
         }
 
         private void ProductItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -76,13 +84,11 @@ namespace PL.Cart
 
             productItem = (BO.ProductItem)ProductItemListView.SelectedItem;
             product = (bl?.Product.ProductDetailsM(productItem.ID));
-
+            Action<int>? action = null;
             if (ProductItemListView.SelectedItem != null)
             {
-                new Product.UpdateProduct(product,true).Show();
+                new Product.UpdateProduct(productItem.ID, true, action).Show();
             }
-
-
         }
 
         private void GridViewColumn_Click(object sender, RoutedEventArgs e)
@@ -104,6 +110,12 @@ namespace PL.Cart
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private void UpdateToProducts(int productID)
+        {
+            var x = ProductItemListView.SelectedIndex;
+            productItem[x] = ((bl?.Product.GetProductItem(a => a?.ProductID == productID).First()));
         }
 
     }

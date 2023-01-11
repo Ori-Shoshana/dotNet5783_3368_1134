@@ -1,6 +1,7 @@
 ﻿using PL.Order;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,13 +22,15 @@ namespace PL.Cart
     public partial class CartList : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public List<BO.OrderItem?> cartItems
+        private Action<int> Action;
+
+        public ObservableCollection<BO.OrderItem?> cartItems
         {
-            get { return (List<BO.OrderItem?>) GetValue(cartProperty); }
+            get { return (ObservableCollection<BO.OrderItem?>) GetValue(cartProperty); }
             set { SetValue(cartProperty, value); }
         }
         public static readonly DependencyProperty cartProperty = DependencyProperty.Register(
-        "cartItems", typeof(List<BO.OrderItem?>), typeof(CartList), new PropertyMetadata(default(List<BO.OrderItem?>)));
+        "cartItems", typeof(ObservableCollection<BO.OrderItem?>), typeof(CartList), new PropertyMetadata(default(ObservableCollection<BO.OrderItem?>)));
 
         public BO.Cart? cart
         {
@@ -38,12 +41,13 @@ namespace PL.Cart
         "cart", typeof(BO.Cart), typeof(CartList), new PropertyMetadata(default(BO.Cart?)));
 
         BO.Cart dataCart = new BO.Cart();
-        public CartList(BO.Cart? cart1)
+        public CartList(BO.Cart? cart1 , Action<int> action)
         {
-            cartItems = new();
+            cartItems = new ObservableCollection<BO.OrderItem?>(list: cart1?.Items!);
             cart = new();
             InitializeComponent();
-            cartItems = cart1.Items!;
+            //this.Action = action;
+            //cartItems = cart1.Items!;
             cart = cart1;
             dataCart = cart1;
         }
@@ -92,7 +96,6 @@ namespace PL.Cart
         {
             BO.OrderItem? item = (sender as Button)?.DataContext as BO.OrderItem;
             new Cart.newAmount(dataCart, item.ProductID).Show();
-            Close();
         }
     }
 }

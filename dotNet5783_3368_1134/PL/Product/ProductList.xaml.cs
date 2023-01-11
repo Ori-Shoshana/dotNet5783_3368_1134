@@ -1,6 +1,9 @@
 ﻿using BO;
+using DO;
+using PL.Cart;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,16 +25,21 @@ namespace PL.Product
     public partial class ProductList : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public List<BO.ProductForList?> productForList = new List<ProductForList?>();
+        public ObservableCollection<BO.ProductForList?> products
+        {
+            get { return (ObservableCollection<BO.ProductForList?>)GetValue(productsProperty); }
+            set { SetValue(productsProperty, value); }
+        }
+        public static readonly DependencyProperty productsProperty = DependencyProperty.Register(
+        "products", typeof(ObservableCollection<BO.ProductForList?>), typeof(ProductList), new PropertyMetadata(default(List<BO.ProductForList?>)));
 
         /// <summary>
         ///  showing all the products  
         /// </summary>
         public ProductList()
         {
+            products = new ObservableCollection<BO.ProductForList?>(bl.Product.GetProductForList());
             InitializeComponent();
-
-            productForList = bl.Product.GetProductForList().ToList();
 
             for (int i = 0; i < 5; i++)
             {
@@ -74,9 +82,10 @@ namespace PL.Product
         private void AddButton_Click(object sender, RoutedEventArgs e) 
         {
             BO.Product product = new BO.Product();
-            new Product.UpdateProduct(product, false).Show();
-            Close();
+            Action<int>? action = null;
+            new Product.UpdateProduct(product.ID, false, action).Show();
         }
+
         /// <summary>
         /// open an option to update a product (after double click on product) 
         /// </summary>
@@ -90,10 +99,13 @@ namespace PL.Product
             product = bl?.Product.ProductDetailsM(product1.ID);
             if ((BO.ProductForList)ProductListview.SelectedItem != null)
             {
-                new Product.UpdateProduct(product, false).Show();
-                Close();
+                new Product.UpdateProduct(product1.ID, false, addToProducts).Show();
             }      
         }
-
+        private void addToProducts(int productID)
+        {
+            var x = ProductListview.SelectedIndex;
+            products[x] = (bl?.Product.GetProductForList(a => a?.ProductID == productID).First());
+        }
     }
 }

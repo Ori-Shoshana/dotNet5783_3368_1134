@@ -1,4 +1,5 @@
 ﻿using BO;
+using DO;
 using PL.Product;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace PL.Order
     /// </summary>
     public partial class UpdateOrder : Window
     {
+        private Action<int> Action;
         BlApi.IBl? bl = BlApi.Factory.Get();
 
         public BO.Order? orderBinding
@@ -43,12 +45,12 @@ namespace PL.Order
 
         int ID1;
 
-        public UpdateOrder(BO.OrderForList order, BO.OrderTracking order1)
+        public UpdateOrder(BO.OrderForList order, BO.OrderTracking order1 , Action<int> action)
         {
             orderBinding = new();
             OrderItems = new();
             InitializeComponent();
-
+            this.Action = action;
 
             BO.Order? MyOrder = new BO.Order();
             if(order.Status != null)
@@ -66,7 +68,6 @@ namespace PL.Order
                 GoBackToListOrder.Visibility = Visibility.Hidden;
                 orderBinding = MyOrder;
             }
-            //ListUpdateOrder.ItemsSource = MyOrder.Items;
             OrderItems = MyOrder.Items!;
 
             if (MyOrder.Status == BO.Enums.OrderStatus.Deliverd)
@@ -113,9 +114,9 @@ namespace PL.Order
             if (check == true)
             {
                 UpdateBottunDelivory.Visibility = Visibility.Hidden;
-                new Order.OrderList().Show();
                 Close();
             }
+            Action?.Invoke(orderBinding.ID);
 
         }
 
@@ -141,9 +142,9 @@ namespace PL.Order
             if (check == true)
             {
                 UpdateBottunDelivory.Visibility = Visibility.Hidden;
-                new Order.OrderList().Show();
                 Close();
             }
+            Action?.Invoke(orderBinding.ID);
         }
 
         private void Name_TextChanged(object sender, TextChangedEventArgs e)
@@ -175,7 +176,7 @@ namespace PL.Order
 
         private void GoBackToListOrder_Click(object sender, RoutedEventArgs e)
         {
-            new Order.OrderList().Show();
+            
             Close();
         }
 
