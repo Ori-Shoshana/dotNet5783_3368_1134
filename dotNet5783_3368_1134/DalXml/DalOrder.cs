@@ -11,6 +11,7 @@ namespace Dal;
 
 internal class DalOrder : IOrder
 {
+
     public int Add(Order entity)
     {
         List<DO.Order?> listOrder = XmlTools.LoadListFromXMLSerializer<DO.Order>(orderPath);
