@@ -29,10 +29,10 @@ internal class DalOrderItem : IOrderItem
         }
         throw new DO.IdAlreadyExistException("order item Id already exists");
     }
-        /*if (DataSource.ListOrderItem.Any(orderItem => orderItem?.OrderItemID == ordItem.OrderItemID))
-        throw new DO.IdAlreadyExistException("Id already exist");
-        DataSource.ListOrderItem.Add(ordItem);
-        return ordItem.OrderItemID;*/
+    /*if (DataSource.ListOrderItem.Any(orderItem => orderItem?.OrderItemID == ordItem.OrderItemID))
+    throw new DO.IdAlreadyExistException("Id already exist");
+    DataSource.ListOrderItem.Add(ordItem);
+    return ordItem.OrderItemID;*/
     /// <summary>
     ///  The operation deletes an order item from the array (finds him by id)
     /// </summary>
