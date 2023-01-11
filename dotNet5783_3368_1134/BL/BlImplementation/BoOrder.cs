@@ -13,10 +13,10 @@ internal class BoOrder : BlApi.IOrder
     /// </summary>
     public IEnumerable<BO.OrderForList?> GetOrders(Func<DO.Order?, bool>? func)
     {
-        List<DO.Order?> DoOrders = new List<DO.Order?>();
-        List<DO.OrderItem?> DoOrderItems = new List<DO.OrderItem?>();
+        List<DO.Order?> DoOrders;
+        List<DO.OrderItem?> DoOrderItems;
 
-        DoOrders = (List<DO.Order?>)dal.Order.GetAll();
+        DoOrders = dal.Order.GetAll().ToList();
         DoOrderItems = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
 
         Random rnd = new Random();
@@ -56,19 +56,19 @@ internal class BoOrder : BlApi.IOrder
     /// returns order
     public BO.Order OrderDetails(int id)
     {
-        List<DO.Order?> DoOrders = new List<DO.Order?>();
+        List<DO.Order?> DoOrders;
         DO.Order DoOrder = new DO.Order();
-        List<DO.OrderItem?> DoOrderItem = new List<DO.OrderItem?>();
-        List<DO.Product?> DoProducts = new List<DO.Product?>();
-        List<BO.OrderItem> boOrderItems = new List<BO.OrderItem>();
+        List<DO.OrderItem?> DoOrderItem;
+        List<DO.Product?> DoProducts;
+        List<BO.OrderItem> boOrderItems;
         BO.Order? BoOrder = new BO.Order();
         if (id > 0)
         {
             double finalTotalPrice = 0;
             DoOrder = dal.Order.GetById(id);
-            DoOrderItem = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
-            DoProducts = (List<DO.Product?>)dal.Product.GetAll();
-            DoOrders = (List<DO.Order?>)dal.Order.GetAll();
+            DoOrderItem = dal.OrderItem.GetAll().ToList();
+            DoProducts = dal.Product.GetAll().ToList();
+            DoOrders = dal.Order.GetAll().ToList();
 
             BoOrder.ID = DoOrder.OrderID;
             BoOrder.CustomerName = DoOrder.CustomerName;
@@ -124,14 +124,14 @@ internal class BoOrder : BlApi.IOrder
     public BO.Order UpdateDelivery(int id)
     {
 
-        List<BO.OrderItem?> boOrderItems = new List<BO.OrderItem?>();
-        List<DO.Product?> DoProducts = new List<DO.Product?>();
-        DoProducts = (List<DO.Product?>)dal.Product.GetAll();
+        List<BO.OrderItem?> boOrderItems;
+        List<DO.Product?> DoProducts;
+        DoProducts = dal.Product.GetAll().ToList();
         double? finalTotalPrice = 0;
-        List<DO.OrderItem?> orderItems = new List<DO.OrderItem?>();
-        orderItems = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
-        List<DO.Order?> DoOrders = new List<DO.Order?>();
-        DoOrders = (List<DO.Order?>)dal.Order.GetAll();
+        List<DO.OrderItem?> orderItems;
+        orderItems = dal.OrderItem.GetAll().ToList();
+        List<DO.Order?> DoOrders;
+        DoOrders = dal.Order.GetAll().ToList();
         BO.Order BoOrder = new BO.Order();
         DO.Order temp = new DO.Order();
         bool? check = false;
@@ -196,14 +196,14 @@ internal class BoOrder : BlApi.IOrder
     public BO.Order ShippingUpdate(int id)
     {
         List<BO.OrderItem?> boOrderItems = new List<BO.OrderItem?>();
-        List<DO.Product?> DoProducts = new List<DO.Product?>();
-        DoProducts = (List<DO.Product?>)dal.Product.GetAll();
+        List<DO.Product?> DoProducts;
+        DoProducts = dal.Product.GetAll().ToList();
         double finalTotalPrice = 0;
         List<DO.OrderItem?> orderItems = new List<DO.OrderItem?>();
         orderItems = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
 
-        List<DO.Order?> DoOrders = new List<DO.Order?>();
-        DoOrders = (List<DO.Order?>)dal.Order.GetAll();
+        List<DO.Order?> DoOrders;
+        DoOrders = dal.Order.GetAll().ToList();
 
         BO.Order BoOrder = new BO.Order();
         DO.Order temp = new DO.Order();
@@ -263,8 +263,8 @@ internal class BoOrder : BlApi.IOrder
     public BO.OrderTracking Track(int id)
     {
         string Item;
-        List<DO.Order?> DoOrders = new List<DO.Order?>();
-        DoOrders = (List<DO.Order?>)dal.Order.GetAll();
+        List<DO.Order?> DoOrders;
+        DoOrders = dal.Order.GetAll().ToList();
         BO.OrderTracking BoOrderTracking = new BO.OrderTracking();
         bool check = false;
 

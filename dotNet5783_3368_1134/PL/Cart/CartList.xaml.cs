@@ -97,16 +97,6 @@ namespace PL.Cart
         private void UpdateToOrders(BO.Cart? ProductID1)
         {
             cartItems = ProductID1.Items;
-            //int x = 0;
-            //foreach(var item in ProductID1)
-            //{
-                
-            //    if (item.ProductID == ProductID1) 
-            //    {
-            //        cartItems[x++] = cartItems.FirstOrDefault(a => a?.ProductID == ProductID1);
-            //        break;
-            //    }
-            //}
             
         }
     }

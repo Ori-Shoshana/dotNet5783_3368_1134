@@ -14,8 +14,8 @@ internal class BoCart : BlApi.ICart
     /// returns cart
     public BO.Cart Add(BO.Cart cart, int id)
     {
-        List<DO.Product?> Do_Products = new List<DO.Product?>();
-        Do_Products = (List<DO.Product?>)dal.Product.GetAll();
+        List<DO.Product?> Do_Products;
+        Do_Products = dal.Product.GetAll().ToList();
 
         DO.Product prod = new DO.Product();
         prod = dal.Product.GetById(id);
@@ -102,7 +102,7 @@ internal class BoCart : BlApi.ICart
             throw new BO.InvalidInputExeption("The input is not an email");
         }
         
-        var Do_Products = (List<DO.Product?>)dal.Product.GetAll();
+        var Do_Products = dal.Product.GetAll().ToList();
 
         var order = new DO.Order
         {
@@ -160,8 +160,8 @@ internal class BoCart : BlApi.ICart
         if (amount < 0)  
             throw new BO.VariableIsSmallerThanZeroExeption("There quantity can't be negative");
 
-        List<DO.Product?> Do_Products = new List<DO.Product?>();
-        Do_Products = (List<DO.Product?>)dal.Product.GetAll();
+        List<DO.Product?> Do_Products;
+        Do_Products = dal.Product.GetAll().ToList();
 
         BO.OrderItem? item = cart.Items.Where(x => x?.ProductID == id).FirstOrDefault();
         if (item != null)

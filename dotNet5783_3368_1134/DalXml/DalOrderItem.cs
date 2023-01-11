@@ -26,7 +26,7 @@ internal class DalOrderItem : IOrderItem
         if (listOrderItem.FirstOrDefault(orderItem => orderItem?.OrderItemID == ordItem.OrderItemID) != null)
             throw new DO.IdAlreadyExistException("order item Id already exists");
 
-        ordItem.OrderItemID = int.Parse(config.Element("OrderItemId")!.Value) + 1;
+        ordItem.OrderItemID = int.Parse(config.Element("OrderItemID")!.Value) + 1;
         listOrderItem.Add(ordItem);
 
         XmlTools.SaveListToXMLSerializer(listOrderItem, orderItemPath);
