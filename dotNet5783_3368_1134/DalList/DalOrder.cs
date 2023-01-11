@@ -73,7 +73,7 @@ internal class DalOrder : IOrder
     }
 
     /// <summary>
-    /// The operation updates the array and returns him
+    /// The operation returns list of orders (maybe after sort)
     /// </summary>
     public IEnumerable<DO.Order?> GetAll(Func<DO.Order?, bool>? func)
     {
