@@ -1,4 +1,5 @@
 ﻿
+using BO;
 using System.Net.Http.Headers;
 using static BO.Enums;
 
@@ -10,7 +11,7 @@ internal class BoOrder : BlApi.IOrder
     /// requests a list of orders from the data layer
     /// returns list of orders (from type order for list)
     /// </summary>
-    public IEnumerable<BO.OrderForList?> GetOrders()
+    public IEnumerable<BO.OrderForList?> GetOrders(Func<DO.Order?, bool>? func)
     {
         List<DO.Order?> DoOrders = new List<DO.Order?>();
         List<DO.OrderItem?> DoOrderItems = new List<DO.OrderItem?>();
@@ -19,18 +20,32 @@ internal class BoOrder : BlApi.IOrder
         DoOrderItems = (List<DO.OrderItem?>)dal.OrderItem.GetAll();
 
         Random rnd = new Random();
-
-        var ordersForList = DoOrders.Select(doOrder => new BO.OrderForList
+        if (func != null)
         {
-            ID = (int)(doOrder?.OrderID)!,
-            CustomerName = doOrder?.CustomerName,
-            Status = doOrder?.DeliveryDate != null ? OrderStatus.Deliverd : (doOrder?.ShipDate != null ? OrderStatus.Sent : OrderStatus.Confirmed),
-            TotalPrice = (double)DoOrderItems.Where(item => item?.OrderId == doOrder?.OrderID).Sum(item => item?.PriceItem * (int)item?.Amount!)!,
-            AmountOfItems = DoOrderItems.Where(item => item?.OrderId == doOrder?.OrderID).Sum(item => (int)item?.Amount!)
-        }).ToList();
 
-        return ordersForList!;
+            var ordersForList = DoOrders.Where(Order => func(Order)).Select(doOrder => new BO.OrderForList
+            {
+                ID = (int)(doOrder?.OrderID)!,
+                CustomerName = doOrder?.CustomerName,
+                Status = doOrder?.DeliveryDate != null ? OrderStatus.Deliverd : (doOrder?.ShipDate != null ? OrderStatus.Sent : OrderStatus.Confirmed),
+                TotalPrice = (double)DoOrderItems.Where(item => item?.OrderId == doOrder?.OrderID).Sum(item => item?.PriceItem * (int)item?.Amount!)!,
+                AmountOfItems = DoOrderItems.Where(item => item?.OrderId == doOrder?.OrderID).Sum(item => (int)item?.Amount!)
+            }).ToList();
+            return ordersForList!;
+        }
+        else
+        {
+            var ordersForList = DoOrders.Select(doOrder => new BO.OrderForList
+            {
+                ID = (int)(doOrder?.OrderID)!,
+                CustomerName = doOrder?.CustomerName,
+                Status = doOrder?.DeliveryDate != null ? OrderStatus.Deliverd : (doOrder?.ShipDate != null ? OrderStatus.Sent : OrderStatus.Confirmed),
+                TotalPrice = (double)DoOrderItems.Where(item => item?.OrderId == doOrder?.OrderID).Sum(item => item?.PriceItem * (int)item?.Amount!)!,
+                AmountOfItems = DoOrderItems.Where(item => item?.OrderId == doOrder?.OrderID).Sum(item => (int)item?.Amount!)
+            }).ToList();
+            return ordersForList!;
 
+        }
     }
     /// <summary>
     /// implemention of function order details

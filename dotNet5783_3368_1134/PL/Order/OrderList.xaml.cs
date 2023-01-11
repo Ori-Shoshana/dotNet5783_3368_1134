@@ -1,6 +1,7 @@
 ﻿using BO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,18 +22,17 @@ namespace PL.Order
     public partial class OrderList : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public List<BO.OrderForList?> orderForList
+        public ObservableCollection<BO.OrderForList?> orderForList
         {
-            get { return (List<BO.OrderForList?>)GetValue(OrderListProperty); }
+            get { return (ObservableCollection<BO.OrderForList?>)GetValue(OrderListProperty); }
             set { SetValue(OrderListProperty, value); }
         }
         public static readonly DependencyProperty OrderListProperty = DependencyProperty.Register(
-        "orderForList", typeof(List<BO.OrderForList?>), typeof(OrderList), new PropertyMetadata(default(List<BO.OrderForList?>)));
+        "orderForList", typeof(ObservableCollection<BO.OrderForList?>), typeof(OrderList), new PropertyMetadata(default(ObservableCollection<BO.OrderForList?>)));
         public OrderList()
         {
-            orderForList = new();
+            orderForList = new ObservableCollection<BO.OrderForList?>(bl?.Order.GetOrders()!);
             InitializeComponent();
-            orderForList = (List<OrderForList?>)(bl?.Order.GetOrders())!;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -50,13 +50,17 @@ namespace PL.Order
         {
             BO.OrderTracking? order1 = new BO.OrderTracking();
 
-
             var order = (BO.OrderForList)OrderListView.SelectedItem;
             if ((BO.OrderForList)OrderListView.SelectedItem != null)
             {
-                new Order.UpdateOrder(order,order1).Show();
-                Close();
+                new Order.UpdateOrder(order,order1, UpdateToOrders).Show();
             }
+        }
+
+        private void UpdateToOrders(int orderID)
+        {
+            var x = OrderListView.SelectedIndex;
+            orderForList[x] = (((bl?.Order.GetOrders(a => a?.OrderID == orderID).First())));
         }
     }
 }

@@ -8,7 +8,7 @@ public interface IOrder
     /// requests a list of orders from the data layer
     /// returns list of orders (from type order for list)
     /// </summary>
-    public IEnumerable<OrderForList?> GetOrders();
+    public IEnumerable<OrderForList?> GetOrders(Func<DO.Order?, bool>? func = null);
     /// <summary>
     /// decleration of function order details
     /// receives id 

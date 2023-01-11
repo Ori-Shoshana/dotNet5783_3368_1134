@@ -12,35 +12,37 @@
             <ImageBrush ImageSource="/Cart/MYPhoto.jpg"/>
         </Grid.Background>
         <Button Content="Home" HorizontalAlignment="Left" Margin="10,350,0,0" VerticalAlignment="Top" Height="41" Width="97" FontSize="18" Click="Button_Click"/>
-        <ListView x:Name="ProductItemListView" d:ItemsSource="{Binding productItem}" 
-                  Margin="135,58,135,89" 
+        <ListView x:Name="ProductItemListView" 
+                  ItemsSource="{Binding productItem}" 
+                  d:ItemsSource="{d:SampleData ItemCount=5}" 
+                  Margin="140,58,140,89" 
                   SelectionChanged="ListView_SelectionChanged" 
                   MouseDoubleClick="ProductItemListView_MouseDoubleClick">
             <ListView.View>
 
                 <GridView>
 
-                    <GridViewColumn  DisplayMemberBinding = "{Binding Path = ID}"
+                    <GridViewColumn  DisplayMemberBinding = "{Binding  ID}"
                     Header = "ID"
                     Width = "90" />
 
                     <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = Name}"
+                    DisplayMemberBinding = "{Binding  Name}"
                     Header = "Name"
                     Width = "130" />
 
                     <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = Category}"
+                    DisplayMemberBinding = "{Binding Category}"
                     Header = "Category"
                     Width = "100" />
 
                     <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = Price}"
+                    DisplayMemberBinding = "{Binding Price}"
                     Header = "Price"
                     Width = "50" />
 
                     <GridViewColumn
-                    DisplayMemberBinding = "{Binding Path = InStock}"
+                    DisplayMemberBinding = "{Binding InStock}"
                     Header = "In Stock"
                     Width = "70" />
 

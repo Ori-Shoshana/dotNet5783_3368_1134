@@ -1,6 +1,7 @@
 ﻿using PL.Order;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,9 @@ namespace PL.Cart
     public partial class CartList : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        public List<BO.OrderItem?> cartItems
+        private Action<int> Action;
+
+        public List<BO.OrderItem?>? cartItems
         {
             get { return (List<BO.OrderItem?>) GetValue(cartProperty); }
             set { SetValue(cartProperty, value); }
@@ -38,12 +41,15 @@ namespace PL.Cart
         "cart", typeof(BO.Cart), typeof(CartList), new PropertyMetadata(default(BO.Cart?)));
 
         BO.Cart dataCart = new BO.Cart();
-        public CartList(BO.Cart? cart1)
+        public CartList(BO.Cart? cart1 , Action<int> action)
         {
-            cartItems = new();
+            if (cart1?.Items != null)
+            {
+                cartItems = new List<BO.OrderItem?>(cart1?.Items);
+            }
             cart = new();
             InitializeComponent();
-            cartItems = cart1.Items!;
+            this.Action = action;
             cart = cart1;
             dataCart = cart1;
         }
@@ -77,13 +83,7 @@ namespace PL.Cart
             Close();
         }
 
-       
-        private void CartListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            BO.OrderItem? p = (BO.OrderItem?)CartListView.SelectedItem;
-            new Cart.newAmount(dataCart, p.ProductID).Show();
-            Close();
-        }
+  
         private void Name_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -91,8 +91,23 @@ namespace PL.Cart
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             BO.OrderItem? item = (sender as Button)?.DataContext as BO.OrderItem;
-            new Cart.newAmount(dataCart, item.ProductID).Show();
-            Close();
+            new Cart.newAmount(dataCart, item, UpdateToOrders).Show();
+        }
+
+        private void UpdateToOrders(BO.Cart? ProductID1)
+        {
+            cartItems = ProductID1.Items;
+            //int x = 0;
+            //foreach(var item in ProductID1)
+            //{
+                
+            //    if (item.ProductID == ProductID1) 
+            //    {
+            //        cartItems[x++] = cartItems.FirstOrDefault(a => a?.ProductID == ProductID1);
+            //        break;
+            //    }
+            //}
+            
         }
     }
 }

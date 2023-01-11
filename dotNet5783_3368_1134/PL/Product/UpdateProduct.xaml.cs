@@ -22,7 +22,7 @@ namespace PL.Product
     /// </summary>
     public partial class UpdateProduct : Window
     {
-
+        private Action<int> Action;
         BlApi.IBl? bl = BlApi.Factory.Get();
         /// <summary>
         /// entering the product update window
@@ -37,21 +37,25 @@ namespace PL.Product
         public static readonly DependencyProperty productProperty = DependencyProperty.Register(
         "product", typeof(BO.Product), typeof(UpdateProduct), new PropertyMetadata(default(BO.Product)));
 
-        public UpdateProduct(BO.Product? product1, bool check)
+        public UpdateProduct(int product_id, bool check, Action<int> action)
         {
             product = new();
             InitializeComponent();
-            product = product1;           
+            this.Action = action;
+            if (product_id != 0)
+            {
+                product = bl?.Product.ProductDetailsM(product_id);
+            }
             
             CategorySelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.ProductCategory));
-            if(product1?.ID != 0 && check == false)
+            if(product_id != 0 && check == false)
             {
                 GoBackToProductItem.Visibility = Visibility.Hidden;
                 AddBottun.Visibility = Visibility.Hidden;
                 GoBackToProductItem.Visibility = Visibility.Hidden;
                 TextBoxLable.Content = "Update product:";
             }
-            if(product1?.ID == 0 && check == false)
+            if(product_id == 0 && check == false)
             {
                 GoBackToProductItem.Visibility= Visibility.Hidden;  
                 UpdateBottun.Visibility = Visibility.Hidden;
@@ -108,9 +112,9 @@ namespace PL.Product
             if (check == true)
             {
                 UpdateBottun.Visibility = Visibility.Hidden;
-                new Product.ProductList().Show();
                 Close();
             }
+            Action?.Invoke(product.ID);
         }
         /// <summary>
         /// adding a product to the products list
@@ -138,9 +142,9 @@ namespace PL.Product
             if (check == true)
             {
                 AddBottun.Visibility = Visibility.Hidden;
-                new Product.ProductList().Show();
                 Close();
             }
+            Action?.Invoke(product.ID);
         }
       
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

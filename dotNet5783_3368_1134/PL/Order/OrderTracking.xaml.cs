@@ -47,10 +47,11 @@ namespace PL.Order
             BO.OrderTracking? order1 = new BO.OrderTracking();
 
             order1 = bl?.Order.Track((int)ID!);
+            Action<int>? action = null;
 
             if(order1 != null)
             {
-                new Order.UpdateOrder(order, order1).Show();
+                new Order.UpdateOrder(order, order1, action).Show();
                 Close();
             }
         }
