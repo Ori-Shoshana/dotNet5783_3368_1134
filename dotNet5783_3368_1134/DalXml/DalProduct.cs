@@ -24,36 +24,36 @@ internal class DalProduct : IProduct
             InStock = (int)s.Element("InStock")!
         };
     }
-    public int Add(Product entity)
+    public int Add(Product product)
     {
         XElement product_root = XmlTools.LoadListFromXMLElement(productPath);
-        if (entity.ProductID == 0)
+        if (product.ProductID == 0)
         {
-            entity.ProductID = int.Parse(config.Element("ProductId")!.Value) + 1;
-            XmlTools.SaveConfigXElement("ProductId", entity.ProductID);
+            product.ProductID = int.Parse(config.Element("ProductId")!.Value) + 1;
+            XmlTools.SaveConfigXElement("ProductId", product.ProductID);
         }
         XElement? prod = (from st in product_root.Elements()
-                          where st.ToIntNullable("ProductID") == entity.ProductID
+                          where st.ToIntNullable("ProductID") == product.ProductID
                           select st).FirstOrDefault();
         if (prod != null)
             throw new Exception("ID already exist");
         product_root.Add(new XElement("Product",
-                                   new XElement("ProductID", entity.ProductID),
-                                   new XElement("ProductName", entity.ProductName),
-                                   new XElement("Category", entity.Category),
-                                   new XElement("Price", entity.Price),
-                                   new XElement("InStock", entity.InStock)
+                                   new XElement("ProductID", product.ProductID),
+                                   new XElement("ProductName", product.ProductName),
+                                   new XElement("Category", product.Category),
+                                   new XElement("Price", product.Price),
+                                   new XElement("InStock", product.InStock)
                                    ));
         XmlTools.SaveListToXMLElement(product_root, productPath);
-        return entity.ProductID; 
+        return product.ProductID; 
     }
 
-    public void Delete(int id)
+    public void Delete(int prodId)
     {
         XElement product_root = XmlTools.LoadListFromXMLElement(productPath);
 
         XElement? prod = (from st in product_root.Elements()
-                          where (int?)st.Element("ProductID") == id
+                          where (int?)st.Element("ProductID") == prodId
                           select st).FirstOrDefault() ?? throw new Exception("Missing ID");
         prod.Remove();  //<==> Remove stud from studentsRootElem
 
@@ -89,9 +89,16 @@ internal class DalProduct : IProduct
                  select p.ConvertProduct_Xml_to_D0()).FirstOrDefault());
     }
 
-    public Product GetById(int id)
+    public Product GetById(int productId)
     {
-        throw new NotImplementedException();
+        List<DO.Product?> ListProduct = XmlTools.LoadListFromXMLSerializer<DO.Product>(productPath);
+
+        var product = ListProduct.FirstOrDefault(x => x?.ProductID == productId);
+
+        if (product == null)
+            throw new DO.IdNotExistException("Product Id not found");
+        else
+            return (DO.Product)product;
     }
 
     public int ListLength()
@@ -100,17 +107,17 @@ internal class DalProduct : IProduct
         return ListProduct.Count;
     }
 
-    public void Update(Product entity)
+    public void Update(Product product)
     {
         List<DO.Product?> ListProduct = XmlTools.LoadListFromXMLSerializer<DO.Product>(productPath);
 
         bool found = false;
-        var foundProduct = ListProduct.FirstOrDefault(prod => prod?.ProductID == entity.ProductID);
+        var foundProduct = ListProduct.FirstOrDefault(prod => prod?.ProductID == product.ProductID);
         if (foundProduct != null)
         {
             found = true;
             int index = ListProduct.IndexOf(foundProduct);
-            ListProduct[index] = entity;
+            ListProduct[index] = product;
         }
         if (found == false)
             throw new DO.IdNotExistException("order item id not found");
