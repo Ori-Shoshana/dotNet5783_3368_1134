@@ -1,5 +1,6 @@
 ﻿using Dal;
 using DalApi;
+using DalTest;
 using DO;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System;
@@ -32,12 +33,12 @@ internal class Program
         check = int.TryParse(Console.ReadLine(), out option);
         while (option != 0) // 0 ends the program
         {
-            
+
             switch (option)
             {
-            //***************************** all the options for product *************************//
+                //***************************** all the options for product *************************//
                 case 1: //product
-                   
+
                     Console.WriteLine("Enter 0 to end\n " +
                         "Enter 1 to add a prodoct\n " +
                         "Enter 2 to print product\n " +
@@ -47,14 +48,14 @@ internal class Program
 
                     int option1;
                     check = int.TryParse(Console.ReadLine(), out option1);
-                  
+
                     if (option1 == 0)
                         break;
-                   
+
                     switch (option1)
-                    {                 
+                    {
                         case 1://add product
-                         
+
                             Product TestAddProduct = new Product();
                             Console.WriteLine("Add a Id");
                             check = int.TryParse(Console.ReadLine(), out tempInt);
@@ -84,7 +85,7 @@ internal class Program
 
                         case 2://print product
 
-                            Product GetProduct = new Product(); 
+                            Product GetProduct = new Product();
                             Console.WriteLine("type the id to get");
                             int getId = Convert.ToInt32(Console.ReadLine());
                             try
@@ -95,10 +96,10 @@ internal class Program
                             {
                                 Console.WriteLine(ex.Message);
                             }
-                            
+
                             Console.WriteLine(GetProduct);
-                 
-                    break;
+
+                            break;
 
                         case 3://print all prodocts
 
@@ -174,7 +175,7 @@ internal class Program
 
                     int option2;
                     check = int.TryParse(Console.ReadLine(), out option2);
-                    
+
                     if (option2 == 0)
                         break;
 
@@ -228,10 +229,10 @@ internal class Program
 
                             List<Order?> orders = new List<Order?>(dal.Order.GetAll());
                             int counter = 0;
-                            foreach(Order order in orders)
-                            { 
-                                   
-                                if(counter == dal.Order.ListLength())
+                            foreach (Order order in orders)
+                            {
+
+                                if (counter == dal.Order.ListLength())
                                 {
                                     break;
                                 }
@@ -291,10 +292,10 @@ internal class Program
                         "Enter 3 to see list of orderItem\n " +
                         "Enter 4 to update orderItem\n " +
                         "Enter 5 to delete orderItem  ");
-                    
+
                     int option3;
                     check = int.TryParse(Console.ReadLine(), out option3);
-                   
+
                     if (option3 == 0)
                         break;
 
@@ -322,9 +323,9 @@ internal class Program
                             {
                                 dal.OrderItem.Add(TestAddOrderItem);
                             }
-                            catch(IdAlreadyExistException ex)
+                            catch (IdAlreadyExistException ex)
                             {
-                                    Console.WriteLine(ex.Message);
+                                Console.WriteLine(ex.Message);
                             }
                             break;
 
@@ -350,7 +351,7 @@ internal class Program
                             int counter = 0;
                             foreach (OrderItem orderItem in orderItems)
                             {
-                               
+
                                 if (counter == dal.OrderItem.ListLength())
                                 {
                                     break;
@@ -402,8 +403,22 @@ internal class Program
                             break;
                     }
                     break;
+
+                //*************************** update for xml **************************************//
+                case 4:
+                    XmlTools.SaveListToXMLSerializer(dal.Product.GetAll().ToList(), "Product");
+                    XmlTools.SaveListToXMLSerializer(dal.Order.GetAll().ToList(), "Order");
+                    XmlTools.SaveListToXMLSerializer(dal.OrderItem.GetAll().ToList(), "OrderItem");
+
+                    int lastOrderItemID = dal.OrderItem.GetAll().Last()?.OrderItemID ?? 0;
+                    int lastOrderID = dal.Order.GetAll().Last()?.OrderID ?? 0;
+                    int lastProductID = dal.Product.GetAll().Last()?.ProductID ?? 0;
+                    XmlTools.SaveConfigXElement("OrderId", lastOrderID);
+                    XmlTools.SaveConfigXElement("OrderItemId", lastOrderItemID);
+                    XmlTools.SaveConfigXElement("ProductId", lastProductID);
+                    break;
             }
-        //******************************************************************************//
+        //****************************************************************************//
             Console.WriteLine("Enter 0 to end\n " +
                 "Enter 1 for product\n " +
                 "Enter 2 for order\n " +
