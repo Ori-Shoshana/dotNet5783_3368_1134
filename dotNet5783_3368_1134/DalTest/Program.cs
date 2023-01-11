@@ -412,10 +412,8 @@ internal class Program
 
                     int lastOrderItemID = dal.OrderItem.GetAll().Last()?.OrderItemID ?? 0;
                     int lastOrderID = dal.Order.GetAll().Last()?.OrderID ?? 0;
-                    int lastProductID = dal.Product.GetAll().Last()?.ProductID ?? 0;
-                    XmlTools.SaveConfigXElement("OrderId", lastOrderID);
-                    XmlTools.SaveConfigXElement("OrderItemId", lastOrderItemID);
-                    XmlTools.SaveConfigXElement("ProductId", lastProductID);
+                    XmlTools.SaveConfigXElement("OrderID", lastOrderID);
+                    XmlTools.SaveConfigXElement("OrderItemID", lastOrderItemID);
                     break;
             }
         //****************************************************************************//
