@@ -12,7 +12,9 @@ sealed internal class DalXml : IDal
 {
     private DalXml() { } // constructor stage 6
     public static IDal Instance { get; } = new DalXml(); // stage 6
-    public IOrder Order => new DalOrder();
+
+    //public IOrder Order => new DalOrder();
+    public IOrder order { get; } = new DalOrder();
     public IProduct Product { get; } = new DalProduct();
     public IOrderItem OrderItem { get; } = new DalOrderItem();
 }
