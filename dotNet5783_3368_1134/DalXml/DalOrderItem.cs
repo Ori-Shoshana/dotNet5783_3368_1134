@@ -88,7 +88,6 @@ internal class DalOrderItem : IOrderItem
     public int ListLength()
     {
         List<DO.OrderItem?> ListOrderItem = XmlTools.LoadListFromXMLSerializer<DO.OrderItem>(orderItemPath);
-
         return ListOrderItem.Count();
     }
     /// <summary>
