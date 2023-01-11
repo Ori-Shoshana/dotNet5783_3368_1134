@@ -20,29 +20,29 @@ internal class DalOrder : IOrder
     /// The operation accepts an order and adds it in the array
     /// </summary>
     /// <returns> returns order id </returns>
-    public int Add(Order entity)
+    public int Add(Order ord)
     {
         List<DO.Order?> ListOrder = XmlTools.LoadListFromXMLSerializer<DO.Order>(orderPath);
 
-        if (ListOrder.FirstOrDefault(orderItem => orderItem?.OrderID == entity.OrderID) != null)
+        if (ListOrder.FirstOrDefault(orderItem => orderItem?.OrderID == ord.OrderID) != null)
             throw new Exception("id already exist");
 
-        entity.OrderID = int.Parse(config.Element("OrderId")!.Value) + 1;
-        ListOrder.Add(entity);
+        ord.OrderID = int.Parse(config.Element("OrderId")!.Value) + 1;
+        ListOrder.Add(ord);
 
         XmlTools.SaveListToXMLSerializer(ListOrder, orderPath);
 
-        return entity.OrderID;
+        return ord.OrderID;
     }
     /// <summary>
     ///  The operation deletes an order from the array (finds him by id)
     /// </summary>
-    public void Delete(int id)
+    public void Delete(int ordId)
     {
         List<DO.Order?> ListOrder = XmlTools.LoadListFromXMLSerializer<DO.Order>(orderPath);
 
-        if (ListOrder.Any(order => order?.OrderID == id ))
-            ListOrder.Remove(GetById(id));
+        if (ListOrder.Any(order => order?.OrderID == ordId ))
+            ListOrder.Remove(GetById(ordId));
         else
             throw new DO.IdNotExistException("order does not exist");
         XmlTools.SaveListToXMLSerializer(ListOrder, orderPath);
@@ -74,11 +74,11 @@ internal class DalOrder : IOrder
     /// <summary>
     ///  The operation finds the order (finds him by id) and returns his details
     /// </summary>
-    public Order GetById(int id)
+    public Order GetById(int ordId)
     {
         List<DO.Order?> ListOrder = XmlTools.LoadListFromXMLSerializer<DO.Order>(orderPath);
 
-        var ord = ListOrder.FirstOrDefault(x => x?.OrderID == id);
+        var ord = ListOrder.FirstOrDefault(x => x?.OrderID == ordId);
 
         if (ord == null)
             throw new DO.IdNotExistException("Order Id not found");
@@ -96,16 +96,16 @@ internal class DalOrder : IOrder
     /// <summary>
     /// The operation updates an order in the array (finds him by id)
     /// </summary>
-    public void Update(Order entity)
+    public void Update(Order order)
     {
         List<DO.Order?> ListOrder = XmlTools.LoadListFromXMLSerializer<DO.Order>(orderPath);
         bool found = false;
-        var foundOrder = ListOrder.FirstOrDefault(ord => ord?.OrderID == entity.OrderID);
+        var foundOrder = ListOrder.FirstOrDefault(ord => ord?.OrderID == order.OrderID);
         if (foundOrder != null)
         {
             found = true;
             int index = ListOrder.IndexOf(foundOrder);
-            ListOrder[index] = entity;
+            ListOrder[index] = order;
         }
         if (found == false)
             throw new DO.IdNotExistException("Order Id not found");

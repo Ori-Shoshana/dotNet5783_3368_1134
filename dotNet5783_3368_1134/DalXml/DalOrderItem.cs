@@ -19,19 +19,19 @@ internal class DalOrderItem : IOrderItem
     /// The operation accepts an order item and adds it in the array
     /// </summary>
     /// <returns> returns order item id </returns>
-    public int Add(OrderItem entity)
+    public int Add(OrderItem ordItem)
     {
         List<DO.OrderItem?> listOrderItem = XmlTools.LoadListFromXMLSerializer<DO.OrderItem>(orderItemPath);
 
-        if (listOrderItem.FirstOrDefault(orderItem => orderItem?.OrderItemID == entity.OrderItemID) != null)
+        if (listOrderItem.FirstOrDefault(orderItem => orderItem?.OrderItemID == ordItem.OrderItemID) != null)
             throw new DO.IdAlreadyExistException("order item Id already exists");
 
-        entity.OrderItemID = int.Parse(config.Element("OrderItemId")!.Value) + 1;
-        listOrderItem.Add(entity);
+        ordItem.OrderItemID = int.Parse(config.Element("OrderItemId")!.Value) + 1;
+        listOrderItem.Add(ordItem);
 
         XmlTools.SaveListToXMLSerializer(listOrderItem, orderItemPath);
 
-        return entity.OrderItemID;
+        return ordItem.OrderItemID;
     }
     /// <summary>
     ///  The operation deletes an order item from the array (finds him by id)
@@ -72,11 +72,11 @@ internal class DalOrderItem : IOrderItem
     /// <summary>
     ///  The operation finds the order item (finds him by id) and returns his details
     /// </summary>
-    public OrderItem GetById(int id)
+    public OrderItem GetById(int ordItemId)
     {
         List<DO.OrderItem?> ListOrderItem = XmlTools.LoadListFromXMLSerializer<DO.OrderItem>(orderItemPath);
 
-        var orderItem = ListOrderItem.FirstOrDefault(x => x?.OrderItemID == id);
+        var orderItem = ListOrderItem.FirstOrDefault(x => x?.OrderItemID == ordItemId);
         if (orderItem == null)
             throw new DO.IdNotExistException("order item id not found");
         else
@@ -88,22 +88,23 @@ internal class DalOrderItem : IOrderItem
     public int ListLength()
     {
         List<DO.OrderItem?> ListOrderItem = XmlTools.LoadListFromXMLSerializer<DO.OrderItem>(orderItemPath);
+
         return ListOrderItem.Count();
     }
     /// <summary>
     /// The operation updates an order item in the array (finds him by id)
     /// </summary>
-    public void Update(OrderItem entity)
+    public void Update(OrderItem ordItem)
     {
         List<DO.OrderItem?> ListOrderItem = XmlTools.LoadListFromXMLSerializer<DO.OrderItem>(orderItemPath);
 
         bool found = false;
-        var foundOrderItem = ListOrderItem.FirstOrDefault(ordItem => ordItem?.OrderItemID == entity.OrderItemID);
+        var foundOrderItem = ListOrderItem.FirstOrDefault(Item => Item?.OrderItemID == ordItem.OrderItemID);
         if (foundOrderItem != null)
         {
             found = true;
             int index = ListOrderItem.IndexOf(foundOrderItem);
-            ListOrderItem[index] = entity;
+            ListOrderItem[index] = ordItem;
         }
         if (found == false)
             throw new DO.IdNotExistException("order item id not found");
