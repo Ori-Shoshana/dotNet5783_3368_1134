@@ -15,7 +15,7 @@
         <ListView x:Name="ProductItemListView" 
                   ItemsSource="{Binding productItem}" 
                   d:ItemsSource="{d:SampleData ItemCount=5}" 
-                  Margin="140,58,140,89" 
+                  Margin="120,58,120,89" 
                   SelectionChanged="ListView_SelectionChanged" 
                   MouseDoubleClick="ProductItemListView_MouseDoubleClick">
             <ListView.View>
@@ -46,10 +46,44 @@
                     Header = "In Stock"
                     Width = "70" />
 
-                    <GridViewColumn Header="Add" Width="65">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="+" Click="Button_Click_2" />
+                  
+                    <GridViewColumn>
+                        <GridViewColumnHeader
+                                Content="Amount" 
+                                />
+                        <GridViewColumn.CellTemplate >
+                            <DataTemplate >
+                                <StackPanel Orientation="Horizontal">
+                                    <Button
+                                            x:Name="Decrease"
+                                            IsEnabled="{Binding StatusControlersObservableCollection[0] ,ElementName=MyWindow }"
+                                            Width="20" Height="20" Padding="0"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center" 
+                                            FontSize="14" 
+                                            Click="Decrease_Click" 
+                                            Content="-" 
+                                            Tag="{Binding ProductID}"
+                                            />
+                                    
+                                    <Label Content="{Binding Amount}" />
+
+
+                                    <Button 
+                                            x:Name="Increase"
+                                            IsEnabled="{Binding StatusControlersObservableCollection[0] ,ElementName=MyWindow }"
+                                            Visibility="{Binding StatusControlersObservableCollection[2] ,ElementName=MyWindow }"
+                                            Width="20" 
+                                            Height="20"
+                                            Padding="0"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            Click="Button_Click_2"
+                                            Content="+" 
+                                            FontSize="14"  
+                                        />
+
+                                </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

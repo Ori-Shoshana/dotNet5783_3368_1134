@@ -12,7 +12,7 @@
             <ImageBrush ImageSource="/Product/MYPhoto.jpg"/>
         </Grid.Background>
         <Label Content="ID" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="237,80,0,0" RenderTransformOrigin="0.462,-2.636" FontWeight="Bold" FontSize="16" FontFamily="Verdana" Foreground="#FFE4E4EC"/>
-        <TextBox Name="ID" HorizontalAlignment="Left" Margin="346,90,0,0" TextWrapping="Wrap" Text="{Binding product.ID,  Mode=TwoWay}" VerticalAlignment="Top" Width="160" TextChanged="ID_TextChanged"/>
+        <TextBox Name="ID" IsReadOnly="True" HorizontalAlignment="Left" Margin="346,90,0,0" TextWrapping="Wrap" Text="{Binding product.ID,  Mode=TwoWay}" VerticalAlignment="Top" Width="160" TextChanged="ID_TextChanged"/>
 
         <Label Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="237,120,0,0" RenderTransformOrigin="0.462,-2.636" FontSize="16" FontFamily="Verdana" FontWeight="Bold" Foreground="#FFE4E4EC"/>
         <TextBox Name="Name" HorizontalAlignment="Left" Margin="346,130,0,0" TextWrapping="Wrap" Text="{Binding product.Name,  Mode=TwoWay}" VerticalAlignment="Top" Width="160"/>

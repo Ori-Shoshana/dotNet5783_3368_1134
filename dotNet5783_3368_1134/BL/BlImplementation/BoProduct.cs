@@ -115,7 +115,7 @@ internal class BoProduct : BlApi.IProduct
         if (product.Name == null) throw new BO.VariableIsNullExeption("The name is null");
         if (product.Price <= 0) throw new BO.VariableIsSmallerThanZeroExeption("the price is less than 0");
         if (product.InStock < 0) throw new BO.VariableIsSmallerThanZeroExeption("the stock is less than 0");
-
+        Random rand = new Random();
         DO.Product DoProduct = new DO.Product();
         //if(product.ID !=null)
         DoProduct.ProductID = (int)product.ID;

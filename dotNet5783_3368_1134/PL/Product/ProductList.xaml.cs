@@ -1,5 +1,4 @@
-﻿using BO;
-using DO;
+﻿
 using PL.Cart;
 using System;
 using System.Collections.Generic;
@@ -82,8 +81,7 @@ namespace PL.Product
         private void AddButton_Click(object sender, RoutedEventArgs e) 
         {
             BO.Product product = new BO.Product();
-            Action<int>? action = null;
-            new Product.UpdateProduct(product.ID, false, action).Show();
+            new Product.UpdateProduct(product.ID, false, addToProducts).Show();
         }
 
         /// <summary>
@@ -92,20 +90,23 @@ namespace PL.Product
         private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.ProductForList? product1 = new BO.ProductForList();
-            BO.Product? product = new BO.Product();
-
-        
-            product1 = (BO.ProductForList)ProductListview.SelectedItem;
-            product = bl?.Product.ProductDetailsM(product1.ID);
+       
             if ((BO.ProductForList)ProductListview.SelectedItem != null)
             {
-                new Product.UpdateProduct(product1.ID, false, addToProducts).Show();
+                product1 = (BO.ProductForList)ProductListview.SelectedItem;
+                new Product.UpdateProduct(product1.ID, false, UpdateToProducts).Show();
             }      
         }
-        private void addToProducts(int productID)
+        private void UpdateToProducts(int productID)
         {
             var x = ProductListview.SelectedIndex;
             products[x] = (bl?.Product.GetProductForList(a => a?.ProductID == productID).First());
+        }
+
+        private void addToProducts(int productID)
+        {
+            BO.ProductForList? p = (bl?.Product.GetProductForList(a => a?.ProductID == productID)!).First();
+            products.Add(p);
         }
     }
 }

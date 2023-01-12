@@ -124,6 +124,8 @@ namespace PL.Product
             bool check = false;
             try
             {
+                Random random = new Random();
+                product.ID = random.Next(100000, 999999);
                 bl?.Product.Add(product);
                 check = true;
             }

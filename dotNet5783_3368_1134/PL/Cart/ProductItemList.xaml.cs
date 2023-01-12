@@ -117,5 +117,9 @@ namespace PL.Cart
             productItem[x] = ((bl?.Product.GetProductItem(a => a?.ProductID == productID).First()));
         }
 
+        private void Decrease_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

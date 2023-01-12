@@ -26,11 +26,12 @@ internal class DalProduct : IProduct
     }
     public int Add(Product product)
     {
+        Random rnd = new Random();
         XElement product_root = XmlTools.LoadListFromXMLElement(productPath);
         if (product.ProductID == 0)
         {
-            product.ProductID = int.Parse(config.Element("ProductId")!.Value) + 1;
-            XmlTools.SaveConfigXElement("ProductId", product.ProductID);
+            product.ProductID = rnd.Next(100000,999999);
+            XmlTools.SaveConfigXElement("ProductID", product.ProductID);
         }
         XElement? prod = (from st in product_root.Elements()
                           where st.ToIntNullable("ProductID") == product.ProductID

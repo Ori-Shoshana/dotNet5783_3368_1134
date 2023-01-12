@@ -560,4 +560,18 @@
 		<PriceItem>4000</PriceItem>
 		<Amount>3</Amount>
 	</OrderItem>
+	<OrderItem>
+		<OrderItemID>10081</OrderItemID>
+		<OrderId>10021</OrderId>
+		<ProductID>601151</ProductID>
+		<PriceItem>12</PriceItem>
+		<Amount>2</Amount>
+	</OrderItem>
+	<OrderItem>
+		<OrderItemID>10082</OrderItemID>
+		<OrderId>10022</OrderId>
+		<ProductID>153133</ProductID>
+		<PriceItem>850</PriceItem>
+		<Amount>1</Amount>
+	</OrderItem>
 </ArrayOfOrderItem>

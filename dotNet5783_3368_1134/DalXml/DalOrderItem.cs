@@ -3,6 +3,7 @@ using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -27,6 +28,7 @@ internal class DalOrderItem : IOrderItem
             throw new DO.IdAlreadyExistException("order item Id already exists");
 
         ordItem.OrderItemID = int.Parse(config.Element("OrderItemID")!.Value) + 1;
+        XmlTools.SaveConfigXElement("OrderItemID", ordItem.OrderItemID);
         listOrderItem.Add(ordItem);
 
         XmlTools.SaveListToXMLSerializer(listOrderItem, orderItemPath);
