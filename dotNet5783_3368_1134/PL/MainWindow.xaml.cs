@@ -73,7 +73,11 @@ namespace PL
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            new Cart.ProductItemList().Show();
+            var ProductItemList = new Cart.ProductItemList();
+            ProductItemList.WindowStartupLocation = WindowStartupLocation.Manual;
+            ProductItemList.Left = this.Left;
+            ProductItemList.Top = this.Top;
+            ProductItemList.Show();
             Close();
         }
 
