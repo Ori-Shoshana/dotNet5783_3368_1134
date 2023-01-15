@@ -96,7 +96,7 @@ namespace PL.Cart
 
         private void UpdateToOrders(BO.Cart? ProductID1)
         {
-            cartItems = ProductID1.Items;
+                MessageBox.Show(ex.Message);
         }
 
         private void Decrease_Click(object sender, RoutedEventArgs e)
