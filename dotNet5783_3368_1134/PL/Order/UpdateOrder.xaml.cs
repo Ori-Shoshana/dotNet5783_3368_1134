@@ -1,4 +1,5 @@
-﻿using BO;
+﻿
+using BO;
 using DO;
 using PL.Product;
 using System;
@@ -86,13 +87,14 @@ namespace PL.Order
 
         }
 
-       
-
         private void Status_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// update delivery for an order
+        /// </summary>
         private void UpdateBottun_Click(object sender, RoutedEventArgs e)
         {
             bool check = false;
@@ -119,7 +121,10 @@ namespace PL.Order
             Action?.Invoke(orderBinding.ID);
 
         }
-
+        
+        /// <summary>
+        /// update shipping for an order
+        /// </summary>
         private void UpdateBottunShiping_Click(object sender, RoutedEventArgs e)
         {
             bool check = false;
@@ -167,6 +172,9 @@ namespace PL.Order
 
         }
 
+        /// <summary>
+        /// back to the order details
+        /// </summary>
         private void GoBackToListOrderTracking_Click(object sender, RoutedEventArgs e)
         {
             int? id = ID1;
@@ -184,7 +192,6 @@ namespace PL.Order
         {
 
         }
-
-      
+        
     }
 }

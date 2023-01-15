@@ -24,11 +24,10 @@ namespace PL.Product
     {
         private Action<int> Action;
         BlApi.IBl? bl = BlApi.Factory.Get();
+      
         /// <summary>
         /// entering the product update window
         /// </summary>
-        /// 
-
         public BO.Product? product
         {
             get { return (BO.Product)GetValue(productProperty); }
@@ -36,7 +35,10 @@ namespace PL.Product
         }
         public static readonly DependencyProperty productProperty = DependencyProperty.Register(
         "product", typeof(BO.Product), typeof(UpdateProduct), new PropertyMetadata(default(BO.Product)));
-
+     
+        /// <summary>
+        /// initialize the update product window
+        /// </summary>
         public UpdateProduct(int product_id, bool check, Action<int> action)
         {
             product = new();
@@ -77,6 +79,7 @@ namespace PL.Product
             }
             
         }
+        
         /// <summary>
         /// back button to return to get back to the list
         /// </summary>
@@ -85,6 +88,7 @@ namespace PL.Product
             new Product.ProductList().Show();
             Close();
         }
+ 
         /// <summary>
         /// updating product (by the data that the user entered
         /// </summary>
@@ -116,6 +120,7 @@ namespace PL.Product
             }
             Action?.Invoke(product.ID);
         }
+ 
         /// <summary>
         /// adding a product to the products list
         /// </summary>
@@ -168,5 +173,6 @@ namespace PL.Product
         {
             Close();
         }
+
     }
 }

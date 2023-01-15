@@ -1,7 +1,8 @@
 ﻿
-using DO;
 namespace DalApi;
-
+/// <summary>
+/// interface Icrud decleration of all the functions
+/// </summary>
 public interface ICrud<T> where T : struct
 {
     int Add(T entity);  

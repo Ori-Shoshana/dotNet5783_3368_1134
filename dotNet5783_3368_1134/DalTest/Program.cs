@@ -13,8 +13,6 @@ using static DO.Enums;
 /// </summary>
 internal class Program
 {
-
-
     public static DalApi.IDal? dal = DalApi.Factory.Get();
     static void Main(string[] args)
     {
@@ -24,7 +22,6 @@ internal class Program
                         "Enter 2 for order\n " +
                         "Enter 3 for order item:");
 
-
         bool check;
         int tempInt;
         double tempDouble;
@@ -33,7 +30,7 @@ internal class Program
         check = int.TryParse(Console.ReadLine(), out option);
         while (option != 0) // 0 ends the program
         {
-
+            // switch - case 1 for product, case 2 for order, case 3 for order item
             switch (option)
             {
                 //***************************** all the options for product *************************//
@@ -75,7 +72,7 @@ internal class Program
                             TestAddProduct.InStock = tempInt;
                             try
                             {
-                                dal.Product.Add(TestAddProduct);
+                                dal?.Product.Add(TestAddProduct);
                             }
                             catch (IdAlreadyExistException ex)
                             {
@@ -90,7 +87,8 @@ internal class Program
                             int getId = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                GetProduct = dal.Product.GetById(getId);
+                                if (dal != null)
+                                    GetProduct = dal.Product.GetById(getId);
                             }
                             catch (IdNotExistException ex)
                             {
@@ -106,7 +104,7 @@ internal class Program
 
                             int counter = 0;
                             List<Product?> products = new List<Product?>(dal.Product.GetAll());
-                            foreach (Product product in dal.Product.GetAll())
+                            foreach (Product? product in dal.Product.GetAll())
                             {
                                 if (counter == dal.Product.ListLength())
                                 {
@@ -126,7 +124,6 @@ internal class Program
 
                             TestUpdateProduct.ProductName = Console.ReadLine();
 
-
                             Console.WriteLine("Add Prodoct Category");
                             productCategory categoryPr;
                             productCategory.TryParse(Console.ReadLine(), out categoryPr);
@@ -140,7 +137,7 @@ internal class Program
                             TestUpdateProduct.InStock = tempInt;
                             try
                             {
-                                dal.Product.Update(TestUpdateProduct);
+                                dal?.Product.Update(TestUpdateProduct);
                             }
                             catch (IdNotExistException ex)
                             {
@@ -154,7 +151,7 @@ internal class Program
                             int ID = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                dal.Product.Delete(ID);
+                                dal?.Product.Delete(ID);
                             }
                             catch (IdNotExistException ex)
                             {
@@ -201,7 +198,8 @@ internal class Program
                             TestAddOrder.DeliveryDate = Convert.ToDateTime(Console.ReadLine());
                             try
                             {
-                                dal.Order.Add(TestAddOrder);
+                                if (dal != null)
+                                    dal.Order.Add(TestAddOrder);
                             }
                             catch (IdAlreadyExistException ex)
                             {
@@ -216,8 +214,9 @@ internal class Program
                             int getId = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                GetOrder = dal.Order.GetById(getId);
-                                Console.WriteLine(GetOrder);
+                                if (dal != null)
+                                    GetOrder = dal.Order.GetById(getId);
+                                    Console.WriteLine(GetOrder);
                             }
                             catch (IdNotExistException ex)
                             {
@@ -229,7 +228,7 @@ internal class Program
 
                             List<Order?> orders = new List<Order?>(dal.Order.GetAll());
                             int counter = 0;
-                            foreach (Order order in orders)
+                            foreach (Order? order in orders)
                             {
 
                                 if (counter == dal.Order.ListLength())
@@ -261,7 +260,7 @@ internal class Program
                             TestupdateOrder.DeliveryDate = Convert.ToDateTime(Console.ReadLine());
                             try
                             {
-                                dal.Order.Update(TestupdateOrder);
+                                dal?.Order.Update(TestupdateOrder);
                             }
                             catch (IdNotExistException ex)
                             {
@@ -274,7 +273,7 @@ internal class Program
                             int ID = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                dal.Order.Delete(ID);
+                                dal?.Order.Delete(ID);
                             }
                             catch (IdNotExistException ex)
                             {
@@ -321,7 +320,7 @@ internal class Program
                             TestAddOrderItem.Amount = tempInt;
                             try
                             {
-                                dal.OrderItem.Add(TestAddOrderItem);
+                                dal?.OrderItem.Add(TestAddOrderItem);
                             }
                             catch (IdAlreadyExistException ex)
                             {
@@ -349,7 +348,7 @@ internal class Program
 
                             List<OrderItem?> orderItems = new List<OrderItem?>(dal.OrderItem.GetAll());
                             int counter = 0;
-                            foreach (OrderItem orderItem in orderItems)
+                            foreach (OrderItem? orderItem in orderItems)
                             {
 
                                 if (counter == dal.OrderItem.ListLength())
@@ -381,7 +380,7 @@ internal class Program
                             TestUpdateOrderItem.Amount = tempInt;
                             try
                             {
-                                dal.OrderItem.Update(TestUpdateOrderItem);
+                                dal?.OrderItem.Update(TestUpdateOrderItem);
                             }
                             catch (IdNotExistException ex)
                             {
@@ -394,7 +393,7 @@ internal class Program
                             int ID = Convert.ToInt32(Console.ReadLine());
                             try
                             {
-                                dal.OrderItem.Delete(ID);
+                                dal?.OrderItem.Delete(ID);
                             }
                             catch (IdNotExistException ex)
                             {

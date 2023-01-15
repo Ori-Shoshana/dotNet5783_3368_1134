@@ -1,13 +1,11 @@
-﻿using Microsoft.VisualBasic.FileIO;
+﻿
+using Microsoft.VisualBasic.FileIO;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Security.Cryptography;
-
-namespace Dal;
 using static Dal.DataSource;
 using DalApi;
-using DO;
-
+namespace Dal;
 
 /// <summary>
 /// class DalOrder: 
@@ -29,6 +27,7 @@ internal class DalOrder : IOrder
         }
         throw new DO.IdAlreadyExistException("order Id already exists");
     }
+
     /*if (DataSource.ListOrder.Any(order => order?.OrderID == ord.OrderID))
        throw new DO.IdAlreadyExistException("Order Id already exists");
        DataSource.ListOrder.Add(ord);return ord.OrderID;*/
@@ -59,6 +58,7 @@ internal class DalOrder : IOrder
         if (found == false)
             throw new DO.IdNotExistException("Order Id not found");
     }
+
     /// <summary>
     ///  The operation finds the order (finds him by id) and returns his details
     /// </summary>
@@ -79,8 +79,8 @@ internal class DalOrder : IOrder
     {
         var orders = listOrder.Where(ord => func == null || func(ord)).ToList();
         return orders;
-    }
-    
+    }   
+
     /// <summary>
     /// returns array length
     /// </summary>

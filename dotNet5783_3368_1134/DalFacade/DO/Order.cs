@@ -1,4 +1,6 @@
-﻿namespace DO;
+﻿
+namespace DO;
+
 /// <summary>
 /// struct Order:
 /// properties: private id, customer name, cusomer email, casomer adress, order date, ship date, delivery date

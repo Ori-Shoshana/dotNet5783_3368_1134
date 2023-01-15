@@ -8,6 +8,9 @@ using DalApi;
 using DO;
 namespace Dal;
 
+/// <summary>
+/// class DalXml inherits IDal (initialize order / product / orderitem)
+/// </summary>
 sealed internal class DalXml : IDal
 {
     private DalXml() { } // constructor stage 6

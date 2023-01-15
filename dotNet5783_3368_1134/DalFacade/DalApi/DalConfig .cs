@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace DalApi;
 
 using System.Xml.Linq;
-
+/// <summary>
+/// dal config according to the instructions
+/// </summary>
 static class DalConfig
 {
     internal static string? s_dalName;

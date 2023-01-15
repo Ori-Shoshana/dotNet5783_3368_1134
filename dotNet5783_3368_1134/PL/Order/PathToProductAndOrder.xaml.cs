@@ -24,18 +24,27 @@ namespace PL.Order
             InitializeComponent();
         }
 
+        /// <summary>
+        /// shows product list
+        /// </summary>
         private void Button_Click_Product(object sender, RoutedEventArgs e)
         {
             new Product.ProductList().Show();
             Close();
         }
 
+        /// <summary>
+        /// shows order list
+        /// </summary>
         private void Button_Click_Order(object sender, RoutedEventArgs e)
         {
             new Order.OrderList().Show();
             Close();
         }
 
+        /// <summary>
+        /// back to main window
+        /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             new PL.MainWindow().Show();

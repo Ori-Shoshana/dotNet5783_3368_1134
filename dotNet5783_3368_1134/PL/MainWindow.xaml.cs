@@ -1,4 +1,5 @@
-﻿using PL.Product;
+﻿
+using PL.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,11 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-
         public MainWindow()
         {
             InitializeComponent();
         }
+   
         /// <summary>
         /// button for entering to the options (see the list of products)
         /// </summary>
@@ -42,6 +43,7 @@ namespace PL
         {
 
         }
+ 
         /// <summary>
         /// (bonous) entering to the Update For Manager window
         /// </summary>
@@ -51,6 +53,9 @@ namespace PL
             Close();
         }
 
+        /// <summary>
+        /// shows order details
+        /// </summary>
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -71,6 +76,9 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// initialize product item list
+        /// </summary>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             var ProductItemList = new Cart.ProductItemList();

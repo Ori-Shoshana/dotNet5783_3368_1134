@@ -1,13 +1,9 @@
-﻿using DalApi;
+﻿
+using DalApi;
 using System.ComponentModel;
 using System.Diagnostics;
-
-namespace Dal;
 using static Dal.DataSource;
-using DalApi;
-using DO;
-
-
+namespace Dal;
 
 /// <summary>
 /// class DalOrderItem: 
@@ -78,7 +74,7 @@ internal class DalOrderItem : IOrderItem
         var orderItems = ListOrderItem.Where(ordItem => func == null || func(ordItem)).ToList();
         return orderItems;
     }
-    
+  
     /// <summary>
     /// returns array length
     /// </summary>

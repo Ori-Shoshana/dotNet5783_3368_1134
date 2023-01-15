@@ -29,6 +29,10 @@ namespace PL.Order
         }
         public static readonly DependencyProperty OrderListProperty = DependencyProperty.Register(
         "orderForList", typeof(ObservableCollection<BO.OrderForList?>), typeof(OrderList), new PropertyMetadata(default(ObservableCollection<BO.OrderForList?>)));
+      
+        /// <summary>
+       /// initialize the orders list
+       /// </summary>
         public OrderList()
         {
             orderForList = new ObservableCollection<BO.OrderForList?>(bl?.Order.GetOrders()!);
@@ -40,12 +44,18 @@ namespace PL.Order
 
         }
 
+        /// <summary>
+        /// shows the order list
+        /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             new Order.PathToProductAndOrder().Show();
             Close();
         }
-
+      
+        /// <summary>
+        /// opens a window to update an order
+        /// </summary>
         private void OrderListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.OrderTracking? order1 = new BO.OrderTracking();

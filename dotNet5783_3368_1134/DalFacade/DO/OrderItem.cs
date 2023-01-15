@@ -1,4 +1,6 @@
-﻿namespace DO;
+﻿
+namespace DO;
+
 /// <summary>
 /// struct OrderItem:
 /// properties: private id, order id, product id, price, amount.
@@ -17,5 +19,4 @@ public struct OrderItem
     Price : {PriceItem}
     Amount : {Amount}
     ";
-
 }

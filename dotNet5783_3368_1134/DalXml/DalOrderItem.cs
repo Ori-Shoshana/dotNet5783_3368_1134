@@ -1,4 +1,5 @@
-﻿using DalApi;
+﻿
+using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-
 namespace Dal;
-
 internal class DalOrderItem : IOrderItem
 {
     const string orderItemPath = "OrderItem";
@@ -35,6 +34,7 @@ internal class DalOrderItem : IOrderItem
 
         return ordItem.OrderItemID;
     }
+ 
     /// <summary>
     ///  The operation deletes an order item from the array (finds him by id)
     /// </summary>
@@ -49,6 +49,7 @@ internal class DalOrderItem : IOrderItem
 
         XmlTools.SaveListToXMLSerializer(ListOrderItem, orderItemPath);
     }
+ 
     /// <summary>
     /// The operation returns the full array
     /// </summary>
@@ -71,6 +72,7 @@ internal class DalOrderItem : IOrderItem
         }
         throw new DO.NoObjectFoundExeption("No object is of the delegate");
     }
+ 
     /// <summary>
     ///  The operation finds the order item (finds him by id) and returns his details
     /// </summary>
@@ -84,6 +86,7 @@ internal class DalOrderItem : IOrderItem
         else
             return (DO.OrderItem)orderItem;
     }
+ 
     /// <summary>
     /// returns array length
     /// </summary>
@@ -93,6 +96,7 @@ internal class DalOrderItem : IOrderItem
 
         return ListOrderItem.Count();
     }
+ 
     /// <summary>
     /// The operation updates an order item in the array (finds him by id)
     /// </summary>

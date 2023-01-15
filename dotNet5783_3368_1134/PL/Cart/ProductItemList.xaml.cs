@@ -20,7 +20,6 @@ namespace PL.Cart
     /// <summary>
     /// Interaction logic for ProductItemList.xaml
     /// </summary>
-
     public partial class ProductItemList : Window
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
@@ -33,11 +32,13 @@ namespace PL.Cart
         public static readonly DependencyProperty productsProperty = DependencyProperty.Register(
         "productItem", typeof(ObservableCollection<BO.ProductItem?>), typeof(ProductItemList), new PropertyMetadata(default(List<BO.ProductItem?>)));
 
+        /// <summary>
+        /// initialize the product list 
+        /// </summary>
         public ProductItemList()
         {
             productItem = new ObservableCollection<BO.ProductItem>(bl?.Product.GetProductItem()!)!;
             InitializeComponent();
-
 
             for (int i = 0; i < 5; i++)
             {
@@ -51,6 +52,9 @@ namespace PL.Cart
 
         }
 
+        /// <summary>
+        /// shows the list of products (You can filter by category)
+        /// </summary>
         private void CategorySelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CategorySelector.SelectedItem.ToString() != "All")
@@ -63,6 +67,9 @@ namespace PL.Cart
             }
         }
 
+        /// <summary>
+        /// opens the main window
+        /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             new PL.MainWindow().Show();
@@ -75,6 +82,9 @@ namespace PL.Cart
             new Cart.CartList(cart, action).Show();
         }
 
+        /// <summary>
+        /// shows product details after double click on the product
+        /// </summary>
         private void ProductItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
@@ -95,6 +105,9 @@ namespace PL.Cart
 
         }
 
+        /// <summary>
+        /// adding product to the shopping cart
+        /// </summary>
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             BO.ProductItem? product = new BO.ProductItem();

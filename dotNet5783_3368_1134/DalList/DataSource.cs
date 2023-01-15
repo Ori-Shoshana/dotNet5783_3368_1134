@@ -26,6 +26,9 @@ internal static class DataSource
 
     internal static List<Order?> ListOrder { get => listOrder; set => listOrder = value; }
 
+    /// <summary>
+    /// initialize numbers for order and order item
+    /// </summary>
     internal static class config
     {
         private static int orderNumber = 10000;
@@ -33,6 +36,10 @@ internal static class DataSource
         internal static int order_Number { get => ++orderNumber; }
         internal static int runOrderitem_Number { get => ++orderitemNumber; }
     }
+
+    /// <summary>
+    /// Initializes order + product + order item by running their initializers
+    /// </summary>
     internal static void S_Initialize()
     {
         S_product();
@@ -167,10 +174,6 @@ internal static class DataSource
             }
             return true;
         }).ToList();
-
-
     }
-
-
 }
 

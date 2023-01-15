@@ -21,10 +21,13 @@ namespace PL.Order
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         int? ID;
+   
+        /// <summary>
+        /// prints the order (finds her by id)
+        /// </summary>
         public OrderTracking(int? id)
         {
             InitializeComponent();
-
             OrderTackingText.Text = (bl?.Order.Track((int)id!))?.ToString();
             ID = id;
         }
@@ -34,12 +37,14 @@ namespace PL.Order
 
         }
 
+        /// <summary>
+        /// Back to main window
+        /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             new PL.MainWindow().Show();
             Close();
         }
-
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -55,7 +60,6 @@ namespace PL.Order
                 Close();
             }
         }
-
         
     }
 }

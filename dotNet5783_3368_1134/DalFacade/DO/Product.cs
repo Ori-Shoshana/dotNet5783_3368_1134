@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿
+using System.ComponentModel;
 using static DO.Enums;
-
 namespace DO;
 
 /// <summary>
@@ -14,7 +14,6 @@ public struct Product
     public productCategory? Category { get; set; }
     public double Price { get; set; }
     public int InStock { get; set; }
-
     public override string ToString() => $@"
     private Id : {ProductID}
     Prodoct Name : {ProductName}
@@ -22,5 +21,4 @@ public struct Product
     Price : {Price} 
     In Stock : {InStock}
     ";
-
 }
