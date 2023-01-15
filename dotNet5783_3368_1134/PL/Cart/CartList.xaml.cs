@@ -113,8 +113,9 @@ namespace PL.Cart
         /// </summary>
         private void UpdateToOrders(BO.Cart? ProductID1)
         {
-            if(ProductID1 != null)
-                cartItems = ProductID1.Items;
+                MessageBox.Show(ex.Message);
+            //if(ProductID1 != null)
+            //    cartItems = ProductID1.Items;
         }
         private void Decrease_Click(object sender, RoutedEventArgs e)
         {
