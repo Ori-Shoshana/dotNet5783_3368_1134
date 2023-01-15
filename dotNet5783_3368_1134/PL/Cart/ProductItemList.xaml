@@ -49,14 +49,11 @@
                   
                     <GridViewColumn>
                         <GridViewColumnHeader
-                                Content="Amount" 
+                                Content="ADD" 
                                 />
                         <GridViewColumn.CellTemplate >
                             <DataTemplate >
                                 <StackPanel Orientation="Horizontal">
-
-                                    <Label Content="{Binding Amount}" />
-
 
                                     <Button 
                                             x:Name="Increase"
