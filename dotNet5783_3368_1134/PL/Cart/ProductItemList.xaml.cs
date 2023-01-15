@@ -1,8 +1,10 @@
 ﻿using BO;
+using DO;
 using PL.Product;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,13 +26,27 @@ namespace PL.Cart
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
         BO.Cart cart = new BO.Cart();
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        private ObservableCollection<BO.ProductItem?> _productItem;
         public ObservableCollection<BO.ProductItem?> productItem
         {
-            get { return (ObservableCollection<BO.ProductItem?>)GetValue(productsProperty); }
-            set { SetValue(productsProperty, value); }
+            get { return _productItem; }
+            set
+            {
+                _productItem = value;
+                OnPropertyChanged(nameof(productItem));
+            }
         }
-        public static readonly DependencyProperty productsProperty = DependencyProperty.Register(
-        "productItem", typeof(ObservableCollection<BO.ProductItem?>), typeof(ProductItemList), new PropertyMetadata(default(List<BO.ProductItem?>)));
+        //public static readonly DependencyProperty productsProperty = DependencyProperty.Register(
+        //"productItem", typeof(ObservableCollection<BO.ProductItem?>), typeof(ProductItemList), new PropertyMetadata(default(List<BO.ProductItem?>)));
 
         /// <summary>
         /// initialize the product list 
@@ -108,31 +124,19 @@ namespace PL.Cart
         /// <summary>
         /// adding product to the shopping cart
         /// </summary>
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void AddAmount_Click(object sender, RoutedEventArgs e)
         {
             BO.ProductItem? product = new BO.ProductItem();
             product = (sender as Button)?.DataContext as BO.ProductItem;
             try
-            { 
+            {
                 cart = bl?.Cart.Add(cart, (int)product?.ID!)!;
-                MessageBox.Show("Added !");
+                MessageBox.Show("Added!");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-        }
-
-        private void UpdateToProducts(int productID)
-        {
-            var x = ProductItemListView.SelectedIndex;
-            productItem[x] = ((bl?.Product.GetProductItem(a => a?.ProductID == productID).First()));
-        }
-
-        private void Decrease_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

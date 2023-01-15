@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,29 +20,43 @@ namespace PL.Cart
     /// <summary>
     /// Interaction logic for CartList.xaml
     /// </summary>
-    public partial class CartList : Window
+    public partial class CartList : Window , INotifyPropertyChanged
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
-        private Action<int> Action;
 
         /// <summary>
         /// returns list of order items
         /// </summary>
-        public List<BO.OrderItem?>? cartItems
+        protected void OnPropertyChanged(string propertyName)
         {
-            get { return (List<BO.OrderItem?>) GetValue(cartProperty); }
-            set { SetValue(cartProperty, value); }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public static readonly DependencyProperty cartProperty = DependencyProperty.Register(
-        "cartItems", typeof(List<BO.OrderItem?>), typeof(CartList), new PropertyMetadata(default(List<BO.OrderItem?>)));
 
-        public BO.Cart? cart
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private ObservableCollection<BO.OrderItem> _cartItems;
+        public ObservableCollection<BO.OrderItem> cartItems
         {
-            get { return (BO.Cart?)GetValue(cartPropertyTotal); }
-            set { SetValue(cartPropertyTotal, value); }
+            get { return _cartItems; }
+            set 
+            { 
+                _cartItems = value;
+                OnPropertyChanged(nameof(cartItems));
+            }
         }
-        public static readonly DependencyProperty cartPropertyTotal = DependencyProperty.Register(
-        "cart", typeof(BO.Cart), typeof(CartList), new PropertyMetadata(default(BO.Cart?)));
+
+        private BO.Cart _cart;
+        public BO.Cart cart
+        {
+            get { return _cart; }
+            set
+            {
+                _cart = value;
+                OnPropertyChanged(nameof(cart));
+            }
+        }
+   
+ 
 
         BO.Cart dataCart = new BO.Cart();
 
@@ -52,11 +67,10 @@ namespace PL.Cart
         {
             if (cart1?.Items != null)
             {
-                cartItems = new List<BO.OrderItem?>(cart1.Items);
+                cartItems = new ObservableCollection<BO.OrderItem>(cart1.Items!);
             }
             cart = new();
             InitializeComponent();
-            this.Action = action;
             cart = cart1;
             if(cart1 != null)
                 dataCart = cart1;
@@ -98,28 +112,38 @@ namespace PL.Cart
         {
 
         }
-       
         /// <summary>
         /// update new amount to the product in the cart
         /// </summary>
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void AddAmount_Click(object sender, RoutedEventArgs e)
         {
             BO.OrderItem? item = (sender as Button)?.DataContext as BO.OrderItem;
-            new Cart.newAmount(dataCart, item, UpdateToOrders).Show();
-        }
+            try
+            {
+                int temp = item.Amount + 1;
+                cart = bl?.Cart.Update(dataCart, item.ProductID, temp)!;
+                cartItems = new ObservableCollection<BO.OrderItem>(cart.Items!);
 
-        /// <summary>
-        /// update the cart list
-        /// </summary>
-        private void UpdateToOrders(BO.Cart? ProductID1)
-        {
+            }
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message);
-            //if(ProductID1 != null)
-            //    cartItems = ProductID1.Items;
+            }
         }
         private void Decrease_Click(object sender, RoutedEventArgs e)
         {
+            BO.OrderItem? item = (sender as Button)?.DataContext as BO.OrderItem;
+            try
+            {
+                int temp = item.Amount - 1;
+                cart = bl?.Cart.Update(dataCart, item.ProductID, temp)!;
+                cartItems = new ObservableCollection<BO.OrderItem>(cart.Items!);
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

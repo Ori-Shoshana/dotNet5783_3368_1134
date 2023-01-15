@@ -54,31 +54,19 @@
                         <GridViewColumn.CellTemplate >
                             <DataTemplate >
                                 <StackPanel Orientation="Horizontal">
-                                    <Button
-                                            x:Name="Decrease"
-                                            IsEnabled="{Binding StatusControlersObservableCollection[0] ,ElementName=MyWindow }"
-                                            Width="20" Height="20" Padding="0"
-                                            HorizontalContentAlignment="Center"
-                                            VerticalContentAlignment="Center" 
-                                            FontSize="14" 
-                                            Click="Decrease_Click" 
-                                            Content="-" 
-                                            Tag="{Binding ProductID}"
-                                            />
-                                    
+
                                     <Label Content="{Binding Amount}" />
 
 
                                     <Button 
                                             x:Name="Increase"
-                                            IsEnabled="{Binding StatusControlersObservableCollection[0] ,ElementName=MyWindow }"
                                             Visibility="{Binding StatusControlersObservableCollection[2] ,ElementName=MyWindow }"
                                             Width="20" 
                                             Height="20"
                                             Padding="0"
                                             HorizontalContentAlignment="Center"
                                             VerticalContentAlignment="Center"
-                                            Click="Button_Click_2"
+                                            Click="AddAmount_Click"
                                             Content="+" 
                                             FontSize="14"  
                                         />
