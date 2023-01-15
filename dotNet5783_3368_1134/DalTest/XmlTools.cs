@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -121,6 +122,9 @@ static class XmlTools
     }
     #endregion
 
+    /// <summary>
+    /// loading xml files
+    /// </summary>
     public static XElement LoadConfig()
     {
         string filePath = $"{s_dir}Config.xml";

@@ -48,7 +48,10 @@ namespace PL.Cart
         {
 
         }
-
+   
+        /// <summary>
+        ///  update amount of product in the cart
+        /// </summary>
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)

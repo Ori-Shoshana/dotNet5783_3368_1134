@@ -51,6 +51,7 @@ namespace PL.Product
         {
             
         }
+
         /// <summary>
         ///  showing the products of a specific category 
         /// </summary>
@@ -75,6 +76,7 @@ namespace PL.Product
             new Order.PathToProductAndOrder().Show();
             Close();
         }
+   
         /// <summary>
         /// open the window of adding product   
         /// </summary>

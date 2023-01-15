@@ -5,9 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using DO;
 
 namespace Dal;
-using DO;
+
+/// <summary>
+/// xml tools
+/// </summary>
 static class XmlTools
 {
     static string? s_dir = Directory.GetParent(System.IO.Directory.GetCurrentDirectory())?.FullName + @"\xml\";

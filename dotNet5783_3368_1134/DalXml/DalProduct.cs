@@ -1,4 +1,5 @@
-﻿using DalApi;
+﻿
+using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,11 @@ internal class DalProduct : IProduct
             InStock = (int)s.Element("InStock")!
         };
     }
+
+    /// <summary>
+    /// The operation accepts a product and adds it in the list
+    /// </summary>
+    /// <returns> returns order id </returns>
     public int Add(Product product)
     {
         Random rnd = new Random();
@@ -49,6 +55,9 @@ internal class DalProduct : IProduct
         return product.ProductID; 
     }
 
+    /// <summary>
+    ///  The operation deletes a product from the array (finds him by id)
+    /// </summary>
     public void Delete(int prodId)
     {
         XElement product_root = XmlTools.LoadListFromXMLElement(productPath);
@@ -62,6 +71,10 @@ internal class DalProduct : IProduct
 
     }
 
+
+    ///     /// <summary>
+    /// The operation returns the list of products
+    /// </summary>
     public IEnumerable<Product?> GetAll(Func<Product?, bool>? func = null)
     {
         XElement? product_root = XmlTools.LoadListFromXMLElement(productPath);
@@ -78,7 +91,10 @@ internal class DalProduct : IProduct
                    select createProductfromXElement(s);
         }
     }
-
+   
+    /// <summary>
+    ///  The operation finds the product and returns him
+    /// </summary>
     public Product GetByDelegate(Func<Product?, bool>? func)
     {
         if (func == null)
@@ -90,6 +106,9 @@ internal class DalProduct : IProduct
                  select p.ConvertProduct_Xml_to_D0()).FirstOrDefault());
     }
 
+    /// <summary>
+    ///  The operation finds the product (by id) and returns him
+    /// </summary>
     public Product GetById(int productId)
     {
         List<DO.Product?> ListProduct = XmlTools.LoadListFromXMLSerializer<DO.Product>(productPath);
@@ -102,12 +121,18 @@ internal class DalProduct : IProduct
             return (DO.Product)product;
     }
 
+    /// <summary>
+    /// returns list length
+    /// </summary>
     public int ListLength()
     {
         List<DO.Product?> ListProduct = XmlTools.LoadListFromXMLSerializer<DO.Product>(productPath);
         return ListProduct.Count;
     }
 
+    /// <summary>
+    /// The operation updates an product in the array (finds him by id)
+    /// </summary>
     public void Update(Product product)
     {
         List<DO.Product?> ListProduct = XmlTools.LoadListFromXMLSerializer<DO.Product>(productPath);

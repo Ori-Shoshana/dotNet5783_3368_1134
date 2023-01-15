@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace PL.Cart
-{
+{ 
     /// <summary>
     /// Interaction logic for CartList.xaml
     /// </summary>
@@ -24,7 +24,9 @@ namespace PL.Cart
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
 
-
+        /// <summary>
+        /// returns list of order items
+        /// </summary>
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -57,6 +59,10 @@ namespace PL.Cart
  
 
         BO.Cart dataCart = new BO.Cart();
+
+        /// <summary>
+        /// initialize the items in cart list
+        /// </summary>
         public CartList(BO.Cart? cart1 , Action<int> action)
         {
             if (cart1?.Items != null)
@@ -66,7 +72,8 @@ namespace PL.Cart
             cart = new();
             InitializeComponent();
             cart = cart1;
-            dataCart = cart1;
+            if(cart1 != null)
+                dataCart = cart1;
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -79,6 +86,9 @@ namespace PL.Cart
             Close();
         }
 
+        /// <summary>
+        ///  button to confirm the shopping cart
+        /// </summary>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             dataCart.CustomerName = Name.Text;
@@ -97,12 +107,14 @@ namespace PL.Cart
             MessageBox.Show("Succeded");
             Close();
         }
-
   
         private void Name_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
+        /// <summary>
+        /// update new amount to the product in the cart
+        /// </summary>
         private void AddAmount_Click(object sender, RoutedEventArgs e)
         {
             BO.OrderItem? item = (sender as Button)?.DataContext as BO.OrderItem;

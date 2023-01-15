@@ -1,4 +1,5 @@
-﻿using DalApi;
+﻿
+using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ internal class DalOrder : IOrder
 {
     const string orderPath = "Order";
     static XElement config = XmlTools.LoadConfig();
+ 
     /// <summary>
     /// The operation accepts an order and adds it in the array
     /// </summary>
@@ -36,6 +38,7 @@ internal class DalOrder : IOrder
 
         return ord.OrderID;
     }
+
     /// <summary>
     ///  The operation deletes an order from the array (finds him by id)
     /// </summary>
@@ -49,6 +52,7 @@ internal class DalOrder : IOrder
             throw new DO.IdNotExistException("order does not exist");
         XmlTools.SaveListToXMLSerializer(ListOrder, orderPath);
     }
+    
     /// <summary>
     /// The operation returns list of orders (maybe after sort)
     /// </summary>
@@ -73,6 +77,7 @@ internal class DalOrder : IOrder
         }
         throw new DO.NoObjectFoundExeption("No object is of the delegate");
     }
+ 
     /// <summary>
     ///  The operation finds the order (finds him by id) and returns his details
     /// </summary>
@@ -87,6 +92,7 @@ internal class DalOrder : IOrder
         else
             return (DO.Order)ord;
     }
+ 
     /// <summary>
     /// returns array length
     /// </summary>
@@ -95,6 +101,7 @@ internal class DalOrder : IOrder
         List<DO.Order?> ListOrder = XmlTools.LoadListFromXMLSerializer<DO.Order>(orderPath);
         return ListOrder.Count();
     }
+ 
     /// <summary>
     /// The operation updates an order in the array (finds him by id)
     /// </summary>

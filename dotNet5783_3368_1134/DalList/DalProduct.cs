@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using static Dal.DataSource;
 using DalApi;
 using System.Security.Cryptography;
@@ -11,7 +12,7 @@ namespace Dal;
 internal class DalProduct : IProduct
 {
     /// <summary>
-    /// The operation accepts a product and adds it in the array
+    /// The operation accepts a product and adds it in the list
     /// </summary>
     /// <returns> returns order id </returns>
     public int Add(DO.Product prod)
@@ -24,6 +25,7 @@ internal class DalProduct : IProduct
         }
         throw new DO.IdAlreadyExistException("Product Id already exists");
     }
+
     //if (DataSource.ListProduct.Any(product => prod.ProductID == product?.ProductID))
     //    throw new DO.IdAlreadyExistException("Product Id already exists");
     //DataSource.ListProduct.Add(prod);   return prod.ProductID;*/
@@ -38,12 +40,13 @@ internal class DalProduct : IProduct
         else
             throw new DO.IdNotExistException("product does not exist");
     }
+   
     //if (DataSource.ListProduct.Any(product => product?.ProductID == prodId))
     //    DataSource.ListProduct.Remove(GetById(prodId));
     //else
     //    throw new DO.IdNotExistException("product does not exist");
     /// <summary>
-    /// The operation updates an order in the array (finds him by id)
+    /// The operation updates an product in the array (finds him by id)
     /// </summary>
     public void Update(DO.Product product)
     { 
@@ -60,7 +63,7 @@ internal class DalProduct : IProduct
     }
 
     /// <summary>
-    ///  The operation finds the order (finds him by id) and returns his details
+    ///  The operation finds the product (by id) and returns him
     /// </summary>
     public DO.Product GetById(int productId)
     {
@@ -73,26 +76,35 @@ internal class DalProduct : IProduct
     }
 
     /// <summary>
-    /// The operation updates the array and returns him
+    /// The operation returns the list of products
     /// </summary>
     public IEnumerable<DO.Product?> GetAll(Func<DO.Product?, bool>? func)
     {
         var products = ListProduct.Where(prod => func == null || func(prod)).OrderBy(prod => prod?.ProductID).ToList();
         return products;
     }
+
+    /// <summary>
+    ///  The operation finds the product and returns him
+    /// </summary>
+
     public IEnumerable<IGrouping<int, DO.Product?>> GetAllGroupedBy(Func<DO.Product?, bool>? func)
     {
         var products = ListProduct.Where(prod => func == null || func(prod)).GroupBy(prod => prod?.ProductID).OrderBy(group => group.Key);
         return (IEnumerable<IGrouping<int, DO.Product?>>)products;
     }
+ 
     /// <summary>
-    /// returns array length
+    /// returns list length
     /// </summary>
     public int ListLength() 
     {
         return DataSource.ListProduct.Count;
     }
 
+    /// <summary>
+    ///  The operation finds the product and returns him
+    /// </summary>
     public DO.Product GetByDelegate(Func<DO.Product?, bool>? func)
     {
         if (func != null)
