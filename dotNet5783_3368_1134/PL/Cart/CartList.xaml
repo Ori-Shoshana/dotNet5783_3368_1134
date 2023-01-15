@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:PL.Cart"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         mc:Ignorable="d"
-        Title="CartList" Height="450" Width="800">
+        Title="CartList" Height="450" Width="800" 
+        x:Name="CartListWindow">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="479*"/>
@@ -38,12 +39,6 @@
                     Header = "Price"
                     Width = "60" />
 
-                    <GridViewColumn
-                        DisplayMemberBinding = "{Binding Path = Amount}"
-                        Header="Amount"
-                        Width="70">
-                    </GridViewColumn>
-
                     <GridViewColumn>
                         <GridViewColumnHeader
                                 Content="Amount" 
@@ -53,14 +48,13 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Button
                                             x:Name="Decrease"
-                                            IsEnabled="{Binding StatusControlersObservableCollection[0] ,ElementName=MyWindow }"
                                             Width="20" Height="20" Padding="0"
                                             HorizontalContentAlignment="Center"
                                             VerticalContentAlignment="Center" 
                                             FontSize="14" 
                                             Click="Decrease_Click" 
                                             Content="-" 
-                                            Tag="{Binding ProductID}"
+                                            Tag="{Binding ProductID, ElementName=CartListWindow}"
                                             />
 
                                     <Label Content="{Binding Amount}" />
@@ -68,14 +62,12 @@
 
                                     <Button 
                                             x:Name="Increase"
-                                            IsEnabled="{Binding StatusControlersObservableCollection[0] ,ElementName=MyWindow }"
-                                            Visibility="{Binding StatusControlersObservableCollection[2] ,ElementName=MyWindow }"
                                             Width="20" 
                                             Height="20"
                                             Padding="0"
                                             HorizontalContentAlignment="Center"
                                             VerticalContentAlignment="Center"
-                                            Click="Button_Click_2"
+                                            Click="AddAmount_Click"
                                             Content="+" 
                                             FontSize="14"  
                                         />
