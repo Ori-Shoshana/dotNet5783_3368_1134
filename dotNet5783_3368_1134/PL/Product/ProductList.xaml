@@ -36,10 +36,17 @@
                    Grid.Row="1" 
                    Grid.ColumnSpan="2" 
                    FontSize="14" 
-                   FontFamily="Verdana"
-                   MouseDoubleClick="ProductListview_MouseDoubleClick">
+                   FontFamily="Verdana">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Update" Click="Update_Click"/>
+                    <MenuItem Header="Delete" Click="Delete_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
 
-            <ListView.RenderTransform>
+
+
+        <ListView.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
                     <SkewTransform AngleX="-0.179"/>

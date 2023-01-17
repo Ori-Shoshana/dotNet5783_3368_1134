@@ -1,4 +1,6 @@
 ﻿using BO;
+using DalApi;
+
 namespace BlApi;
 
 public interface IOrder
@@ -41,4 +43,5 @@ public interface IOrder
     /// returns OrderTracking
     public OrderTracking Track(int id);
     public void updateOrederM(int amount, int id, int prodId);
+    public void Delete(int id);
 }

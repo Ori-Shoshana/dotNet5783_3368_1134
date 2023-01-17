@@ -185,7 +185,6 @@ internal class BoOrder : BlApi.IOrder
 
             throw new BO.VeriableNotExistException("No Id in list");
     }
-
     /// <summary>
     /// implemention of function shipping update
     /// checks if the order exists in the data layer and updates ship date
@@ -361,4 +360,18 @@ internal class BoOrder : BlApi.IOrder
         order_items = updatedOrderItems?.Concat(ord?.Items.Where(i => i.ProductID != prodId)!).ToList()!;
         ord.Items = order_items!;
     }
+    public void Delete(int id)
+    {
+        List<DO.Order?> order;
+        order = dal.Order.GetAll().ToList();
+
+        //Go through all the existing products in the data layer
+        if (order.Any(ord => ord?.OrderID == id))
+        {
+            dal.Order.Delete(id); //Delete the product in the data layer
+        }
+        else//If we did not delete = the member did not exist, we will throw an exception
+            throw new BO.VeriableNotExistException("The product does not exist");
+    }
+
 }

@@ -1,4 +1,5 @@
 ﻿
+using BO;
 using PL.Cart;
 using System;
 using System.Collections.Generic;
@@ -89,16 +90,7 @@ namespace PL.Product
         /// <summary>
         /// open an option to update a product (after double click on product) 
         /// </summary>
-        private void ProductListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            BO.ProductForList? product1 = new BO.ProductForList();
-       
-            if ((BO.ProductForList)ProductListview.SelectedItem != null)
-            {
-                product1 = (BO.ProductForList)ProductListview.SelectedItem;
-                new Product.UpdateProduct(product1.ID, false, UpdateToProducts).Show();
-            }      
-        }
+
         private void UpdateToProducts(int productID)
         {
             var x = ProductListview.SelectedIndex;
@@ -110,5 +102,35 @@ namespace PL.Product
             BO.ProductForList? p = (bl?.Product.GetProductForList(a => a?.ProductID == productID)!).First();
             products.Add(p);
         }
+
+        /// <summary>
+        /// open an option to update a product (after double click on product) 
+        /// </summary>
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            BO.ProductForList? product1 = new BO.ProductForList();
+
+            if ((BO.ProductForList)ProductListview.SelectedItem != null)
+            {
+                product1 = (BO.ProductForList)ProductListview.SelectedItem;
+                new Product.UpdateProduct(product1.ID, false, UpdateToProducts).Show();
+            }
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            BO.ProductForList? product1 = new BO.ProductForList();
+
+            if ((BO.ProductForList)ProductListview.SelectedItem != null)
+            {
+                product1 = (BO.ProductForList)ProductListview.SelectedItem;
+                bl?.Product.Delete(product1.ID);
+            }
+            products.Remove(product1);
+
+        }
+
+
     }
 }

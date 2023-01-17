@@ -85,7 +85,7 @@ namespace PL.Product
         /// </summary>
         private void GoBackToList_Click(object sender, RoutedEventArgs e)
         {
-            new Product.ProductList().Show();
+            //new Product.ProductList().Show();
             Close();
         }
  

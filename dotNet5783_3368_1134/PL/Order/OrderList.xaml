@@ -24,9 +24,15 @@
                   Foreground="#FF042271" 
                   Grid.ColumnSpan="3" 
                   FontSize="14" 
-                   FontFamily="Verdana"
-                  SelectionChanged="ListView_SelectionChanged"
-                  MouseDoubleClick= "OrderListView_MouseDoubleClick">
+                  FontFamily="Verdana"
+                  SelectionChanged="ListView_SelectionChanged">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Update" Click="Update_Click"/>
+                    <MenuItem Header="Delete" Click="Delete_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            
             <ListView.View>
 
 

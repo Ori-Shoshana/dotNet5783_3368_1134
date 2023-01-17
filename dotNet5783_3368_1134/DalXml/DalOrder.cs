@@ -4,6 +4,7 @@ using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -46,8 +47,13 @@ internal class DalOrder : IOrder
     {
         List<DO.Order?> ListOrder = XmlTools.LoadListFromXMLSerializer<DO.Order>(orderPath);
 
-        if (ListOrder.Any(order => order?.OrderID == ordId ))
+        if (ListOrder.Any(order => order?.OrderID == ordId))
+        { 
             ListOrder.Remove(GetById(ordId));
+
+            ordId = int.Parse(config.Element("OrderID")!.Value) - 1;
+            XmlTools.SaveConfigXElement("OrderID", ordId);
+        }
         else
             throw new DO.IdNotExistException("order does not exist");
         XmlTools.SaveListToXMLSerializer(ListOrder, orderPath);

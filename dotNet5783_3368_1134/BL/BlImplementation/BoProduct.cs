@@ -134,8 +134,8 @@ internal class BoProduct : BlApi.IProduct
     /// Throws exceptions when needed
     public void Delete(int id)
     {
-        List<DO.Product?> products = new List<DO.Product?>();
-        products = (List<DO.Product?>)dal.Product.GetAll();
+        List<DO.Product?> products ;
+        products = dal.Product.GetAll().ToList();
 
         //Go through all the existing products in the data layer
         if (products.Any(prod => prod?.ProductID == id))

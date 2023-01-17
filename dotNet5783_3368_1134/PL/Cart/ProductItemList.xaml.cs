@@ -104,11 +104,9 @@ namespace PL.Cart
         private void ProductItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
-            BO.Product? product = new BO.Product();
             BO.ProductItem? productItem = new BO.ProductItem();
 
             productItem = (BO.ProductItem)ProductItemListView.SelectedItem;
-            product = (bl?.Product.ProductDetailsM(productItem.ID));
             Action<int>? action = null;
             if (ProductItemListView.SelectedItem != null)
             {
