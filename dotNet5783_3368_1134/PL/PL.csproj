@@ -15,6 +15,8 @@
 
   <ItemGroup>
     <None Remove="9-01.jpg" />
+    <None Remove="Cart\3144456.png" />
+    <None Remove="Cart\4290854.png" />
     <None Remove="Cart\MYPhoto.jpg" />
     <None Remove="Cart\shopping-cart-vector-icon-260nw-777922456 %281%29.jpg" />
     <None Remove="MYPhoto.jpg" />
@@ -22,6 +24,7 @@
     <None Remove="Photo.webp" />
     <None Remove="Product\9-01.jpg" />
     <None Remove="Product\MYPhoto.jpg" />
+    <None Remove="ריכוז יתרות.pdf.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +35,8 @@
 
   <ItemGroup>
     <Resource Include="9-01.jpg" />
+    <Resource Include="Cart\3144456.png" />
+    <Resource Include="Cart\4290854.png" />
     <Resource Include="Cart\MYPhoto.jpg" />
     <Resource Include="Cart\shopping-cart-vector-icon-260nw-777922456 (1).jpg" />
     <Resource Include="MYPhoto.jpg" />
@@ -39,6 +44,7 @@
     <Resource Include="Photo.webp" />
     <Resource Include="Product\9-01.jpg" />
     <Resource Include="Product\MYPhoto.jpg" />
+    <Resource Include="ריכוז יתרות.pdf.png" />
   </ItemGroup>
 
 </Project>
