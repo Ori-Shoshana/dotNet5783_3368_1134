@@ -6,7 +6,7 @@
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         xmlns:local="clr-namespace:PL.Cart"
         mc:Ignorable="d"
-        Title="ProductItemList" Height="450" Width="800">
+        Title="ProductItemList" Height="450" Width="800" Icon="/Cart/4290854.png">
     <Window.Resources>
         <Style x:Key = "TriggerStyle" TargetType = "Button">
             <Setter Property = "Foreground" Value = "Black" />
@@ -19,6 +19,10 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="179*"/>
+            <ColumnDefinition Width="21*"/>
+        </Grid.ColumnDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="/Cart/MYPhoto.jpg"/>
         </Grid.Background>
@@ -26,7 +30,7 @@
         <ListView x:Name="ProductItemListView" 
                   ItemsSource="{Binding productItem}" 
                   d:ItemsSource="{d:SampleData ItemCount=5}" 
-                  Margin="120,58,120,89" 
+                  Margin="120,58,36,89" 
                   SelectionChanged="ListView_SelectionChanged" 
                   MouseDoubleClick="ProductItemListView_MouseDoubleClick">
             <ListView.View>
@@ -57,7 +61,7 @@
                     Header = "In Stock"
                     Width = "70" />
 
-                  
+
                     <GridViewColumn>
                         <GridViewColumnHeader
                                 Content="ADD" 
@@ -88,8 +92,8 @@
 
             </ListView.View>
         </ListView>
-        <ComboBox Name="CategorySelector" Margin="31,5,503,384" SelectionChanged="CategorySelector_SelectionChanged" FontFamily="Verdana" FontSize="14" SelectedIndex="5"/>
-        <Button Content="" HorizontalAlignment="Left" Margin="650,8,0,0" VerticalAlignment="Top" Height="40" Width="99" FontSize="18" RenderTransformOrigin="0.77,0.459" Click="Button_Click_1" Style = "{StaticResource TriggerStyle}" FontWeight="Bold" >
+        <ComboBox Name="CategorySelector" Margin="31,5,419,384" SelectionChanged="CategorySelector_SelectionChanged" FontFamily="Verdana" FontSize="14" SelectedIndex="5"/>
+        <Button Content="" HorizontalAlignment="Left" Margin="650,8,0,0" VerticalAlignment="Top" Height="40" Width="99" FontSize="18" RenderTransformOrigin="0.77,0.459" Click="Button_Click_1" Style = "{StaticResource TriggerStyle}" FontWeight="Bold" Grid.ColumnSpan="2" >
             <Button.Background>
                 <ImageBrush ImageSource="/Cart/shopping-cart-vector-icon-260nw-777922456 (1).jpg"/>
             </Button.Background>

@@ -7,7 +7,7 @@
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         mc:Ignorable="d"
         Title="CartList" Height="450" Width="800" 
-        x:Name="CartListWindow">
+        x:Name="CartListWindow" Icon="/Cart/4290854.png">
     <Window.Resources>
         <Style x:Key = "TriggerStyle" TargetType = "Button">
             <Setter Property = "Foreground" Value = "Black" />
