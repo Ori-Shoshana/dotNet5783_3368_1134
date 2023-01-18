@@ -7,7 +7,18 @@
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
 
         mc:Ignorable="d"
-  Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key = "TriggerStyle" TargetType = "Button">
+            <Setter Property = "Foreground" Value = "Black" />
+            <Setter Property = "Background" Value = "Yellow" />
+            <Style.Triggers>
+                <Trigger Property = "IsMouseOver" Value = "True">
+                    <Setter Property = "Foreground" Value = "DarkBlue" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid Name="MainGrid">
         <Grid.Background>
             <ImageBrush ImageSource="/Product/MYPhoto.jpg"/>
@@ -23,8 +34,8 @@
             <RowDefinition Height="329*"/>
             <RowDefinition Height="Auto" MinHeight="50.04"/>
         </Grid.RowDefinitions>
-        <Button Name="AddButton" Content="Add new product" Grid.Row="2" HorizontalAlignment="Left" Margin="108,0,0,0" Padding="5" Width="175" FontSize="14" Click="AddButton_Click" Grid.Column="1" FontWeight="Bold" Grid.ColumnSpan="2" Height="45" VerticalAlignment="Top"/>
-        <Button Name="Home" Content="Back" HorizontalAlignment="Left" Margin="10,0,0,0" Padding="5" Width="108" FontSize="14" FontWeight="Bold" Click="Home_Click" Grid.Row="2" RenderTransformOrigin="-1.272,8.826" Height="45" VerticalAlignment="Top"/>
+        <Button Name="AddButton" Content="Add new product" Grid.Row="2" HorizontalAlignment="Left" Margin="108,0,0,0" Padding="5" Width="175" FontSize="14" Click="AddButton_Click" Grid.Column="1" FontWeight="Bold" Grid.ColumnSpan="2" Height="45" VerticalAlignment="Top" Style = "{StaticResource TriggerStyle}" />
+        <Button Name="Home" Content="Back" HorizontalAlignment="Left" Margin="10,0,0,0" Padding="5" Width="108" FontSize="14" FontWeight="Bold" Click="Home_Click" Grid.Row="2" RenderTransformOrigin="-1.272,8.826" Height="45" VerticalAlignment="Top" Style = "{StaticResource TriggerStyle}" />
 
         <ListView  x:Name="ProductListview" 
                    d:ItemsSource="{d:SampleData ItemCount=5}" 
@@ -92,7 +103,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Label Content="Double click product to update" HorizontalAlignment="Left" Margin="222,277,0,0" Grid.Row="1" VerticalAlignment="Top" Height="33" Width="356" Grid.ColumnSpan="2" Foreground="#FFE4E4EC" FontSize="20" FontFamily="Verdana" FontWeight="Bold"/>
+        <Label Content="left click product to update" HorizontalAlignment="Left" Margin="222,277,0,0" Grid.Row="1" VerticalAlignment="Top" Height="33" Width="356" Grid.ColumnSpan="2" Foreground="#FFE4E4EC" FontSize="20" FontFamily="Verdana" FontWeight="Bold"/>
     </Grid>
 
 </Window>

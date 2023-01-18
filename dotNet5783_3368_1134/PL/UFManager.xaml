@@ -6,6 +6,18 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="UFManager" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key = "TriggerStyle" TargetType = "Button">
+            <Setter Property = "Foreground" Value = "Black" />
+            <Setter Property = "Background" Value = "Yellow" />
+
+            <Style.Triggers>
+                <Trigger Property = "IsMouseOver" Value = "True">
+                    <Setter Property = "Foreground" Value = "DarkBlue" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/MYPhoto.jpg"/>
@@ -18,9 +30,9 @@
         <Label x:Name="LaberOrderId" Content="Order Id" HorizontalAlignment="Left" Margin="228,133,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="16" Width="97" Foreground="#FFE4E4EC" FontWeight="Bold" FontFamily="Verdana"/>
         <Label x:Name="LabelProductId" Content="Product Id" HorizontalAlignment="Left" Margin="228,187,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="16" RenderTransformOrigin="0.489,-0.051" Foreground="#FFE4E4EC" FontWeight="Bold" FontFamily="Verdana"/>
         <Label x:Name="LabelAmount" Content="Amount" HorizontalAlignment="Left" Margin="228,238,0,0" VerticalAlignment="Top" Background="{x:Null}" FontSize="16" RenderTransformOrigin="0.489,-0.051" Width="74" Foreground="#FFE4E4EC" FontWeight="Bold" FontFamily="Verdana"/>
-        <Button x:Name="Check_Password" Content="Check" HorizontalAlignment="Left" Margin="527,77,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.264,-0.796" Click="Check_Password_Click" Height="29" Width="68" FontSize="16" FontWeight="Bold" FontFamily="Verdana"/>
-        <Button x:Name="UpdateTheOrder" Content="Update" HorizontalAlignment="Center" Margin="0,307,0,0" VerticalAlignment="Top" Width="140" Height="43" Click="UpdateTheOrder_Click" FontFamily="Verdana" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="Back" Content="Back" HorizontalAlignment="Left" Margin="10,359,0,0" VerticalAlignment="Top" Height="42" Width="100" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Click="Back_Click"/>
+        <Button x:Name="Check_Password" Content="Check" HorizontalAlignment="Left" Margin="527,77,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.264,-0.796" Click="Check_Password_Click" Height="29" Width="68" FontSize="16" FontWeight="Bold" FontFamily="Verdana"  Style = "{StaticResource TriggerStyle}" />
+        <Button x:Name="UpdateTheOrder" Content="Update" HorizontalAlignment="Center" Margin="0,307,0,0" VerticalAlignment="Top" Width="140" Height="43" Click="UpdateTheOrder_Click" FontFamily="Verdana" FontSize="16" FontWeight="Bold"  Style = "{StaticResource TriggerStyle}" />
+        <Button x:Name="Back" Content="Back" HorizontalAlignment="Left" Margin="10,359,0,0" VerticalAlignment="Top" Height="42" Width="100" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Click="Back_Click"  Style = "{StaticResource TriggerStyle}" />
 
     </Grid>
 </Window>

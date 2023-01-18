@@ -102,8 +102,8 @@ namespace PL.Product
                 }
              catch (VariableIsSmallerThanZeroExeption ex)
                 {
-
                     MessageBox.Show("❌  " + ex.Message);
+                    
                 }
             catch (VariableIsNullExeption ex)
                 {
