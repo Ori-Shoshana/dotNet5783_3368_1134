@@ -9,7 +9,6 @@
     <Window.Resources>
         <Style x:Key = "TriggerStyle" TargetType = "Button">
             <Setter Property = "Foreground" Value = "Black" />
-            <Setter Property = "Background" Value = "Yellow" />
             <Style.Triggers>
                 <Trigger Property = "IsMouseOver" Value = "True">
                     <Setter Property = "Foreground" Value = "DarkBlue" />
@@ -42,16 +41,17 @@
                 <ImageBrush/>
             </Label.Background>
         </Label>
-        <Button x:Name="UFManager" Content="Update for manager" Height="51" Width="192" HorizontalAlignment="Left" Margin="324,16,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Click="UpdateForManager" FontSize="16"  BorderBrush="{x:Null}"   Grid.Column="2" 
-                Style = "{StaticResource TriggerStyle}" Grid.ColumnSpan="2" />
-        <Button Content="New Order" HorizontalAlignment="Left" Margin="94,298,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="142" FontSize="20" Click="Button_Click_2" Grid.Column="2" 
-                Style = "{StaticResource TriggerStyle}" />
+        <Button x:Name="UFManager" Content="Update for manager" Height="51" Width="192" HorizontalAlignment="Left" Margin="324,16,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Click="UpdateForManager" FontSize="16"  BorderBrush="{x:Null}"   Grid.Column="1" 
+                Style = "{StaticResource TriggerStyle}" FontWeight="Bold" />
+        <Button Content="New Order" HorizontalAlignment="Left" Margin="94,298,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="142" FontSize="20" Click="Button_Click_2" Grid.Column="1" 
+                Style = "{StaticResource TriggerStyle}" FontWeight="Bold" />
 
         <Label Content="Enter ID for tracking:" HorizontalAlignment="Left" Margin="52,217,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.011,1.348" Foreground="#FFE4E4EC" FontSize="22" FontWeight="Bold" Grid.ColumnSpan="3" />
         <TextBox x:Name="TextBox" KeyDown="TextBox_KeyDown" Text="" HorizontalAlignment="Left" Margin="66,261,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Height="37" FontSize="22" FontWeight="Bold" FontFamily="Verdana" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="3" />
         <Rectangle
         Stroke="White"
-        StrokeThickness="5" Grid.ColumnSpan="4" Margin="106,132,82,201" Grid.Row="1" />
+        StrokeThickness="5" Grid.ColumnSpan="2" Margin="106,132,82,201" Grid.Row="1" />
+        <Button Content="Simulator" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Height="51" Grid.RowSpan="2" Width="116" Click="Button_Click_1" FontSize="16"/>
 
     </Grid>
 

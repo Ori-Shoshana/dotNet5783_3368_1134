@@ -44,4 +44,6 @@ public interface IOrder
     public OrderTracking Track(int id);
     public void updateOrederM(int amount, int id, int prodId);
     public void Delete(int id);
+    public int? PriorityOrder(Func<DO.Order?, bool>? filter = null);
+
 }
