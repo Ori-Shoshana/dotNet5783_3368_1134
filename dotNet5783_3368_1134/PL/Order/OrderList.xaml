@@ -7,6 +7,17 @@
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         mc:Ignorable="d"
         Title="OrderList" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key = "TriggerStyle" TargetType = "Button">
+            <Setter Property = "Foreground" Value = "Black" />
+            <Setter Property = "Background" Value = "Yellow" />
+            <Style.Triggers>
+                <Trigger Property = "IsMouseOver" Value = "True">
+                    <Setter Property = "Foreground" Value = "DarkBlue" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Order/MYPhoto.jpg"/>
@@ -28,11 +39,36 @@
                   SelectionChanged="ListView_SelectionChanged">
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Update" Click="Update_Click"/>
+                    <MenuItem Header="Order Details
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              " Click="Update_Click"/>
                     <MenuItem Header="Delete" Click="Delete_Click"/>
                 </ContextMenu>
             </ListView.ContextMenu>
-            
+
             <ListView.View>
 
 
@@ -56,7 +92,7 @@
                     DisplayMemberBinding = "{Binding  AmountOfItems}"
                     Header = "Amount"
                     Width = "70" />
-                    
+
                     <GridViewColumn
                     DisplayMemberBinding = "{Binding TotalPrice}"
                     Header = "Total Price"
@@ -64,8 +100,16 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="10,342,0,0" VerticalAlignment="Top" Height="51" Width="70" Click="Button_Click"/>
-        <Label Content="Double click order to see order details" HorizontalAlignment="Left" Margin="168,317,0,0" VerticalAlignment="Top" Height="41" Width="446" Foreground="#FFE4E4EC" FontSize="20" FontFamily="Verdana" FontWeight="Bold"/>
+        <Button Content="Back" HorizontalAlignment="Left" Margin="10,342,0,0" VerticalAlignment="Top" Height="51" Width="70" Click="Button_Click" Style = "{StaticResource TriggerStyle}" />
+        <Label Content="left click to see order details" HorizontalAlignment="Left" Margin="228,317,0,0" VerticalAlignment="Top" Height="41" Width="344" Foreground="#FFE4E4EC" FontSize="20" FontFamily="Verdana" FontWeight="Bold"/>
+
 
     </Grid>
+
+
+
+
+
+
+
 </Window>

@@ -6,13 +6,24 @@
         xmlns:local="clr-namespace:PL.Order"
         mc:Ignorable="d"
         Title="OrderTracking" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key = "TriggerStyle" TargetType = "Button">
+            <Setter Property = "Foreground" Value = "Black" />
+            <Setter Property = "Background" Value = "Yellow" />
+            <Style.Triggers>
+                <Trigger Property = "IsMouseOver" Value = "True">
+                    <Setter Property = "Foreground" Value = "DarkBlue" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Order/MYPhoto.jpg"/>
         </Grid.Background>
-        <Button Content="Home" HorizontalAlignment="Left" Margin="10,360,0,0" VerticalAlignment="Top" Height="45" Width="96" FontSize="18" Click="Button_Click"/>
+        <Button Content="Home" HorizontalAlignment="Left" Margin="10,360,0,0" VerticalAlignment="Top" Height="45" Width="96" FontSize="18" Click="Button_Click" Style = "{StaticResource TriggerStyle}" />
         <TextBlock Name="OrderTackingText" HorizontalAlignment="Left" Margin="236,75,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="231" Width="302" FontSize="22" Foreground="#FFEFE1E1" FontWeight="Bold" />
-        <Button Content="To See Order" HorizontalAlignment="Left" Margin="296,330,0,0" VerticalAlignment="Top" Width="182" Height="45" FontSize="18" Click="Button_Click_1"/>
+        <Button Content="To See Order" HorizontalAlignment="Left" Margin="296,330,0,0" VerticalAlignment="Top" Width="182" Height="45" FontSize="18" Click="Button_Click_1" Style = "{StaticResource TriggerStyle}" />
 
     </Grid>
 </Window>

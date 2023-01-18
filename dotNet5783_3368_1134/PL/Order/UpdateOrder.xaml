@@ -7,14 +7,34 @@
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="UpdateOrder" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key = "TriggerStyle" TargetType = "Button">
+            <Setter Property = "Foreground" Value = "Black" />
+            <Setter Property = "Background" Value = "Yellow" />
+
+            <Style.Triggers>
+                <Trigger Property = "IsMouseOver" Value = "True">
+                    <Setter Property = "Foreground" Value = "DarkBlue" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Order/MYPhoto.jpg"/>
         </Grid.Background>
         <Label Name="TextBoxLable" Content="Update Order:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="166" FontSize="20" FontWeight="Bold" Margin="286,0,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" Foreground="#FFE4E4EC"/>
-
         <Label Content="ID" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="80,35,0,0" RenderTransformOrigin="0.462,-2.636" FontWeight="Bold" FontSize="16" FontFamily="Verdana" Foreground="#FFE4E4EC"/>
-        <TextBox IsReadOnly="True" Name="ID" HorizontalAlignment="Left" Margin="250,45,0,0" TextWrapping="Wrap" Text="{Binding orderBinding.ID,  Mode=TwoWay}" VerticalAlignment="Top" Width="160" TextChanged="ID_TextChanged"/>
+        <TextBox IsReadOnly="True" Name="ID" HorizontalAlignment="Left" Margin="250,45,0,0" TextWrapping="Wrap" Text="{Binding orderBinding.ID,  Mode=TwoWay}" VerticalAlignment="Top" Width="160" TextChanged="ID_TextChanged" RenderTransformOrigin="0.5,0.5">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.086"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
 
         <Label Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="80,68,0,0" RenderTransformOrigin="0.462,-2.636" FontSize="16" FontFamily="Verdana" FontWeight="Bold" Foreground="#FFE4E4EC"/>
         <TextBox IsReadOnly="True" Name="Name" HorizontalAlignment="Left" Margin="250,78,0,0" TextWrapping="Wrap" Text="{Binding orderBinding.CustomerName,  Mode=TwoWay}" VerticalAlignment="Top" Width="160" TextChanged="Name_TextChanged"/>
@@ -40,10 +60,10 @@
         <Label Content="Status" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="80,318,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC"/>
         <TextBox IsReadOnly="True" Name="Status" HorizontalAlignment="Left" Margin="250,328,0,0" TextWrapping="Wrap" Text="{Binding orderBinding.Status,  Mode=TwoWay}" VerticalAlignment="Top" Width="160" TextChanged="Status_TextChanged" RenderTransformOrigin="0.485,0.501"/>
 
-        <Button Name="UpdateBottunDelivory" Content="Update" HorizontalAlignment="Left" Margin="374,232,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.049,0.718" Width="64" Height="20" FontSize="12" FontWeight="Bold" Click="UpdateBottun_Click"/>
-        <Button Name="UpdateBottunShiping" Content="Update" HorizontalAlignment="Left" Margin="374,190,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.049,0.718" Width="64" Height="20" FontSize="12" FontWeight="Bold" Click="UpdateBottunShiping_Click"/>
-        <Button Name="GoBackToListOrder" Content="Back" HorizontalAlignment="Left" Margin="10,350,0,29" Padding="5" Width="66" FontSize="14" FontWeight="Bold" Click="GoBackToListOrder_Click" RenderTransformOrigin="-1.272,8.826"/>
-        <Button Name="GoBackToListOrderTracking" Content="Back" HorizontalAlignment="Left" Margin="10,350,0,28" Padding="5" Width="66" FontSize="14" FontWeight="Bold" Click="GoBackToListOrderTracking_Click" RenderTransformOrigin="-1.272,8.826"/>
+        <Button Name="UpdateBottunDelivory" Content="Update" HorizontalAlignment="Left" Margin="374,232,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.049,0.718" Width="64" Height="20" FontSize="12" FontWeight="Bold" Click="UpdateBottun_Click" Style = "{StaticResource TriggerStyle}" />
+        <Button Name="UpdateBottunShiping" Content="Update" HorizontalAlignment="Left" Margin="374,190,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.049,0.718" Width="64" Height="20" FontSize="12" FontWeight="Bold" Click="UpdateBottunShiping_Click" Style = "{StaticResource TriggerStyle}" />
+        <Button Name="GoBackToListOrder" Content="Back" HorizontalAlignment="Left" Margin="10,350,0,29" Padding="5" Width="66" FontSize="14" FontWeight="Bold" Click="GoBackToListOrder_Click" RenderTransformOrigin="-1.272,8.826" Style = "{StaticResource TriggerStyle}" />
+        <Button Name="GoBackToListOrderTracking" Content="Back" HorizontalAlignment="Left" Margin="10,350,0,28" Padding="5" Width="66" FontSize="14" FontWeight="Bold" Click="GoBackToListOrderTracking_Click" RenderTransformOrigin="-1.272,8.826" Style = "{StaticResource TriggerStyle}" />
 
         <ListView x:Name="ListUpdateOrder" d:ItemsSource="{d:SampleData ItemCount=5}" 
                   HorizontalAlignment="Left" 
