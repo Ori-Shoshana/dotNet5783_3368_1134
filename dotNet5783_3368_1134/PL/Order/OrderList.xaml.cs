@@ -67,7 +67,7 @@ namespace PL.Order
         {
             BO.OrderTracking? order1 = new BO.OrderTracking();
 
-            if ((BO.OrderForList)OrderListView.SelectedItem != null)
+             if ((BO.OrderForList)OrderListView.SelectedItem != null)
             {
                 var order = (BO.OrderForList)OrderListView.SelectedItem;
                 new Order.UpdateOrder(order, order1, UpdateToOrders).Show();
