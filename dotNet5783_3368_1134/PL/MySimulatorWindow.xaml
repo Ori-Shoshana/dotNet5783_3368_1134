@@ -5,6 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent" 
         Title="MySimulatorWindow" Height="450" Width="800" x:Name="MyWindow" Closing="Window_Closing" >
     <Grid>
         <Grid.Background>

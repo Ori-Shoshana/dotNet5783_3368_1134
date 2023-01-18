@@ -105,7 +105,7 @@ public partial class MySimulatorWindow : Window
 
     private void Window_Closing(object sender, CancelEventArgs e)
     {
-        MessageBox.Show("This is not the way", "Let me down slowly", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+        MessageBox.Show("This is not the way", "Let me down slowly", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK );
         e.Cancel = true;
     }
 
