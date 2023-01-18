@@ -374,4 +374,36 @@ internal class BoOrder : BlApi.IOrder
             throw new BO.VeriableNotExistException("The product does not exist");
     }
 
+    public int? PriorityOrder(Func<DO.Order?, bool>? filter = null)
+    {
+        DO.Order order = new DO.Order();
+
+        if (filter != null)
+        {
+            order = dal.Order.GetByDelegate(filter);
+        }
+        else
+        {
+            DO.Order? OrderOrderDate = dal?.Order.GetAll(x => x?.ShipDate == null).MinBy(x => x?.OrderDate);
+            DO.Order? OrderShipDate = dal?.Order.GetAll(x => x?.DeliveryDate == null).MinBy(x => x?.ShipDate);
+
+            if (OrderOrderDate != null && OrderOrderDate?.OrderDate < OrderShipDate?.ShipDate)
+            {
+
+
+                return OrderOrderDate?.OrderID;
+            }
+            else if (OrderShipDate != null)
+            {
+
+                return OrderShipDate?.OrderID;
+            }
+
+            return null;
+        }
+
+
+        return order.OrderID;
+    }
+
 }
