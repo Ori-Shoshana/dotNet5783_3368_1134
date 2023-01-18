@@ -83,8 +83,6 @@ internal class BoCart : BlApi.ICart
     public void Confirmation(BO.Cart cart)
     {
         bool check = false;
-        if (cart.Items == null)
-            throw new BO.VariableIsSmallerThanZeroExeption("the cart is empty");
         if (cart.CustomerName == null || cart.CustomerEmail == null || cart.CustomerAdress == null)
             throw new BO.VeriableNotExistException("one of the cart detaile is invalid (name/email/adress)");
         if (cart.Items == null)
@@ -144,7 +142,6 @@ internal class BoCart : BlApi.ICart
         cart.Items = null;
         cart.TotalPrice = 0;
     }
-    //-item.amount
     /// <summary>
     /// implemention of function update
     /// the function updates the product amount 
