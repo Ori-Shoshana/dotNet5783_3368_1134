@@ -80,13 +80,13 @@ public partial class MySimulatorWindow : Window
     {
         BarProgress = 0;
         Time = "00:00:00";
-        close = "Colse";
+        close = "Close";
         timer.Interval = TimeSpan.FromSeconds(1);
         timer.Tick += Timer_Tick;
         InitializeComponent();
     }
 
-    private void Timer_Tick(object sender, EventArgs e)
+    private void Timer_Tick(object sender, EventArgs e)///////////
     {
         BarProgress++;
         estimatedTime--;
@@ -102,29 +102,19 @@ public partial class MySimulatorWindow : Window
         }
     }
 
-
-    private void Window_Closing(object sender, CancelEventArgs e)
-    {
-        MessageBox.Show("This is not the way", "Let me down slowly", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK );
-        e.Cancel = true;
-    }
-
-    private void WindowSoftClosing(object sender, CancelEventArgs e)
+    private void WindowSoftClosing(object sender, CancelEventArgs e)//////////////
     {
         e.Cancel = false;
     }
 
-    private async void Close(object sender, RoutedEventArgs e)
+    private async void Close(object sender, RoutedEventArgs e)///////////
     {
         if (MessageBox.Show("Are you sure?", "Just making sure", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) == MessageBoxResult.OK)
         {
-
-            this.Closing -= Window_Closing;
             Simulator.StopSimulation();
             timer.Stop();
             await Ramaining_Time();
-            this.Closing += WindowSoftClosing;
-            this.Close();
+            Close();
         }
     }
 
@@ -144,11 +134,7 @@ public partial class MySimulatorWindow : Window
 
     }
 
-    private void SimulationData(object sender, Tuple<BO.Order, int> e)
-    {
-        EstimatedTime(e.Item2);
-        CurrentOrder(bl.Order.Track(e.Item1.ID));
-    }
+   
 
     private void CurrentOrder(BO.OrderTracking a)
     {
@@ -189,6 +175,12 @@ public partial class MySimulatorWindow : Window
         Simulator.SubscribeToUpdateSimulation(SimulationData);
         Simulator.StartSimulation();
 
+    }
+
+    private void SimulationData(object sender, Tuple<BO.Order, int> e)
+    {
+        EstimatedTime(e.Item2);
+        CurrentOrder(bl.Order.Track(e.Item1.ID));
     }
 
 }

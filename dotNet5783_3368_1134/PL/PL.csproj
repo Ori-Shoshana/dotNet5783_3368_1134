@@ -44,7 +44,6 @@
     <Resource Include="Photo.webp" />
     <Resource Include="Product\9-01.jpg" />
     <Resource Include="Product\MYPhoto.jpg" />
-    <Resource Include="ריכוז יתרות.pdf.png" />
   </ItemGroup>
 
 </Project>

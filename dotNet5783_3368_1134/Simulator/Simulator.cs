@@ -24,13 +24,13 @@ public static class Simulator
         updateSimulation += handler;
     }
 
-    public static void StartSimulation()
+    public static void StartSimulation()////////////////
     {
         thread = new Thread(simulation);
         thread.Start();
     }
 
-    public static void StopSimulation()
+    public static void StopSimulation()//////////////
     {
         isSimulationStoped = true;
         thread?.Interrupt();

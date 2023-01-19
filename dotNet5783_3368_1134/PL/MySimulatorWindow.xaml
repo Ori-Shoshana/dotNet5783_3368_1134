@@ -8,7 +8,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent" 
-        Title="MySimulatorWindow" Height="450" Width="800" x:Name="MyWindow" Closing="Window_Closing" >
+        Title="MySimulatorWindow" Height="450" Width="800" x:Name="MyWindow">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/MYPhoto.jpg"/>
@@ -83,7 +83,7 @@
         <Label 
                 Content="{Binding OrderCurrent.ID, ElementName=MyWindow}"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top" FontSize="16" Foreground="#FFF3E8E8" Height="49" Margin="169,262,0,0" Width="66" FontWeight="Bold" 
+                VerticalAlignment="Top" FontSize="16" Foreground="#FFF3E8E8" Height="49" Margin="177,268,0,0" Width="66" FontWeight="Bold" 
                 />
 
         <TextBlock
@@ -93,7 +93,7 @@
 
         <Label 
                 Content="{Binding OrderCurrent.Status, ElementName=MyWindow}"
-                VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FFEBEDF6" Height="45" Margin="354,268,345,0" 
+                VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FFEBEDF6" Height="45" Margin="350,268,350,0" 
                 />
 
         <TextBlock
@@ -104,7 +104,7 @@
         <Label 
                 Content="{Binding estimatedTime, ElementName=MyWindow}"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FFF4EBEB" Height="47" Margin="630,263,0,0" Width="80"/>
+                VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FFF4EBEB" Height="47" Margin="633,268,0,0" Width="80" RenderTransformOrigin="0.475,0.572"/>
 
 
 

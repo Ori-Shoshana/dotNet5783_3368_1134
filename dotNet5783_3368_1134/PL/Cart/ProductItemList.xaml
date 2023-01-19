@@ -29,7 +29,7 @@
         <ListView x:Name="ProductItemListView" 
                   ItemsSource="{Binding productItem}" 
                   d:ItemsSource="{d:SampleData ItemCount=5}" 
-                  Margin="120,58,36,89" 
+                  Margin="120,58,119,89" 
                   SelectionChanged="ListView_SelectionChanged" 
                   MouseDoubleClick="ProductItemListView_MouseDoubleClick">
             <ListView.View>
