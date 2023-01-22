@@ -38,32 +38,7 @@
                   SelectionChanged="ListView_SelectionChanged">
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Order Details
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                              " Click="Update_Click"/>
+                    <MenuItem Header="Order Details" Click="Update_Click"/>
                     <MenuItem Header="Delete" Click="Delete_Click"/>
                 </ContextMenu>
             </ListView.ContextMenu>

@@ -33,21 +33,70 @@
             <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button x:Name ="MyProgramButton" Content="Admin" HorizontalAlignment="Left" Margin="103,223,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="124" Click="Button_Click" RenderTransformOrigin="0.514,-2.947" FontWeight="Bold" FontSize="20" Grid.Column="2" 
-              Style = "{StaticResource TriggerStyle}"/>
+        <Button x:Name ="MyProgramButton" 
+                Content="Admin" 
+                HorizontalAlignment="Left" 
+                Margin="103,223,0,0" 
+                Grid.Row="1" 
+                VerticalAlignment="Top" Height="51" 
+                Width="124" Click="Button_Click" 
+                RenderTransformOrigin="0.514,-2.947" 
+                FontWeight="Bold" 
+                FontSize="20" 
+                Grid.Column="2" 
+              Style = "{StaticResource TriggerStyle}">
+
+            <Button.Triggers>
+            <EventTrigger RoutedEvent="Button.Loaded">
+                <BeginStoryboard>
+                    <Storyboard RepeatBehavior="Forever">
+                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)">
+                            <LinearColorKeyFrame Value="Blue" KeyTime="0:0:0"/>
+                            <LinearColorKeyFrame Value="Red" KeyTime="0:0:0.5"/>
+                            <LinearColorKeyFrame Value="Green" KeyTime="0:0:1"/>
+                            <LinearColorKeyFrame Value="Yellow" KeyTime="0:0:1.5"/>
+                            <LinearColorKeyFrame Value="Blue" KeyTime="0:0:2"/>
+                        </ColorAnimationUsingKeyFrames>
+                    </Storyboard>
+
+
+                </BeginStoryboard>
+            </EventTrigger>
+            </Button.Triggers>
+        </Button>
+        
+        
         <Canvas Name="cnv" Grid.ColumnSpan="6" Margin="0,32,0,370" Grid.RowSpan="2"/>
         <Label Content="Welcome to electro" HorizontalAlignment="Left" VerticalAlignment="Top" Height="56" Width="588" FontSize="36" FontWeight="Bold" Grid.Row="1" FontFamily="Wide Latin" RenderTransformOrigin="0.497,0.406" Foreground="#FFE4E4EC" Margin="106,129,0,0" Grid.ColumnSpan="4">
             <Label.Background>
                 <ImageBrush/>
             </Label.Background>
         </Label>
-        <Button x:Name="UFManager" Content="Update for manager" Height="51" Width="192" HorizontalAlignment="Left" Margin="324,16,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Click="UpdateForManager" FontSize="16"  BorderBrush="{x:Null}"   Grid.Column="1" 
-                Style = "{StaticResource TriggerStyle}" FontWeight="Bold" />
+        <Button x:Name="UFManager" Content="Update for manager" Height="51" Width="192" HorizontalAlignment="Left" Margin="355,16,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Click="UpdateForManager" FontSize="16"  BorderBrush="{x:Null}"   Grid.Column="2" 
+                Style = "{StaticResource TriggerStyle}" FontWeight="Bold" Grid.ColumnSpan="2" />
         <Button Content="New Order" HorizontalAlignment="Left" Margin="94,307,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="142" FontSize="20" Click="Button_Click_2" Grid.Column="2" 
-                Style = "{StaticResource TriggerStyle}" FontWeight="Bold" Background="#FFE2DCDC" />
+                Style = "{StaticResource TriggerStyle}" FontWeight="Bold" >
+            <Button.Triggers>
+                <EventTrigger RoutedEvent="Button.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)">
+                                <LinearColorKeyFrame Value="Blue" KeyTime="0:0:0"/>
+                                <LinearColorKeyFrame Value="Red" KeyTime="0:0:0.5"/>
+                                <LinearColorKeyFrame Value="Green" KeyTime="0:0:1"/>
+                                <LinearColorKeyFrame Value="Yellow" KeyTime="0:0:1.5"/>
+                                <LinearColorKeyFrame Value="Blue" KeyTime="0:0:2"/>
+                            </ColorAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Button.Triggers>
+        </Button>
 
-        <Label Content="Enter ID for tracking:" HorizontalAlignment="Left" Margin="52,217,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.011,1.348" Foreground="#FFE4E4EC" FontSize="22" FontWeight="Bold" Grid.ColumnSpan="3" />
-        <TextBox x:Name="TextBox" KeyDown="TextBox_KeyDown" Text="" HorizontalAlignment="Left" Margin="66,261,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Height="37" FontSize="22" FontWeight="Bold" FontFamily="Verdana" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="3" />
+            <Label Content="Enter ID for tracking:" HorizontalAlignment="Left" Margin="52,217,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.011,1.348" Foreground="#FFE4E4EC" FontSize="22" FontWeight="Bold" Grid.ColumnSpan="3" />
+        <TextBox x:Name="TextBox" KeyDown="TextBox_KeyDown" Text="" HorizontalAlignment="Left" Margin="66,261,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" Height="37" FontSize="22" FontWeight="Bold" FontFamily="Verdana" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="3" 
+                 
+                 />
         <Rectangle
         Stroke="White"
         StrokeThickness="5" Grid.ColumnSpan="4" Margin="106,132,67,201" Grid.Row="1" />

@@ -14,6 +14,9 @@
             <ImageBrush ImageSource="/MYPhoto.jpg"/>
         </Grid.Background>
 
+        <Rectangle
+        Stroke="White"
+        StrokeThickness="5" Margin="428,132,150,200" />
 
         <Button 
             Content="{Binding close , ElementName=MyWindow}"
@@ -60,51 +63,66 @@
         <ProgressBar
                 Value="{Binding BarProgress, ElementName=MyWindow}"
                 Maximum="{Binding maxBar, ElementName=MyWindow}"
-                Background="#FFEBEDF6" Margin="296,325,256,76"/>
+                Background="#FFEBEDF6" Margin="33,298,519,103"/>
 
         <TextBlock
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 TextWrapping="Wrap"
                 Text="{Binding Time , ElementName=MyWindow}"
                 VerticalAlignment="Top"
-                Height="61"
-                Width="150"
-                Margin="0,133,0,0"
-                FontSize="40"
+                Height="106"
+                Width="197"
+                Margin="453,154,0,0"
+                FontSize="48"
                 Foreground="#FFEBEDF6"
                 
                 />
 
         <TextBlock
-                Text="order ID:"
+                Text="Order ID:"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Foreground="#FFEBEDF6" Margin="0,276,651,0" />
+                VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Foreground="#FFEBEDF6" Margin="0,110,687,0" />
 
-        <Label 
-                Content="{Binding OrderCurrent.ID, ElementName=MyWindow}"
+        <TextBox Text="{Binding OrderCurrent.ID, ElementName=MyWindow}" HorizontalAlignment="Left" Margin="143,110,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="160" FontWeight="Bold" FontSize="18"/>
+
+
+        <TextBlock
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Text="Status:" Height="30" FontSize="20" Foreground="#FFEBEDF6" Margin="0,154,710,0" FontWeight="Bold" />
+
+        <TextBox Text="{Binding OrderCurrent.Status, ElementName=MyWindow}" HorizontalAlignment="Left" Margin="143,160,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="160" FontSize="18" FontWeight="Bold"/>
+
+
+        <TextBlock
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top" FontSize="16" Foreground="#FFF3E8E8" Height="49" Margin="177,268,0,0" Width="66" FontWeight="Bold" 
-                />
+                VerticalAlignment="Top"
+                Text="Future:" Height="30" FontSize="20" Foreground="#FFEBEDF6" Margin="27,207,0,0" FontWeight="Bold" />
+
+
+        <TextBox  Text ="{Binding OrderCurrentFuture, ElementName=MyWindow}" HorizontalAlignment="Left" Margin="143,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" FontSize="18" FontWeight="Bold"/>
+
+
+
 
         <TextBlock
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Text="status:" Height="29" FontSize="16" Foreground="#FFEBEDF6" Margin="0,276,461,0" FontWeight="Bold" />
-
-        <Label 
-                Content="{Binding OrderCurrent.Status, ElementName=MyWindow}"
-                VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FFEBEDF6" Height="45" Margin="350,268,350,0" 
-                />
-
-        <TextBlock
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Text="Estimate time:" FontWeight="Bold" FontSize="16" Foreground="#FFEBEDF6" Margin="0,276,209,0" />
+                Text="Estimate Time:" FontWeight="Bold" FontSize="20" Foreground="#FFEBEDF6" Margin="0,256,635,0" />
 
         <Label 
                 Content="{Binding estimatedTime, ElementName=MyWindow}"
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FFF4EBEB" Height="47" Margin="633,268,0,0" Width="80" RenderTransformOrigin="0.475,0.572"/>
+                VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Foreground="#FFF4EBEB" Height="45" Margin="186,250,0,0" Width="80" RenderTransformOrigin="0.499,0.632">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1"/>
+                    <SkewTransform AngleX="-0.573"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-0.435"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
 
 
 

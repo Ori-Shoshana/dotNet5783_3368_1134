@@ -389,13 +389,10 @@ internal class BoOrder : BlApi.IOrder
 
             if (OrderOrderDate != null && OrderOrderDate?.OrderDate < OrderShipDate?.ShipDate)
             {
-
-
                 return OrderOrderDate?.OrderID;
             }
             else if (OrderShipDate != null)
             {
-
                 return OrderShipDate?.OrderID;
             }
 

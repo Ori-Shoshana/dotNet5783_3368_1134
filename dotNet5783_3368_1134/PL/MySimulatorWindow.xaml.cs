@@ -25,6 +25,14 @@ public partial class MySimulatorWindow : Window
         set { SetValue(MyTrackerProperty, value); }
     }
 
+    public static readonly DependencyProperty MyTrackerPropertyNext =
+     DependencyProperty.Register("OrderCurrentFuture", typeof(BO.Enums.OrderStatus?), typeof(MySimulatorWindow));
+    public BO.Enums.OrderStatus? OrderCurrentFuture
+    {
+        get { return (BO.Enums.OrderStatus)GetValue(MyTrackerPropertyNext); }
+        set { SetValue(MyTrackerPropertyNext, value); }
+    }
+
     public static readonly DependencyProperty MyTimeProperty =
         DependencyProperty.Register("Time", typeof(string), typeof(MySimulatorWindow));
     public string Time
@@ -68,8 +76,6 @@ public partial class MySimulatorWindow : Window
         set { SetValue(MyBarProperty, value); }
     }
 
-
-
     public int BackTime = 0;
 
     DispatcherTimer timer = new DispatcherTimer();
@@ -83,6 +89,7 @@ public partial class MySimulatorWindow : Window
         close = "Close";
         timer.Interval = TimeSpan.FromSeconds(1);
         timer.Tick += Timer_Tick;
+        OrderCurrentFuture = null;
         InitializeComponent();
     }
 
@@ -95,16 +102,12 @@ public partial class MySimulatorWindow : Window
             Simulator.StopSimulation();
             timer.Stop();
             estimatedTime = 0;
+            MessageBox.Show("The simulation finished!!!");
         }
         else
         {
             Time = TimeSpan.FromSeconds(++BackTime).ToString(@"hh\:mm\:ss");
         }
-    }
-
-    private void WindowSoftClosing(object sender, CancelEventArgs e)//////////////
-    {
-        e.Cancel = false;
     }
 
     private async void Close(object sender, RoutedEventArgs e)///////////
@@ -123,7 +126,7 @@ public partial class MySimulatorWindow : Window
         while (estimatedTime != 0)
         {
             estimatedTime--;
-            close = "colsing in " + estimatedTime;
+            close = "closing in " + estimatedTime;
             await Task.Delay(1000);
         }
     }
@@ -133,8 +136,6 @@ public partial class MySimulatorWindow : Window
     {
 
     }
-
-   
 
     private void CurrentOrder(BO.OrderTracking a)
     {
@@ -151,6 +152,18 @@ public partial class MySimulatorWindow : Window
         else
         {
             OrderCurrent = a;
+            if (a.Status == BO.Enums.OrderStatus.Confirmed)
+            {
+                OrderCurrentFuture = BO.Enums.OrderStatus.Sent;
+            }
+            else if (a.Status == BO.Enums.OrderStatus.Sent)
+            {
+                OrderCurrentFuture = BO.Enums.OrderStatus.Deliverd;
+            }
+            else
+            {
+                OrderCurrentFuture = null;
+            }
         }
     }
 
@@ -172,7 +185,8 @@ public partial class MySimulatorWindow : Window
     private void Start_Button(object sender, RoutedEventArgs e)
     {
         timer.Start();
-        Simulator.SubscribeToUpdateSimulation(SimulationData);
+
+        Simulator.SubscribeToUpdateSimulation(SimulationData, SimulationEnding);
         Simulator.StartSimulation();
 
     }
@@ -182,5 +196,12 @@ public partial class MySimulatorWindow : Window
         EstimatedTime(e.Item2);
         CurrentOrder(bl.Order.Track(e.Item1.ID));
     }
+
+    private void SimulationEnding(object sender, int e)
+    {
+        MessageBox.Show("The simulation finished!!!");
+    }
+
+
 
 }
