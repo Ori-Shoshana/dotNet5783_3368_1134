@@ -8,7 +8,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent" 
-        Title="MySimulatorWindow" Height="450" Width="800" x:Name="MyWindow">
+        Title="MySimulatorWindow" Height="450" Width="800" x:Name="MyWindow" Icon="/Cart/4290854.png">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/MYPhoto.jpg"/>
@@ -42,9 +42,9 @@
             Content="Start"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Height="auto"
-            Width="100"
-            Margin="690,10,0,0"
+            Height="41"
+            Width="87"
+            Margin="703,21,0,0"
             Click="Start_Button"
             FontWeight="Bold" 
             

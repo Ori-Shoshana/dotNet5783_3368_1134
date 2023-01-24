@@ -187,9 +187,8 @@ public partial class MySimulatorWindow : Window
     {
         timer.Start();
 
-        Simulator.SubscribeToUpdateSimulation(SimulationData, SimulationEnding);
+        Simulator.UpdateSimulation(SimulationData);
         Simulator.StartSimulation();
-
     }
 
     private void SimulationData(object sender, Tuple<BO.Order, int> e)
@@ -198,10 +197,7 @@ public partial class MySimulatorWindow : Window
         CurrentOrder(bl.Order.Track(e.Item1.ID));
     }
 
-    private void SimulationEnding(object sender, int e)
-    {
-        MessageBox.Show("The simulation finished!!!");
-    }
+
 
 
 

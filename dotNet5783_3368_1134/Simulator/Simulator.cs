@@ -17,18 +17,16 @@ public static class Simulator
     private static IBl bl = Factory.Get();
 
     private static event EventHandler<Tuple<Order, int>>? updateSimulation;
-    private static event EventHandler<int> FinishSimulation;
 
 
     private static volatile bool isSimulationStoped = false;
-    private static Thread? thread;
+    //private static Thread? thread;
 
 
 
-    public static void SubscribeToUpdateSimulation(EventHandler<Tuple<Order, int>> action, EventHandler<int> actionEnding)////////////////
+    public static void UpdateSimulation(EventHandler<Tuple<Order, int>> action)
     {
         updateSimulation += action;
-        FinishSimulation = actionEnding;
     }
 
     public static void StartSimulation()
@@ -51,7 +49,6 @@ public static class Simulator
         {
             Worker.CancelAsync();
         }
-
     }
 
     private static void sleep(int seconds)

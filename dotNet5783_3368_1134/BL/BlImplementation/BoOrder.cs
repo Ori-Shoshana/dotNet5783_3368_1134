@@ -373,7 +373,12 @@ internal class BoOrder : BlApi.IOrder
         else//If we did not delete = the member did not exist, we will throw an exception
             throw new BO.VeriableNotExistException("The product does not exist");
     }
-
+    /// <summary>
+    /// returns the latest created order by the date of creation, 
+    /// first goes throgh all the orders that where confirms than all the orders that where sent
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
     public int? PriorityOrder(Func<DO.Order?, bool>? filter = null)
     {
         DO.Order order = new DO.Order();
