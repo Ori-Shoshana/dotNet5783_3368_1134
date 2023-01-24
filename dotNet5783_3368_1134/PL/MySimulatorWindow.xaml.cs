@@ -197,8 +197,8 @@ public partial class MySimulatorWindow : Window
         CurrentOrder(bl.Order.Track(e.Item1.ID));
     }
 
-
-
-
-
+    private void MyWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        DragMove();
+    }
 }
