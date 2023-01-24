@@ -10,13 +10,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Microsoft.VisualBasic;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace PL;
 
 
 public partial class MySimulatorWindow : Window
 {
-
+    // MyTrackerProperty represents the current order being tracked, of type BO.OrderTracking.
     public static readonly DependencyProperty MyTrackerProperty =
         DependencyProperty.Register("OrderCurrent", typeof(BO.OrderTracking), typeof(MySimulatorWindow));
     public BO.OrderTracking OrderCurrent
@@ -24,7 +25,7 @@ public partial class MySimulatorWindow : Window
         get { return (BO.OrderTracking)GetValue(MyTrackerProperty); }
         set { SetValue(MyTrackerProperty, value); }
     }
-
+    //MyTrackerPropertyNext represents the next status of the current order, of type BO.Enums.OrderStatus? (nullable)
     public static readonly DependencyProperty MyTrackerPropertyNext =
      DependencyProperty.Register("OrderCurrentFuture", typeof(BO.Enums.OrderStatus?), typeof(MySimulatorWindow));
     public BO.Enums.OrderStatus? OrderCurrentFuture
@@ -32,7 +33,7 @@ public partial class MySimulatorWindow : Window
         get { return (BO.Enums.OrderStatus)GetValue(MyTrackerPropertyNext); }
         set { SetValue(MyTrackerPropertyNext, value); }
     }
-
+    // MyTimeProperty represents the current time, of type string.
     public static readonly DependencyProperty MyTimeProperty =
         DependencyProperty.Register("Time", typeof(string), typeof(MySimulatorWindow));
     public string Time
@@ -41,7 +42,7 @@ public partial class MySimulatorWindow : Window
         set { SetValue(MyTimeProperty, value); }
     }
 
-
+    // MyButtonProperty represents the text for the close button, of type string.
     public static readonly DependencyProperty MyButtonProperty =
         DependencyProperty.Register("close", typeof(string), typeof(MySimulatorWindow));
     public string close
@@ -49,7 +50,7 @@ public partial class MySimulatorWindow : Window
         get { return (string)GetValue(MyButtonProperty); }
         set { SetValue(MyButtonProperty, value); }
     }
-
+    // MyEstimatedTimeProperty represents the estimated time for the current order to be completed, of type int.
     public static readonly DependencyProperty MyEstimatedTimeProperty =
         DependencyProperty.Register("estimatedTime", typeof(int), typeof(MySimulatorWindow));
     public int estimatedTime
@@ -57,7 +58,7 @@ public partial class MySimulatorWindow : Window
         get { return (int)GetValue(MyEstimatedTimeProperty); }
         set { SetValue(MyEstimatedTimeProperty, value); }
     }
-
+    // MymaxBarProperty represents the maximum value for the progress bar, of type int.
     public static readonly DependencyProperty MymaxBarProperty =
         DependencyProperty.Register("maxBar", typeof(int), typeof(MySimulatorWindow));
 
@@ -66,7 +67,7 @@ public partial class MySimulatorWindow : Window
         get { return (int)GetValue(MymaxBarProperty); }
         set { SetValue(MymaxBarProperty, value); }
     }
-
+    // MyBarProperty represents the current progress of the order, of type int.
     public static readonly DependencyProperty MyBarProperty =
        DependencyProperty.Register("BarProgress", typeof(int), typeof(MySimulatorWindow));
 
@@ -77,11 +78,11 @@ public partial class MySimulatorWindow : Window
     }
 
     public int BackTime = 0;
-
+    //to track the progress of the simulation
     DispatcherTimer timer = new DispatcherTimer();
 
     BlApi.IBl? bl = BlApi.Factory.Get();
-
+    //initialization of the time and the bar progress and the timer to seconds
     public MySimulatorWindow()
     {
         BarProgress = 0;
@@ -92,8 +93,8 @@ public partial class MySimulatorWindow : Window
         OrderCurrentFuture = null;
         InitializeComponent();
     }
-
-    private void Timer_Tick(object sender, EventArgs e)///////////
+    //updating the progress bar and the estimated time that elapsed and checkes if the simulation is finished.
+    private void Timer_Tick(object sender, EventArgs e)
     {
         BarProgress++;
         estimatedTime--;
@@ -109,7 +110,7 @@ public partial class MySimulatorWindow : Window
             Time = TimeSpan.FromSeconds(++BackTime).ToString(@"hh\:mm\:ss");
         }
     }
-
+    //method displays a message box to confirm that the user wants to close the window, and if confirmed, stops the simulation and closes the window.
     private async void Close(object sender, RoutedEventArgs e)///////////
     {
         if (MessageBox.Show("Are you sure?", "Just making sure", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) == MessageBoxResult.OK)
@@ -120,7 +121,7 @@ public partial class MySimulatorWindow : Window
             Close();
         }
     }
-
+    //closing the window (after finish the current order).
     private async Task Ramaining_Time()
     {
         while (estimatedTime != 0)
@@ -137,7 +138,7 @@ public partial class MySimulatorWindow : Window
     {
 
     }
-
+    //updates the property of the future status of the current order  
     private void CurrentOrder(BO.OrderTracking a)
     {
         if (!CheckAccess())
@@ -182,7 +183,7 @@ public partial class MySimulatorWindow : Window
             BarProgress = 0;
         }
     }
-
+    //starting the simulation
     private void Start_Button(object sender, RoutedEventArgs e)
     {
         timer.Start();
@@ -190,7 +191,7 @@ public partial class MySimulatorWindow : Window
         Simulator.UpdateSimulation(SimulationData);
         Simulator.StartSimulation();
     }
-
+    //tracking the order
     private void SimulationData(object sender, Tuple<BO.Order, int> e)
     {
         EstimatedTime(e.Item2);
