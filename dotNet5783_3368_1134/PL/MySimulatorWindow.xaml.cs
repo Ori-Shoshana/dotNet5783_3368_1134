@@ -125,6 +125,7 @@ public partial class MySimulatorWindow : Window
     {
         while (estimatedTime != 0)
         {
+            BarProgress++;
             estimatedTime--;
             close = "closing in " + estimatedTime;
             await Task.Delay(1000);

@@ -61,11 +61,11 @@ namespace PL.Product
             BlApi.IBl? bl = BlApi.Factory.Get();
             if (CategorySelector.SelectedItem.ToString() != "All")
             {
-                ProductListview.ItemsSource = bl?.Product.GetProductForList(a => a?.Category.ToString() == CategorySelector.SelectedItem.ToString());
+                products = new ObservableCollection<BO.ProductForList?>(bl?.Product.GetProductForList().Where((a => a?.Category.ToString() == CategorySelector.SelectedItem.ToString())));
             }
             else
             {
-                ProductListview.ItemsSource = bl?.Product.GetProductForList();
+                products = new ObservableCollection<BO.ProductForList?>(bl.Product.GetProductForList());
             }
         }
 

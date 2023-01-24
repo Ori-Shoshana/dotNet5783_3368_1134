@@ -3,6 +3,7 @@ using BO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ using System.Threading.Tasks;
 
 public static class Simulator
 {
+    private static BackgroundWorker Worker = new BackgroundWorker();
+
     private const int V = 1;
     private static IBl bl = Factory.Get();
 
@@ -28,16 +31,26 @@ public static class Simulator
         FinishSimulation = actionEnding;
     }
 
-    public static void StartSimulation()////////////////
+    public static void StartSimulation()
     {
-        thread = new Thread(simulation);
-        thread.Start();
+        Worker.DoWork += (sender, e) => { simulation(); };
+        //thread = new Thread(simulation);
+        //thread.Start();
+        Worker.WorkerSupportsCancellation = true;
+        Worker.RunWorkerAsync();
+
+        isSimulationStoped = false;
     }
 
-    public static void StopSimulation()//////////////
+    public static void StopSimulation()
     {
+        //isSimulationStoped = true;
+        //thread?.Interrupt();
         isSimulationStoped = true;
-        thread?.Interrupt();
+        if (Worker.IsBusy)
+        {
+            Worker.CancelAsync();
+        }
 
     }
 
