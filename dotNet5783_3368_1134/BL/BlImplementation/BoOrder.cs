@@ -404,7 +404,6 @@ internal class BoOrder : BlApi.IOrder
             return null;
         }
 
-
         return order.OrderID;
     }
 
