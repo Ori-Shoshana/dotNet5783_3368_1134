@@ -197,14 +197,4 @@ public partial class MySimulatorWindow : Window
         EstimatedTime(e.Item2);
         CurrentOrder(bl.Order.Track(e.Item1.ID));
     }
-
-
-    ////message box for the of the simulation
-    //private void SimulationEnding(object sender, int e)
-    //{
-    //    MessageBox.Show("The simulation finished!!!");
-    //}
-
-
-
 }

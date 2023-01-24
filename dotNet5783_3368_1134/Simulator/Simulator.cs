@@ -23,6 +23,7 @@ public static class Simulator
     private static volatile bool isSimulationStoped = false;
     //private static Thread? thread;
 
+    //update simulation
     public static void UpdateSimulation(EventHandler<Tuple<Order, int>> action)
     {
         updateSimulation += action;
