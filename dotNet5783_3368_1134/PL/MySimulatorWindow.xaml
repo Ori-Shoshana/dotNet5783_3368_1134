@@ -10,6 +10,16 @@
         AllowsTransparency="True"
         Background="Transparent" 
         Title="MySimulatorWindow" Height="450" Width="800" x:Name="MyWindow" Icon="/Cart/4290854.png">
+    <Window.Resources>
+        <Style x:Key = "TriggerStyle" TargetType = "Button">
+            <Setter Property = "Foreground" Value = "Black" />
+            <Style.Triggers>
+                <Trigger Property = "IsMouseOver" Value = "True">
+                    <Setter Property = "Foreground" Value = "DarkBlue" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/MYPhoto.jpg"/>
@@ -20,6 +30,7 @@
         StrokeThickness="5" Margin="428,132,150,200" />
 
         <Button 
+             Style = "{StaticResource TriggerStyle}" 
             Content="{Binding close , ElementName=MyWindow}"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
@@ -40,6 +51,7 @@
         </Button>
 
         <Button 
+             Style = "{StaticResource TriggerStyle}" 
             Content="Start"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
