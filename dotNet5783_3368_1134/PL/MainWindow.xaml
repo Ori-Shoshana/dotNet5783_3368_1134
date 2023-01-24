@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Icon="/Cart/4290854.png">
+        Title="Main Window" Height="450" Width="800" Icon="/Cart/4290854.png">
     <Window.Resources>
         <Style x:Key = "TriggerStyle" TargetType = "Button">
             <Setter Property = "Foreground" Value = "Black" />
@@ -63,6 +63,15 @@
                 </BeginStoryboard>
             </EventTrigger>
             </Button.Triggers>
+            
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
         </Button>
         
         
@@ -72,8 +81,30 @@
                 <ImageBrush/>
             </Label.Background>
         </Label>
-        <Button x:Name="UFManager" Content="Update for manager" Height="51" Width="192" HorizontalAlignment="Left" Margin="355,16,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Click="UpdateForManager" FontSize="16"  BorderBrush="{x:Null}"   Grid.Column="2" 
-                Style = "{StaticResource TriggerStyle}" FontWeight="Bold" Grid.ColumnSpan="2" />
+        <Button x:Name="UFManager" 
+                Content="Update for manager" 
+                Height="51" 
+                Width="192" 
+                HorizontalAlignment="Left" 
+                Margin="355,16,0,0" 
+                VerticalAlignment="Top" 
+                Grid.RowSpan="2" 
+                Click="UpdateForManager" 
+                FontSize="16"  
+                BorderBrush="{x:Null}"   
+                Grid.Column="2" 
+                Style = "{StaticResource TriggerStyle}" 
+                FontWeight="Bold" 
+                Grid.ColumnSpan="2" >
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Button Content="New Order" HorizontalAlignment="Left" Margin="94,307,0,0" Grid.Row="1" VerticalAlignment="Top" Height="51" Width="142" FontSize="20" Click="Button_Click_2" Grid.Column="2" 
                 Style = "{StaticResource TriggerStyle}" FontWeight="Bold" >
             <Button.Triggers>
@@ -91,6 +122,15 @@
                     </BeginStoryboard>
                 </EventTrigger>
             </Button.Triggers>
+            
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
         </Button>
 
             <Label Content="Enter ID for tracking:" HorizontalAlignment="Left" Margin="52,217,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.011,1.348" Foreground="#FFE4E4EC" FontSize="22" FontWeight="Bold" Grid.ColumnSpan="3" />
@@ -100,7 +140,27 @@
         <Rectangle
         Stroke="White"
         StrokeThickness="5" Grid.ColumnSpan="4" Margin="106,132,67,201" Grid.Row="1" />
-        <Button Content="Simulator" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Height="51" Grid.RowSpan="2" Width="116" Click="Button_Click_1" FontSize="16"/>
+        <Button 
+            
+            Content="Simulator" 
+            HorizontalAlignment="Left" 
+            Margin="10,16,0,0" 
+            VerticalAlignment="Top" 
+            Height="51" 
+            Grid.RowSpan="2" 
+            Width="116" 
+            Click="Button_Click_1" 
+            FontSize="16">
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
 
     </Grid>
 

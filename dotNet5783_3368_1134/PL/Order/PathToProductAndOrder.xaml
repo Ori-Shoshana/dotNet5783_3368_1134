@@ -21,9 +21,36 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Order/MYPhoto.jpg"/>
         </Grid.Background>
-        <Button Content="Product" HorizontalAlignment="Left" Margin="451,142,0,0" VerticalAlignment="Top" Height="56" Width="203" FontSize="22" Click="Button_Click_Product" Style = "{StaticResource TriggerStyle}" />
-        <Button Content="Order" HorizontalAlignment="Left" Margin="136,144,0,0" VerticalAlignment="Top" Height="54" Width="206" FontSize="22" Click="Button_Click_Order" Style = "{StaticResource TriggerStyle}" />
-        <Button Content="Home" HorizontalAlignment="Left" Margin="10,344,0,0" VerticalAlignment="Top" Height="44" Width="82" FontSize="18" Click="Button_Click" Style = "{StaticResource TriggerStyle}" />
+        <Button Content="Product" HorizontalAlignment="Left" Margin="451,142,0,0" VerticalAlignment="Top" Height="56" Width="203" FontSize="22" Click="Button_Click_Product" Style = "{StaticResource TriggerStyle}" FontWeight="Bold" >
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Order" HorizontalAlignment="Left" Margin="136,144,0,0" VerticalAlignment="Top" Height="54" Width="206" FontSize="22" Click="Button_Click_Order" Style = "{StaticResource TriggerStyle}" FontWeight="Bold" >
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Home" HorizontalAlignment="Left" Margin="10,344,0,0" VerticalAlignment="Top" Height="44" Width="82" FontSize="18" Click="Button_Click" Style = "{StaticResource TriggerStyle}" FontWeight="Bold">
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Image HorizontalAlignment="Left" Height="100" Margin="999,171,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>

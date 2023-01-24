@@ -91,7 +91,16 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Close" HorizontalAlignment="Left" Margin="10,363,0,0" VerticalAlignment="Top" Height="36" Width="78" FontSize="18" Click="Button_Click" Style = "{StaticResource TriggerStyle}" FontWeight="Bold"  />
+        <Button Content="Close" HorizontalAlignment="Left" Margin="10,363,0,0" VerticalAlignment="Top" Height="36" Width="78" FontSize="18" Click="Button_Click" Style = "{StaticResource TriggerStyle}" FontWeight="Bold"  >
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
         <Label Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="158" Margin="0,54,0,0" RenderTransformOrigin="0.462,-2.636" FontFamily="Verdana" FontSize="16" FontWeight="Bold" Foreground="#FFE4E4EC" Grid.Column="2"/>
         <TextBox Name="Name" HorizontalAlignment="Left" Margin="115,63,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.533,-0.789" Grid.Column="2" TextChanged="Name_TextChanged"/>
@@ -106,7 +115,16 @@
         <TextBox Name="TotalPrice" IsReadOnly="True"  HorizontalAlignment="Left" Margin="115,160,0,0" 
                  TextWrapping="Wrap" Text="{Binding cart.TotalPrice , Mode=OneWay}" VerticalAlignment="Top" Width="120" Grid.Column="2"/>
 
-        <Button x:Name="Confirmation" Content="Confirmation" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Top" Height="36" Width="167" FontSize="18" Click="Button_Click_1" RenderTransformOrigin="0.485,-0.385" Grid.Column="2" Style = "{StaticResource TriggerStyle}" FontWeight="Bold" />
+        <Button x:Name="Confirmation" Content="Confirmation" HorizontalAlignment="Left" Margin="10,192,0,0" VerticalAlignment="Top" Height="36" Width="167" FontSize="18" Click="Button_Click_1" RenderTransformOrigin="0.485,-0.385" Grid.Column="2" Style = "{StaticResource TriggerStyle}" FontWeight="Bold" >
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
     </Grid>
 </Window>

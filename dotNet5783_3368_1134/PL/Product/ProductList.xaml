@@ -33,8 +33,26 @@
             <RowDefinition Height="329*"/>
             <RowDefinition Height="Auto" MinHeight="50.04"/>
         </Grid.RowDefinitions>
-        <Button Name="AddButton" Content="Add new product" Grid.Row="2" HorizontalAlignment="Left" Margin="108,0,0,0" Padding="5" Width="175" FontSize="14" Click="AddButton_Click" Grid.Column="1" FontWeight="Bold" Grid.ColumnSpan="2" Height="45" VerticalAlignment="Top" Style = "{StaticResource TriggerStyle}" />
-        <Button Name="Home" Content="Back" HorizontalAlignment="Left" Margin="10,0,0,0" Padding="5" Width="108" FontSize="14" FontWeight="Bold" Click="Home_Click" Grid.Row="2" RenderTransformOrigin="-1.272,8.826" Height="45" VerticalAlignment="Top" Style = "{StaticResource TriggerStyle}" />
+        <Button Name="AddButton" Content="Add new product" Grid.Row="2" HorizontalAlignment="Left" Margin="108,0,0,0" Padding="5" Width="175" FontSize="14" Click="AddButton_Click" Grid.Column="1" FontWeight="Bold" Grid.ColumnSpan="2" Height="45" VerticalAlignment="Top" Style = "{StaticResource TriggerStyle}" >
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Name="Home" Content="Back" HorizontalAlignment="Left" Margin="10,0,0,0" Padding="5" Width="108" FontSize="14" FontWeight="Bold" Click="Home_Click" Grid.Row="2" RenderTransformOrigin="-1.272,8.826" Height="45" VerticalAlignment="Top" Style = "{StaticResource TriggerStyle}" >
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
         <ListView  x:Name="ProductListview" 
                    d:ItemsSource="{d:SampleData ItemCount=5}" 

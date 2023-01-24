@@ -18,19 +18,19 @@ public static class Simulator
     private static IBl bl = Factory.Get();
 
     private static event EventHandler<Tuple<Order, int>>? updateSimulation;
-    private static event EventHandler<int> FinishSimulation;
 
 
     private static volatile bool isSimulationStoped = false;
-    private static Thread? thread;
+    //private static Thread? thread;
 
 
+
+    public static void UpdateSimulation(EventHandler<Tuple<Order, int>> action)
     
-    public static void SubscribeToUpdateSimulation(EventHandler<Tuple<Order, int>> action, EventHandler<int> actionEnding)////////////////
-    {
-        updateSimulation += action;
-        FinishSimulation = actionEnding;
-    }
+    //public static void SubscribeToUpdateSimulation(EventHandler<Tuple<Order, int>> action, EventHandler<int> actionEnding)////////////////
+    //{
+    //    updateSimulation += action;
+    //}
     // starts the simulation
     public static void StartSimulation()
     {
@@ -52,7 +52,6 @@ public static class Simulator
         {
             Worker.CancelAsync();
         }
-
     }
     //it is used to pause the execution of the program
     private static void sleep(int seconds)

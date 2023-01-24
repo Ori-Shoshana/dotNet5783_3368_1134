@@ -20,9 +20,27 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Order/MYPhoto.jpg"/>
         </Grid.Background>
-        <Button Content="Home" HorizontalAlignment="Left" Margin="10,360,0,0" VerticalAlignment="Top" Height="45" Width="96" FontSize="18" Click="Button_Click" Style = "{StaticResource TriggerStyle}" />
+        <Button Content="Home" HorizontalAlignment="Left" Margin="10,360,0,0" VerticalAlignment="Top" Height="45" Width="96" FontSize="18" Click="Button_Click" Style = "{StaticResource TriggerStyle}" FontWeight="Bold" >
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <TextBlock Name="OrderTackingText" HorizontalAlignment="Left" Margin="236,75,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="231" Width="302" FontSize="22" Foreground="#FFEFE1E1" FontWeight="Bold" />
-        <Button Content="To See Order" HorizontalAlignment="Left" Margin="296,330,0,0" VerticalAlignment="Top" Width="182" Height="45" FontSize="18" Click="Button_Click_1" Style = "{StaticResource TriggerStyle}" />
+        <Button Content="To See Order" HorizontalAlignment="Left" Margin="296,330,0,0" VerticalAlignment="Top" Width="182" Height="45" FontSize="18" Click="Button_Click_1" Style = "{StaticResource TriggerStyle}" FontWeight="Bold" >
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
     </Grid>
 </Window>

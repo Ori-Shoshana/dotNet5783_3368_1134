@@ -25,7 +25,16 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Cart/MYPhoto.jpg"/>
         </Grid.Background>
-        <Button Content="Home" HorizontalAlignment="Left" Margin="10,350,0,0" VerticalAlignment="Top" Height="41" Width="97" FontSize="18" Click="Button_Click" Style = "{StaticResource TriggerStyle}" FontWeight="Bold" />
+        <Button Content="Home" HorizontalAlignment="Left" Margin="10,350,0,0" VerticalAlignment="Top" Height="41" Width="97" FontSize="18" Click="Button_Click" Style = "{StaticResource TriggerStyle}" FontWeight="Bold" >
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <ListView x:Name="ProductItemListView" 
                   ItemsSource="{Binding productItem}" 
                   d:ItemsSource="{d:SampleData ItemCount=5}" 
@@ -96,6 +105,15 @@
             <Button.Background>
                 <ImageBrush ImageSource="/Cart/shopping-cart-vector-icon-260nw-777922456 (1).jpg"/>
             </Button.Background>
+            
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
         </Button>
 
 

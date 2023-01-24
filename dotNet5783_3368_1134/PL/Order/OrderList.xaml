@@ -74,7 +74,16 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Back" HorizontalAlignment="Left" Margin="10,342,0,0" VerticalAlignment="Top" Height="51" Width="70" Click="Button_Click" Style = "{StaticResource TriggerStyle}" />
+        <Button Content="Back" HorizontalAlignment="Left" Margin="10,342,0,0" VerticalAlignment="Top" Height="51" Width="70" Click="Button_Click" Style = "{StaticResource TriggerStyle}" FontWeight="Bold" >
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Label Content="left click to see order details" HorizontalAlignment="Left" Margin="228,317,0,0" VerticalAlignment="Top" Height="41" Width="344" Foreground="#FFE4E4EC" FontSize="20" FontFamily="Verdana" FontWeight="Bold"/>
 
 
