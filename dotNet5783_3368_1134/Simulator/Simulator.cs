@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 public static class Simulator
 {
+    //the background worker
     private static BackgroundWorker Worker = new BackgroundWorker();
 
     private const int V = 1;
@@ -24,13 +25,13 @@ public static class Simulator
     private static Thread? thread;
 
 
-
+    
     public static void SubscribeToUpdateSimulation(EventHandler<Tuple<Order, int>> action, EventHandler<int> actionEnding)////////////////
     {
         updateSimulation += action;
         FinishSimulation = actionEnding;
     }
-
+    // starts the simulation
     public static void StartSimulation()
     {
         Worker.DoWork += (sender, e) => { simulation(); };
@@ -41,7 +42,7 @@ public static class Simulator
 
         isSimulationStoped = false;
     }
-
+    //stop the simulation
     public static void StopSimulation()
     {
         //isSimulationStoped = true;
@@ -53,12 +54,12 @@ public static class Simulator
         }
 
     }
-
+    //it is used to pause the execution of the program
     private static void sleep(int seconds)
     {
         try { Thread.Sleep(seconds * 1000); } catch (ThreadInterruptedException) { }
     }
-
+    //the simulation - initalize the time to handke an order between 3-10 sec and Invokes an order and updates the simulation and updates the updated order in the xml files
     private static void simulation()
     {
         while (!isSimulationStoped && bl.Order.PriorityOrder() != null)
