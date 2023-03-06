@@ -141,7 +141,7 @@
         Stroke="White"
         StrokeThickness="5" Grid.ColumnSpan="4" Margin="106,132,67,201" Grid.Row="1" />
         <Button 
-            
+             Style = "{StaticResource TriggerStyle}" 
             Content="Simulator" 
             HorizontalAlignment="Left" 
             Margin="10,16,0,0" 
@@ -150,7 +150,7 @@
             Grid.RowSpan="2" 
             Width="116" 
             Click="Button_Click_1" 
-            FontSize="16">
+            FontSize="16" FontWeight="Bold">
             <Button.Resources>
                 <Style 
                             TargetType="Border">
