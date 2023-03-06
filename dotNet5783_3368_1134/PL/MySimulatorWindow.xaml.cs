@@ -138,6 +138,7 @@ public partial class MySimulatorWindow : Window
     {
 
     }
+
     //updates the property of the future status of the current order  
     private void CurrentOrder(BO.OrderTracking a)
     {
@@ -191,6 +192,7 @@ public partial class MySimulatorWindow : Window
         Simulator.UpdateSimulation(SimulationData);
         Simulator.StartSimulation();
     }
+
     //tracking the order
     private void SimulationData(object sender, Tuple<BO.Order, int> e)
     {

@@ -46,7 +46,7 @@ namespace PL.Order
 
         int ID1;
 
-        public UpdateOrder(BO.OrderForList order, BO.OrderTracking order1 , Action<int> action)
+        public UpdateOrder(BO.OrderForList order, BO.OrderTracking order1, Action<int> action)
         {
             orderBinding = new();
             OrderItems = new();
@@ -54,7 +54,7 @@ namespace PL.Order
             this.Action = action;
 
             BO.Order? MyOrder = new BO.Order();
-            if(order.Status != null)
+            if (order.Status != null)
             {
                 MyOrder = bl.Order.OrderDetails(order.ID);
                 GoBackToListOrderTracking.Visibility = Visibility.Hidden;
@@ -66,6 +66,7 @@ namespace PL.Order
                 MyOrder = bl.Order.OrderDetails(order1.ID);
                 ID1 = order1.ID;
                 UpdateBottunDelivory.Visibility = Visibility.Hidden;
+                UpdateBottunShiping.Visibility = Visibility.Hidden;
                 GoBackToListOrder.Visibility = Visibility.Hidden;
                 orderBinding = MyOrder;
             }
@@ -121,7 +122,7 @@ namespace PL.Order
             Action?.Invoke(orderBinding.ID);
 
         }
-        
+
         /// <summary>
         /// update shipping for an order
         /// </summary>
@@ -184,7 +185,7 @@ namespace PL.Order
 
         private void GoBackToListOrder_Click(object sender, RoutedEventArgs e)
         {
-            
+
             Close();
         }
 
@@ -192,6 +193,6 @@ namespace PL.Order
         {
 
         }
-        
+
     }
 }

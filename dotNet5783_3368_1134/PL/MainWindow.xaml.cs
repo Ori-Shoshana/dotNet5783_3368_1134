@@ -27,7 +27,7 @@ namespace PL
         {
             InitializeComponent();
         }
-   
+
         /// <summary>
         /// button for entering to the options (see the list of products)
         /// </summary>
