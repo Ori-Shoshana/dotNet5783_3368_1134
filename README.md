@@ -13,3 +13,7 @@ Features
 Conclusion
 This electronic store UI project demonstrates my deep understanding of C# and XML, as well as my ability to create professional-level software applications. The advanced features and seamless performance of the application showcase my technical expertise and commitment to quality coding practices.
 
+
+
+https://user-images.githubusercontent.com/99900812/235905563-5de048cc-6eeb-46d1-a484-f374e6392426.mp4
+
